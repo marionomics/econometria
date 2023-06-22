@@ -1,22 +1,24 @@
-# Introducción
+# Econometría e Inferencia Causal con ejemplos en python
 
-Austin Bradford Hill fue un epidemiólogo británico que desarrolló un conjunto de principios para determinar si una relación entre dos variables es causal.
+Te doy la bienvenida. Este es un libro online gratuito que estoy elaborando con mucho cariño sobre econometría e inferencia causal.
 
-Estos principios, conocidos como los criterios de Hill, se basan en el análisis de la relación entre la exposición a un factor de riesgo y el desarrollo de una enfermedad. Los criterios de Hill son importantes porque nos permiten determinar si una relación entre dos variables es causal, incluso si no es posible llevar a cabo un experimento controlado para probar la causalidad directamente.
+## ¿Por qué Inferencia Causal?
+En los últimos años, la econometría ha sufrido [cambios gigantescos](https://www.marionomics.com/como-hacer-tu-investigacion-mas-creible/) que la han elevado a categoría de ciencia. Pero no muchas personas están conscientes de esto. Y como sociedad nos conviene que más personas sepan cómo se hacen los buenos estudios económicos.
 
-Por ejemplo, supongamos que queremos determinar si el consumo de tabaco está relacionado con el desarrollo de cáncer de pulmón. No podemos llevar a cabo un experimento en el que dividamos a las personas al azar en dos grupos: uno que fume y otro que no fume, para ver cuál desarrolla cáncer de pulmón con mayor frecuencia. En su lugar, podemos usar los criterios de Hill para analizar la relación entre el consumo de tabaco y el cáncer de pulmón en una población existente.
+* Nos conviene que **los gobiernos** conozcan lo que funciona y lo que no al momento de diseñar políticas públicas.
+* Nos conviene que **las empresas** entiendan cómo hacer crecer sus negocios de manera más eficiente y con responsabilidad social. Después de todo, la economía se trata del uso eficiente de recursos escasos.
+* Como integrantes de la sociedad, **nosotros** podemos participar en los procesos democráticos mejor informados.
 
-Si encontramos que la relación entre el consumo de tabaco y el cáncer de pulmón cumple con los criterios de Hill, podemos concluir que el consumo de tabaco es un factor causal de cáncer de pulmón. Esto nos permite tomar medidas para reducir el consumo de tabaco y, en última instancia, prevenir el cáncer de pulmón. Como puedes ver, la inferencia causal es una herramienta importante para entender y abordar problemas de salud pública.
+## ¿En serio es gratis?
+Por las razones arriba mencionadas, considero que es importante que esta información esté disponible para todos. Para que como sociedad tomemos mejores decisiones, es necesario conocer bien cómo leer los datos y entre más personas conozcan estas técnicas, mejor nos podremos comunicar entre nosotros con el lenguaje de la estadística y la econometría.
 
-## ¿Por qué es interesante?
+En [marionomics.com](https://www.marionomics.com) tengo una suscripción premium. Con esa suscripción tendrás dos beneficios relacionados con este libro:
 
-La inferencia causal se refiere al proceso de llegar a una conclusión acerca de la relación causal entre dos o más variables. En otras palabras, la inferencia causal trata de responder a preguntas del tipo "¿qué causó qué?", o "¿qué efecto tendrá cierta acción?". Esto es importante en la economía ya que nos permite entender cómo ciertos factores, como la oferta y la demanda, el cambio en las tasas de interés, o el aumento del gasto público, pueden afectar el desempeño de la economía en su conjunto.
+1. Actualizaciones periódicas adelantadas. El primer lugar en el que se publican los elementos de este libro es en mi página. Con una suscripción premium te llegarán a tu correo antes que a nadie.
+2. Libro físico en preventa. En cuanto esté terminado el libro, te llegará a tu casa un ejemplar en formato físico.
 
-La inferencia causal es una herramienta valiosa en la economía ya que nos permite hacer predicciones precisas sobre cómo ciertos cambios en la economía pueden afectar a otros aspectos de la misma. Por ejemplo, si una empresa aumenta el precio de sus productos, podemos inferir que esto causará una disminución en la demanda de esos productos. Esto nos permite tomar decisiones informadas y anticipar posibles consecuencias de ciertas acciones.
 
-Además, la inferencia causal también nos permite diseñar experimentos para probar nuestras hipótesis acerca de la relación causal entre dos o más variables. Por ejemplo, si queremos determinar si el aumento del gasto público tiene un efecto positivo en el crecimiento económico, podemos llevar a cabo un experimento en el que aumentamos el gasto público en una determinada región y luego medimos el efecto que esto tiene en el crecimiento económico en esa región. Esto nos permite confirmar o refutar nuestras hipótesis y, en última instancia, tomar decisiones informadas sobre cómo actuar en la economía.
-
-En este capítulo, exploraremos en detalle qué es la inferencia causal y cómo se puede aplicar en la econometría utilizando Python. Además, discutiremos la importancia de la inferencia causal en la toma de decisiones económicas y cómo esta técnica puede ayudar a entender mejor el comportamiento de la economía.
-
-```{tableofcontents}
+## Contenidos del libro
+```
+{tableofcontents}
 ```

@@ -3,7 +3,20 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+parts:
+  - caption: I Introducción
+    chapters:
+    - file: chapters/I-Introduccion/01-inferencia-causal
+    - file: chapters/I-Introduccion/02-resultados-potenciales
+    - file: chapters/I-Introduccion/03-modelo-generalizado-python
+    - file: chapters/I-Introduccion/04-supuestos-inferencia-causal
+    - file: chapters/I-Introduccion/05-DAGs
+  - caption: II Modelos Experimentales
+    chapters:
+    - file: chapters/II-Regresion-Lineal/que-son-los-rcts
+  - caption: III Regresión Lineal
+    chapters:
+    - file: mco
+  - caption: IV Diferencias en Diferencias
+    chapters:
+    - file: panel
