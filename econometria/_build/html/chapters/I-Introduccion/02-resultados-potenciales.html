@@ -410,15 +410,15 @@ document.write(`
 <p>Las variables <span class="math notranslate nohighlight">\(Y\)</span> y <span class="math notranslate nohighlight">\(D\)</span> son <strong>vectores</strong> que contienen diferentes unidades de medición <span class="math notranslate nohighlight">\(Y_i\)</span> y <span class="math notranslate nohighlight">\(D_i\)</span>, respectivamente. La <span class="math notranslate nohighlight">\(i\)</span> es un indicador que nos ayuda a identificar a un invernadero específico. Puedes imaginar que tenemos un campo con <span class="math notranslate nohighlight">\(N\)</span> invernaderos (si tienes problemas para imaginar <span class="math notranslate nohighlight">\(N\)</span> piensa en 100 hasta que alguien te diga lo contrario) y que todos están numerados del <span class="math notranslate nohighlight">\(1\)</span> al <span class="math notranslate nohighlight">\(N=100\)</span>. Entonces <span class="math notranslate nohighlight">\(i\)</span> puede ser el invernadero <span class="math notranslate nohighlight">\(1\)</span> o el <span class="math notranslate nohighlight">\(100\)</span>, o cualquier otro número intermedio.</p>
 <p>Puede ser que algunos invernaderos reciban tratamiento. Esto lo denotamos con <span class="math notranslate nohighlight">\(D_i = 1\)</span>. Por lo tanto, cuando el invernadero <span class="math notranslate nohighlight">\(i\)</span> no recibe tratamiento escribimos <span class="math notranslate nohighlight">\(D_i = 0\)</span>.</p>
 <p>Entonces tenemos dos tipos de valores para la producción del invernadero <span class="math notranslate nohighlight">\(i\)</span>.</p>
-<p>\begin{equation}
+<p>[
 Y_i = \begin{cases} Y_{i}^1 \qquad \text{si }D_i=1 \ Y_{i}^0 \qquad \text{si }D_i=0 \end{cases}
-\end{equation}</p>
+]</p>
 <p>Si nunca habías visto una fórmula con llaves así, no te preocupes. Del lado derecho estamos planteando dos escenarios para <span class="math notranslate nohighlight">\(Y_i\)</span> que dependen del valor de <span class="math notranslate nohighlight">\(D_i\)</span>. Estos dos valores no pueden darse al mismo tiempo: no puedes ponerle y a la vez no ponerle insecticida a un invernadero.</p>
 <p>Para distinguir cada uno de estos dos escenarios le incluimos un número adicional en el superíndice. Este no es un exponente, es una forma de indicar si la producción proviene de un invernadero con tratamiento o sin él. Entonces <span class="math notranslate nohighlight">\(Y_{i}^1\)</span> nos dice el nivel de producción del invernadero <span class="math notranslate nohighlight">\(i\)</span> si se aplica el insecticida y <span class="math notranslate nohighlight">\(Y_{i}^0\)</span> es el nivel de producción del mismo invernadero si no se le aplicara este tratamiento.</p>
 <p>Como puedes imaginar, no podemos observar <span class="math notranslate nohighlight">\(Y_{i}^1\)</span> y <span class="math notranslate nohighlight">\(Y_{i}^0\)</span> al mismo tiempo, pues están en diferentes universos. Pero esto es justo lo que necesitamos medir si deseamos medir el efecto que tiene el insecticida en nuestro invernadero. Si pudiéramos acceder a los dos universos al mismo tiempo, la medición del efecto sería tan fácil como tomar la diferencia del rendimiento con insecticida y sin insecticida.</p>
-<p>\begin{equation}
+<p>[
 \delta_i = Y_{i}^1 - Y_{i}^0
-\end{equation}</p>
+]</p>
 <p>Para este caso, idealmente estaríamos esperando un número positivo, que nos indica que el insecticida incrementa nuestro rendimiento. Denotamos entonces al efecto del tratamiento con <span class="math notranslate nohighlight">\(\delta_i\)</span>.</p>
 </section>
 <section id="no-hagas-una-diferencia-de-medias-simple">
@@ -426,9 +426,9 @@ Y_i = \begin{cases} Y_{i}^1 \qquad \text{si }D_i=1 \ Y_{i}^0 \qquad \text{si }D_
 <p>¿Has seguido el hilo hasta el momento? Que bueno, porque aquí es la parte en la que la mayoría se equivoca.</p>
 <p>No podemos ir a visitar universos alternos para revisar el efecto de nuestro tratamiento, pero sí podemos <strong>observar</strong> lo que sucede en los invernaderos que aplican el insecticida y compararlos con lo que no lo aplican.</p>
 <p>Considera que tenemos <span class="math notranslate nohighlight">\(N^0\)</span> invernaderos a los que no se les ha aplicado el insecticida y <span class="math notranslate nohighlight">\(N^1\)</span> a los que sí. Lo que muchos hacen en este punto es tomar una diferencia de medias para comparar.</p>
-<p>\begin{equation}
+<p>[
 E[Y_i^1] - E[Y_i^0]
-\end{equation}</p>
+]</p>
 <p>A la ecuación anterior se le conoce como el <strong>efecto promedio del tratamiento</strong> y se denota por <span class="math notranslate nohighlight">\(E[\delta_i]\)</span>.</p>
 <p>Falso. Tomar una diferencia de medias significa asumir que los dos invernaderos son iguales en todos los demás aspectos además del tratamiento que se les aplicó. Todo lo demás igual: <strong>ceteris paribus</strong>.</p>
 <p>Pero la realidad normalmente es más compleja. Si tú observas dos invernaderos y notas que el que aplicó insecticida tiene mayor rendimiento que el que no, no puedes asumir inmediatamente que el efecto que estás midiendo viene del insecticida. Podría ser que en el invernadero sin insecticida la semilla es de mala calidad. Ambas cosas se deben a que el agricultor está invirtiendo menor presupuesto al invernadero.</p>
@@ -438,35 +438,35 @@ E[Y_i^1] - E[Y_i^0]
 <p>Intenta generalizar el ejemplo anterior a otros problemas. Si quieres conocer por ejemplo si la educación (tratamiento) representa un aumento en los ingresos (resultado), no es posible tomar la diferencia de los valores esperados. Hacer esto nos dejaría con un sesgo que conocemos como el <strong>sesgo de selección</strong>. Veamos cómo funciona.</p>
 <p>Consideremos el siguiente caso hipotético para notar cómo la diferencia de medias puede ser engañosa. Alicia y Bob quieren decidir si asistir a una fiesta la noche antes a un examen muy importante de la clase de Econometría. Todo en economía se mide en términos de su costo de oportunidad y asistir a esa fiesta puede afectar sus calificaciones, por lo que en teoría, el efecto de asistir (<span class="math notranslate nohighlight">\(D_i = 1\)</span>) debería ser negativo.</p>
 <p>Sin embargo, podemos encontrar cosas curiosas si no somos atentos. Alicia es una alumna que tiene un excelente promedio, habilidades matemáticas excepcionales y puso mucha atención en clase. Digamos que Alicia decidió asistir a la fiesta y aún así se sacó un 10. Lo podemos expresar en la ecuación</p>
-<p>\begin{equation}
+<p>[
 Y_A^1 =10
-\end{equation}</p>
+]</p>
 <p>Donde el subíndice <span class="math notranslate nohighlight">\(A\)</span> nos sirve para indicar que se trata de Alicia. En este caso, si Alicia se hubiera quedado en casa para estudiar, también se hubiera sacado un 10 (<span class="math notranslate nohighlight">\(Y_A^0 = 10\)</span>), por lo que el efecto habría sido cero:
-\begin{equation}
+[
 \delta_A = Y_A^1 - Y_A^0 = 10 - 10 = 0
-\end{equation}</p>
+]</p>
 <p>Naturalmente, <span class="math notranslate nohighlight">\(Y_A^0\)</span> se refiere a algo que no existe y que no podemos ver. A estos casos que no podemos ver los vamos a llamaar <strong>contrafactuales</strong>. Para el caso de Alicia es fácil ver que se hubiera también sacado 10 porque es la máxima calificación, pero no siempre tenemos tanta suerte.</p>
 <p>Por ejemplo, consideremos a Bob. Bob se perdió algunas clases y no tiene tantas ventajas en Econometría como las tiene Alicia, por lo que decide mejor quedarse en casa y estudiar para el examen. Imaginemos que llega el día del examen y Bob se sacó un 9.</p>
-<p>\begin{equation}
+<p>[
 Y_B^0 =9
-\end{equation}</p>
+]</p>
 <p>Bob está contento con su resultado, porque si no hubiera estudiado para ese examen, seguro se habría sacado un 8 (<span class="math notranslate nohighlight">\(Y_B^1 = 8\)</span>). Ese 8 no existe en nuestra realidad, pero si lo pudiéramos observar, nos indicaría exactamente cuál es el efecto que asistir a la fiesta hubiera tenido para Bob:</p>
-<p>\begin{equation}
+<p>[
 \delta_B = Y_B^1 - Y_B^0 = 8 - 9 = -1
-\end{equation}</p>
+]</p>
 <p>Pero este es el efecto que encontramos si pudiéramos observar el universo paralelo en el que Bob si asistió a la fiesta. En la realidad sólo tenemos los datos de la calificación de Alicia, que si asistió a la fiesta, y Bob, que no lo hizo.</p>
 </section>
 <section id="sesgo-de-seleccion">
 <h1>Sesgo de selección<a class="headerlink" href="#sesgo-de-seleccion" title="Permalink to this heading">#</a></h1>
 <p>¿Qué sucede cuando hacemos una diferencia simple de los datos que observamos? Veamos lo que sucede en la siguiente ecuación.</p>
-<p>\begin{equation}
+<p>[
 Y_A^1 - Y_B^0 = 10 - 9 = 1
-\end{equation}
+]
 Esta diferencia la podemos interpretar como si asistir a la fiesta hubiera ayudado a <strong>subir</strong> las calificaciones. Nosotros sabemos que esto no es verdad, pero es lo que nos indican los datos. ¿Cuál es el error?</p>
 <p>La ecuación anterior está contaminada con el <strong>sesgo de selección</strong>. Para verlo, podemos introducir a <span class="math notranslate nohighlight">\(Y_B^1\)</span> en la ecuación. Hacer esto requiere que lo cancelemos para no afectar la igualdad. Manipulando un poco la ecuación, el resultado se vería así:</p>
-<p>\begin{equation}
+<p>[
 Y_A^1 - Y_B^0 = (Y_B^1 - Y_B^0) + (Y_A^1 -Y_B^1)
-\end{equation}</p>
+]</p>
 <p>Esta última parte la escribí separando en dos paréntesis. El primer paréntesis muestra el efecto <span class="math notranslate nohighlight">\(\delta_B\)</span>, que mide la diferencia de lo que pasó y un contrafactual. Pero, ¿qué es lo que quedó en el segundo paréntesis? Ese es el que conocemos como el <strong>sesgo de selección</strong>, y es lo que no nos permite determinar el efecto real.</p>
 <p>Nota que el primer paréntesis suma <span class="math notranslate nohighlight">\(-1\)</span> mientras que el segundo deja un resultado de <span class="math notranslate nohighlight">\(+2\)</span>, que sumados nos dan el <span class="math notranslate nohighlight">\(1\)</span> observado. Pero este no es el efecto de la fiesta, lo que pasa es que el sesgo de selección es suficientemente fuerte para cambiar el signo.</p>
 </section>
@@ -584,6 +584,9 @@ Y_A^1 - Y_B^0 = (Y_B^1 - Y_B^0) + (Y_A^1 -Y_B^1)
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/3f42d27cabe9d5cf90539bfae727100b84ef2f024cb360e7fd2a90de0642bac7.png" src="../../_images/3f42d27cabe9d5cf90539bfae727100b84ef2f024cb360e7fd2a90de0642bac7.png" />
 </div>
 </div>
 </section>
