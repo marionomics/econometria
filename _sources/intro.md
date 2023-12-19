@@ -51,6 +51,8 @@ A tu lado izquierdo están los capítulos del libro. De tu lado derecho puedes e
 
 Si deseas conocer más, te invito a que te suscribas a mi página. Te llegará un newletter con diferentes historias y curiosidades de la economía.
 
-<div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="metrics4business" data-background-color="#08090c" data-text-color="#FFFFFF" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="marionomics: Economía" data-description="🍎Economía con Manzanitas🍏" data-icon="https://www.marionomics.com/content/images/size/w192h192/size/w256h256/2022/08/Logo-Marionomics-3.png" data-site="https://www.marionomics.com/" data-locale="es" async></script></div>
+<iframe src="https://metrics4business.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
 
 Tu suscripción me motiva a seguir creando más.
+
+![Econometrician](../../figures/econometrician.png)
