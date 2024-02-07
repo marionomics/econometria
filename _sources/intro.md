@@ -1,4 +1,5 @@
-# Econometría e Inferencia Causal con ejemplos en python
+# Metrics 4 Business
+## Inferencia Causal para los Negocios
 
 Los economistas están entre los profesionistas en los que menos confían las personas.
 
@@ -51,8 +52,9 @@ A tu lado izquierdo están los capítulos del libro. De tu lado derecho puedes e
 
 Si deseas conocer más, te invito a que te suscribas a mi página. Te llegará un newletter con diferentes historias y curiosidades de la economía.
 
-<iframe src="https://metrics4business.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://metrics4business.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
 
 Tu suscripción me motiva a seguir creando más.
 
 ![Econometrician](../../figures/econometrician.png)
+---

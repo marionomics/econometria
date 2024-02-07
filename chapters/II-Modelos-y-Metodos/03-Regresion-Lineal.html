@@ -1,0 +1,1385 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Si sólo aprendes un modelo, aprende este: Regresión Lineal &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/II-Modelos-y-Metodos/03-Regresion-Lineal';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="El modelo de resultados potenciales" href="../I-Introduccion/02-El-modelo-de-resultados-potenciales.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Metrics 4 Business
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">I Introducción</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/01-python-para-econometria.html">Python para Econometría</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-El-modelo-de-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II Modelos y Métodos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/II-Modelos-y-Metodos/03-Regresion-Lineal.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/II-Modelos-y-Metodos/03-Regresion-Lineal.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Si sólo aprendes un modelo, aprende este: Regresión Lineal</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-de-minimos-cuadrados-ordinarios">El modelo de mínimos cuadrados ordinarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimos-cuadrados-ordinarios">Mínimos cuadrados ordinarios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obteniendo-los-estimadores-de-ols">Obteniendo los estimadores de OLS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-estimadores-de-minimos-cuadrados">Propiedades de los estimadores de Mínimos Cuadrados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-teorema-de-gauss-markov-y-sus-supuestos">El teorema de Gauss-Márkov y sus supuestos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#los-supuestos">Los supuestos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-interpretar-el-reporte-de-regresion-la-guia-del-economista-principiante-para-que-acepten-su-primer-articulo">Cómo interpretar el reporte de regresión: La guía del economista principiante para que acepten su primer artículo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-pasa-si-mi-regresion-no-cumple-con-los-supuestos">¿Qué pasa si mi regresión no cumple con los supuestos?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apendice-algunas-preguntas-que-te-pudieron-haber-quedado-explicadas-con-mas-detalle">Apéndice: Algunas preguntas que te pudieron haber quedado, explicadas con más detalle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-mathbf-e-mathbf-e-es-la-suma-de-residuos-al-cuadrado">¿Por qué <span class="math notranslate nohighlight">\(\mathbf{e}'\mathbf{e}\)</span> es la suma de residuos al cuadrado?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guia-breve-de-diferenciacion-con-matrices">Guía breve de diferenciación con matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-que-la-inversa-de-mathbf-x-mathbf-x-podria-no-existir">¿Cómo que la inversa de <span class="math notranslate nohighlight">\(\mathbf{X}’\mathbf{X}\)</span> podría no existir?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funciona-el-coeficiente-de-correlacion">¿Cómo funciona el coeficiente de correlación?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vif-factor-de-inflacion-de-la-varianza">VIF: Factor de inflación de la varianza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funciona-el-vif">¿Cómo funciona el VIF?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-del-vif">Interpretación del VIF:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-del-vif">Importancia del VIF:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-es-importante-identificar-la-multicolinealidad">¿Por qué es importante identificar la multicolinealidad?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-supuesto-de-media-condicional-cero">El supuesto de media condicional cero</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-poco-extra-sobre-gauss">Un poco extra sobre Gauss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="si-solo-aprendes-un-modelo-aprende-este-regresion-lineal">
+<h1>Si sólo aprendes un modelo, aprende este: Regresión Lineal<a class="headerlink" href="#si-solo-aprendes-un-modelo-aprende-este-regresion-lineal" title="Permalink to this heading">#</a></h1>
+<p>La regresión es la base de los modelos de inferencia causal.</p>
+<p>Hay una razón por la que todos los libros de econometría y de ciencia de datos lo cubren. Se trata del modelo por el que debes comenzar <strong>antes de explorar</strong> modelos más complejos.</p>
+<p>No hay nada de malo en usar redes neuronales o modelos de random forest en tu proyecto, pero si usar regresión lineal, tus modelos tendrán los siguientes beneficios.</p>
+<ul class="simple">
+<li><p>Más parsimonia. Entre más simple es el modelo, menos problemas te va a causar.</p></li>
+<li><p>Serán más interpretables. Los modelos más complejos tienen el problema de que son mas difíciles de interpretar. Si necesitas comunicar tus resultados a un jefe o un cliente, necesitas poder decir claramente la interpretación y las limitaciones.</p></li>
+<li><p>Pruebas de robustez. Cuando un modelo pasa pruebas y demuestra que es robusto, podrás tener más confianza de usarlo en tus predicciones.</p></li>
+</ul>
+<p>No es magia. Hay teoremas muy sólidos que ayudan a que entendamos lo que funciona y cuándo funciona.</p>
+<p>De esto se trata este capítulo.</p>
+<p><video controls src="../../videos/only-regression.mov" width="560" height="315"></video></p>
+<section id="el-modelo-de-minimos-cuadrados-ordinarios">
+<h2>El modelo de mínimos cuadrados ordinarios<a class="headerlink" href="#el-modelo-de-minimos-cuadrados-ordinarios" title="Permalink to this heading">#</a></h2>
+<p>Comencemos con el modelo básico. Tienes una variable <span class="math notranslate nohighlight">\(X\)</span> y deseas conocer el efecto que tiene <span class="math notranslate nohighlight">\(Y\)</span> sobre ella. La variable <span class="math notranslate nohighlight">\(X\)</span> podrían ser gastos en una campaña publicitaria por Televisión, mientras que <span class="math notranslate nohighlight">\(Y\)</span> son las ventas de nuestro producto.</p>
+<p>Si tienes suficientes combinaciones de las dos variables, puedes plantear un modelo sobre su comportamiento. Usaremos la base de datos de publicidad, disponible libremente en <a class="reference external" href="http://kaggle.com">kaggle.com</a>. El siguiente código carga la base de datos y muestra un diagrama de dispersión entre los gastos en publicidad por TV y las ventas en millones de unidades.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Cargar los datos</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/ruta/a/tu/archivo/advertising.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Crear un diagrama de dispersión</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;TV&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de Dispersión de Gastos en TV vs Ventas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Gastos en TV ($)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas (Miles de unidades)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">7</span><span class="n">abc45eff288</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Cargar los datos</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/ruta/a/tu/archivo/advertising.csv&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Crear un diagrama de dispersión</span>
+
+<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">312</span> 
+<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">678</span>     <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">679</span> 
+<span class="ne">--&gt; </span><span class="mi">680</span>     <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">681</span> 
+<span class="g g-Whitespace">    </span><span class="mi">682</span> 
+
+<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">573</span> 
+<span class="g g-Whitespace">    </span><span class="mi">574</span>     <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">575</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">576</span> 
+<span class="g g-Whitespace">    </span><span class="mi">577</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+
+<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">931</span> 
+<span class="g g-Whitespace">    </span><span class="mi">932</span>         <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">--&gt; </span><span class="mi">933</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">934</span> 
+<span class="g g-Whitespace">    </span><span class="mi">935</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, f, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1215</span>             <span class="c1"># &quot;Union[str, PathLike[str], ReadCsvBuffer[bytes], ReadCsvBuffer[str]]&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1216</span>             <span class="c1"># , &quot;str&quot;, &quot;bool&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1217</span>             <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>  <span class="c1"># type: ignore[call-overload]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1218</span>                 <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1219</span>                 <span class="n">mode</span><span class="p">,</span>
+
+<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/common.py</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">787</span>         <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">788</span>             <span class="c1"># Encoding</span>
+<span class="ne">--&gt; </span><span class="mi">789</span>             <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">790</span>                 <span class="n">handle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">791</span>                 <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/ruta/a/tu/archivo/advertising.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Este es un ejemplo muy claro donde la regresión lineal es el modelo ideal para nosotros.</p>
+<p>Lo que nos dice la regresión lineal es que existe una línea que se ajusta a los datos. No necesitamos que el ajuste sea perfecto. Si tuviéramos un ajuste perfecto no necesitaríamos de modelos estadísticos. Es normal pensar que hay muchos factores que afectan las ventas además del gasto publicitario, desde el clima hasta el día del mes pueden generar variaciones. Todos reaccionamos diferente a la publicidad.</p>
+<p>Veamos cómo se ve nuestra línea de regresión.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Crear un diagrama de dispersión con una línea de regresión</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de Dispersión de Gastos en TV vs Ventas con Línea de Regresión&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Gastos en TV ($)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas (Miles de unidades)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Este tipo de línea se genera con un modelo lineal, donde cada punto es producto de la función</p>
+<div class="math notranslate nohighlight">
+\[
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i
+\]</div>
+<p>El punto <span class="math notranslate nohighlight">\(i\)</span> se ubica en la coordenada <span class="math notranslate nohighlight">\((X_i,Y_i)\)</span>. El término <span class="math notranslate nohighlight">\(\varepsilon_i\)</span> es el <strong>error</strong>, la diferencia entre el punto y la línea. Los términos <span class="math notranslate nohighlight">\(\beta_0\)</span> y <span class="math notranslate nohighlight">\(\beta_1\)</span> (se lee <em>beta-cero</em> y <em>beta-uno</em>) son los parámetros de una función lineal. Usamos letras griegas por convención, y el subíndice cero y uno son una forma práctica de preparar nuestro modelo en caso de que tengamos que usar más parámetros.</p>
+<p>El siguiente es un <strong>diagrama de dispersión</strong>.</p>
+<p>Nota que en algunos puntos, la línea de regresión “se equivoca” hacia arriba y en otros puntos hacia abajo. Cada punto que compone la línea de regresión es una predicción del valor de <span class="math notranslate nohighlight">\(Y_i\)</span> dado <span class="math notranslate nohighlight">\(X_i\)</span>, donde <span class="math notranslate nohighlight">\(\varepsilon_i\)</span> es la diferencia, a la que llamamos el <strong>residual</strong>.</p>
+<p><img alt="Errores" src="../../_images/errores.png" /></p>
+<p>El modelo lineal tiene la ventaja de que sólo con dos parámetros podemos definir toda la línea.</p>
+<p>Si <span class="math notranslate nohighlight">\(\beta_0 = 6.97\)</span> y <span class="math notranslate nohighlight">\(\beta_1 = 0.0555\)</span>, entonces un valor de <span class="math notranslate nohighlight">\(X_i = \$150\)</span> en gasto de publicidad por TV implica ventas por <span class="math notranslate nohighlight">\(90.22\)</span>. De hecho, puedes crear una calculadora sencilla en python para que te muestre el valor de las ventas que corresponde a cualquier gasto en TV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear la función</span>
+<span class="k">def</span> <span class="nf">sales</span><span class="p">(</span><span class="n">tv</span><span class="p">):</span>
+	<span class="n">b0</span> <span class="o">=</span> <span class="mf">6.97</span>
+	<span class="n">b1</span> <span class="o">=</span> <span class="mf">0.0555</span>
+	<span class="k">return</span> <span class="n">b0</span> <span class="o">+</span> <span class="n">b1</span> <span class="o">*</span> <span class="n">tv</span>
+
+<span class="c1"># Comprobar el resultado con 150</span>
+<span class="n">sales</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Podríamos hacer una predicción de Y para cada punto X. Si tu regresión es correcta y la muestra es buena, puedes usar la función para valores de X que no están en tu base de datos. Por ejemplo, este modelo predice que un gasto de publicidad en TV de $450 traerá ventas por 31.945 miles de unidades.</p>
+</section>
+<section id="minimos-cuadrados-ordinarios">
+<h2>Mínimos cuadrados ordinarios<a class="headerlink" href="#minimos-cuadrados-ordinarios" title="Permalink to this heading">#</a></h2>
+<p>Ya conoces el modelo de regresión lineal, ahora te presento el mejor modelo para resolverlo.</p>
+<p>Mínimos cuadrados ordinarios (OLS = Ordinary Least Squares) es el método más popular para resolver el modelo de regresión lineal. Se prefiere porque es simple y muy eficiente.</p>
+<p>Bajo ciertas condiciones, OLS se considera el mejor estimador lineal insesgado. El acrónimo en inglés es BLUE (Best Linear Unbiased Estimator):</p>
+<ul class="simple">
+<li><p>Best (Mejor): Significa que tiene la menor varianza de las estimaciones.</p></li>
+<li><p>Linear (Lineal): El estimador es una función lineal de los valores observados.</p></li>
+<li><p>Unbiased (Insesgados): El estimador <em>le atina</em> al verdadero valor del parámetro <strong>en promedio</strong>.</p></li>
+<li><p>Estimator (Estimador): Es la regla o fórmula que indica cómo estimar los parámetros del modelo.</p></li>
+</ul>
+<p>OLS es una de muchas técnicas que se pueden utilizar para resolver el modelo. Tiene el objetivo de encontrar los valores de <span class="math notranslate nohighlight">\(\beta_0\)</span> y <span class="math notranslate nohighlight">\(\beta_1\)</span> que minimizan la suma de los errores al cuadrado. La siguiente imagen muestra cómo se extiende el área de los errores al cuadrado.
+<img alt="Errores2" src="../../_images/errores2.png" />
+La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con libertad los valores de <span class="math notranslate nohighlight">\(\beta_0\)</span> y <span class="math notranslate nohighlight">\(\beta_1\)</span>, podíamos ver cómo esos cuadros se hacer más grandes y más chicos, de acuerdo a la distancia con los puntos.</p>
+<p>¿Cómo encontramos los valores de <span class="math notranslate nohighlight">\(\beta_0\)</span> y <span class="math notranslate nohighlight">\(\beta_1\)</span> que hacen mínima la suma de los residuales al cuadrado?</p>
+<section id="obteniendo-los-estimadores-de-ols">
+<h3>Obteniendo los estimadores de OLS<a class="headerlink" href="#obteniendo-los-estimadores-de-ols" title="Permalink to this heading">#</a></h3>
+<p>Pasemos la ecuación a notación vectorial, de esta forma nuestra solución aplicará para modelos con <span class="math notranslate nohighlight">\(k\)</span> parámetros.</p>
+<ul class="simple">
+<li><p>Sea <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> el vector de observaciones de tamaño <span class="math notranslate nohighlight">\(n\times 1\)</span> de la variable dependiente (las ventas, en nuestro ejemplo).</p></li>
+<li><p>Sea <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> una matriz de tamaño <span class="math notranslate nohighlight">\(n\times k\)</span> con las observaciones de <span class="math notranslate nohighlight">\(k\)</span> variables independientes con <span class="math notranslate nohighlight">\(n\)</span> observaciones cada una. Cómo por lo general nuestro modelo contiene un término constante, incluimos una columna de unos.</p></li>
+<li><p>Sea <span class="math notranslate nohighlight">\(\boldsymbol{\beta}\)</span> un vector de tamaño <span class="math notranslate nohighlight">\(k\times 1\)</span>. Es el vector de los parámetros que deseamos estimar.</p></li>
+<li><p>Sea <span class="math notranslate nohighlight">\(\boldsymbol{\varepsilon}\)</span> un vector de tamaño <span class="math notranslate nohighlight">\(k\times 1\)</span>. Es el vector de errores.</p></li>
+</ul>
+<p>Nuestro modelo se vería entonces de la siguiente manera</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}Y_1 \\Y_2 \\\vdots \\Y_n\end{bmatrix}_{n \times 1}=\begin{bmatrix}1 &amp; X_{11} &amp; X_{21} &amp; \cdots &amp; X_{k1} \\1 &amp; X_{12} &amp; X_{22} &amp; \cdots &amp; X_{k2} \\\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\1 &amp; X_{1n} &amp; X_{2n} &amp; \cdots &amp; X_{kn}\end{bmatrix}_{n \times k}\begin{bmatrix}\beta_1 \\\beta_2 \\\vdots \\\beta_k\end{bmatrix}_{k \times 1}+\begin{bmatrix}\epsilon_1 \\\epsilon_2 \\\vdots \\\epsilon_n\end{bmatrix}_{n \times 1}
+\end{split}\]</div>
+<p>Que se puede simplificar a</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{equation}\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}\end{equation}
+\]</div>
+<p>Este es el modelo que refleja los datos en la vida real en una población. Es muy raro que tengamos todos los datos de la vida real, generalmente trabajamos con una <strong>muestra</strong> y lo que obtenemos es una estimación.</p>
+<ul class="simple">
+<li><p>Sea <span class="math notranslate nohighlight">\(\boldsymbol{\hat{\beta}}\)</span> el vector de estimaciones de los parámetros de la población, bajo el supuesto de que <span class="math notranslate nohighlight">\(E[\boldsymbol{\hat{\beta}}] = \boldsymbol{\beta}\)</span>.</p></li>
+<li><p>Sea <span class="math notranslate nohighlight">\(\mathbf{e}\)</span> el vector de residuales. Nuestro objetivo en el método de OLS es minimizar <span class="math notranslate nohighlight">\(\sum \mathbf{e}_i^2\)</span></p></li>
+</ul>
+<p>La suma de los residuales al cuadrado (RSS = <em>Residual Sum of Squares</em>) la expresamos en notación vectorial como <span class="math notranslate nohighlight">\(\mathbf{e}’\mathbf{e}\)</span>, en el apéndice explico por qué.</p>
+<p>Podemos expresar la RSS como</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{e}’\mathbf{e} = (\mathbf{y}  -\mathbf{X}\boldsymbol{\hat\beta})'(\mathbf{y}  -\mathbf{X}\boldsymbol{\hat\beta}) \\ = \mathbf{y}'\mathbf{y} - \boldsymbol{\hat\beta}'\mathbf{X}'\mathbf{y} - \mathbf{y}'\mathbf{X} \boldsymbol{\hat\beta} + \boldsymbol{\hat{\beta}}'\mathbf{X}' \mathbf{X} \boldsymbol{\hat{\beta}}
+\end{split}\]</div>
+<p>Si usamos que <span class="math notranslate nohighlight">\(\mathbf{y}'\mathbf{X} \boldsymbol{\hat\beta} = (\mathbf{y}'\mathbf{X} \boldsymbol{\hat\beta})' = \boldsymbol{\hat{\beta}}'\mathbf{X}'\mathbf{y}\)</span>, entonces nuestra RSS se verá así</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{e}'\mathbf{e} = \mathbf{y}'\mathbf{y} - 2 \boldsymbol{\hat{\beta}}'\mathbf{X}' \mathbf{y} + \boldsymbol{\hat{\beta}}' \mathbf{X}'\mathbf{X}\boldsymbol{\hat{\beta}}
+\]</div>
+<p>Al igual que haríamos con la versión de dos dimensiones, requerimos obtener las condiciones de primer orden de la ecuación para encontrar el mínimo. Esto lo hacemos con la primera derivada con respecto a <span class="math notranslate nohighlight">\(\boldsymbol{\hat{\beta}}\)</span>. El truco está en igualar esta derivada a cero.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \mathbf{e}'\mathbf{e}}{\partial \boldsymbol{\hat{\beta}}} = -2 \mathbf{X}' \mathbf{y} + 2 \mathbf{X}'\mathbf{X}\boldsymbol{\hat{\beta}} = 0
+\]</div>
+<p>Al despejar esta ecuación podemos obtener los valores de <span class="math notranslate nohighlight">\(\boldsymbol{\hat\beta}\)</span> que minimizan el valor de los residuales.</p>
+<p>Para comprobar que se trata de un mínimo, notamos que la segunda derivada (<span class="math notranslate nohighlight">\(2\mathbf{X}'\mathbf{X}\)</span>) es una matriz positiva definida (análoga en álgebra lineal a los números positivos). Incluí algunas notas en el apéndice que te podrán ayudar a entender esto mejor.</p>
+<p>De la ecuación anterior podemos obtener las llamadas “ecuación normales”.</p>
+<div class="math notranslate nohighlight">
+\[
+(\mathbf{X}'\mathbf{X}) \boldsymbol{\hat{\beta}} = \mathbf{X}'\mathbf{y}
+\]</div>
+<p>Nota que la matriz <span class="math notranslate nohighlight">\(\mathbf{X}'\mathbf{X}\)</span> siempre será cuadrada y simétrica con tamaño <span class="math notranslate nohighlight">\(k\times k\)</span>. Si la inversa de esta matriz existe (ver el apéndice), la podemos aplicar a ambos lados de la ecuación:</p>
+<div class="math notranslate nohighlight">
+\[
+(\mathbf{X}'\mathbf{X})^{-1}(\mathbf{X}'\mathbf{X}) \boldsymbol{\hat{\beta}} = (\mathbf{X}'\mathbf{X})^{-1} \mathbf{X}'\mathbf{y}
+\]</div>
+<p>y por lo tanto</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{\hat{\beta}} = (\mathbf{X}'\mathbf{X})^{-1} \mathbf{X}'\mathbf{y}
+\]</div>
+<p>Esto es lo que tu computadora calcula cuando le pides que haga una regresión lineal con tus datos. Nota que no es necesario tener ningún supuesto en este punto, pues tus estimaciones sólo dependen de tu matriz de datos observados.</p>
+<p>Hagamos un ejercicio en python con los datos de publicidad. El siguiente código presenta los datos en forma de matrices y vectores y los aplica para calcular el vector de <span class="math notranslate nohighlight">\(\boldsymbol{\hat{\beta}}\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Cargar el conjunto de datos</span>
+<span class="n">ruta_archivo</span> <span class="o">=</span> <span class="s1">&#39;/mnt/data/advertising.csv&#39;</span>
+<span class="n">datos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_archivo</span><span class="p">)</span>
+
+<span class="c1"># Seleccionar solo las columnas TV y Sales</span>
+<span class="n">tv</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;TV&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">ventas</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Añadir una columna de unos para el término de intercepto</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">tv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">tv</span><span class="p">))</span>
+
+<span class="c1"># Aplicar la fórmula de regresión lineal</span>
+<span class="c1"># Calcular (X&#39;X)^-1</span>
+<span class="n">XX_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Calcular (X&#39;X)^-1 X&#39;y</span>
+<span class="n">beta_hat</span> <span class="o">=</span> <span class="n">XX_inv</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ventas</span>
+
+<span class="c1"># Coeficientes: Intercepto y Pendiente</span>
+<span class="n">intercepto</span><span class="p">,</span> <span class="n">pendiente</span> <span class="o">=</span> <span class="n">beta_hat</span>
+
+<span class="c1"># Mostrar los resultados</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Intercepto:&quot;</span><span class="p">,</span> <span class="n">intercepto</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pendiente para TV:&quot;</span><span class="p">,</span> <span class="n">pendiente</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lo mejor de este resultado es que es relativamente fácil hacerlo escalar para <span class="math notranslate nohighlight">\(k\)</span> variables. Queda como ejercicio para el lector modificar el código anterior. Incluye la publicidad por radio y periódicos a la matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> y vuelve a calcular los coeficientes.</p>
+</section>
+<section id="propiedades-de-los-estimadores-de-minimos-cuadrados">
+<h3>Propiedades de los estimadores de Mínimos Cuadrados<a class="headerlink" href="#propiedades-de-los-estimadores-de-minimos-cuadrados" title="Permalink to this heading">#</a></h3>
+<p>La propiedad principal de los estimadores es que minimizan la suma de los residuales al cuadrado. Pero hay más propiedades que podemos deducir con ligeras modificaciones a nuestra ecuación normal. Por ejemplo, podemos sustituir el valor de <span class="math notranslate nohighlight">\(\mathbf{y} = \mathbf{X} \boldsymbol{\hat{\beta}} + \mathbf{e}\)</span> para obtener que:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+(\mathbf{X}'\mathbf{X}) \boldsymbol{\hat{\beta}} = \mathbf{X}'(\mathbf{X} \boldsymbol{\hat{\beta}} + \mathbf{e}) \\ (\mathbf{X}'\mathbf{X}) \boldsymbol{\hat{\beta}} = (\mathbf{X}'\mathbf{X}) \boldsymbol{\hat{\beta}} + \mathbf{X}'\mathbf{e} \\ \mathbf{X}'\mathbf{e} = 0
+\end{split}\]</div>
+<p>Podemos deducir a partir de este resultado algunas propiedades:</p>
+<ul class="simple">
+<li><p><strong>Los valores observados de <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> no están correlacionados con los residuales.</strong></p></li>
+</ul>
+<p>Que <span class="math notranslate nohighlight">\(\mathbf{X}'\mathbf{e} = 0\)</span> implica que cada columna de la matriz <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> tiene correlación muestral de cero con los residuales. Esto sigue siendo verdad aún cuando nuestra regresión incluye una constante.</p>
+<p>El siguiente código muestra en python las predicciones, los residuales y el cálculo de la correlación entre ambos. Nota que las predicciones se calculan con el producto de la matriz <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> con <span class="math notranslate nohighlight">\(\mathbf{\hat{\boldsymbol{\beta}}}\)</span>, esto es:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{\hat{y}} = \mathbf{X} \mathbf{\hat{\boldsymbol{\beta}}} = \begin{bmatrix}1 &amp; x_{1} \\1 &amp; x_{2} \\\vdots &amp; \vdots \\1 &amp; x_{n}\end{bmatrix}\begin{bmatrix}\hat{\beta}_0 \\\hat{\beta}_1\end{bmatrix}= \begin{bmatrix}\hat{\beta}_0 + \hat{\beta}_1 x_{1} \\\hat{\beta}_0 + \hat{\beta}_1 x_{2} \\\vdots \\\hat{\beta}_0 + \hat{\beta}_1 x_{n}\end{bmatrix}
+\end{split}\]</div>
+<p>Los residuales son simplemente <span class="math notranslate nohighlight">\(\mathbf{y} -\mathbf{\hat{y}}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular los valores predichos y los residuales</span>
+<span class="n">predicciones</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">beta_hat</span>
+<span class="n">residuales</span> <span class="o">=</span> <span class="n">ventas</span> <span class="o">-</span> <span class="n">predicciones</span>
+
+<span class="c1"># Calcular la correlación entre los valores observados de TV y los residuales</span>
+<span class="n">correlacion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">tv</span><span class="p">,</span> <span class="n">residuales</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Mostrar la correlación</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correlación entre los valores observados de TV y los residuales:&quot;</span><span class="p">,</span> <span class="n">correlacion</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Un truco para sacar el mayor provecho a este libro: no copies y pegues este código. Cópialo de manera consciente en tu editor. Ejecuta los bloques uno a uno. Si algo te causa dudas, hazlo por partes.</p>
+<p>Nota que el coeficiente de correlación es prácticamente cero. Esto comprueba la propiedad.</p>
+<ul class="simple">
+<li><p><strong>La suma de los residuales es igual a cero.</strong></p></li>
+</ul>
+<p>Usemos el cálculo que hicimos de los residuales en la propiedad anterior.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular la suma de los residuales</span>
+<span class="n">suma_residuales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">residuales</span><span class="p">)</span>
+
+<span class="c1"># Mostrar la suma de los residuales</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Suma de los residuales:&quot;</span><span class="p">,</span> <span class="n">suma_residuales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>La suma de los residuales en el modelo de regresión lineal es aproximadamente cero. El modelo “ajusta” los datos promediando los errores en ambas direcciones.</p>
+<ul class="simple">
+<li><p><strong>La media muestral de los residuales es cero.</strong></p></li>
+</ul>
+<p>Nuevamente, podemos usar los residuales que calculamos antes para obtener este valor promedio.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular la media de los residuales</span>
+<span class="n">media_residuales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuales</span><span class="p">)</span>
+
+<span class="c1"># Mostrar la media de los residuales</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los residuales:&quot;</span><span class="p">,</span> <span class="n">media_residuales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>El hiperplano de la regresión pasa a través de las medias de los valores observados (<span class="math notranslate nohighlight">\(\bar{X}\)</span> y <span class="math notranslate nohighlight">\(\bar y\)</span>)</strong></p></li>
+</ul>
+<p>No te intimides por la palabra “hiperplano”. En una regresión con una sola variable, nos referimos a la línea de regresión.</p>
+<p>Este paso requiere el cálculo de variables adicionales. En primer lugar, calculamos los valores promedio de las ventas y del gasto en campañas de televisión.</p>
+<p>Luego calculamos la predicción de ventas promedio, que debería ser igual al promedio que calculamos a partir de los datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular los promedios de TV y Ventas</span>
+<span class="n">promedio_tv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tv</span><span class="p">)</span>
+<span class="n">promedio_ventas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ventas</span><span class="p">)</span>
+
+<span class="c1"># Calcular el valor predicho de Ventas cuando TV es igual a su promedio</span>
+<span class="n">ventas_predichas_en_promedio_tv</span> <span class="o">=</span> <span class="n">beta_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta_hat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">promedio_tv</span>
+
+<span class="c1"># Mostrar los resultados</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Promedio de TV:&quot;</span><span class="p">,</span> <span class="n">promedio_tv</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Promedio de Ventas:&quot;</span><span class="p">,</span> <span class="n">promedio_ventas</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ventas predichas cuando TV es igual a su promedio:&quot;</span><span class="p">,</span> <span class="n">ventas_predichas_en_promedio_tv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Los valores de predicción de <span class="math notranslate nohighlight">\(y\)</span> no están correlacionados con los residuales.</strong></p></li>
+</ul>
+<p>Este es un cálculo sencillo con los datos que calculamos al inicio. Debemos de obtener como resultado cero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular la correlación entre los valores predichos y los residuales</span>
+<span class="n">correlacion_predichos_residuales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">predicciones</span><span class="p">,</span> <span class="n">residuales</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Mostrar la correlación</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correlación entre los valores predichos de Ventas y los residuales:&quot;</span><span class="p">,</span> <span class="n">correlacion_predichos_residuales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>La media de las predicciones de <span class="math notranslate nohighlight">\(Y\)</span> para la muestra será igual que la media de los <span class="math notranslate nohighlight">\(Y\)</span> observados.</strong></p></li>
+</ul>
+<p>El modelo de regresión lineal se ajusta para minimizar la suma de los cuadrados de los residuales.</p>
+<p>Esto resulta en una distribución equilibrada de los residuales alrededor de la línea de regresión.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular la media de los valores predichos</span>
+<span class="n">media_predicciones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">predicciones</span><span class="p">)</span>
+
+<span class="c1"># Mostrar la media de los valores predichos y la media de los valores observados</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los valores predichos:&quot;</span><span class="p">,</span> <span class="n">media_predicciones</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los valores observados (Ventas):&quot;</span><span class="p">,</span> <span class="n">promedio_ventas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Listo. Hemos comprobado con nuestros datos que las propiedades de la regresión lineal.</p>
+<p>Ahora toca poner atención a los supuestos que hacen que un modelo de mínimos cuadrados tenga sentido.</p>
+</section>
+</section>
+<section id="el-teorema-de-gauss-markov-y-sus-supuestos">
+<h2>El teorema de Gauss-Márkov y sus supuestos<a class="headerlink" href="#el-teorema-de-gauss-markov-y-sus-supuestos" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>I’m BLUE, da-ba-dee-da-ba-day
+<em>- Eiffel 65 feat. Gabry Ponte</em></p>
+</div></blockquote>
+<p>El teorema de Gauss-Markov establece que si tu modelo de regresión lineal satisface cinco supuestos básicos, entonces la regresión por mínimos cuadrados producirá <strong>estimaciones insesgadas</strong> con la varianza mas pequeña de <strong>todos</strong> los estimadores lineales posibles.</p>
+<p>En otras palabras, el modelo será BLUE.</p>
+<p>BLUE es un acrónimo que en inglés indica que es el mejor estimador lineal insesgado. La palabra “mejor” es en el sentido de “varianza mínima”. Lo que en la práctica significa es que necesitas comprobar que cumples con estos supuestos para poder usar las estimaciones de tu modelo de mínimos cuadrados.</p>
+<p><img alt="Gauss y Markov jugando ajedrez" src="../../_images/markov.jpg" /></p>
+<section id="los-supuestos">
+<h3>Los supuestos<a class="headerlink" href="#los-supuestos" title="Permalink to this heading">#</a></h3>
+<p>Aquí los supuestos:</p>
+<ul class="simple">
+<li><p><strong>Los parámetros deben ser lineales.</strong></p></li>
+</ul>
+<p>Si lo pensamos detenidamente, se trata de un supuesto fuerte.</p>
+<p>Si hiciéramos un diagrama de dispersión, deberíamos ver algo parecido a lo que mostró el diagrama de dispersión del gasto en TV contra las ventas.</p>
+<p>Pero a veces nos encontramos con conjuntos de datos que se ven así:</p>
+<p><img alt="Diagrama de dispersion" src="../../_images/_linear-reg-2dim._001.png" />
+Aquí la relación entre las variables no parece ser tan lineal. La línea de regresión parece no estar muy cómoda ahí.</p>
+<p><img alt="A Marie Kondo no le gustan nuestros datos" src="../../_images/_kondo-linear._001.png" /></p>
+<p>Sin embargo, no debemos dejarnos engañar. La regresión lineal la podemos hacer con múltiples dimensiones (variables). En ocasiones, las variables adicionales de nuestro modelo hacen que la linealidad tenga sentido.</p>
+<p>En la imagen del ejemplo, una simple clasificación de las variables revela el patrón oculto.</p>
+<p>Son los mismos puntos del diagrama de dispersión, pero separarlos por color revela dos relaciones lineales diferentes.</p>
+<p><img alt="Diagrama de dispersion" src="../../_images/_linear-reg-2dim._002.png" /></p>
+<ul class="simple">
+<li><p><strong>Los datos deben ser tomados de un muestreo aleatorio de la población.</strong></p></li>
+</ul>
+<p>Matemáticamente, la matriz <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> podría ser fija o aleatoria, pero el mecanismo que no esté relacionado con <span class="math notranslate nohighlight">\(\varepsilon\)</span>. Este es un supuesto del modelo, pero nosotros debemos de asegurarlo en la metodología.</p>
+<ul class="simple">
+<li><p><strong>No hay colinealidad: los regresores no están correlacionados perfectamente entre sí.</strong></p></li>
+</ul>
+<p>En nuestro modelo de álgebra lineal, esto se determina cuando <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> es una matriz <span class="math notranslate nohighlight">\(n\times k\)</span> de rango completo. Generalmente la forma de comprobarlo es directamente con los datos. Usemos python para verificar si esto es verdad.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Cargar el conjunto de datos</span>
+<span class="n">ruta_archivo</span> <span class="o">=</span> <span class="s1">&#39;/mnt/data/advertising.csv&#39;</span>
+<span class="n">datos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_archivo</span><span class="p">)</span>
+
+<span class="c1"># Seleccionar las columnas de interés: TV, Radio, Newspaper y Sales</span>
+<span class="n">tv</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;TV&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">radio</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;Radio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">newspaper</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;Newspaper&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">ventas</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Añadir una columna de unos para el término de intercepto</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">tv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">tv</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">newspaper</span><span class="p">))</span>
+
+<span class="c1"># Calcular el rango de la matriz X para verificar la multicolinealidad</span>
+<span class="n">rango_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el rango de la matriz X</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rango de la matriz X:&quot;</span><span class="p">,</span> <span class="n">rango_X</span><span class="p">)</span>
+
+<span class="c1"># Verificar si la matriz X es de rango completo</span>
+<span class="n">num_columnas</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">es_rango_completo</span> <span class="o">=</span> <span class="n">rango_X</span> <span class="o">==</span> <span class="n">num_columnas</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;¿Es la matriz X de rango completo (sin multicolinealidad)?&quot;</span><span class="p">,</span> <span class="n">es_rango_completo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>El código anterior se hace verificando el rango de la matriz. Pero no es la forma tradicional de verificar este supuesto.</p>
+<p>La forma tradicional es revisar las correlaciones entre las variables. El siguiente bloque de código genera la matriz de correlación, la que podemos ver que es muy baja.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular la matriz de correlación para las variables predictoras</span>
+<span class="n">matriz_correlacion</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="c1"># Mostrar la matriz de correlación</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matriz de correlación:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">matriz_correlacion</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Podríamos ya descartar correlación, pero usemos una técnica adicional. Calcularemos el factor de inflación de la varianza (VIF, por sus siglas en inglés). Esta técnica sirve en los casos en los que inspeccionar la matriz de correlación no da un resultado determinante.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+
+<span class="c1"># Función para calcular el VIF para cada variable</span>
+<span class="k">def</span> <span class="nf">calcular_vif</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">vif</span><span class="p">[</span><span class="s2">&quot;variables&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">vif</span><span class="p">[</span><span class="s2">&quot;VIF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+    <span class="k">return</span> <span class="n">vif</span>
+
+<span class="c1"># Calcular VIF para las variables predictoras</span>
+<span class="n">vif_df</span> <span class="o">=</span> <span class="n">calcular_vif</span><span class="p">(</span><span class="n">datos</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]])</span>
+
+<span class="c1"># Mostrar el VIF para cada variable</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;VIF para cada variable:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">vif_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Todos los factores están por debajo de 5, por lo que <strong>no hay problemas de multicolinealidad</strong> en nuestros datos (En el apéndice te he dejado una guía para interpretar el VIF).</p>
+<p>En ocasiones, la matriz de correlaciones será suficiente para encontrar la presencia (o ausencia) de multicolinealidad, pero el VIF es un método que incluye una regla de oro mas fácil de interpretar.</p>
+<ul class="simple">
+<li><p><strong>Exogeneidad: los regresores no están correlacionados con el término de error.</strong></p></li>
+</ul>
+<p>También se le conoce como el supuesto de media condicional cero, y es probablemente el supuesto más crítico para la inferencia causal.</p>
+<div class="math notranslate nohighlight">
+\[
+E(\varepsilon|\mathbf{X}) = 0
+\]</div>
+<p>No hay observación dentro de las variables independientes que contengan información sobre el valor esperado del error.</p>
+<p>La manera mas práctica de comprobar esta propiedad es con un gráfico de las predicciones con los residuales. Una inspección visual suele ser suficiente para identificar si existe (o no) un patrón en los datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Load the dataset</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;path_to_your_file/advertising.csv&#39;</span>  <span class="c1"># Replace with your file path</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="c1"># Define the independent variables (X) and the dependent variable (y)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span>
+
+<span class="c1"># Adding a constant to the model (for the intercept)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Fit the linear regression model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Get the model predictions and residuals</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">resid</span>
+
+<span class="c1"># Plotting residuals vs. predicted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">residuals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted Sales&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuals vs. Predicted Sales&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Este gráfico muestra que no hay un patrón definido.</p>
+<p>Hay otros métodos para comprobarlo, como pruebas de correlación o la prueba de Durbin-Watson, pero por lo general la inspección debería ser suficiente para estos casos.</p>
+<ul class="simple">
+<li><p><strong>Homoscedasticidad: la varianza del error es constante para todos los valores de los regresores.</strong></p></li>
+</ul>
+<p>El gráfico anterior es útil también para la comprobación de la homoscedasticidad, pero aquí haremos un gráfico adicional con el siguiente código:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="c1"># Load the dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;path_to_your_file.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Perform linear regression</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span>  <span class="c1"># Independent variables</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span>                       <span class="c1"># Dependent variable</span>
+
+<span class="c1"># Add a constant to the model (intercept)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Fit the regression model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Get the residuals and fitted values</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">resid</span>
+<span class="n">fitted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fittedvalues</span>
+
+<span class="c1"># Plotting Residuals vs Fitted values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">residplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">fitted</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">residuals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">lowess</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fitted values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuals vs. Fitted Values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Este código crea una línea horizontal en el cero, y la línea gruesa muestra la relación entre los residuales y los valores ajustados. De nuevo, el gráfico no muestra una tendencia clara (esto es bueno!). En general, una inspección visual del diagrama de dispersión nos ayuda a entender lo que está pasando.</p>
+<div style="display: flex;">
+  <div style="flex: 50%;">
+    <!-- Text content goes here -->
+    <p>La imagen de la derecha muestra la diferencia de manera visual. Una diferencia significativa en el tamaño de los residuales a lo largo de las predicciones indica problemas de heteroscedasticidad. El siguiente código genera el diagrama de dispersión de nuestros datos.</p>
+  </div>
+  <div style="flex: 50%;">
+    <!-- Image content goes here -->
+    <img src="../../figures/_heteroscedasticidad._001.png" alt="Comparacion de las predicciones" style="width: 100%;"/>
+  </div>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correcting the Residuals vs Predictors plots</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plotting for each predictor</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">residuals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Residuals vs </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Decir “una diferencia significativa” es subjetivo. La diferencia que unos ven pequeña otros la ven muy grande. Por eso, lo más seguro es usar una prueba estadística. El siguiente código usa la prueba Breusch-Pagan para comprobar nuevamente que no hay heteroscedasticidad.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">het_breuschpagan</span>
+
+<span class="c1"># Aplicar una prueba de Breusch-Pagan</span>
+<span class="n">bp_test</span> <span class="o">=</span> <span class="n">het_breuschpagan</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+
+<span class="c1"># Extraer los resultados</span>
+<span class="n">bp_test_statistic</span><span class="p">,</span> <span class="n">bp_test_pvalue</span> <span class="o">=</span> <span class="n">bp_test</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="n">bp_test_statistic</span><span class="p">,</span> <span class="n">bp_test_pvalue</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Como el p-value es mayor a 0.05, no podemos rechazar la hipótesis nula de homoscedasticidad. En otras palabras, no hay evidencia de heteroscedasticidad en los residuales del modelo.</p>
+</section>
+</section>
+<section id="como-interpretar-el-reporte-de-regresion-la-guia-del-economista-principiante-para-que-acepten-su-primer-articulo">
+<h2>Cómo interpretar el reporte de regresión: La guía del economista principiante para que acepten su primer artículo<a class="headerlink" href="#como-interpretar-el-reporte-de-regresion-la-guia-del-economista-principiante-para-que-acepten-su-primer-articulo" title="Permalink to this heading">#</a></h2>
+<p>Hay dos usos para un modelo de regresión: predicción o inferencia.</p>
+<p>Lo que es importante</p>
+<p>En la sección pasada pasamos por todas las pruebas de hipótesis <strong>antes de ver los resultados de la regresión.</strong> Lo hicimos de esta manera porque una vez cumplimos con los supuestos, podemos enfocarnos en las estimaciones de los parámetros en el modelo.</p>
+<p>Haremos entonces una regresión lineal del modelo:</p>
+<div class="math notranslate nohighlight">
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
+\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(y\)</span> son las ventas y <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span> y <span class="math notranslate nohighlight">\(x_3\)</span> representan los diferentes medios de publicidad. Este modelo ya tiene suficientes dimensiones para que no sea posible mostrarlo en un gráfico de dispersión como al inicio, pero el principio es exactamente el mismo y no le tememos a las dimensiones superiores.</p>
+<p>Usa este código en python para hacer tu primera regresión por mínimos cuadrados. Verás un reporte de regresión como el siguiente.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="c1"># Definir las variables independientes (X) y la variable dependiente (y)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Periódico&#39;</span><span class="p">]]</span>  <span class="c1"># Variables independientes</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Ventas&#39;</span><span class="p">]</span>                       <span class="c1"># Variable dependiente</span>
+
+<span class="c1"># Añadir una constante al modelo (intercepción)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Realizar la regresión OLS</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Mostrar el informe completo de la regresión</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Vamos a interpretarlo parte por parte.</p>
+<p>La primera sección es un reporte general de cómo fue la regresión, el número de observaciones y el tipo de modelo. También hay algunos estadísticos a los que debemos de poner atención:</p>
+<ul class="simple">
+<li><p><strong>R cuadrada y R cuadrada ajustada.</strong> Indican el ajuste de los datos a la linea de regresión. El ajuste indica que tan cercanos están los datos a la línea de regresión. Ten cuidado con este indicador y ponlo en contexto, pues en ocasiones el ajuste no significa por sí mismo que sea un mejor modelo. Y al contrario, un mal ajuste no significa necesariamente que sea un modelo que debamos descartar.</p></li>
+</ul>
+<p>Una <span class="math notranslate nohighlight">\(R^2\)</span> de 0.903 significa que un 90.3% de la variación en las ventas se explica por el modelo. Nada mal.</p>
+<p>El <span class="math notranslate nohighlight">\(R^2\)</span> es un número que va del 0 al 1. Números cercanos al 0 significan que no hay ajuste y números cercanos al 1 indican mucho ajuste. El <span class="math notranslate nohighlight">\(R^2\)</span> ajustado toma en consideración el número de predictores en el modelo. Es una visión más precisa.</p>
+<ul class="simple">
+<li><p><strong>El estadístico <span class="math notranslate nohighlight">\(F\)</span> y Prob(estadístico F)</strong>. El estadístico F prueba la hipótesis nula de que todos los coeficientes de regresión son igual a cero. Un estadístico <span class="math notranslate nohighlight">\(F\)</span> grande (605.4) indica que esta hipótesis nula es falsa.</p></li>
+</ul>
+<p>No existe una regla clara sobre cuando el valor de <span class="math notranslate nohighlight">\(F\)</span> sea inequívocamente grande. Depende mucho del modelo. Por su parte, la probabilidad <code class="docutils literal notranslate"><span class="pre">Prob(F-statistic)</span></code> es un número muy pequeño, cercano a cero. Como podrás intuir, si es una probabilidad, debe estar entre cero y uno. Indica la probabilidad de observar un valor del estadístico de <span class="math notranslate nohighlight">\(F\)</span> tan extremo (o más) que el que observamos, asumiendo que la hipótesis nula sea verdadera. Es decir: si todos los coeficientes fueran cero, ¿podría <span class="math notranslate nohighlight">\(F\)</span> hacer esto?</p>
+<ul class="simple">
+<li><p><strong>Grados de libertad.</strong> <code class="docutils literal notranslate"><span class="pre">Df</span></code> y <code class="docutils literal notranslate"><span class="pre">Df</span> <span class="pre">Residual</span></code> quieren decir “degrees of freedom” o grados de libertad. Se refiere al número de observaciones menos el número de parámetros estimados. En este modelo no es algo que nos pueda causar problema, porque sólo usamos 3 parámetros, pero en modelos más complejos puede ayudarnos a identificar problemas de sobreajuste.</p></li>
+<li><p><strong>AIC y BIC.</strong> Significan respectivamente: “criterio de información de akaike” y “criterio de información bayesiano”.  Estos son criterios que se usan para la selección de modelos, no para comprobar su significancia. Usaremos estos cuando tengamos que hacer una comparación entre modelos. Incluí una explicación en el apéndice para explicar esto a más detalle.</p></li>
+</ul>
+<p>La segunda sección del reporte muestra los coeficientes de la regresión y</p>
+<p><strong>Esta es la sección del reporte de regresión a la que debes poner atención para interpretar los resultados y determinar si son significativos.</strong></p>
+<p>Veamos cada elemento paso a paso en un modelo lineal sencillo que determina el valor de las ventas (y) en función del gasto en publicidad en medios como TV, Radio o Periódicos (antes de las redes sociales).</p>
+<p><strong>Columna #1: coeficientes.</strong> Esta es la que determina el valor de tus betas en el modelo de regresión. const = 4.6251 significa que beta cero es igual a 4.62.</p>
+<p>En un modelo lineal significa que si el gasto en publicidad fuera cero, aún tendríamos ventas de cuatro mil seiscientas unidades aproximadamente.</p>
+<p>El resto de los coeficientes indican la contribución marginal que tiene cada medio a las ventas. De aquí podemos ver que la TV es la que contribuye más a las ventas. Cada 20 dólares gastados en publicidad en TV contribuye a 1 (mil) unidades vendidas.</p>
+<p><strong>Columna #2: Errores estándar.</strong> Es el ruido de nuestros datos en el modelo. Entre más grande sea el error estándar, menos significativo sera el modelo.</p>
+<p>Para determinar si un error estándar es grande o pequeño, es necesario compararlo con los coeficientes. Un coeficiente de 0.0544 hace que un error estándar de 0.001 sea pequeño en comparación. Pero si el coeficiente fuera también de 0.001, entonces esos datos muy seguramente no serán significativos.</p>
+<p>Si esta comparación aún te parece subjetiva, para eso está la t en la siguiente columna.</p>
+<p><strong>Columna #3: Estadístico t.</strong> Algunas veces lo verás como t de Student. Es una razón entre la <em>señal</em> y el <em>ruido</em>. La señal en una regresión es el coeficiente, y el ruido es el error estándar.</p>
+<p>Un tamaño de muestra más grande hace que la señal sea más poderosa. El estadístico t es un número positivo o negativo. Entre más grande sea su valor absoluto, más probable es que los resultados sean significativos.</p>
+<p>Esto lo verificamos con el p-value en la siguiente columna.</p>
+<p><strong>Columna #4: p-value.</strong> Es una medida de probabilidad que se obtiene a partir del estadístico t. Indica la probabilidad de obtener un resultado al menos tan extremo como el que observamos, bajo el supuesto de que la hipótesis nula (beta = 0) sea verdad.</p>
+<p>Hay una convención de que un p-value menor a 0.05 implica que los resultados son significativos.</p>
+<p>Mi consejo es que lo consideres, lo apliques, pero no te cases con esta idea. Después de todo, no hay razón científica que diga que a partir de 0.05 el resultado es significativo por completo.</p>
+<p>Cuando adquieres más experiencia en estadística, tomas en contexto el p-value con los intervalos de confianza.</p>
+<p><strong>Columnas #5 y #6: Intervalos de confianza.</strong> Son el rango en el que se encuentra el verdadero valor del parámetro beta.</p>
+<p>Recuerda que los coeficientes son estimaciones que obtenemos a partir de una muestra. El intervalo de confianza te muestra un rango.</p>
+<p>Nota que la columna #5 muestra un número más bajo que el coeficiente y la columna #6 uno más alto. Entre más amplio sea el intervalo, más incertidumbre hay respecto al valor del coeficiente.</p>
+<p>Al contrario, un intervalo más angosto significa más  certidumbre.</p>
+<p>En otras palabras, tenemos un 95% de certidumbre de que el efecto de los anuncios por TV tienen un efecto en las ventas que va de 0.052 a 0.057 (miles de unidades/dólar).</p>
+</section>
+<section id="que-pasa-si-mi-regresion-no-cumple-con-los-supuestos">
+<h2>¿Qué pasa si mi regresión no cumple con los supuestos?<a class="headerlink" href="#que-pasa-si-mi-regresion-no-cumple-con-los-supuestos" title="Permalink to this heading">#</a></h2>
+<p>Mi ejemplo de datos se ve muy bonito. Todo funcionó muy bien.</p>
+<p>Pero tú y yo sabemos que eso no es lo que pasará cuando lo intentes hacerlo por tu cuenta y con tus propios datos. ¡No eres tú! yo mismo no apostaría a que mi próxima regresión saldrá sin problemas. Gajes del oficio.</p>
+<p>La verdad es que es algo muy común. La estrategia que debes tomar depende mucho del problema al que te estás enfrentando.</p>
+<p>Conoce la teoría a profundidad. Todo lo demás lo puede hacer la computadora.</p>
+<p>Algunas acciones que puedes tomar si tu regresión no cumple con los supuestos.</p>
+<ul class="simple">
+<li><p>Revisa la especificación del modelo.</p></li>
+<li><p>Transforma los datos.</p></li>
+<li><p>Usa técnicas robustas.</p></li>
+<li><p>Incorpora variables adicionales o interacciones.</p></li>
+<li><p>Considera métodos no paramétricos.</p></li>
+</ul>
+</section>
+<section id="apendice-algunas-preguntas-que-te-pudieron-haber-quedado-explicadas-con-mas-detalle">
+<h2>Apéndice: Algunas preguntas que te pudieron haber quedado, explicadas con más detalle<a class="headerlink" href="#apendice-algunas-preguntas-que-te-pudieron-haber-quedado-explicadas-con-mas-detalle" title="Permalink to this heading">#</a></h2>
+<section id="por-que-mathbf-e-mathbf-e-es-la-suma-de-residuos-al-cuadrado">
+<h3>¿Por qué <span class="math notranslate nohighlight">\(\mathbf{e}'\mathbf{e}\)</span> es la suma de residuos al cuadrado?<a class="headerlink" href="#por-que-mathbf-e-mathbf-e-es-la-suma-de-residuos-al-cuadrado" title="Permalink to this heading">#</a></h3>
+<p>En primer lugar, no se debe confundir con <span class="math notranslate nohighlight">\(\mathbf{e}\mathbf{e}'\)</span>, que es la matriz de varianza-covarianza de los residuales. Si ponemos <span class="math notranslate nohighlight">\(\mathbf{e}'\mathbf{e}\)</span> como vectores, se ve claramente que el resultado es una suma de residuales al cuadrado.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}    e_1 &amp; e_2 &amp; \dots &amp; e_n\end{bmatrix}_{1\times n}\begin{bmatrix}    e_1 \\    e_2 \\    \vdots \\    e_n\end{bmatrix}_{n\times 1}= \begin{bmatrix}    e_1 \times e_1 + e_2 \times e_2 + \dots + e_n \times e_n\end{bmatrix}_{1\times 1}
+\end{split}\]</div>
+</section>
+<section id="guia-breve-de-diferenciacion-con-matrices">
+<h3>Guía breve de diferenciación con matrices<a class="headerlink" href="#guia-breve-de-diferenciacion-con-matrices" title="Permalink to this heading">#</a></h3>
+<p>Sean <span class="math notranslate nohighlight">\(a\)</span> y <span class="math notranslate nohighlight">\(b\)</span> vectores de tamaño <span class="math notranslate nohighlight">\(K\times 1\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial a'b}{\partial b} = \frac{\partial b'a}{\partial b} = a
+\]</div>
+<p>Sea <span class="math notranslate nohighlight">\(A\)</span> una matriz simétrica.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial b' Ab}{\partial b} = 2Ab = 2b'A
+\]</div>
+<p>Por lo tanto</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial 2 \boldsymbol{\beta}'\mathbf{X}'\mathbf{y}}{\partial b} = \frac{\partial 2 \boldsymbol{\beta}'(\mathbf{X}'\mathbf{y})}{\partial b} = 2 \mathbf{X}'\mathbf{y}
+\]</div>
+<p>y</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \boldsymbol{\beta}'\mathbf{X}'\mathbf{X} \boldsymbol{\beta}}{\partial b} = \frac{\partial \boldsymbol{\beta}'A\boldsymbol{\beta}}{\partial b} = 2 A \boldsymbol{\beta} = 2 \mathbf{X}'\mathbf{X}\boldsymbol{\beta}
+\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\mathbf{X}'\mathbf{X}\)</span> es una matriz de <span class="math notranslate nohighlight">\(K\times K\)</span>.</p>
+</section>
+<section id="como-que-la-inversa-de-mathbf-x-mathbf-x-podria-no-existir">
+<h3>¿Cómo que la inversa de <span class="math notranslate nohighlight">\(\mathbf{X}’\mathbf{X}\)</span> podría no existir?<a class="headerlink" href="#como-que-la-inversa-de-mathbf-x-mathbf-x-podria-no-existir" title="Permalink to this heading">#</a></h3>
+<p>La inversa de una matriz  X’X (donde X’ es la transposición de la matriz  X  y X’X es el producto matricial de X’ con X) podría no existir si la matriz no es invertible.</p>
+<p>Aquí hay algunas razones por las cuales  X’X podría no ser invertible:</p>
+<ol class="arabic simple">
+<li><p><strong>Columnas linealmente dependientes</strong>: Si la matriz X tiene columnas que son combinaciones lineales de otras columnas (es decir, multicolinealidad perfecta), entonces X’X no será de rango completo y por lo tanto no tendrá una inversa.</p></li>
+<li><p><strong>Insuficientes observaciones</strong>: Si hay menos observaciones que variables (es decir, la matriz X tiene más columnas que filas), entonces X’X será de rango deficiente y no invertible.</p></li>
+<li><p><strong>Datos duplicados o insuficientemente variados</strong>: Si las filas de X son todas iguales o hay una falta de variabilidad suficiente en los datos, esto también puede conducir a una matriz X’X que no sea invertible.</p></li>
+</ol>
+<p>Para asegurar la invertibilidad de X’X en un análisis de regresión, a menudo se requiere que la matriz X tenga rango completo, lo que significa que todas las columnas de X deben ser linealmente independientes y debe haber un número suficiente de observaciones no duplicadas.</p>
+</section>
+<section id="como-funciona-el-coeficiente-de-correlacion">
+<h3>¿Cómo funciona el coeficiente de correlación?<a class="headerlink" href="#como-funciona-el-coeficiente-de-correlacion" title="Permalink to this heading">#</a></h3>
+<p>El coeficiente de correlación es un número que va de -1 a 1 y ayuda a entender que tan relacionada está una variable con la otra.</p>
+<p>Aquí algunas reglas generales.</p>
+<ul class="simple">
+<li><p>El signo indica la dirección de la correlación. Un coeficiente positivo indica qué cuándo una variable aumenta, la otra también lo hace. Lo contrario pasa con una correlación negativa. Por ejemplo, podríamos encontrar una correlación positiva entre el calor y las ventas de helado. Por el contrario,</p></li>
+</ul>
+</section>
+<section id="vif-factor-de-inflacion-de-la-varianza">
+<h3>VIF: Factor de inflación de la varianza<a class="headerlink" href="#vif-factor-de-inflacion-de-la-varianza" title="Permalink to this heading">#</a></h3>
+<p>El Factor de Inflación de la Varianza (VIF, por sus siglas en inglés) es una medida que cuantifica el grado de multicolinealidad en un modelo de regresión lineal. La multicolinealidad ocurre cuando dos o más variables predictoras en un modelo están altamente correlacionadas, lo que puede llevar a problemas en la estimación de los coeficientes del modelo, así como a interpretaciones erróneas de los efectos de cada variable predictora.</p>
+</section>
+<section id="como-funciona-el-vif">
+<h3>¿Cómo funciona el VIF?<a class="headerlink" href="#como-funciona-el-vif" title="Permalink to this heading">#</a></h3>
+<p>El VIF evalúa cuánto se incrementa la varianza de un coeficiente de regresión debido a la multicolinealidad. Se calcula para cada variable predictora y se basa en el nivel en el que esa variable predictora está correlacionada con las otras variables predictoras en el modelo.</p>
+<p>El VIF de una variable se calcula de la siguiente manera:</p>
+<ol class="arabic simple">
+<li><p>Se realiza una regresión lineal donde la variable en cuestión es tratada como la variable dependiente y todas las demás variables predictoras como las independientes.</p></li>
+<li><p>Se calcula el coeficiente de determinación (<span class="math notranslate nohighlight">\(R^2\)</span>) de esta regresión.</p></li>
+<li><p>El VIF se calcula como <span class="math notranslate nohighlight">\(VIF= \frac{1}{1-R^2}\)</span>.</p></li>
+</ol>
+</section>
+<section id="interpretacion-del-vif">
+<h3>Interpretación del VIF:<a class="headerlink" href="#interpretacion-del-vif" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Un VIF de 1 indica que no hay correlación entre la variable predictora en cuestión y las demás.</p></li>
+<li><p>Un VIF entre 1 y 5 sugiere una correlación moderada, pero generalmente no es lo suficientemente severa como para requerir atención.</p></li>
+<li><p>Un VIF mayor a 5 puede indicar una correlación problemática y podría necesitar atención, dependiendo del contexto y del nivel de precisión necesario en el análisis.</p></li>
+<li><p>Un VIF mayor a 10 es comúnmente considerado un indicador claro de multicolinealidad severa.</p></li>
+</ul>
+</section>
+<section id="importancia-del-vif">
+<h3>Importancia del VIF:<a class="headerlink" href="#importancia-del-vif" title="Permalink to this heading">#</a></h3>
+<p>El VIF es una herramienta útil para detectar multicolinealidad en los modelos de regresión lineal. Al identificar las variables con VIFs altos, los analistas pueden considerar eliminar estas variables, combinarlas con otras, o utilizar técnicas estadísticas para manejar la multicolinealidad y así mejorar la calidad y la interpretación del modelo de regresión.</p>
+</section>
+</section>
+<section id="por-que-es-importante-identificar-la-multicolinealidad">
+<h2>¿Por qué es importante identificar la multicolinealidad?<a class="headerlink" href="#por-que-es-importante-identificar-la-multicolinealidad" title="Permalink to this heading">#</a></h2>
+<p>La multicolinealidad en los modelos de regresión lineal es problemática por varias razones:</p>
+<ol class="arabic simple">
+<li><p><strong>Estimaciones Inestables de los Coeficientes</strong>: Cuando las variables predictoras están altamente correlacionadas, pequeñas variaciones en los datos pueden llevar a grandes cambios en los coeficientes de las variables. Esto hace que los coeficientes sean poco fiables y difíciles de interpretar.</p></li>
+<li><p><strong>Confianza Reducida en la Significancia de las Variables</strong>: La multicolinealidad puede inflar las varianzas de los coeficientes de las variables predictoras. Esto significa que incluso si una variable es importante en la predicción de la variable dependiente, es posible que no aparezca como significativa en la regresión debido a la alta varianza de su coeficiente.</p></li>
+<li><p><strong>Interpretaciones Difíciles</strong>: Cuando las variables predictoras están altamente correlacionadas, se vuelve complicado discernir el efecto individual de cada variable sobre la variable dependiente. Esto es porque los efectos de las variables correlacionadas se superponen y se confunden entre sí.</p></li>
+<li><p><strong>Modelos Sobreajustados</strong>: La multicolinealidad puede llevar a modelos sobreajustados, especialmente si hay un número excesivo de variables predictoras correlacionadas. Un modelo sobreajustado funciona bien con los datos de entrenamiento pero tiende a tener un rendimiento pobre con nuevos datos no vistos.</p></li>
+<li><p><strong>Dificultad en la Selección de Modelos</strong>: En la presencia de multicolinealidad, es difícil determinar cuál variable debe ser incluida o excluida del modelo. Los criterios de selección de modelos, como el criterio de información Akaike (AIC) o el criterio de información bayesiano (BIC), pueden verse afectados por la multicolinealidad.</p></li>
+</ol>
+<p>Por estas razones, es importante detectar y abordar la multicolinealidad en la fase de análisis de datos para asegurar que el modelo de regresión sea confiable, interpretable y útil para la toma de decisiones.</p>
+<section id="el-supuesto-de-media-condicional-cero">
+<h3>El supuesto de media condicional cero<a class="headerlink" href="#el-supuesto-de-media-condicional-cero" title="Permalink to this heading">#</a></h3>
+<p>Este es el supuesto más crítico de la regresión lineal.</p>
+<p>Se le llama el supuesto de media condicional cero. Establece que los regresores no deben estar correlacionados con el término de error.</p>
+<p>En otras palabras: no hay Endogeneidad.</p>
+<p>En la práctica, implica es que no debe existir ningún patrón en los residuales. No se debe ver que generen patrones lineales o cuadráticos de ningún tipo.</p>
+<p>¿Cómo se soluciona la Endogeneidad en caso de existir?</p>
+<p>Imaginemos que al graficar los residuales vs las predicciones encontramos una relación lineal. Eso implica que en los residuales hay escondida una variable.</p>
+<p>Si conocemos lo suficiente sobre nuestras variables podemos encontrar la variable (o una buena proxy) que nos ayude a explicar mejor el comportamiento de nuestra variable de interés.</p>
+<p>El truco es entonces:</p>
+<ol class="arabic simple">
+<li><p>Regresar a la teoría y encontrar la variable que falta.</p></li>
+<li><p>Incluir la variable o una proxy apropiada al modelo de regresión.</p></li>
+<li><p>Volver a hacer las pruebas.</p></li>
+</ol>
+<p>Si en la nueva prueba ya no hay Endogeneidad, se ha solucionado el problema y podemos usar los resultados.</p>
+</section>
+</section>
+<section id="un-poco-extra-sobre-gauss">
+<h2>Un poco extra sobre Gauss<a class="headerlink" href="#un-poco-extra-sobre-gauss" title="Permalink to this heading">#</a></h2>
+<p>Gauss es uno de los matemáticos más famosos con justa razón. Se le conoce como “el príncipe de las matemáticas”, por sus grandes contribuciones al álgebra, al análisis, la astronomía y la física.</p>
+<p>Hay historias increíbles sobre Gauss. Se dice que a los tres años ya le corregía las matemáticas a su papá y que logró descifrar la fecha exacta de su nacimiento años después de que su madre lo olvidó.</p>
+<p>Pero la historia más conocida sobre la infancia de Gauss es la de aquella vez que un maestro les dejó la agobiante tarea de <a class="reference external" href="https://www.americanscientist.org/article/gausss-day-of-reckoning">sumar todos los números del 1 al 100</a>.</p>
+<p>La intención del maestro era mantener quietos a los niños por media hora. Gauss llegó casi al instante con la respuesta.</p>
+<p>Para llegar al cálculo notó que sumar 100 + 1 daba el mismo resultado que sumar 99 + 2: 101. Este mismo resultado se generaba en todos los 50 pares que se forman en la suma. Por lo tanto el resultado era 101 x 50 = 5050.</p>
+<p>Es un resultado brillante que además se puede generalizar para cualquier número. La suma consecutiva de los números de 1 a <span class="math notranslate nohighlight">\(n\)</span> por lo tanto sería:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i = 1}^n i =n (n+1)/2
+\]</div>
+<section id="pruebas-de-hipotesis">
+<h3>Pruebas de hipótesis<a class="headerlink" href="#pruebas-de-hipotesis" title="Permalink to this heading">#</a></h3>
+<p>Las pruebas de hipótesis son un componente fundamental en la estadística y la investigación científica. Aquí está una explicación detallada de su concepto y uso:</p>
+<p><strong>¿Qué son las Pruebas de Hipótesis?</strong></p>
+<p>Las pruebas de hipótesis son procedimientos estadísticos que se utilizan para determinar si hay suficiente evidencia en una muestra de datos para inferir que una condición particular es verdadera para toda la población. Estas pruebas se basan en dos hipótesis: la hipótesis nula (<span class="math notranslate nohighlight">\(H_0\)</span>) y la hipótesis alternativa (<span class="math notranslate nohighlight">\(H_1\)</span> o <span class="math notranslate nohighlight">\(H_a\)</span>). La hipótesis nula generalmente representa una afirmación de no efecto o de estado normal, mientras que la hipótesis alternativa representa lo que el investigador busca probar.</p>
+<p><strong>Por qué son importantes las Pruebas de Hipótesis</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Validación de Resultados</strong>: Permiten validar si un resultado observado en los datos es debido a una variación aleatoria o a un efecto real.</p></li>
+<li><p><strong>Control de Errores</strong>: Las pruebas de hipótesis controlan las probabilidades de cometer errores de tipo I (falsos positivos) y tipo II (falsos negativos).</p></li>
+</ol>
+<p><strong>Uso en el Modelo de Regresión Lineal por Mínimos Cuadrados</strong></p>
+<p>En un modelo de regresión lineal, las pruebas de hipótesis se utilizan para probar supuestos clave:</p>
+<ol class="arabic simple">
+<li><p><strong>Linealidad</strong>: La relación entre las variables independientes y la variable dependiente es lineal. Esto se puede probar visualmente o mediante pruebas estadísticas.</p></li>
+<li><p><strong>Independencia de los Residuos</strong>: Los residuos (diferencias entre los valores observados y los predichos) deben ser independientes. Esto a menudo se verifica con la prueba de Durbin-Watson.</p></li>
+<li><p><strong>Homocedasticidad</strong>: Los residuos deben tener varianzas constantes. Esto se puede verificar con pruebas como la de Breusch-Pagan.</p></li>
+<li><p><strong>Normalidad de los Residuos</strong>: En muchos casos, se asume que los residuos siguen una distribución normal, especialmente importante para pequeñas muestras. Se pueden usar pruebas como la de Shapiro-Wilk para verificar esto.</p></li>
+<li><p><strong>Ausencia de Multicolinealidad</strong>: Se debe asegurar que las variables independientes no estén altamente correlacionadas entre sí. Esto se puede probar con el factor de inflación de la varianza (VIF).</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/II-Modelos-y-Metodos"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../I-Introduccion/02-El-modelo-de-resultados-potenciales.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">El modelo de resultados potenciales</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-de-minimos-cuadrados-ordinarios">El modelo de mínimos cuadrados ordinarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimos-cuadrados-ordinarios">Mínimos cuadrados ordinarios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obteniendo-los-estimadores-de-ols">Obteniendo los estimadores de OLS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-estimadores-de-minimos-cuadrados">Propiedades de los estimadores de Mínimos Cuadrados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-teorema-de-gauss-markov-y-sus-supuestos">El teorema de Gauss-Márkov y sus supuestos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#los-supuestos">Los supuestos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-interpretar-el-reporte-de-regresion-la-guia-del-economista-principiante-para-que-acepten-su-primer-articulo">Cómo interpretar el reporte de regresión: La guía del economista principiante para que acepten su primer artículo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-pasa-si-mi-regresion-no-cumple-con-los-supuestos">¿Qué pasa si mi regresión no cumple con los supuestos?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apendice-algunas-preguntas-que-te-pudieron-haber-quedado-explicadas-con-mas-detalle">Apéndice: Algunas preguntas que te pudieron haber quedado, explicadas con más detalle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-mathbf-e-mathbf-e-es-la-suma-de-residuos-al-cuadrado">¿Por qué <span class="math notranslate nohighlight">\(\mathbf{e}'\mathbf{e}\)</span> es la suma de residuos al cuadrado?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guia-breve-de-diferenciacion-con-matrices">Guía breve de diferenciación con matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-que-la-inversa-de-mathbf-x-mathbf-x-podria-no-existir">¿Cómo que la inversa de <span class="math notranslate nohighlight">\(\mathbf{X}’\mathbf{X}\)</span> podría no existir?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funciona-el-coeficiente-de-correlacion">¿Cómo funciona el coeficiente de correlación?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vif-factor-de-inflacion-de-la-varianza">VIF: Factor de inflación de la varianza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funciona-el-vif">¿Cómo funciona el VIF?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-del-vif">Interpretación del VIF:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-del-vif">Importancia del VIF:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-es-importante-identificar-la-multicolinealidad">¿Por qué es importante identificar la multicolinealidad?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-supuesto-de-media-condicional-cero">El supuesto de media condicional cero</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-poco-extra-sobre-gauss">Un poco extra sobre Gauss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

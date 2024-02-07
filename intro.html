@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Econometría e Inferencia Causal con ejemplos en python &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+    <title>Metrics 4 Business &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
   
   
   
@@ -151,18 +151,18 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Econometría e Inferencia Causal con ejemplos en python
+                    Metrics 4 Business
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">I Introducción</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapters/I-Introduccion/01-python-para-econometria.html">Python para Econometría</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/I-Introduccion/02-El-modelo-de-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">II Modelos y Métodos</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapters/II-Recursos/03-ejercicios.html">Ejercicios</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/II-Recursos/04-Referencias.html">50 Referencias de Econometría</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/II-Modelos-y-Metodos/03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
 </ul>
 
     </div>
@@ -346,7 +346,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Econometría e Inferencia Causal con ejemplos en python</h1>
+    <h1>Metrics 4 Business</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -356,9 +356,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inferencia-causal-para-los-negocios">Inferencia Causal para los Negocios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-econometria-es-la-ciencia-de-datos-original">La econometría es la ciencia de datos original</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-4-business">Metrics 4 Business</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Metrics 4 Business</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-recurso-gratuito-para-aprender-econometria">Un recurso gratuito para aprender econometría</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#econometrician"></a></li>
 </ul>
             </nav>
         </div>
@@ -370,14 +372,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="econometria-e-inferencia-causal-con-ejemplos-en-python">
-<h1>Econometría e Inferencia Causal con ejemplos en python<a class="headerlink" href="#econometria-e-inferencia-causal-con-ejemplos-en-python" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="metrics-4-business">
+<h1>Metrics 4 Business<a class="headerlink" href="#metrics-4-business" title="Permalink to this heading">#</a></h1>
+<section id="inferencia-causal-para-los-negocios">
+<h2>Inferencia Causal para los Negocios<a class="headerlink" href="#inferencia-causal-para-los-negocios" title="Permalink to this heading">#</a></h2>
 <p>Los economistas están entre los profesionistas en los que menos confían las personas.</p>
 <p>En 2019, una <a class="reference external" href="https://www.ft.com/content/52458788-fcc0-11e9-98fd-4d6c20050229">encuesta en el Reino Unido</a> reveló que el disgusto por los analistas económicos no era una ilusión. No es sorpresa entonces que a pesar de las advertencias en contra de la salida del país de la Unión Europea (llamado Brexit), la gente haya salido a votar y “Salir” haya ganado.</p>
 <p>Nadie confía en los economistas porque <strong>los charlatanes son más ruidosos que quienes hacemos de la economía una ciencia</strong>.</p>
 <p>Porque hacer ciencia requiere de trabajo duro, de rigurosidad y de entender los datos. Y en la era de las redes sociales, los algoritmos se aseguran de servirte la información que confirma nuestros sesgos, sin importar si es verdad. Nadie tiene el tiempo de revisar los datos.</p>
 <p><strong>Sólo los valientes se atreven a hacer econometría.</strong></p>
 <p>Trabajar con datos sociales y usar métodos de inferencia causal significa que te has dispuesto a encontrar que la realidad podría ser diferente a lo que te imaginas. Porque cuando hacemos trabajo empírico nos podemos encontrar que las redes sociales usan la viralidad para <a class="reference external" href="https://www.marionomics.com/el-truco-de-tiktok-para-hackear-tu-atencion/">motivarnos a crear contenido</a>, que una migración en temprana edad puede hacer que las personas <a class="reference external" href="https://www.marionomics.com/los-beneficios-economicos-de-que-un-volcan-te-destruya-la-casa/">tengan mejores ingresos</a> o que durante las recesiones solemos escuchar <a class="reference external" href="https://www.marionomics.com/las-canciones-alegres-de-la-recesion/">canciones más alegres</a> para ayudarnos a mejorar el ánimo.</p>
+</section>
 <section id="la-econometria-es-la-ciencia-de-datos-original">
 <h2>La econometría es la ciencia de datos original<a class="headerlink" href="#la-econometria-es-la-ciencia-de-datos-original" title="Permalink to this heading">#</a></h2>
 <p>En 2014, el Harvard Business Review catalogó a la ciencia de datos como <a class="reference external" href="https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century">la carrera más sexy del siglo XXI</a>.</p>
@@ -388,8 +393,8 @@ document.write(`
 <p>De eso se trata este libro. Sí veremos código y sí hay matemáticas detrás. Pero lo que quiero es que entiendas la filosofía detrás de la inferencia causal. Son principios que no cambiarán por mucho que avance la inteligencia artificial y que te harán un gran economista, desde el punto en que te encuentres.</p>
 <p>Todos los capítulos de este libro están estructurados con historias y ejemplos. Disfruta las historias y reproduce los ejemplos por tu cuenta para mejorar tu aprendizaje. Usa este libro todos los días y te convertirás rápidamente en un economista senior.</p>
 </section>
-<section id="metrics-4-business">
-<h2>Metrics 4 Business<a class="headerlink" href="#metrics-4-business" title="Permalink to this heading">#</a></h2>
+<section id="id1">
+<h2>Metrics 4 Business<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>La econometría es el arte de crear modelos que nos ayudan a llegar a la verdad.</p>
 <p>Las preguntas más importantes de las ciencias sociales se solucionan con econometría. Si quieres aprender sobre desigualdad, comercio internacional o finanzas, necesitas la econometría para resolver las preguntas interesantes.</p>
 <p>Las econometría es el arma secreta de las empresas más importantes de tecnología en el mundo.</p>
@@ -405,10 +410,14 @@ document.write(`
 <li><p>Este libro está hecho en el ejercicio del año sabático de la Universidad Juárez del Estado de Durango.</p></li>
 </ul>
 <p>Si deseas conocer más, te invito a que te suscribas a mi página. Te llegará un newletter con diferentes historias y curiosidades de la economía.</p>
-<iframe src="https://metrics4business.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://metrics4business.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
 <p>Tu suscripción me motiva a seguir creando más.</p>
-<p><img alt="Econometrician" src="../../figures/econometrician.png" /></p>
 </section>
+<section id="econometrician">
+<h2><img alt="Econometrician" src="../../figures/econometrician.png" /><a class="headerlink" href="#econometrician" title="Permalink to this heading">#</a></h2>
+</section>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -473,9 +482,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inferencia-causal-para-los-negocios">Inferencia Causal para los Negocios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-econometria-es-la-ciencia-de-datos-original">La econometría es la ciencia de datos original</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-4-business">Metrics 4 Business</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Metrics 4 Business</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-recurso-gratuito-para-aprender-econometria">Un recurso gratuito para aprender econometría</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#econometrician"></a></li>
 </ul>
   </nav></div>
 
