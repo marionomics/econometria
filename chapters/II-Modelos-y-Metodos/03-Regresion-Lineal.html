@@ -66,6 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/II-Modelos-y-Metodos/03-Regresion-Lineal';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Ejercicios" href="../III-Recursos/04-ejercicios.html" />
     <link rel="prev" title="El modelo de resultados potenciales" href="../I-Introduccion/02-El-modelo-de-resultados-potenciales.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -165,6 +166,11 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">II Modelos y Métodos</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../III-Recursos/04-ejercicios.html">Ejercicios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Recursos/05-Referencias.html">50 Referencias de Econometría</a></li>
 </ul>
 
     </div>
@@ -389,6 +395,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suscribete-al-newletter">Suscríbete al newletter</a></li>
 </ul>
             </nav>
         </div>
@@ -423,7 +430,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Cargar los datos</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/ruta/a/tu/archivo/advertising.csv&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../../data/04-Regresion/advertising.csv&#39;</span><span class="p">)</span>
 
 <span class="c1"># Crear un diagrama de dispersión</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -437,60 +444,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">7</span><span class="n">abc45eff288</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Cargar los datos</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/ruta/a/tu/archivo/advertising.csv&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Crear un diagrama de dispersión</span>
-
-<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span> 
-<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
-
-<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">678</span>     <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">679</span> 
-<span class="ne">--&gt; </span><span class="mi">680</span>     <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">681</span> 
-<span class="g g-Whitespace">    </span><span class="mi">682</span> 
-
-<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">573</span> 
-<span class="g g-Whitespace">    </span><span class="mi">574</span>     <span class="c1"># Create the parser.</span>
-<span class="ne">--&gt; </span><span class="mi">575</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">576</span> 
-<span class="g g-Whitespace">    </span><span class="mi">577</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
-
-<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">931</span> 
-<span class="g g-Whitespace">    </span><span class="mi">932</span>         <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="ne">--&gt; </span><span class="mi">933</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">934</span> 
-<span class="g g-Whitespace">    </span><span class="mi">935</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/parsers/readers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, f, engine)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1215</span>             <span class="c1"># &quot;Union[str, PathLike[str], ReadCsvBuffer[bytes], ReadCsvBuffer[str]]&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1216</span>             <span class="c1"># , &quot;str&quot;, &quot;bool&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1217</span>             <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>  <span class="c1"># type: ignore[call-overload]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1218</span>                 <span class="n">f</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1219</span>                 <span class="n">mode</span><span class="p">,</span>
-
-<span class="nn">/usr/local/lib/python3.9/site-packages/pandas/io/common.py</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">787</span>         <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">788</span>             <span class="c1"># Encoding</span>
-<span class="ne">--&gt; </span><span class="mi">789</span>             <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">790</span>                 <span class="n">handle</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">791</span>                 <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;/ruta/a/tu/archivo/advertising.csv&#39;
-</pre></div>
-</div>
+<img alt="../../_images/2230bca70dc502899e4501ae07ec3a347f347af0170fc36853a4cb1eda2bf740.png" src="../../_images/2230bca70dc502899e4501ae07ec3a347f347af0170fc36853a4cb1eda2bf740.png" />
 </div>
 </div>
 <p>Este es un ejemplo muy claro donde la regresión lineal es el modelo ideal para nosotros.</p>
@@ -507,6 +461,20 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Gastos en TV ($)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas (Miles de unidades)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">18</span><span class="n">c01df7b28e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Crear un diagrama de dispersión con una línea de regresión</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="p">})</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
 </pre></div>
 </div>
 </div>
@@ -532,6 +500,11 @@ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i
 
 <span class="c1"># Comprobar el resultado con 150</span>
 <span class="n">sales</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15.294999999999998
 </pre></div>
 </div>
 </div>
@@ -618,7 +591,7 @@ La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con liber
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># Cargar el conjunto de datos</span>
-<span class="n">ruta_archivo</span> <span class="o">=</span> <span class="s1">&#39;/mnt/data/advertising.csv&#39;</span>
+<span class="n">ruta_archivo</span> <span class="o">=</span> <span class="s1">&#39;../../../data/04-Regresion/advertising.csv&#39;</span>
 <span class="n">datos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_archivo</span><span class="p">)</span>
 
 <span class="c1"># Seleccionar solo las columnas TV y Sales</span>
@@ -641,6 +614,12 @@ La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con liber
 <span class="c1"># Mostrar los resultados</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Intercepto:&quot;</span><span class="p">,</span> <span class="n">intercepto</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pendiente para TV:&quot;</span><span class="p">,</span> <span class="n">pendiente</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercepto: 6.974821488229908
+Pendiente para TV: 0.05546477046955883
 </pre></div>
 </div>
 </div>
@@ -679,6 +658,11 @@ La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con liber
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Correlación entre los valores observados de TV y los residuales: 7.864091211939043e-16
+</pre></div>
+</div>
+</div>
 </div>
 <p>Un truco para sacar el mayor provecho a este libro: no copies y pegues este código. Cópialo de manera consciente en tu editor. Ejecuta los bloques uno a uno. Si algo te causa dudas, hazlo por partes.</p>
 <p>Nota que el coeficiente de correlación es prácticamente cero. Esto comprueba la propiedad.</p>
@@ -696,6 +680,11 @@ La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con liber
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Suma de los residuales: -2.632560835991171e-12
+</pre></div>
+</div>
+</div>
 </div>
 <p>La suma de los residuales en el modelo de regresión lineal es aproximadamente cero. El modelo “ajusta” los datos promediando los errores en ambas direcciones.</p>
 <ul class="simple">
@@ -709,6 +698,11 @@ La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con liber
 
 <span class="c1"># Mostrar la media de los residuales</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los residuales:&quot;</span><span class="p">,</span> <span class="n">media_residuales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Media de los residuales: -1.3162804179955856e-14
 </pre></div>
 </div>
 </div>
@@ -735,6 +729,13 @@ La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con liber
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Promedio de TV: 147.0425
+Promedio de Ventas: 15.130500000000001
+Ventas predichas cuando TV es igual a su promedio: 15.130500000000012
+</pre></div>
+</div>
+</div>
 </div>
 <ul class="simple">
 <li><p><strong>Los valores de predicción de <span class="math notranslate nohighlight">\(y\)</span> no están correlacionados con los residuales.</strong></p></li>
@@ -747,6 +748,11 @@ La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con liber
 
 <span class="c1"># Mostrar la correlación</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correlación entre los valores predichos de Ventas y los residuales:&quot;</span><span class="p">,</span> <span class="n">correlacion_predichos_residuales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Correlación entre los valores predichos de Ventas y los residuales: 7.818042265014361e-16
 </pre></div>
 </div>
 </div>
@@ -764,6 +770,12 @@ La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con liber
 <span class="c1"># Mostrar la media de los valores predichos y la media de los valores observados</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los valores predichos:&quot;</span><span class="p">,</span> <span class="n">media_predicciones</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los valores observados (Ventas):&quot;</span><span class="p">,</span> <span class="n">promedio_ventas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Media de los valores predichos: 15.130500000000014
+Media de los valores observados (Ventas): 15.130500000000001
 </pre></div>
 </div>
 </div>
@@ -812,7 +824,7 @@ Aquí la relación entre las variables no parece ser tan lineal. La línea de re
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># Cargar el conjunto de datos</span>
-<span class="n">ruta_archivo</span> <span class="o">=</span> <span class="s1">&#39;/mnt/data/advertising.csv&#39;</span>
+<span class="n">ruta_archivo</span> <span class="o">=</span> <span class="s1">&#39;../../../data/04-Regresion/advertising.csv&#39;</span>
 <span class="n">datos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_archivo</span><span class="p">)</span>
 
 <span class="c1"># Seleccionar las columnas de interés: TV, Radio, Newspaper y Sales</span>
@@ -837,6 +849,12 @@ Aquí la relación entre las variables no parece ser tan lineal. La línea de re
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rango de la matriz X: 4
+¿Es la matriz X de rango completo (sin multicolinealidad)? True
+</pre></div>
+</div>
+</div>
 </div>
 <p>El código anterior se hace verificando el rango de la matriz. Pero no es la forma tradicional de verificar este supuesto.</p>
 <p>La forma tradicional es revisar las correlaciones entre las variables. El siguiente bloque de código genera la matriz de correlación, la que podemos ver que es muy baja.</p>
@@ -847,6 +865,15 @@ Aquí la relación entre las variables no parece ser tan lineal. La línea de re
 
 <span class="c1"># Mostrar la matriz de correlación</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matriz de correlación:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">matriz_correlacion</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matriz de correlación:
+                  TV     Radio  Newspaper
+TV         1.000000  0.054809   0.056648
+Radio      0.054809  1.000000   0.354104
+Newspaper  0.056648  0.354104   1.000000
 </pre></div>
 </div>
 </div>
@@ -871,6 +898,15 @@ Aquí la relación entre las variables no parece ser tan lineal. La línea de re
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VIF para cada variable:
+    variables       VIF
+0         TV  2.486772
+1      Radio  3.285462
+2  Newspaper  3.055245
+</pre></div>
+</div>
+</div>
 </div>
 <p>Todos los factores están por debajo de 5, por lo que <strong>no hay problemas de multicolinealidad</strong> en nuestros datos (En el apéndice te he dejado una guía para interpretar el VIF).</p>
 <p>En ocasiones, la matriz de correlaciones será suficiente para encontrar la presencia (o ausencia) de multicolinealidad, pero el VIF es un método que incluye una regla de oro mas fácil de interpretar.</p>
@@ -891,7 +927,7 @@ E(\varepsilon|\mathbf{X}) = 0
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Load the dataset</span>
-<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;path_to_your_file/advertising.csv&#39;</span>  <span class="c1"># Replace with your file path</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;../../../data/04-Regresion/advertising.csv&#39;</span>  <span class="c1"># Replace with your file path</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 
 <span class="c1"># Define the independent variables (X) and the dependent variable (y)</span>
@@ -914,11 +950,14 @@ E(\varepsilon|\mathbf{X}) = 0
 <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted Sales&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuals vs. Predicted Sales&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuales vs. Prediccion de ventas&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d0aeaf3fd8d6377768a405b64146a0c421179fe81828232778001cb9ee115d56.png" src="../../_images/d0aeaf3fd8d6377768a405b64146a0c421179fe81828232778001cb9ee115d56.png" />
 </div>
 </div>
 <p>Este gráfico muestra que no hay un patrón definido.</p>
@@ -935,7 +974,7 @@ E(\varepsilon|\mathbf{X}) = 0
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 
 <span class="c1"># Load the dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;path_to_your_file.csv&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../../data/04-Regresion/advertising.csv&#39;</span><span class="p">)</span>
 
 <span class="c1"># Perform linear regression</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span>  <span class="c1"># Independent variables</span>
@@ -961,6 +1000,9 @@ E(\varepsilon|\mathbf{X}) = 0
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/28cc0e9a499ba0db91ca9c6f128c13ea8590150db9401e1cb5a4fbac1d15d230.png" src="../../_images/28cc0e9a499ba0db91ca9c6f128c13ea8590150db9401e1cb5a4fbac1d15d230.png" />
 </div>
 </div>
 <p>Este código crea una línea horizontal en el cero, y la línea gruesa muestra la relación entre los residuales y los valores ajustados. De nuevo, el gráfico no muestra una tendencia clara (esto es bueno!). En general, una inspección visual del diagrama de dispersión nos ayuda a entender lo que está pasando.</p>
@@ -991,6 +1033,9 @@ E(\varepsilon|\mathbf{X}) = 0
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/7b6d1d2cfaa676ee2a04556a2eeea7d18f09cfb627cd55798034142465f187f6.png" src="../../_images/7b6d1d2cfaa676ee2a04556a2eeea7d18f09cfb627cd55798034142465f187f6.png" />
+</div>
 </div>
 <p>Decir “una diferencia significativa” es subjetivo. La diferencia que unos ven pequeña otros la ven muy grande. Por eso, lo más seguro es usar una prueba estadística. El siguiente código usa la prueba Breusch-Pagan para comprobar nuevamente que no hay heteroscedasticidad.</p>
 <div class="cell docutils container">
@@ -1004,6 +1049,11 @@ E(\varepsilon|\mathbf{X}) = 0
 <span class="n">bp_test_statistic</span><span class="p">,</span> <span class="n">bp_test_pvalue</span> <span class="o">=</span> <span class="n">bp_test</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
 
 <span class="n">bp_test_statistic</span><span class="p">,</span> <span class="n">bp_test_pvalue</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3.9785268214219682, 0.26379220043199536)
 </pre></div>
 </div>
 </div>
@@ -1028,8 +1078,8 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 
 <span class="c1"># Definir las variables independientes (X) y la variable dependiente (y)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Periódico&#39;</span><span class="p">]]</span>  <span class="c1"># Variables independientes</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Ventas&#39;</span><span class="p">]</span>                       <span class="c1"># Variable dependiente</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span>  <span class="c1"># Variables independientes</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span>                       <span class="c1"># Variable dependiente</span>
 
 <span class="c1"># Añadir una constante al modelo (intercepción)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -1042,6 +1092,68 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>          <td>Sales</td>      <th>  R-squared:         </th> <td>   0.903</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.901</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   605.4</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Wed, 07 Feb 2024</td> <th>  Prob (F-statistic):</th> <td>8.13e-99</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>10:42:10</td>     <th>  Log-Likelihood:    </th> <td> -383.34</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   200</td>      <th>  AIC:               </th> <td>   774.7</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   196</td>      <th>  BIC:               </th> <td>   787.9</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     3</td>      <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>     <td>    4.6251</td> <td>    0.308</td> <td>   15.041</td> <td> 0.000</td> <td>    4.019</td> <td>    5.232</td>
+</tr>
+<tr>
+  <th>TV</th>        <td>    0.0544</td> <td>    0.001</td> <td>   39.592</td> <td> 0.000</td> <td>    0.052</td> <td>    0.057</td>
+</tr>
+<tr>
+  <th>Radio</th>     <td>    0.1070</td> <td>    0.008</td> <td>   12.604</td> <td> 0.000</td> <td>    0.090</td> <td>    0.124</td>
+</tr>
+<tr>
+  <th>Newspaper</th> <td>    0.0003</td> <td>    0.006</td> <td>    0.058</td> <td> 0.954</td> <td>   -0.011</td> <td>    0.012</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td>16.081</td> <th>  Durbin-Watson:     </th> <td>   2.251</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.000</td> <th>  Jarque-Bera (JB):  </th> <td>  27.655</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td>-0.431</td> <th>  Prob(JB):          </th> <td>9.88e-07</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 4.605</td> <th>  Cond. No.          </th> <td>    454.</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</div></div>
 </div>
 <p>Vamos a interpretarlo parte por parte.</p>
 <p>La primera sección es un reporte general de cómo fue la regresión, el número de observaciones y el tipo de modelo. También hay algunos estadísticos a los que debemos de poner atención:</p>
@@ -1238,6 +1350,9 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
 </ol>
 </section>
 </section>
+<section id="suscribete-al-newletter">
+<h2>Suscríbete al newletter<a class="headerlink" href="#suscribete-al-newletter" title="Permalink to this heading">#</a></h2>
+<iframe src="https://metrics4business.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1279,6 +1394,15 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">El modelo de resultados potenciales</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../III-Recursos/04-ejercicios.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ejercicios</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
@@ -1329,6 +1453,7 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suscribete-al-newletter">Suscríbete al newletter</a></li>
 </ul>
   </nav></div>
 

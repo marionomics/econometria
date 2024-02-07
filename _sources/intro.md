@@ -56,5 +56,5 @@ Si deseas conocer más, te invito a que te suscribas a mi página. Te llegará u
 
 Tu suscripción me motiva a seguir creando más.
 
-![Econometrician](../../figures/econometrician.png)
+![Econometrician](../../econometria/econometria/figures/econometrician.png)
 ---
