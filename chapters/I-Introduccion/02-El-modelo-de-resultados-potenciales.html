@@ -167,6 +167,11 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../III-Recursos/04-ejercicios.html">Ejercicios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Recursos/05-Referencias.html">50 Referencias de Econometría</a></li>
+</ul>
 
     </div>
 </nav></div>
@@ -361,6 +366,18 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-un-universo-fuiste-a-harvard">En un universo, fuiste a Harvard</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-error-de-novatos">El error de novatos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sesgo-de-seleccion">Sesgo de Selección</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rockstars-de-la-economia-alan-krueger">Rockstars de la economía: Alan Krueger</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-beneficio-de-entrar-a-una-escuela-mas-selectiva">El beneficio de entrar a una escuela más selectiva</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descubriendo-el-sesgo-de-seleccion">Descubriendo el sesgo de selección</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-experimento-aleatorio-ideal">El experimento aleatorio ideal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimento-ideal-y-experimentos-naturales">Experimento ideal y experimentos naturales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disena-tu-experimento-ideal-con-inteligencia-artificial">Diseña tu experimento ideal con Inteligencia Artificial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apendice">Apéndice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notacion">Notación</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
 </ul>
             </nav>
         </div>
@@ -506,6 +523,145 @@ E[Y_1]-E[Y_0]
 </div>
 </div>
 </div>
+<p>Los datos nos dicen que hay una diferencia de 676 (digamos que son miles de) dólares. ¿Es esto cierto?</p>
+</section>
+<section id="sesgo-de-seleccion">
+<h2>Sesgo de Selección<a class="headerlink" href="#sesgo-de-seleccion" title="Permalink to this heading">#</a></h2>
+<p>La comparación que hicimos tiene un problema. ¿Lo notaste?</p>
+<p>Los estudiantes de escuelas selectivas son <strong>fundamentalmente diferentes</strong> a los que no asisten a este tipo de instituciones. Lo podemos observar en la línea en la que creamos la <strong>dummy</strong> de personas que entraron a escuelas selectivas.</p>
+<p>Los egresados de escuelas selectivas tienen padres con mayores ingresos en promedio.</p>
+<p>Los ingresos de los padres influyen en la alimentación, el acceso a cuidados, la educación extracurricular y otros aspectos que traen más posibilidades de entrar a la universidad.</p>
+<p>Se le conoce como sesgo de selección.</p>
+<p><a class="reference download internal" download="" href="../../_downloads/9361b79bce49925d5b25ff3c89dedca9/sesgo_seleccion.png"><span class="xref download myst">Sesgo de seleccion</span></a></p>
+<p>En otras palabras, si vas a una zona rica en Nueva York tendrás más probabilidad de encontrar a un futuro estudiante de Harvard que si vas a una zona pobre en Puerto Rico (el territorio con tasa de pobreza más alta en EE.UU.).</p>
+</section>
+<section id="rockstars-de-la-economia-alan-krueger">
+<h2>Rockstars de la economía: Alan Krueger<a class="headerlink" href="#rockstars-de-la-economia-alan-krueger" title="Permalink to this heading">#</a></h2>
+<p>Alan Krueger fue una leyenda de la economía.</p>
+<p>Fue un destacado académico, y secretario asistente del Tesoro para la política económica en la administración de Barack Obama. Fue autor de múltiples artículos influyentes donde innovó en el uso de <strong>experimentos naturales</strong>.</p>
+<p>Krueger falleció en su casa en Marzo de 2019.</p>
+<p>Su coautor David Card comentó en 2021 que, de haber estado vivo, no había lugar a dudas de que habría compartido con él el premio Nobel de Economía de ese año.</p>
+</section>
+<section id="el-beneficio-de-entrar-a-una-escuela-mas-selectiva">
+<h2>El beneficio de entrar a una escuela más selectiva<a class="headerlink" href="#el-beneficio-de-entrar-a-una-escuela-mas-selectiva" title="Permalink to this heading">#</a></h2>
+<p>El artículo de Krueger es un gran ejemplo de sesgo de selección y cómo evitarlo.</p>
+<p>La comparación no debe ser entre aquellos que entraron a escuelas selectivas y los que no. La comparación debe ser a <strong>las mismas personas en universos paralelos</strong>.</p>
+<p>Imaginemos que Alicia logró entrar a Harvard, pero Bernardo no. Alicia sabe tres idiomas, tuvo tutorías personalizadas durante la preparatoria y pasaba las tardes en clases extracurriculares. Bernardo trabaja por las tardes para apoyar a su familia, tiene buenas calificaciones, pero no ha tomado tutorías extra. Alicia tiene computadora en casa y buen acceso a internet, Bernardo tiene una computadora descompuesta y no hay internet en su casa.</p>
+<p><strong>No podemos comparar a Alicia con Bernardo y pensar que las diferencias en sus ingresos vienen de su inscripción a Harvard.</strong></p>
+<p>Lo ideal sería comparar a Alicia en el universo 1, donde si entró a Harvard, con Alicia del universo 0, donde no entró a Harvard. Digamos que <span class="math notranslate nohighlight">\(Y_i\)</span> son los ingresos de Alicia. Podemos incluir un subíndice más para indicar el universo.</p>
+<p><span class="math notranslate nohighlight">\(Y_{1i}\)</span> indica los ingresos de Alicia en el universo 1 y <span class="math notranslate nohighlight">\(Y_{0i}\)</span> en el universo 0.</p>
+<p>Finalmente, <span class="math notranslate nohighlight">\(D_i\)</span> es una <strong>dummy</strong> que indica si Alicia entró a Harvard (<span class="math notranslate nohighlight">\(D_i = 1\)</span>) o no (<span class="math notranslate nohighlight">\(D_i =0\)</span>).</p>
+<p>El ingreso de Alicia entonces es</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Y_i = \begin{cases} Y_{1i} \qquad \text{si } D_i=1\\ Y_{0i} \qquad \text{si } D_i=0\end{cases}
+\end{split}\]</div>
+<p>El ingreso de Alicia en el universo 0 no lo podemos observar, pues está en otro universo donde ella no entró a Harvard. Aún así podemos denotar el efecto de haber entrado a esa universidad en sus ingresos como <span class="math notranslate nohighlight">\(Y_{1i} -Y_{0i}\)</span>, por lo tanto el ingreso de Alicia en función de <span class="math notranslate nohighlight">\(D_i\)</span> sería</p>
+<div class="math notranslate nohighlight">
+\[
+Y_i = Y_{0i} + D_i(Y_{1i} - Y_{0i})
+\]</div>
+<p>Escribir este efecto aún cuando no se puede observar es un ejercicio que nos ayuda a entender el sesgo que se genera al comparar grupos diferentes.</p>
+<p>Cuando <span class="math notranslate nohighlight">\(D_i = 1\)</span>, los ingresos de Alicia son <span class="math notranslate nohighlight">\(Y_{1i}\)</span> y cuando <span class="math notranslate nohighlight">\(D_i = 0\)</span> sus ingresos son <span class="math notranslate nohighlight">\(Y_{0i}\)</span>. Para observar esto no se necesita imaginación. Pero <span class="math notranslate nohighlight">\(E[Y_{0i} | D_i = 1]\)</span> es un <strong>contrafactual</strong>, es algo que no pasó, pero que podría pasar. Son los ingresos de todas las personas en situación similar a la de Alicia (<span class="math notranslate nohighlight">\(D_i = 1\)</span>), <strong>si no hubiéran entrado a Harvard</strong>.</p>
+</section>
+<section id="descubriendo-el-sesgo-de-seleccion">
+<h2>Descubriendo el sesgo de selección<a class="headerlink" href="#descubriendo-el-sesgo-de-seleccion" title="Permalink to this heading">#</a></h2>
+<p>Hagamos un truco. Nota que</p>
+<div class="math notranslate nohighlight">
+\[
+E[Y_1]-E[Y_0] = E[Y_{1i} | D_i = 1] - E[Y_{0i} | D_i = 0]
+\]</div>
+<p>Son los ingresos observados. Pero lo que realmente necesitamos comparar es</p>
+<div class="math notranslate nohighlight">
+\[
+E[Y_{1i} | D_i = 1] - E[Y_{0i} | D_i = 1]
+\]</div>
+<p>Se le llama el tratamiento promedio en el tratado. En inglés es <em>Average treatment on the treated</em> y lo verás con las siglas ATT.</p>
+<p>La ecuación es diferente a la que comenzamos. La diferencia es sutil. Nota que <span class="math notranslate nohighlight">\(E[Y_{0i} | D_i = 1]\)</span> es un contrafactual. Son los ingresos que tendrían las personas que entraron a Harvard si no hubieran entrado. Si pudiéramos introducirlas en la ecuación 1, tendríamos dos partes:</p>
+<div class="math notranslate nohighlight">
+\[
+E[Y_{i} | D_i = 1] - E[Y_{i} | D_i = 0] = \underbrace{E[Y_{1i} | D_i = 1] - E[Y_{0i} | D_i = 1]}_\text{ATT} + \underbrace{E[Y_{0i} | D_i = 1] -E[Y_{0i} | D_i = 0]}_\text{Sesgo de selección}
+\]</div>
+<p>Es un truco sucio, ¿lo notaste? Solo incluí el contrafactual como suma y como resta otra vez para no alterar la ecuación. Hacer esto revela que la ecuación inicial incluye el sesgo de selección.</p>
+</section>
+<section id="el-experimento-aleatorio-ideal">
+<h2>El experimento aleatorio ideal<a class="headerlink" href="#el-experimento-aleatorio-ideal" title="Permalink to this heading">#</a></h2>
+<p>Hay una manera de eliminar el sesgo de selección.</p>
+<p>Los ensayos controlados aleatorizados (RCTs) son experimentos donde nos aseguramos de eliminar todas las variables que podrían afectar nuestro resultado. Los puedes encontrar en inglés como RCTs: <em>Randomized controlled trials. S</em>on el <em>gold standard</em> de los estudios científicos.</p>
+<p>Los resultados de un RCT son considerados causales.</p>
+<p>Un ejemplo de experimento en economía es el que hicieron Miguel &amp; Kremer (2004) para encontrar los efectos de tratar contra las lombrices a alumnos en las escuelas en Kenya. Al eliminar los parásitos no sólo mejoraron la salud de los alumnos, también aumentaron la participación en clase de las escuelas <strong>y de escuelas cercanas</strong>.</p>
+<p>Para hacer un experimento necesitas:</p>
+<ul class="simple">
+<li><p><strong>Controlar las condiciones del estudio.</strong> En la medida de lo posible, elige hacer tu estudio en grupos que sean comparables y homogéneos.</p></li>
+<li><p><strong>Divide en dos grupos: tratamiento y control.</strong> El grupo de tratamiento es donde esperamos ver el efecto, el grupo de control sirve para comparar los resultados.</p></li>
+<li><p><strong>Asigna los grupos aleatoriamente.</strong> Todos los participantes en el estudio deben tener la misma probabilidad de pertenecer a cualquier grupo.</p></li>
+<li><p>Sigue y analiza tus resultados. Verifica que todo salió de acuerdo al plan y analiza los datos. Veremos más sobre esto a lo largo del libro.</p></li>
+</ul>
+<p>Cuando un experimento está bien diseñado, no se necesitan modelos estadísticos demasiado complejos.</p>
+<p>Desafortunadamente, los experimentos no siempre son posibles de ejecutar. Requieren de planeación, tiempo y recursos que no siempre escalan.</p>
+<p>Aún así, diseñar el experimento ideal para identificar el efecto que buscamos es un paso esencial en el diseño de nuestra estrategia de identificación.</p>
+</section>
+<section id="experimento-ideal-y-experimentos-naturales">
+<h2>Experimento ideal y experimentos naturales<a class="headerlink" href="#experimento-ideal-y-experimentos-naturales" title="Permalink to this heading">#</a></h2>
+<p>El experimento ideal requiere que imaginemos cómo seguiríamos los pasos para hacer un experimento si no tuviéramos ninguna limitación de recursos, tiempo o incluso ética.</p>
+<p>Por ejemplo, el estudio de Dale &amp; Krueger (2002) requeriría que tomáramos a un grupo de estudiantes y mandáramos de manera aleatoria a la mitad a Harvard y registrar los ingresos de los alumnos en ambos grupos al salir.</p>
+<p>Pensar en el experimento ideal soluciona la mitad del problema.</p>
+<p>Cuando entiendes cuál es el experimento ideal, es más fácil entender la estrategia que debes usar con las limitantes de la vida real. Dale y Krueger no usaron un experimento para encontrar los efectos de entrar a las escuelas selectivas. Lo que hicieron fue una estrategia ingeniosa para que los datos funcionaran como si hubieran hecho un experimento.</p>
+<p>Usaron un experimento natural.</p>
+<p>Los experimentos naturales son situaciones que encontramos que generan condiciones para analizar un fenómeno. Por ejemplo, Dale &amp; Krueger (2002) aprovecharon a los alumnos que fueron aceptados en escuelas selectivas, pero decidieron no ingresar por motivos externos. Este es un grupo que si se puede comparar con quienes entraron a las universidades selectivas.</p>
+<p>No encontraron diferencias significativas por entrar en una universidad selectiva.</p>
+<p>Hay una excepción: los alumnos con menos ventajas en su entorno familiar si se beneficiaron de atender a una escuela selectiva. Esto es porque la universidad es una forma de hacer conexiones personales que pueden traer ventajas para toda la vida. Los alumnos con mayor ventaja en su contexto familiar ya tienen acceso a estas conexiones, pero para los menos aventajados, la universidad es una oportunidad significativa.</p>
+</section>
+<section id="disena-tu-experimento-ideal-con-inteligencia-artificial">
+<h2>Diseña tu experimento ideal con Inteligencia Artificial<a class="headerlink" href="#disena-tu-experimento-ideal-con-inteligencia-artificial" title="Permalink to this heading">#</a></h2>
+<p>Diseñar el experimento ideal es el primer paso para encontrar la estrategia de identificación.</p>
+<p>Para diseñar el experimento natural necesitamos:</p>
+<ul class="simple">
+<li><p>Encontrar la relación causal que nos interesa.</p></li>
+<li><p>Reducir las variables a indicadores para medirlas.</p></li>
+</ul>
+<p>El resto lo podemos hacer con ayuda de Inteligencia Artificial.</p>
+<p>Usaremos chatGPT para este ejercicio.</p>
+<p>Algunas advertencias sobre chatGPT:</p>
+<ul class="simple">
+<li><p>Los modelos grandes de lenguaje (LLM) como chatGPT funcionan como una predicción de la siguiente frase que viene en el texto. Es como el predictor de texto de tu teléfono, pero más avanzado.</p></li>
+<li><p>El resultado que obtengas depende del modelo que estés usando (yo muestro el resultado de chatGPT 4, que es el mejor en el mercado en el momento en que escribo esto).</p></li>
+<li><p>La mejor manera de obtener buenos resultados con chatGPT es interactuando con lo que te arroja. Pídele modificaciones o agrega información para que corrija, no te quedes con lo primero que te arroja.</p></li>
+</ul>
+<p>Usa el siguiente comando. Puedes copiar y pegar directamente en chatGPT.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Eres el experto en econometría e inferencia causal.
+
+Diseña el experimento ideal para identificar efecto sobre las variables que te diré a continuación.
+
+Un experimento ideal es una descripción detallada de un experimento que se podría hacer para obtener efectos causales, sin reparos en los recursos, tiempo o dilemas éticos que pueda causar.
+
+Te voy a describir las variables que deseo estudiar y su relación causal que busco identificar. 
+
+Estás listo?
+</pre></div>
+</div>
+<p>A continuación tienes que indicarle las variables que deseas medir. Por ejemplo, yo escribí esto para pedir indicaciones sobre el experimento ideal de las universidades selectivas.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Deseo</span> <span class="n">conocer</span> <span class="n">el</span> <span class="n">efecto</span> <span class="n">de</span> <span class="n">asistir</span> <span class="n">a</span> <span class="n">una</span> <span class="n">universidad</span> <span class="n">selectiva</span> <span class="n">en</span> <span class="n">los</span> <span class="n">ingresos</span>
+
+</pre></div>
+</div>
+<p>Lee con atención el resultado. Si consideras que lo que describe es algo viable, deberías intentarlo.</p>
+<p>Con más experiencia, es buena idea que intentes diseñar estos experimentos ideales por tu cuenta. No sólo es un gran ejercicio mental, probablemente te dará la respuesta sobre la estrategia que debes usar en tu proyecto.</p>
+</section>
+<section id="apendice">
+<h2>Apéndice<a class="headerlink" href="#apendice" title="Permalink to this heading">#</a></h2>
+<section id="notacion">
+<h3>Notación<a class="headerlink" href="#notacion" title="Permalink to this heading">#</a></h3>
+<p>La <span class="math notranslate nohighlight">\(E(\cdot)\)</span> se lee como el <em>valor esperado.</em> Es un concepto más general que simplemente el promedio, pues aplica a más que sólo números.</p>
+<p>El valor esperado (o esperanza)</p>
+</section>
+</section>
+<section id="referencias">
+<h2>Referencias<a class="headerlink" href="#referencias" title="Permalink to this heading">#</a></h2>
+<p>Berg Dale, S. &amp; Krueger A. B. (2002). Estimating the Payoff to Attending a More Selective College: An Application of Selection on Observables and Unobservables. <em>The Quarterly Journal of Economics</em></p>
+<p>Busch, P., Heinonen, T., &amp; Lahti, P. (2007). Heisenberg’s uncertainty principle. Physics Reports, 452(6), 155-176. <a class="reference external" href="https://doi.org/10.1016/j.physrep.2007.05.006">https://doi.org/10.1016/j.physrep.2007.05.006</a></p>
+<p>Everett, H., III. (1957). “Relative State” Formulation of Quantum Mechanics. <em>Reviews of Modern Physics, 29</em>(3), 454. <a class="reference external" href="https://doi.org/10.1103/RevModPhys.29.454">https://doi.org/10.1103/RevModPhys.29.454</a></p>
+<p>Miguel, E. &amp; Kremer, M. (2003). Worms: Identifying Impacts on Education and Health in the Presence of Treatment Externalities. <em>Econometrica</em> 72(1). p. 159-217. <a class="reference external" href="https://doi.org/10.1111/j.1468-0262.2004.00481.x">https://doi.org/10.1111/j.1468-0262.2004.00481.x</a></p>
 </section>
 </section>
 
@@ -578,6 +734,18 @@ E[Y_1]-E[Y_0]
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-un-universo-fuiste-a-harvard">En un universo, fuiste a Harvard</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-error-de-novatos">El error de novatos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sesgo-de-seleccion">Sesgo de Selección</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rockstars-de-la-economia-alan-krueger">Rockstars de la economía: Alan Krueger</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-beneficio-de-entrar-a-una-escuela-mas-selectiva">El beneficio de entrar a una escuela más selectiva</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descubriendo-el-sesgo-de-seleccion">Descubriendo el sesgo de selección</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-experimento-aleatorio-ideal">El experimento aleatorio ideal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimento-ideal-y-experimentos-naturales">Experimento ideal y experimentos naturales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disena-tu-experimento-ideal-con-inteligencia-artificial">Diseña tu experimento ideal con Inteligencia Artificial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apendice">Apéndice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notacion">Notación</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
 </ul>
   </nav></div>
 
