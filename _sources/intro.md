@@ -1,5 +1,4 @@
-# Metrics 4 Business
-## Inferencia Causal para los Negocios
+# Inferencia Causal para los Negocios
 
 Los economistas están entre los profesionistas en los que menos confían las personas.
 
