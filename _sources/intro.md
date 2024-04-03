@@ -58,3 +58,5 @@ Tu suscripción me motiva a seguir creando más.
 
 ![Econometrician](../../econometria/econometria/figures/econometrician.png)
 ---
+
+_Elaborado en el ejercicio de Año Sabático autorizado en la UJED_
