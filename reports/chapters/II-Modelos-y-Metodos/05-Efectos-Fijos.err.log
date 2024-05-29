@@ -17,26 +17,32 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
+import seaborn as sns
+import numpy as np
 
-plt.figure(figsize=(10,6))
+# Configurar el estilo de Seaborn
+sns.set(style="whitegrid")
 
-# Create a scatter plot
-colors = {'Online':'blue', 'TV':'orange', 'Radio':'green'}
+# Crear un diagrama de dispersión con diferentes colores para cada medio
+colors = {
+    'Google Ads': 'blue',
+    'Facebook Ads': 'orange',
+    'Email Marketing': 'green'
+}
 for medio in df['Medio'].unique():
     subset = df[df['Medio'] == medio]
     plt.scatter(subset['Ad cost'], subset['Sales'], s=100, label=medio, color=colors[medio])
 
-# Calculate and plot the regression line
-# Combine all points regardless of the 'Medio' for the regression line
-X = df['Ad cost'][:, np.newaxis]  # X needs to be 2D for sklearn
+# Calcular y trazar la línea de regresión
+# Combinar todos los puntos sin importar el 'Medio' para la línea de regresión
+X = df['Ad cost'][:, np.newaxis]  # X necesita ser 2D para np.polyfit
 Y = df['Sales']
 model = np.polyfit(X.flatten(), Y, 1)
 predicted = np.polyval(model, X.flatten())
 plt.plot(X.flatten(), predicted, color='red')
 
+# Configurar el título y las etiquetas del gráfico
 plt.title('Diagrama de dispersión del costo de publicidad vs ventas')
 plt.xlabel('Costos de publicidad')
 plt.ylabel('Ventas')
@@ -44,17 +50,18 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
+
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mKeyError[0m                                  Traceback (most recent call last)
-[0;32m<ipython-input-2-02f91c171686>[0m in [0;36m<module>[0;34m[0m
-[1;32m      9[0m [0;32mfor[0m [0mmedio[0m [0;32min[0m [0mdf[0m[0;34m[[0m[0;34m'Medio'[0m[0;34m][0m[0;34m.[0m[0munique[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     10[0m     [0msubset[0m [0;34m=[0m [0mdf[0m[0;34m[[0m[0mdf[0m[0;34m[[0m[0;34m'Medio'[0m[0;34m][0m [0;34m==[0m [0mmedio[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 11[0;31m     [0mplt[0m[0;34m.[0m[0mscatter[0m[0;34m([0m[0msubset[0m[0;34m[[0m[0;34m'Ad cost'[0m[0;34m][0m[0;34m,[0m [0msubset[0m[0;34m[[0m[0;34m'Sales'[0m[0;34m][0m[0;34m,[0m [0ms[0m[0;34m=[0m[0;36m100[0m[0;34m,[0m [0mlabel[0m[0;34m=[0m[0mmedio[0m[0;34m,[0m [0mcolor[0m[0;34m=[0m[0mcolors[0m[0;34m[[0m[0mmedio[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     12[0m [0;34m[0m[0m
-[1;32m     13[0m [0;31m# Calculate and plot the regression line[0m[0;34m[0m[0;34m[0m[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m<ipython-input-2-a71c3eae8162>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;32mimport[0m [0mpandas[0m [0;32mas[0m [0mpd[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 2[0;31m [0;32mimport[0m [0mseaborn[0m [0;32mas[0m [0msns[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      3[0m [0;32mimport[0m [0mnumpy[0m [0;32mas[0m [0mnp[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0;34m[0m[0m
+[1;32m      5[0m [0;31m# Configurar el estilo de Seaborn[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mKeyError[0m: 'Google Ads'
-KeyError: 'Google Ads'
+[0;31mModuleNotFoundError[0m: No module named 'seaborn'
+ModuleNotFoundError: No module named 'seaborn'
 

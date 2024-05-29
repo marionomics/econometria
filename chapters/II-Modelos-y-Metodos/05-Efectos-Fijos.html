@@ -496,26 +496,32 @@ the world has seldom seen.</p>
 <p>Lo que deseamos conocer es el efecto que hay entre el costo de la publicidad y las ventas de esa campaña particular.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="c1"># Configurar el estilo de Seaborn</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
 
-<span class="c1"># Create a scatter plot</span>
-<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Online&#39;</span><span class="p">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;TV&#39;</span><span class="p">:</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">:</span><span class="s1">&#39;green&#39;</span><span class="p">}</span>
+<span class="c1"># Crear un diagrama de dispersión con diferentes colores para cada medio</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Google Ads&#39;</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Facebook Ads&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Email Marketing&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span>
+<span class="p">}</span>
 <span class="k">for</span> <span class="n">medio</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
     <span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">medio</span><span class="p">]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">],</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">medio</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">medio</span><span class="p">])</span>
 
-<span class="c1"># Calculate and plot the regression line</span>
-<span class="c1"># Combine all points regardless of the &#39;Medio&#39; for the regression line</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">][:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>  <span class="c1"># X needs to be 2D for sklearn</span>
+<span class="c1"># Calcular y trazar la línea de regresión</span>
+<span class="c1"># Combinar todos los puntos sin importar el &#39;Medio&#39; para la línea de regresión</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">][:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>  <span class="c1"># X necesita ser 2D para np.polyfit</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">Y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">predicted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">predicted</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 
+<span class="c1"># Configurar el título y las etiquetas del gráfico</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de dispersión del costo de publicidad vs ventas&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Costos de publicidad&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas&#39;</span><span class="p">)</span>
@@ -527,18 +533,15 @@ the world has seldom seen.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">02</span><span class="n">f91c171686</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="k">for</span> <span class="n">medio</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">medio</span><span class="p">]</span>
-<span class="ne">---&gt; </span><span class="mi">11</span>     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">],</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">medio</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">medio</span><span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> 
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="c1"># Calculate and plot the regression line</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">a71c3eae8162</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Configurar el estilo de Seaborn</span>
 
-<span class="ne">KeyError</span>: &#39;Google Ads&#39;
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x432 with 0 Axes&gt;
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
 </pre></div>
 </div>
 </div>
@@ -548,25 +551,22 @@ the world has seldom seen.</p>
 <p>Esto se ve más claro en el diagrama de dispersión.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s first identify the unique mediums to ensure we assign a unique marker for each</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identificar los medios únicos para asegurarnos de asignar un marcador único para cada uno</span>
 <span class="n">unique_media</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 
-<span class="c1"># Now, creating a scatter plot with different markers for each medium and separate regression lines</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="c1"># Crear un diagrama de dispersión con diferentes marcadores para cada medio y líneas de regresión separadas</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Medio&#39;</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">][:</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_media</span><span class="p">)],</span> <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Scatter Plot of Ad Cost vs. Sales with Separate Regression Lines by Medium&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Ad Cost&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Sales&#39;</span><span class="p">)</span>
+<span class="c1"># Configurar el título y las etiquetas del gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de dispersión del costo de publicidad vs ventas con líneas de regresión separadas por medio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Costos de publicidad&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x432 with 0 Axes&gt;
-</pre></div>
-</div>
-<img alt="../../_images/ed2485b1af0a17c0017e2399452191a32d1dd894f300875fecfbb6d10376dfe0.png" src="../../_images/ed2485b1af0a17c0017e2399452191a32d1dd894f300875fecfbb6d10376dfe0.png" />
+<img alt="../../_images/4bb0cd0238f89c93f92c0bb81b964a4369f2e5897485c04cb3446bf05d0d24d9.png" src="../../_images/4bb0cd0238f89c93f92c0bb81b964a4369f2e5897485c04cb3446bf05d0d24d9.png" />
 </div>
 </div>
 </section>
@@ -627,7 +627,7 @@ Y_{it} = \beta X_{it} + \gamma U_i + \varepsilon_{it}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/e383ea9bbb0fc9dde03b380f29db64209a336b277ffdf9ec3ea96724e7c0b872.png" src="../../_images/e383ea9bbb0fc9dde03b380f29db64209a336b277ffdf9ec3ea96724e7c0b872.png" />
+<img alt="../../_images/92147c163664bbae9014e86dd9839eca401e92c4296a981b1a23cbc613edc589.png" src="../../_images/92147c163664bbae9014e86dd9839eca401e92c4296a981b1a23cbc613edc589.png" />
 </div>
 </div>
 <p>El siguiente paso es restar estas medias de nuestros individuos.</p>
@@ -768,7 +768,7 @@ Y_{it} = \beta X_{it} + \gamma U_i + \varepsilon_{it}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/9e23c5f138aaa80256963a0a3997ba9736c830f7fcd7068b2850d67f1932f764.png" src="../../_images/9e23c5f138aaa80256963a0a3997ba9736c830f7fcd7068b2850d67f1932f764.png" />
+<img alt="../../_images/b7864268058c9f3189f0aa2a5aa3444742c1acf17ba02a4d79cf907895f04e88.png" src="../../_images/b7864268058c9f3189f0aa2a5aa3444742c1acf17ba02a4d79cf907895f04e88.png" />
 </div>
 </div>
 <p>Nota cómo ahora las medias están en cero en los dos ejes.</p>
@@ -807,10 +807,10 @@ Y_{it} = \beta X_{it} + \gamma U_i + \varepsilon_{it}
   <th>Method:</th>             <td>Least Squares</td>   <th>  F-statistic:       </th> <td>   14.96</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, 02 Apr 2024</td>  <th>  Prob (F-statistic):</th>  <td>0.00136</td>
+  <th>Date:</th>             <td>Wed, 29 May 2024</td>  <th>  Prob (F-statistic):</th>  <td>0.00136</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>18:57:24</td>      <th>  Log-Likelihood:    </th> <td> -38.610</td>
+  <th>Time:</th>                 <td>09:07:24</td>      <th>  Log-Likelihood:    </th> <td> -38.610</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    18</td>       <th>  AIC:               </th> <td>   81.22</td>
@@ -886,10 +886,10 @@ Y_{it} = \beta X_{it} + \gamma U_i + \varepsilon_{it}
   <th>No. Observations:</th>        <td>18</td>        <th>  R-squared (Within):</th>   <td>0.4832</td> 
 </tr>
 <tr>
-  <th>Date:</th>             <td>Tue, Apr 02 2024</td> <th>  R-squared (Overall):</th>  <td>0.6431</td> 
+  <th>Date:</th>             <td>Wed, May 29 2024</td> <th>  R-squared (Overall):</th>  <td>0.6431</td> 
 </tr>
 <tr>
-  <th>Time:</th>                 <td>18:57:47</td>     <th>  Log-likelihood     </th>   <td>-38.610</td>
+  <th>Time:</th>                 <td>09:07:29</td>     <th>  Log-likelihood     </th>   <td>-38.610</td>
 </tr>
 <tr>
   <th>Cov. Estimator:</th>      <td>Unadjusted</td>    <th>                     </th>      <td></td>    
