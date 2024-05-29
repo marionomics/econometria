@@ -154,7 +154,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    Metrics 4 Business
+                    Inferencia Causal para los Negocios
                 </a>
             </li>
         </ul>
@@ -168,6 +168,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05-Efectos-Fijos.html">Efectos Fijos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">El modelo Lean Startup: Negocios a prueba de recesiones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
 <ul class="nav bd-sidenav">
@@ -751,21 +756,21 @@ y_t = \phi_1 y_{t-1} + \phi_2 y_{t-2} + \phi_3 y_{t-3} + \varepsilon_t
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                          Unnamed: 0      Enero    Febrero  \
 0             Índice de volumen físico base 2018=100        NaN        NaN   
-1                                              Total  55.434714  56.456934   
+1                                              Total  55.434736  56.456971   
 2                              Actividades primarias  58.796198  60.763816   
 3                                  111 - Agricultura  54.888804  56.855371   
 4                 112 - Cría y explotación de ani...  67.248422  68.977815   
 
        Marzo      Abril       Mayo      Junio      Julio     Agosto  \
 0        NaN        NaN        NaN        NaN        NaN        NaN   
-1  58.900516  57.135808  57.891816  57.475444  57.902360  57.123924   
+1  58.900549  57.135844  57.891853  57.475466  57.902380  57.123934   
 2  55.964953  58.989164  61.762078  63.641132  72.628654  57.488221   
 3  50.409267  52.261002  55.582213  57.282877  68.319936  42.898071   
 4  67.346044  73.409111  75.161246  77.687091  81.891772  88.914213   
 
    Septiembre  ...  Abril.31  Mayo.31  Junio.31  Julio.31  Agosto.31  \
 0         NaN  ...       NaN      NaN       NaN       NaN        NaN   
-1   58.482065  ...       NaN      NaN       NaN       NaN        NaN   
+1   58.482049  ...       NaN      NaN       NaN       NaN        NaN   
 2   54.105257  ...       NaN      NaN       NaN       NaN        NaN   
 3   38.338437  ...       NaN      NaN       NaN       NaN        NaN   
 4   88.045743  ...       NaN      NaN       NaN       NaN        NaN   
@@ -780,7 +785,7 @@ y_t = \phi_1 y_{t-1} + \phi_2 y_{t-2} + \phi_3 y_{t-3} + \varepsilon_t
 [5 rows x 417 columns]
 </pre></div>
 </div>
-<img alt="../../_images/57149c08a9dc51a926b7eb7c623304205886071e2f9beaa5f931f485347b9e54.png" src="../../_images/57149c08a9dc51a926b7eb7c623304205886071e2f9beaa5f931f485347b9e54.png" />
+<img alt="../../_images/545ed5bc760dbc49c3567aafa094cadfc101467a24dc8c8d6a8912bf73c92fef.png" src="../../_images/545ed5bc760dbc49c3567aafa094cadfc101467a24dc8c8d6a8912bf73c92fef.png" />
 </div>
 </div>
 <p>Con algo de experiencia vas a aprender a notar cuando una serie no es estacionaria sólo al ver el gráfico, pero siempre debes de corroborar tus sospechas haciendo una prueba estadística.</p>
@@ -850,10 +855,10 @@ y_t = \phi_1 y_{t-1} + \phi_2 y_{t-2} + \phi_3 y_{t-3} + \varepsilon_t
   <th>Method:</th>         <td>Conditional MLE</td> <th>  S.D. of innovations</th>   <td>0.980</td>  
 </tr>
 <tr>
-  <th>Date:</th>          <td>Wed, 03 Apr 2024</td> <th>  AIC                </th> <td>2798.455</td> 
+  <th>Date:</th>          <td>Wed, 29 May 2024</td> <th>  AIC                </th> <td>2798.455</td> 
 </tr>
 <tr>
-  <th>Time:</th>              <td>10:47:15</td>     <th>  BIC                </th> <td>2822.979</td> 
+  <th>Time:</th>              <td>08:50:37</td>     <th>  BIC                </th> <td>2822.979</td> 
 </tr>
 <tr>
   <th>Sample:</th>           <td>01-04-2024</td>    <th>  HQIC               </th> <td>2807.777</td> 

@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="50 Referencias de Econometría" href="05-Referencias.html" />
-    <link rel="prev" title="Efectos Fijos" href="../II-Modelos-y-Metodos/05-Efectos-Fijos.html" />
+    <link rel="prev" title="Cómo hacer Investigación de mercados con inteligencia artificial" href="../IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -152,7 +152,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    Metrics 4 Business
+                    Inferencia Causal para los Negocios
                 </a>
             </li>
         </ul>
@@ -166,6 +166,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/04-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/05-Efectos-Fijos.html">Efectos Fijos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">El modelo Lean Startup: Negocios a prueba de recesiones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
 <ul class="current nav bd-sidenav">
@@ -447,42 +452,42 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;La maceta&#39;, &#39;El borracho&#39;, &#39;La campana&#39;, &#39;El catrin&#39;, &#39;El violoncello&#39;, &#39;La sandia&#39;, &#39;La chalupa&#39;, &#39;El gorrito&#39;, &#39;El arpa&#39;, &#39;El camaron&#39;, &#39;El barril&#39;, &#39;La dama&#39;, &#39;La bota&#39;, &#39;El pajaro&#39;, &#39;El melon&#39;, &#39;El cotorro&#39;, &#39;La palma&#39;, &#39;El mundo&#39;, &#39;El apache&#39;, &#39;El pescado&#39;, &#39;La muerte&#39;, &#39;El alacran&#39;, &#39;El gallo&#39;, &#39;La calavera&#39;, &#39;El diablito&#39;, &#39;El valiente&#39;, &#39;La corona&#39;, &#39;El barril&#39;]
 Tabla del Jugador:
-             Carta  Marcada
-0          La bota    False
-1          La dama    False
-2      La calavera    False
-3        La maceta    False
-4       El alacran    False
-5       La campana    False
-6         La palma    False
-7   El violoncello    False
-8        El catrin    False
-9       El camaron    False
-10       La sandia    False
-11       La muerte    False
-12      El cotorro    False
-13     El borracho    False
-14      La chalupa    False
-15         El arpa    False
-Carta Cantada: La bota
-¡Carta marcada!
-             Carta  Marcada
-0          La bota     True
-1          La dama    False
-2      La calavera    False
-3        La maceta    False
-4       El alacran    False
-5       La campana    False
-6         La palma    False
-7   El violoncello    False
-8        El catrin    False
-9       El camaron    False
-10       La sandia    False
-11       La muerte    False
-12      El cotorro    False
-13     El borracho    False
-14      La chalupa    False
-15         El arpa    False
+          Carta  Marcada
+0    El camaron    False
+1    El cotorro    False
+2      El melon    False
+3       La dama    False
+4   El diablito    False
+5      El gallo    False
+6     El pajaro    False
+7      La palma    False
+8     La corona    False
+9      El mundo    False
+10  El valiente    False
+11  La calavera    False
+12    La muerte    False
+13    La sandia    False
+14    El catrin    False
+15    La maceta    False
+Carta Cantada: La campana
+Esta carta no está en tu tabla.
+          Carta  Marcada
+0    El camaron    False
+1    El cotorro    False
+2      El melon    False
+3       La dama    False
+4   El diablito    False
+5      El gallo    False
+6     El pajaro    False
+7      La palma    False
+8     La corona    False
+9      El mundo    False
+10  El valiente    False
+11  La calavera    False
+12    La muerte    False
+13    La sandia    False
+14    El catrin    False
+15    La maceta    False
 Sigue jugando.
 </pre></div>
 </div>
@@ -855,12 +860,12 @@ Este ejercicio, utilizando statsmodels, demuestra cómo el álgebra lineal es es
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../II-Modelos-y-Metodos/05-Efectos-Fijos.html"
+       href="../IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Efectos Fijos</p>
+        <p class="prev-next-title">Cómo hacer Investigación de mercados con inteligencia artificial</p>
       </div>
     </a>
     <a class="right-next"

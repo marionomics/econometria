@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/II-Modelos-y-Metodos/05-Efectos-Fijos';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="../IV-Negocios/Lean-Startup.html" />
+    <link rel="next" title="El modelo Lean Startup: Negocios a prueba de recesiones" href="../IV-Negocios/Lean-Startup.html" />
     <link rel="prev" title="Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa" href="04-Series-de-Tiempo.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -168,6 +168,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Efectos Fijos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">El modelo Lean Startup: Negocios a prueba de recesiones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
 <ul class="nav bd-sidenav">
@@ -371,6 +376,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variacion-dentro-del-individuo">Variación dentro del individuo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-efecto-fijo-de-dos-vias">El efecto fijo de dos vías</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cunningham-s-2021-causal-inference-the-mixtape-huntington-klein-n-2022-the-effect-an-introduction-to-research-design-and-causality-facure-alves-m-2022-causal-inference-for-the-brave-and-true">Cunningham, S. (2021). <em>Causal Inference: The Mixtape</em>.
+Huntington-Klein, N. (2022). <em>The Effect: An Introduction to Research Design and Causality</em>.
+Facure Alves, M. (2022). <em>Causal Inference for the Brave and True</em>.</a></li>
 </ul>
             </nav>
         </div>
@@ -385,13 +393,12 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="efectos-fijos">
 <h1>Efectos Fijos<a class="headerlink" href="#efectos-fijos" title="Permalink to this heading">#</a></h1>
 <blockquote>
-<div><p>現実と言う鎖に
-僕達は繋がれて
-夢見ることさえも叶わずに
-それでも探し続けてる
-闇を照らす光を</p>
+<div><p>I’m a traveler of both time and space
+to be where I have been
+To sit with elders of a gentle race
+the world has seldom seen.</p>
 <ul class="simple">
-<li><p>COOL JOKE</p></li>
+<li><p>Led Zeppelin</p></li>
 </ul>
 </div></blockquote>
 <p>La regresión lineal es un modelo muy importante porque permite establecer controles en nuestros datos. El problema es que depende de un supuesto clave: inconfundibilidad condicional:</p>
@@ -992,9 +999,23 @@ Included effects: Entity, Time
 </section>
 <section id="referencias">
 <h2>Referencias<a class="headerlink" href="#referencias" title="Permalink to this heading">#</a></h2>
-<p>Cunningham, S. (2021). <em>Causal Inference: The Mixtape</em>.
+</section>
+<section id="cunningham-s-2021-causal-inference-the-mixtape-huntington-klein-n-2022-the-effect-an-introduction-to-research-design-and-causality-facure-alves-m-2022-causal-inference-for-the-brave-and-true">
+<h2>Cunningham, S. (2021). <em>Causal Inference: The Mixtape</em>.
 Huntington-Klein, N. (2022). <em>The Effect: An Introduction to Research Design and Causality</em>.
-Facure Alves, M. (2022). <em>Causal Inference for the Brave and True</em>.</p>
+Facure Alves, M. (2022). <em>Causal Inference for the Brave and True</em>.<a class="headerlink" href="#cunningham-s-2021-causal-inference-the-mixtape-huntington-klein-n-2022-the-effect-an-introduction-to-research-design-and-causality-facure-alves-m-2022-causal-inference-for-the-brave-and-true" title="Permalink to this heading">#</a></h2>
+<p>Espero que este libro te resulte útil.</p>
+<p>Si eres economista y deseas hacer crecer tu carrera, hice este curso gratis por correo que te puede dar el impulso que necesitas.</p>
+<p>En este curso aprenderás a</p>
+<ul class="simple">
+<li><p>Crear tus propias oportunidades de carrera</p></li>
+<li><p>Enfocar tu carrera</p></li>
+<li><p>Aplicar los datos duros, pero también las habilidades blandas</p></li>
+</ul>
+<p>Descargalo gratis aquí:</p>
+<p><a href="https://guiaeconomista.com" target="_blank">La Guía del Economista</a></p>
+<iframe src="https://guiaeconomista.com" width="600" height="400"></iframe>
+---<p><em>Elaborado en el ejercicio de año sabático UJED</em></p>
 </section>
 </section>
 
@@ -1043,7 +1064,7 @@ Facure Alves, M. (2022). <em>Causal Inference for the Brave and True</em>.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">El modelo Lean Startup: Negocios a prueba de recesiones</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1070,6 +1091,9 @@ Facure Alves, M. (2022). <em>Causal Inference for the Brave and True</em>.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variacion-dentro-del-individuo">Variación dentro del individuo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-efecto-fijo-de-dos-vias">El efecto fijo de dos vías</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cunningham-s-2021-causal-inference-the-mixtape-huntington-klein-n-2022-the-effect-an-introduction-to-research-design-and-causality-facure-alves-m-2022-causal-inference-for-the-brave-and-true">Cunningham, S. (2021). <em>Causal Inference: The Mixtape</em>.
+Huntington-Klein, N. (2022). <em>The Effect: An Introduction to Research Design and Causality</em>.
+Facure Alves, M. (2022). <em>Causal Inference for the Brave and True</em>.</a></li>
 </ul>
   </nav></div>
 
