@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="El modelo de resultados potenciales" href="02-El-modelo-de-resultados-potenciales.html" />
-    <link rel="prev" title="Inferencia Causal para los Negocios" href="../../intro.html" />
+    <link rel="prev" title="Inferencia Causal para Negocios" href="../../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -152,7 +152,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    Inferencia Causal para los Negocios
+                    Inferencia Causal para Negocios
                 </a>
             </li>
         </ul>
@@ -164,12 +164,17 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">II Modelos y Métodos</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/04-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/04-Experimentos-y-pruebas-AB.html">Experimentos y Pruebas A/B</a></li>
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/05-Efectos-Fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/06-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">El modelo Lean Startup: Negocios a prueba de recesiones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">La única forma de crear valor es iterando a partir de los datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
@@ -382,6 +387,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ya-sabes-usar-python-ahora-aprendamos-econometria">Ya sabes usar Python, ahora aprendamos econometría</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#es-momento-de-comenzar-con-las-matematicas">Es momento de comenzar con las matemáticas.</a></li>
 </ul>
             </nav>
         </div>
@@ -539,22 +545,22 @@ El gráfico de arriba se llama diagrama de rosa. El área azul representa las mu
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tabla del Jugador:
              Carta  Marcada
-0         La palma    False
-1        El catrin    False
-2       La campana    False
-3   El violoncello    False
-4       El alacran    False
-5       El camaron    False
-6         El melon    False
-7          La dama    False
-8        La corona    False
-9         El gallo    False
-10       El apache    False
-11      El gorrito    False
-12       La sandia    False
-13      La chalupa    False
-14       La maceta    False
-15     El diablito    False
+0         El mundo    False
+1        El barril    False
+2      El diablito    False
+3       El cotorro    False
+4        El apache    False
+5   El violoncello    False
+6       El gorrito    False
+7        La maceta    False
+8      El borracho    False
+9        La sandia    False
+10        El melon    False
+11         La dama    False
+12         El arpa    False
+13       La corona    False
+14       El catrin    False
+15       La muerte    False
 </pre></div>
 </div>
 </div>
@@ -578,7 +584,7 @@ El gráfico de arriba se llama diagrama de rosa. El área azul representa las mu
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Carta Cantada: El gallo
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Carta Cantada: La chalupa
 </pre></div>
 </div>
 </div>
@@ -605,24 +611,24 @@ El gráfico de arriba se llama diagrama de rosa. El área azul representa las mu
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>¡Carta marcada!
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Esta carta no está en tu tabla.
              Carta  Marcada
-0         La palma    False
-1        El catrin    False
-2       La campana    False
-3   El violoncello    False
-4       El alacran    False
-5       El camaron    False
-6         El melon    False
-7          La dama    False
-8        La corona    False
-9         El gallo     True
-10       El apache    False
-11      El gorrito    False
-12       La sandia    False
-13      La chalupa    False
-14       La maceta    False
-15     El diablito    False
+0         El mundo    False
+1        El barril    False
+2      El diablito    False
+3       El cotorro    False
+4        El apache    False
+5   El violoncello    False
+6       El gorrito    False
+7        La maceta    False
+8      El borracho    False
+9        La sandia    False
+10        El melon    False
+11         La dama    False
+12         El arpa    False
+13       La corona    False
+14       El catrin    False
+15       La muerte    False
 </pre></div>
 </div>
 </div>
@@ -672,8 +678,21 @@ El gráfico de arriba se llama diagrama de rosa. El área azul representa las mu
 <h2>Ya sabes usar Python, ahora aprendamos econometría<a class="headerlink" href="#ya-sabes-usar-python-ahora-aprendamos-econometria" title="Permalink to this heading">#</a></h2>
 <p>Lo más importante es practicar.</p>
 <p>No hay libro que te de la suficiente experiencia antes de comenzar a construir tus propios modelos. Necesitas empezar hoy mismo a modelar, a obtener datos y a jugar con ellos. Es a prueba y error que tu mente te hará un experto en econometría.</p>
-<p>Es momento de comenzar con las matemáticas.</p>
-<iframe src="https://metrics4business.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe><p><em>Elaborado en el ejercicio de Año Sabático autorizado en la UJED</em></p>
+</section>
+<section id="es-momento-de-comenzar-con-las-matematicas">
+<h2>Es momento de comenzar con las matemáticas.<a class="headerlink" href="#es-momento-de-comenzar-con-las-matematicas" title="Permalink to this heading">#</a></h2>
+<p>Espero que este libro te resulte útil.</p>
+<p>Si eres economista y deseas hacer crecer tu carrera, hice este curso gratis por correo que te puede dar el impulso que necesitas.</p>
+<p>En este curso aprenderás a</p>
+<ul class="simple">
+<li><p>Crear tus propias oportunidades de carrera</p></li>
+<li><p>Enfocar tu carrera</p></li>
+<li><p>Aplicar los datos duros, pero también las habilidades blandas</p></li>
+</ul>
+<p>Descargalo gratis aquí:</p>
+<p><a href="https://guiaeconomista.com" target="_blank">La Guía del Economista</a></p>
+<iframe src="https://guiaeconomista.com" width="600" height="400"></iframe>
+---<p><em>Elaborado en el ejercicio de Año Sabático autorizado en la UJED</em></p>
 </section>
 </section>
 
@@ -714,7 +733,7 @@ El gráfico de arriba se llama diagrama de rosa. El área azul representa las mu
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Inferencia Causal para los Negocios</p>
+        <p class="prev-next-title">Inferencia Causal para Negocios</p>
       </div>
     </a>
     <a class="right-next"
@@ -757,6 +776,7 @@ El gráfico de arriba se llama diagrama de rosa. El área azul representa las mu
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ya-sabes-usar-python-ahora-aprendamos-econometria">Ya sabes usar Python, ahora aprendamos econometría</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#es-momento-de-comenzar-con-las-matematicas">Es momento de comenzar con las matemáticas.</a></li>
 </ul>
   </nav></div>
 

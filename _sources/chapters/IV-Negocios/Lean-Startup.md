@@ -1,6 +1,9 @@
-# El modelo Lean Startup: Negocios a prueba de recesiones
+# La única forma de crear valor es iterando a partir de los datos
 
-> Si sólo haces lo que ya sabes hacer, no vas a llegar a ser más de lo que eres hoy.
+> Po: You set me up to fail? Why? 
+> Shifu: If you only do what you can do you’ll never be more than you are now 
+> Po: But I don’t wanna be more! I like who I am! 
+> Shifu: You don’t even know who you are
 - Maestro Shifu. Kung Fu Panda 3.
 > 
 
@@ -152,6 +155,11 @@ Así se vería en nuestro emprendimiento de helados.
 - **Paso #4: Analiza tus métricas.** Digamos que para probar nuestra hipótesis, vamos a un evento de navidad y ponemos un stand donde vendemos el producto que estamos probando. Para hacer nuestro estudio más robusto, podemos poner otro stand con nuestra oferta regular. De esta manera podremos comprobar la diferencia en las ventas.
 - **Paso #5: Toma acción.** Si las ventas en el stand con el producto nuevo son más altas que en el stand regular, significa que realmente hay interés en el producto novedoso.
 
+Los libros tienen un problema: estas líneas las estás leyendo de forma lineal.
+
+Da la impresión de que lo que te estoy diciendo es lineal, pero en realidad es cíclico. Vas a tomar acción y formular hipótesis de forma contínua. Si haces esto sin parar, estás reduciendo riesgos de negocio y mejorando tus métricas de negocio.
+
+Te lo aseguro.
 
 ## Referencias
 

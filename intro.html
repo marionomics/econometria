@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Inferencia Causal para los Negocios &#8212; Inferencia Causal para Negocios</title>
+    <title>Inferencia Causal para Negocios &#8212; Inferencia Causal para Negocios</title>
   
   
   
@@ -151,7 +151,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Inferencia Causal para los Negocios
+                    Inferencia Causal para Negocios
                 </a>
             </li>
         </ul>
@@ -163,13 +163,17 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">II Modelos y Métodos</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chapters/II-Modelos-y-Metodos/03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/II-Modelos-y-Metodos/04-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/II-Modelos-y-Metodos/04-Experimentos-y-pruebas-AB.html">Experimentos y Pruebas A/B</a></li>
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="chapters/II-Modelos-y-Metodos/05-Efectos-Fijos.html">Efectos Fijos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/II-Modelos-y-Metodos/06-Diferencias-en-Diferencias.html">Diferencias en Diferencias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/II-Modelos-y-Metodos/06-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chapters/IV-Negocios/Lean-Startup.html">El modelo Lean Startup: Negocios a prueba de recesiones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/IV-Negocios/Lean-Startup.html">La única forma de crear valor es iterando a partir de los datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
@@ -359,7 +363,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Inferencia Causal para los Negocios</h1>
+    <h1>Inferencia Causal para Negocios</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -369,10 +373,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-econometria-es-la-ciencia-de-datos-original">La econometría es la ciencia de datos original</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-4-business">Metrics 4 Business</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-recurso-gratuito-para-aprender-econometria">Un recurso gratuito para aprender econometría</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#econometrician"></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-guia-practica-con-python">Una guía práctica con python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cometi-dos-errores-grandes-con-ese-negocio">Cometí dos errores grandes con ese negocio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usar-datos-en-los-negocios-significa-tener-la-humildad-de-aceptar-que-no-lo-sabemos-todo">Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#este-libro-esta-disenado-para-un-mundo-donde-la-inteligencia-artificial-puede-hacer-analisis-de-datos">Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-citar-este-libro">Como citar este libro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
 </ul>
             </nav>
         </div>
@@ -384,46 +392,72 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="inferencia-causal-para-los-negocios">
-<h1>Inferencia Causal para los Negocios<a class="headerlink" href="#inferencia-causal-para-los-negocios" title="Permalink to this heading">#</a></h1>
-<p>Los economistas están entre los profesionistas en los que menos confían las personas.</p>
-<p>En 2019, una <a class="reference external" href="https://www.ft.com/content/52458788-fcc0-11e9-98fd-4d6c20050229">encuesta en el Reino Unido</a> reveló que el disgusto por los analistas económicos no era una ilusión. No es sorpresa entonces que a pesar de las advertencias en contra de la salida del país de la Unión Europea (llamado Brexit), la gente haya salido a votar y “Salir” haya ganado.</p>
-<p>Nadie confía en los economistas porque <strong>los charlatanes son más ruidosos que quienes hacemos de la economía una ciencia</strong>.</p>
-<p>Porque hacer ciencia requiere de trabajo duro, de rigurosidad y de entender los datos. Y en la era de las redes sociales, los algoritmos se aseguran de servirte la información que confirma nuestros sesgos, sin importar si es verdad. Nadie tiene el tiempo de revisar los datos.</p>
-<p><strong>Sólo los valientes se atreven a hacer econometría.</strong></p>
-<p>Trabajar con datos sociales y usar métodos de inferencia causal significa que te has dispuesto a encontrar que la realidad podría ser diferente a lo que te imaginas. Porque cuando hacemos trabajo empírico nos podemos encontrar que las redes sociales usan la viralidad para <a class="reference external" href="https://www.marionomics.com/el-truco-de-tiktok-para-hackear-tu-atencion/">motivarnos a crear contenido</a>, que una migración en temprana edad puede hacer que las personas <a class="reference external" href="https://www.marionomics.com/los-beneficios-economicos-de-que-un-volcan-te-destruya-la-casa/">tengan mejores ingresos</a> o que durante las recesiones solemos escuchar <a class="reference external" href="https://www.marionomics.com/las-canciones-alegres-de-la-recesion/">canciones más alegres</a> para ayudarnos a mejorar el ánimo.</p>
-<section id="la-econometria-es-la-ciencia-de-datos-original">
-<h2>La econometría es la ciencia de datos original<a class="headerlink" href="#la-econometria-es-la-ciencia-de-datos-original" title="Permalink to this heading">#</a></h2>
-<p>En 2014, el Harvard Business Review catalogó a la ciencia de datos como <a class="reference external" href="https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century">la carrera más sexy del siglo XXI</a>.</p>
-<p>Desde entonces el hambre de profesionales capaces de transformar datos en valor para los negocios no ha cedido. Por el contrario, se han creado muchas ramas específicas para el Business Analytics, Machine Learning y la Inteligencia Artificial. Todos los días aparecen nuevas formas de crear valor a partir de los datos.</p>
-<p>La econometría es la ciencia de datos original.</p>
-<p>Con tantas opciones para hacer ciencia de datos es fácil sentir confusión. Hace diez años, hacer código era una de las ventajas más grandes que alguien tenía si quería entrar a un puesto como científico de datos. Hoy el código lo puede crear la inteligencia artificial.</p>
-<p>El verdadero poder detrás de los datos es entender la inferencia causal.</p>
-<p>De eso se trata este libro. Sí veremos código y sí hay matemáticas detrás. Pero lo que quiero es que entiendas la filosofía detrás de la inferencia causal. Son principios que no cambiarán por mucho que avance la inteligencia artificial y que te harán un gran economista, desde el punto en que te encuentres.</p>
-<p>Todos los capítulos de este libro están estructurados con historias y ejemplos. Disfruta las historias y reproduce los ejemplos por tu cuenta para mejorar tu aprendizaje. Usa este libro todos los días y te convertirás rápidamente en un economista senior.</p>
-</section>
-<section id="metrics-4-business">
-<h2>Metrics 4 Business<a class="headerlink" href="#metrics-4-business" title="Permalink to this heading">#</a></h2>
-<p>La econometría es el arte de crear modelos que nos ayudan a llegar a la verdad.</p>
-<p>Las preguntas más importantes de las ciencias sociales se solucionan con econometría. Si quieres aprender sobre desigualdad, comercio internacional o finanzas, necesitas la econometría para resolver las preguntas interesantes.</p>
-<p>Las econometría es el arma secreta de las empresas más importantes de tecnología en el mundo.</p>
-<p>Metrics 4 Business es un juego de palabras. Metrics es el apodo de cariño que tiene la econometría (econoMETRICS), pero también se traduce como Métricas cuando se habla de datos dirigidos a hacer crecer una empresa.</p>
-</section>
-<section id="un-recurso-gratuito-para-aprender-econometria">
-<h2>Un recurso gratuito para aprender econometría<a class="headerlink" href="#un-recurso-gratuito-para-aprender-econometria" title="Permalink to this heading">#</a></h2>
-<p>Este libro es totalmente gratuito y completamente en línea.</p>
-<p>A tu lado izquierdo están los capítulos del libro. De tu lado derecho puedes encontrar las secciones del capítulo que tienes abierto. Disfruta del recurso y aprende lo más que puedas.</p>
-<p>¿Por qué estoy dando este libro gratis?</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="inferencia-causal-para-negocios">
+<h1>Inferencia Causal para Negocios<a class="headerlink" href="#inferencia-causal-para-negocios" title="Permalink to this heading">#</a></h1>
+<section id="una-guia-practica-con-python">
+<h2>Una guía práctica con python<a class="headerlink" href="#una-guia-practica-con-python" title="Permalink to this heading">#</a></h2>
+<p><img alt="Book Cover Mockup" src="_images/book-mockup.png" /></p>
+<blockquote>
+<div><p>Sólo se aprende metiendo la pata.
+¡Tanto laburo y tan poca plata!
+Que hay gente que nunca va a entender por qué.
+<em>- Kilómetros, de Los Caligaris</em></p>
+</div></blockquote>
+<p>Los negocios son matemáticas.</p>
+<p>Cuando salí de la universidad, tenía un solo objetivo: convertirme en empresario. Había emprendido de muchas formas durante la carrera, pero estaba listo para las grandes ligas (según yo).</p>
+<p>El año era 2009: justo en medio de la gran recesión.</p>
+<p>La gran recesión afectó en los ingresos de mi generación de una manera brutal (Rothstein, 2020). Quienes salimos al mundo laboral ese año nos encontramos un escenario post-apocalíptico sin opciones de trabajo y con negocios cerrando por doquier.</p>
+<p>Y fue en los negocios que cerraban donde vi oportunidad (no hagas esto en casa).</p>
+<p>Mi café favorito estaba en venta. Era un café en el centro histórico, con una clientela ya lista y operando al 100%. Era la oportunidad perfecta para poner en práctica todo lo que había aprendido los últimos 4 años en la universidad (según yo).</p>
+<p>El único problema era que no tenía dinero.</p>
+<p>Decidí juntar 10 amigos, hacerlos socios y comprar el negocio. Venía junto con una renta mensual de 11 mil pesos y un barista un poco antipático, con buenas intenciones y mucha habilidad. Hice modificaciones mínimas y abrimos al público ese mismo mes. Jamás olvidaré la sensación de abrir un negocio y comenzar a recibir clientes ese mismo día.</p>
+<p>Para noviembre de ese mismo año, acabé con una neumonía que casi me mata y el negocio quebrado.</p>
+<section id="cometi-dos-errores-grandes-con-ese-negocio">
+<h3>Cometí dos errores grandes con ese negocio<a class="headerlink" href="#cometi-dos-errores-grandes-con-ese-negocio" title="Permalink to this heading">#</a></h3>
+<p>Si no hubiera cometido estos errores, habría tenido un negocio exitoso en lugar del rotundo fracaso que viví.</p>
 <ul class="simple">
-<li><p>Yo mismo aprendí mucho con recursos gratuitos que personas generosas subieron a internet. Me gusta el concepto de <em>pay forward</em>.</p></li>
-<li><p>Este libro está hecho en el ejercicio del año sabático de la Universidad Juárez del Estado de Durango.</p></li>
+<li><p><strong>El primer error fue no haberme ensuciado las manos lo suficiente</strong>. Pensaba que mis conocimientos de administración eran suficientes para manejar cualquier situación. Si volviera al pasado, habría dedicado más tiempo a aprender a hacer todo en la operación del negocio.</p></li>
+<li><p><strong>Mi segundo error fue seguir demasiado mi intuición y muy poco a lo que decían los datos.</strong> También fue por arrogancia. Saliendo de la universidad sentía que ya lo sabía todo y que todos los demás estaban equivocados.</p></li>
 </ul>
-<p>Si deseas conocer más, te invito a que te suscribas a mi página. Te llegará un newletter con diferentes historias y curiosidades de la economía.</p>
-<iframe src="https://metrics4business.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
-<p>Tu suscripción me motiva a seguir creando más.</p>
+<p>Nunca más.</p>
 </section>
-<section id="econometrician">
-<h2><img alt="Econometrician" src="_images/econometrician.png" /><a class="headerlink" href="#econometrician" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="usar-datos-en-los-negocios-significa-tener-la-humildad-de-aceptar-que-no-lo-sabemos-todo">
+<h2>Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo<a class="headerlink" href="#usar-datos-en-los-negocios-significa-tener-la-humildad-de-aceptar-que-no-lo-sabemos-todo" title="Permalink to this heading">#</a></h2>
+<p>No estaba loco, simplemente no entendí los números.</p>
+<p>Para convencer a 10 amigos a que invirtieran conmigo usé gráficas del ciclo económico. Les expliqué que estábamos seguramente ya en el punto más bajo y que la economía no tenía más opción que subir. Los datos históricos me respaldaban, pero esta no era una recesión normal.</p>
+<p>Si hubiera sido más cuidadoso al revisar los datos, probablemente no habría tomado un riesgo tan alocado.</p>
+</section>
+<section id="este-libro-esta-disenado-para-un-mundo-donde-la-inteligencia-artificial-puede-hacer-analisis-de-datos">
+<h2>Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos<a class="headerlink" href="#este-libro-esta-disenado-para-un-mundo-donde-la-inteligencia-artificial-puede-hacer-analisis-de-datos" title="Permalink to this heading">#</a></h2>
+<p>La primera sección se enfoca en el <em>mindset</em> de la inferencia causal.</p>
+<p>Hoy en día ya es posible subir una base de datos a chatGPT y pedirle que limpie y prepare los datos para hacer análisis. Luego le puedes pedir que haga una regresión lineal y que te de su interpretación de los resultados. Finalmente, le puedes pedir que haga las pruebas de hipótesis más comunes.</p>
+<p>Pero aún con todo eso, la IA no puede determinar si los efectos son causales o no. Eso sólo lo vas a poder hacer tú, y en este libro aprenderás cómo.</p>
+<p>La segunda sección tiene elementos de negocios indispensables para generar crecimiento basado en datos.</p>
+<p>El análisis de datos hoy en día es un elemento integral de los negocios. No se trata de un accesorio adicional: los datos son tu negocio. Cada paso que damos en negocios, lo debemos hacer tomando la evidencia como un elemento central.</p>
+<p>En la última sección veremos los modelos más avanzados. Por que al inicio estaremos intentando hacer experimentos, pero cuando no es posible hacer uno, nos aprovecharemos de los experimentos naturales.</p>
+<p><em><strong>It’s the economist way.</strong></em></p>
+</section>
+<section id="como-citar-este-libro">
+<h2>Como citar este libro<a class="headerlink" href="#como-citar-este-libro" title="Permalink to this heading">#</a></h2>
+<p>Cita en APA (7a edición)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">García</span> <span class="n">Meza</span><span class="p">,</span> <span class="n">M</span><span class="o">.</span> <span class="n">A</span><span class="o">.</span> <span class="p">(</span><span class="mi">2024</span><span class="p">)</span><span class="o">.</span> <span class="o">*</span><span class="n">Inferencia</span> <span class="n">causal</span> <span class="n">para</span> <span class="n">negocios</span><span class="p">:</span> <span class="n">Una</span> <span class="n">guía</span> <span class="n">práctica</span> <span class="n">con</span> <span class="n">Python</span><span class="o">*.</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">inferenciacausal</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>Cita en MLA (9a edición)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">García</span> <span class="n">Meza</span><span class="p">,</span> <span class="n">Mario</span> <span class="n">A</span><span class="o">.</span> <span class="o">*</span><span class="n">Inferencia</span> <span class="n">Causal</span> <span class="n">para</span> <span class="n">Negocios</span><span class="p">:</span> <span class="n">Una</span> <span class="n">Guía</span> <span class="n">Práctica</span> <span class="n">con</span> <span class="n">Python</span><span class="o">*.</span> <span class="n">Durango</span><span class="p">,</span> <span class="n">México</span><span class="p">,</span> <span class="mf">2024.</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">inferenciacausal</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Cita en Chicago</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">García</span> <span class="n">Meza</span><span class="p">,</span> <span class="n">Mario</span> <span class="n">A</span><span class="o">.</span> <span class="n">I</span><span class="o">*</span><span class="n">nferencia</span> <span class="n">Causal</span> <span class="n">para</span> <span class="n">Negocios</span><span class="p">:</span> <span class="n">Una</span> <span class="n">Guía</span> <span class="n">Práctica</span> <span class="n">con</span> <span class="n">Python</span><span class="o">*.</span> <span class="n">Durango</span><span class="p">,</span> <span class="n">México</span><span class="p">,</span> <span class="mf">2024.</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">inferenciacausal</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+</pre></div>
+</div>
+<div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="inferenciacausal.com" data-background-color="#ffffff" data-text-color="#000000" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="Escribe tu primer paper de Economía" data-description="Todos los meses recibe un tutorial de econometría, un análisis de un artículo y una guía" data-icon="https://marionomics.com/content/images/size/w192h192/size/w256h256/2024/08/2.svg" data-site="https://marionomics.com/" data-locale="es" async></script></div>
+</section>
+<section id="referencias">
+<h2>Referencias<a class="headerlink" href="#referencias" title="Permalink to this heading">#</a></h2>
+<p>Campos-Vazquez, R. M., Esquivel, G., Ghosh, P., &amp; Medina-Cortina, E. (2023). Long-lasting effects of a depressed labor market: Evidence from Mexico after the great recession. Labour Economics, 81, 102332. <a class="reference external" href="https://doi.org/10.1016/j.labeco.2023.102332">https://doi.org/10.1016/j.labeco.2023.102332</a></p>
+<p>Rothstein, J. (2020). <strong>The Lost Generation? Labor Market Outcomes for Post Great Recession Entrants. NBER Papers. DOI:  10.3386/w27516</strong></p>
 <p><em>Elaborado en el ejercicio de Año Sabático autorizado en la UJED</em></p>
 </section>
 <div class="toctree-wrapper compound">
@@ -494,10 +528,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-econometria-es-la-ciencia-de-datos-original">La econometría es la ciencia de datos original</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-4-business">Metrics 4 Business</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-recurso-gratuito-para-aprender-econometria">Un recurso gratuito para aprender econometría</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#econometrician"></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-guia-practica-con-python">Una guía práctica con python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cometi-dos-errores-grandes-con-ese-negocio">Cometí dos errores grandes con ese negocio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usar-datos-en-los-negocios-significa-tener-la-humildad-de-aceptar-que-no-lo-sabemos-todo">Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#este-libro-esta-disenado-para-un-mundo-donde-la-inteligencia-artificial-puede-hacer-analisis-de-datos">Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-citar-este-libro">Como citar este libro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
 </ul>
   </nav></div>
 

@@ -1,61 +1,94 @@
-# Inferencia Causal para los Negocios
+# Inferencia Causal para Negocios
+## Una guía práctica con python
 
-Los economistas están entre los profesionistas en los que menos confían las personas.
+![Book Cover Mockup](./figures/book-mockup.png)
 
-En 2019, una [encuesta en el Reino Unido](https://www.ft.com/content/52458788-fcc0-11e9-98fd-4d6c20050229) reveló que el disgusto por los analistas económicos no era una ilusión. No es sorpresa entonces que a pesar de las advertencias en contra de la salida del país de la Unión Europea (llamado Brexit), la gente haya salido a votar y “Salir” haya ganado.
+> Sólo se aprende metiendo la pata.
+> ¡Tanto laburo y tan poca plata!
+> Que hay gente que nunca va a entender por qué.
+*- Kilómetros, de Los Caligaris*
+> 
 
-Nadie confía en los economistas porque **los charlatanes son más ruidosos que quienes hacemos de la economía una ciencia**.
+Los negocios son matemáticas.
 
-Porque hacer ciencia requiere de trabajo duro, de rigurosidad y de entender los datos. Y en la era de las redes sociales, los algoritmos se aseguran de servirte la información que confirma nuestros sesgos, sin importar si es verdad. Nadie tiene el tiempo de revisar los datos.
+Cuando salí de la universidad, tenía un solo objetivo: convertirme en empresario. Había emprendido de muchas formas durante la carrera, pero estaba listo para las grandes ligas (según yo).
 
-**Sólo los valientes se atreven a hacer econometría.**
+El año era 2009: justo en medio de la gran recesión.
 
-Trabajar con datos sociales y usar métodos de inferencia causal significa que te has dispuesto a encontrar que la realidad podría ser diferente a lo que te imaginas. Porque cuando hacemos trabajo empírico nos podemos encontrar que las redes sociales usan la viralidad para [motivarnos a crear contenido](https://www.marionomics.com/el-truco-de-tiktok-para-hackear-tu-atencion/), que una migración en temprana edad puede hacer que las personas [tengan mejores ingresos](https://www.marionomics.com/los-beneficios-economicos-de-que-un-volcan-te-destruya-la-casa/) o que durante las recesiones solemos escuchar [canciones más alegres](https://www.marionomics.com/las-canciones-alegres-de-la-recesion/) para ayudarnos a mejorar el ánimo.
+La gran recesión afectó en los ingresos de mi generación de una manera brutal (Rothstein, 2020). Quienes salimos al mundo laboral ese año nos encontramos un escenario post-apocalíptico sin opciones de trabajo y con negocios cerrando por doquier.
 
-## La econometría es la ciencia de datos original
+Y fue en los negocios que cerraban donde vi oportunidad (no hagas esto en casa).
 
-En 2014, el Harvard Business Review catalogó a la ciencia de datos como [la carrera más sexy del siglo XXI](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century).
+Mi café favorito estaba en venta. Era un café en el centro histórico, con una clientela ya lista y operando al 100%. Era la oportunidad perfecta para poner en práctica todo lo que había aprendido los últimos 4 años en la universidad (según yo).
 
-Desde entonces el hambre de profesionales capaces de transformar datos en valor para los negocios no ha cedido. Por el contrario, se han creado muchas ramas específicas para el Business Analytics, Machine Learning y la Inteligencia Artificial. Todos los días aparecen nuevas formas de crear valor a partir de los datos.
+El único problema era que no tenía dinero.
 
-La econometría es la ciencia de datos original.
+Decidí juntar 10 amigos, hacerlos socios y comprar el negocio. Venía junto con una renta mensual de 11 mil pesos y un barista un poco antipático, con buenas intenciones y mucha habilidad. Hice modificaciones mínimas y abrimos al público ese mismo mes. Jamás olvidaré la sensación de abrir un negocio y comenzar a recibir clientes ese mismo día.
 
-Con tantas opciones para hacer ciencia de datos es fácil sentir confusión. Hace diez años, hacer código era una de las ventajas más grandes que alguien tenía si quería entrar a un puesto como científico de datos. Hoy el código lo puede crear la inteligencia artificial.
+Para noviembre de ese mismo año, acabé con una neumonía que casi me mata y el negocio quebrado.
 
-El verdadero poder detrás de los datos es entender la inferencia causal.
+### Cometí dos errores grandes con ese negocio
 
-De eso se trata este libro. Sí veremos código y sí hay matemáticas detrás. Pero lo que quiero es que entiendas la filosofía detrás de la inferencia causal. Son principios que no cambiarán por mucho que avance la inteligencia artificial y que te harán un gran economista, desde el punto en que te encuentres.
+Si no hubiera cometido estos errores, habría tenido un negocio exitoso en lugar del rotundo fracaso que viví.
 
-Todos los capítulos de este libro están estructurados con historias y ejemplos. Disfruta las historias y reproduce los ejemplos por tu cuenta para mejorar tu aprendizaje. Usa este libro todos los días y te convertirás rápidamente en un economista senior.
+- **El primer error fue no haberme ensuciado las manos lo suficiente**. Pensaba que mis conocimientos de administración eran suficientes para manejar cualquier situación. Si volviera al pasado, habría dedicado más tiempo a aprender a hacer todo en la operación del negocio.
+- **Mi segundo error fue seguir demasiado mi intuición y muy poco a lo que decían los datos.** También fue por arrogancia. Saliendo de la universidad sentía que ya lo sabía todo y que todos los demás estaban equivocados.
 
-## Metrics 4 Business
+Nunca más.
 
-La econometría es el arte de crear modelos que nos ayudan a llegar a la verdad.
+## Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo
 
-Las preguntas más importantes de las ciencias sociales se solucionan con econometría. Si quieres aprender sobre desigualdad, comercio internacional o finanzas, necesitas la econometría para resolver las preguntas interesantes.
+No estaba loco, simplemente no entendí los números.
 
-Las econometría es el arma secreta de las empresas más importantes de tecnología en el mundo.
+Para convencer a 10 amigos a que invirtieran conmigo usé gráficas del ciclo económico. Les expliqué que estábamos seguramente ya en el punto más bajo y que la economía no tenía más opción que subir. Los datos históricos me respaldaban, pero esta no era una recesión normal.
 
-Metrics 4 Business es un juego de palabras. Metrics es el apodo de cariño que tiene la econometría (econoMETRICS), pero también se traduce como Métricas cuando se habla de datos dirigidos a hacer crecer una empresa. 
+Si hubiera sido más cuidadoso al revisar los datos, probablemente no habría tomado un riesgo tan alocado.
 
-## Un recurso gratuito para aprender econometría
+## Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos
 
-Este libro es totalmente gratuito y completamente en línea.
+La primera sección se enfoca en el *mindset* de la inferencia causal.
 
-A tu lado izquierdo están los capítulos del libro. De tu lado derecho puedes encontrar las secciones del capítulo que tienes abierto. Disfruta del recurso y aprende lo más que puedas.
+Hoy en día ya es posible subir una base de datos a chatGPT y pedirle que limpie y prepare los datos para hacer análisis. Luego le puedes pedir que haga una regresión lineal y que te de su interpretación de los resultados. Finalmente, le puedes pedir que haga las pruebas de hipótesis más comunes.
 
-¿Por qué estoy dando este libro gratis?
+Pero aún con todo eso, la IA no puede determinar si los efectos son causales o no. Eso sólo lo vas a poder hacer tú, y en este libro aprenderás cómo.
 
-- Yo mismo aprendí mucho con recursos gratuitos que personas generosas subieron a internet. Me gusta el concepto de *pay forward*.
-- Este libro está hecho en el ejercicio del año sabático de la Universidad Juárez del Estado de Durango.
+La segunda sección tiene elementos de negocios indispensables para generar crecimiento basado en datos.
 
-Si deseas conocer más, te invito a que te suscribas a mi página. Te llegará un newletter con diferentes historias y curiosidades de la economía.
+El análisis de datos hoy en día es un elemento integral de los negocios. No se trata de un accesorio adicional: los datos son tu negocio. Cada paso que damos en negocios, lo debemos hacer tomando la evidencia como un elemento central.
 
-<iframe src="https://metrics4business.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+En la última sección veremos los modelos más avanzados. Por que al inicio estaremos intentando hacer experimentos, pero cuando no es posible hacer uno, nos aprovecharemos de los experimentos naturales.
 
-Tu suscripción me motiva a seguir creando más.
+***It’s the economist way.***
 
-![Econometrician](../../econometria/econometria/figures/econometrician.png)
----
+## Como citar este libro
+
+Cita en APA (7a edición)
+
+```
+García Meza, M. A. (2024). *Inferencia causal para negocios: Una guía práctica con Python*. https://inferenciacausal.com
+```
+
+Cita en MLA (9a edición)
+
+```
+García Meza, Mario A. *Inferencia Causal para Negocios: Una Guía Práctica con Python*. Durango, México, 2024. https://inferenciacausal.com.
+```
+
+Cita en Chicago
+
+```
+García Meza, Mario A. I*nferencia Causal para Negocios: Una Guía Práctica con Python*. Durango, México, 2024. https://inferenciacausal.com.
+```
+
+
+<div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="inferenciacausal.com" data-background-color="#ffffff" data-text-color="#000000" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="Escribe tu primer paper de Economía" data-description="Todos los meses recibe un tutorial de econometría, un análisis de un artículo y una guía" data-icon="https://marionomics.com/content/images/size/w192h192/size/w256h256/2024/08/2.svg" data-site="https://marionomics.com/" data-locale="es" async></script></div>
+
+
+## Referencias
+
+Campos-Vazquez, R. M., Esquivel, G., Ghosh, P., & Medina-Cortina, E. (2023). Long-lasting effects of a depressed labor market: Evidence from Mexico after the great recession. Labour Economics, 81, 102332. https://doi.org/10.1016/j.labeco.2023.102332
+
+Rothstein, J. (2020). **The Lost Generation? Labor Market Outcomes for Post Great Recession Entrants. NBER Papers. DOI:  10.3386/w27516**
+
 
 _Elaborado en el ejercicio de Año Sabático autorizado en la UJED_

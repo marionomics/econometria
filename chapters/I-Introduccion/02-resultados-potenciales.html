@@ -152,7 +152,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    Inferencia Causal para los Negocios
+                    Inferencia Causal para Negocios
                 </a>
             </li>
         </ul>
@@ -164,12 +164,17 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">II Modelos y Métodos</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/04-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/04-Experimentos-y-pruebas-AB.html">Experimentos y Pruebas A/B</a></li>
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/05-Efectos-Fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/06-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">El modelo Lean Startup: Negocios a prueba de recesiones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">La única forma de crear valor es iterando a partir de los datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
@@ -623,7 +628,19 @@ Y_B^0 =9
 <li><p><strong>Efecto del Tratamiento en el Modelo de Resultados Potenciales</strong>: El efecto del tratamiento en este modelo se refiere a la diferencia en el resultado que un tratamiento causa en una unidad experimental. Se calcula comparando el resultado observado de las unidades que recibieron el tratamiento con el resultado que habrían tenido si no lo hubieran recibido. Esto se representa como <span class="math notranslate nohighlight">\(\delta_i = Y_{i}^1 - Y_{i}^0\)</span>, donde <span class="math notranslate nohighlight">\(Y_{i}^1\)</span> es el resultado observado con tratamiento y <span class="math notranslate nohighlight">\(Y_{i}^0\)</span> es el resultado contrafactual sin tratamiento. Sin embargo, como no podemos observar ambos estados simultáneamente en la misma unidad, se utilizan métodos estadísticos para estimar el efecto del tratamiento.</p></li>
 <li><p><strong>Inferencia Causal a partir de Datos Observacionales</strong>: El modelo de resultados potenciales permite obtener inferencia causal a partir de datos observacionales al conceptualizar cada posible estado de una unidad experimental (con y sin tratamiento) y comparar estos estados entre diferentes unidades. A través de técnicas como el emparejamiento por puntaje de propensión (propensity score matching), regresiones ajustadas y otros métodos estadísticos, se intenta controlar las variables confusoras y aproximar las condiciones de un experimento aleatorizado. Esto ayuda a estimar el efecto causal del tratamiento en presencia de datos observacionales, donde la asignación aleatoria del tratamiento no es posible.</p></li>
 </ol>
-<div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="metrics4business" data-background-color="#154957" data-text-color="#FFFFFF" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="marionomics: Economía" data-description="🍎Economía con Manzanitas🍏" data-icon="https://www.marionomics.com/content/images/size/w192h192/size/w256h256/2022/08/Logo-Marionomics-3.png" data-site="https://www.marionomics.com/" data-locale="es" async></script></div></section>
+<p>Espero que este libro te resulte útil.</p>
+<p>Si eres economista y deseas hacer crecer tu carrera, hice este curso gratis por correo que te puede dar el impulso que necesitas.</p>
+<p>En este curso aprenderás a</p>
+<ul class="simple">
+<li><p>Crear tus propias oportunidades de carrera</p></li>
+<li><p>Enfocar tu carrera</p></li>
+<li><p>Aplicar los datos duros, pero también las habilidades blandas</p></li>
+</ul>
+<p>Descargalo gratis aquí:</p>
+<p><a href="https://guiaeconomista.com" target="_blank">La Guía del Economista</a></p>
+<iframe src="https://guiaeconomista.com" width="600" height="400"></iframe>
+---<p><em>Elaborado en el ejercicio del año sabático UJED</em></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">

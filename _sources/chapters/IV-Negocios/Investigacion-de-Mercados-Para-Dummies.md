@@ -167,3 +167,8 @@ General Mills. (1950s). *Marketing research on cake mix*.
 Dichter, E. (1950s). *Focus group studies on cake mix for General Mills*.
 
 Harina. (2022, March 10). *A veces no hacer nada es hacerlo todo*. En *Harina* (temporada 1, episodio 5). Amazon Prime Video.
+
+
+<div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="inferenciacausal.com" data-background-color="#ffffff" data-text-color="#000000" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="Escribe tu primer paper de Economía" data-description="Todos los meses recibe un tutorial de econometría, un análisis de un artículo y una guía" data-icon="https://marionomics.com/content/images/size/w192h192/size/w256h256/2024/08/2.svg" data-site="https://marionomics.com/" data-locale="es" async></script></div>
+
+_Elaborado en el ejercicio de año sabático UJED_

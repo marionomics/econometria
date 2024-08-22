@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/II-Modelos-y-Metodos/03-Regresion-Lineal';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa" href="04-Series-de-Tiempo.html" />
+    <link rel="next" title="Experimentos y Pruebas A/B" href="04-Experimentos-y-pruebas-AB.html" />
     <link rel="prev" title="El modelo de resultados potenciales" href="../I-Introduccion/02-El-modelo-de-resultados-potenciales.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -154,7 +154,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    Inferencia Causal para los Negocios
+                    Inferencia Causal para Negocios
                 </a>
             </li>
         </ul>
@@ -166,12 +166,17 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">II Modelos y Métodos</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-Experimentos-y-pruebas-AB.html">Experimentos y Pruebas A/B</a></li>
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="05-Efectos-Fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">El modelo Lean Startup: Negocios a prueba de recesiones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Lean-Startup.html">La única forma de crear valor es iterando a partir de los datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/Investigacion-de-Mercados-Para-Dummies.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Recursos</span></p>
@@ -402,7 +407,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suscribete-al-newletter">Suscríbete al newletter</a></li>
 </ul>
             </nav>
         </div>
@@ -1355,11 +1359,20 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
 <li><p><strong>Normalidad de los Residuos</strong>: En muchos casos, se asume que los residuos siguen una distribución normal, especialmente importante para pequeñas muestras. Se pueden usar pruebas como la de Shapiro-Wilk para verificar esto.</p></li>
 <li><p><strong>Ausencia de Multicolinealidad</strong>: Se debe asegurar que las variables independientes no estén altamente correlacionadas entre sí. Esto se puede probar con el factor de inflación de la varianza (VIF).</p></li>
 </ol>
+<p>Espero que este libro te resulte útil.</p>
+<p>Si eres economista y deseas hacer crecer tu carrera, hice este curso gratis por correo que te puede dar el impulso que necesitas.</p>
+<p>En este curso aprenderás a</p>
+<ul class="simple">
+<li><p>Crear tus propias oportunidades de carrera</p></li>
+<li><p>Enfocar tu carrera</p></li>
+<li><p>Aplicar los datos duros, pero también las habilidades blandas</p></li>
+</ul>
+<p>Descargalo gratis aquí:</p>
+<p><a href="https://guiaeconomista.com" target="_blank">La Guía del Economista</a></p>
+<iframe src="https://guiaeconomista.com" width="600" height="400"></iframe>
+---<p><em>Elaborado en el ejercicio de año sabático UJED</em></p>
 </section>
 </section>
-<section id="suscribete-al-newletter">
-<h2>Suscríbete al newletter<a class="headerlink" href="#suscribete-al-newletter" title="Permalink to this heading">#</a></h2>
-<iframe src="https://metrics4business.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1403,11 +1416,11 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
       </div>
     </a>
     <a class="right-next"
-       href="04-Series-de-Tiempo.html"
+       href="04-Experimentos-y-pruebas-AB.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</p>
+        <p class="prev-next-title">Experimentos y Pruebas A/B</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1460,7 +1473,6 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suscribete-al-newletter">Suscríbete al newletter</a></li>
 </ul>
   </nav></div>
 
