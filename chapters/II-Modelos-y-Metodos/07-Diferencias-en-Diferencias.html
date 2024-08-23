@@ -61,9 +61,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/II-Modelos-y-Metodos/07-Diferencias-en-Diferencias';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="La única forma de crear valor es iterando a partir de los datos" href="../IV-Negocios/Lean-Startup.html" />
+    <link rel="prev" title="Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa" href="06-Series-de-Tiempo.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -160,7 +164,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-El-modelo-de-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">II Modelos y Métodos</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="03-Regresion-Lineal.html">Si sólo aprendes un modelo, aprende este: Regresión Lineal</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-Experimentos-y-pruebas-AB.html">Experimentos y Pruebas A/B</a></li>
 
@@ -169,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l1"><a class="reference internal" href="05-Efectos-Fijos.html">Efectos Fijos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Diferencias en Diferencias</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
 <ul class="nav bd-sidenav">
@@ -349,7 +354,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -365,6 +372,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-supuesto-de-las-tendencias-paralelas">El supuesto de las tendencias paralelas</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -377,22 +392,133 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="diferencias-en-diferencias">
 <h1>Diferencias en Diferencias<a class="headerlink" href="#diferencias-en-diferencias" title="Permalink to this heading">#</a></h1>
 <blockquote>
-<div><p>Algebra’s like sheet music: the important thing isn’t can you read music. It’s can you hear it.
-Can you hear it?
-Niels Bohr en Oppenheimer</p>
+<div><p>No se si es casualidad que yo me sienta así cada que tu estás cerquita de mi</p>
+<ul class="simple">
+<li><p><em>Efecto, de Bad Bunny</em></p></li>
+</ul>
 </div></blockquote>
+<p>¿Qué pasa cuando no podemos hacer un experimento para identificar causas y efectos?</p>
+<p>Si hay una lección que quiero que recuerdes sobre este libro es que en nuestra mente siempre debe de estar el experimento como forma ideal de identificar causalidad. Y cuando el experimento no sea posible de hacer, o sea muy caro, entonces recurrimos a los datos.</p>
+<p>En otras palabras, buscamos un experimento natural.</p>
+<p>Los economistas llamamos experimento natural a un evento que se parece mucho a un experimento, pero ocurre sin que nadie lo haya planeado. Un ejemplo clásico es el de Card &amp; Krueger (1994), que midieron el efecto de un aumento en el salario mínimo en el empleo. La teoría neoclásica dictaba que el mercado laboral se debía comportar igual a cualquier otro mercado, con curvas de oferta y demanda. Si en lugar de bienes y servicios, el empleado está ofreciendo su trabajo, entonces un aumento en el salario mínimo debería tener como consecuencia una caída en el empleo.</p>
+<p>Los datos indican que un aumento en el salario mínimo no tiene efecto alguno en el empleo.</p>
+<p>Al enterarse de que habría un aumento en el salario mínimo en Nueva Jersey, los investigadores fueron a los establecimientos de comida rápida a recolectar datos. Registraron el número de empleados, salarios promedio y otros datos en Nueva Jersey y Pennsylvania. Hicieron registros en ambos estados antes y después de la implementación de la medida.</p>
+<p>Los resultados se vieron así.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Pa</p></th>
+<th class="head"><p>NJ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Empleo Antes</p></td>
+<td><p>23.33 (1.35)</p></td>
+<td><p>20.44 (0.51)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Empleo Después</p></td>
+<td><p>21.17 (0.94)</p></td>
+<td><p>21.03 (0.52)</p></td>
+</tr>
+<tr class="row-even"><td><p>Cambio en el Empleo Medio</p></td>
+<td><p>-2.16 (1.25)</p></td>
+<td><p>0.59 (0.54)</p></td>
+</tr>
+</tbody>
+</table>
+<p>La diferencia en diferencia sería:</p>
+<div class="math notranslate nohighlight">
+\[
+[E(L_{\text{PA}} | D = 0) - E(L_{\text{PA}} | D = 1)] - [E(L_{\text{NJ}} | D = 0) - E(L_{\text{NJ}} | D = 1)]
+\]</div>
+<p>Tomando los datos de la tabla</p>
+<div class="math notranslate nohighlight">
+\[
+(23.33 - 21.17) - (20.44-21.03) = 2.76
+\]</div>
+<p>Es decir, el empleo parece incluso haber aumentado.</p>
+<p>Pero con un error estándar de 1.36, no podemos estar seguros de que esos resultados sean causales. O bien, no hay efectos significativos.</p>
+<p>Si queremos conocer el efecto real que tuvo el aumento en el salario mínimo, tenemos que tratar a Pennsylvania como un <strong>contrafactual</strong>. Lo que esto quiere decir es que los empleos en ambas ciudades se deberían comportar igual antes del tratamiento y, por lo tanto, Nueva Jersey hubiera tenido el mismo comportamiento que Pennsylvania <strong>si no se hubiera implementado el cambio.</strong></p>
+<p>Cuando tomas la diferencia en el tiempo y entre regiones, lo que te queda es el efecto causal.</p>
+<section id="el-supuesto-de-las-tendencias-paralelas">
+<h2>El supuesto de las tendencias paralelas<a class="headerlink" href="#el-supuesto-de-las-tendencias-paralelas" title="Permalink to this heading">#</a></h2>
+<p>El elemento más importante en el modelo de Diferencias en Diferencias es el contrafactual.</p>
+<p>En el estudio del salario mínimo, los autores fueron muy cuidadosos al seleccionar las ciudades que iban a comparar. Nueva Jersey y Pennsylvania son estados vecinos. La ciudad de Nueva Jersey y de Philadelphia están separadas únicamente por un puente. Esto permite que podamos asumir con mayor tranquilidad que los efectos que estamos observando no se puedan adjudicar a la cultura o al clima.</p>
+<p>De manera visual, se vería algo así:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Set random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Parámetros</span>
+<span class="n">n_periodos</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">n_control</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">n_tratamiento</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">tiempo_tratamiento</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">efecto_publicidad</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># Efecto de la campaña publicitaria</span>
+
+<span class="c1"># Periodos de tiempo</span>
+<span class="n">tiempo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_periodos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Simulación de datos para el grupo Control (sin campaña publicitaria)</span>
+<span class="n">tendencia_control</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">tiempo</span>  <span class="c1"># Tendencia lineal en ventas</span>
+<span class="n">datos_control</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;tiempo&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">tiempo</span><span class="p">,</span> <span class="n">n_control</span><span class="p">),</span>
+    <span class="s1">&#39;grupo&#39;</span><span class="p">:</span> <span class="s1">&#39;Control&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ventas&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">tendencia_control</span><span class="p">,</span> <span class="n">n_control</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_periodos</span> <span class="o">*</span> <span class="n">n_control</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1"># Simulación de datos para el grupo Tratamiento (con campaña publicitaria)</span>
+<span class="n">tendencia_tratamiento</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">tiempo</span>  <span class="c1"># Tendencia lineal en ventas antes del tratamiento</span>
+<span class="n">datos_tratamiento</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;tiempo&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">tiempo</span><span class="p">,</span> <span class="n">n_tratamiento</span><span class="p">),</span>
+    <span class="s1">&#39;grupo&#39;</span><span class="p">:</span> <span class="s1">&#39;Tratamiento&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ventas&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">tendencia_tratamiento</span><span class="p">,</span> <span class="n">n_tratamiento</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_periodos</span> <span class="o">*</span> <span class="n">n_tratamiento</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1"># Aplicar el efecto de la campaña publicitaria después del tiempo de tratamiento</span>
+<span class="n">datos_tratamiento</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">datos_tratamiento</span><span class="p">[</span><span class="s1">&#39;tiempo&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">tiempo_tratamiento</span><span class="p">,</span> <span class="s1">&#39;ventas&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">efecto_publicidad</span>
+
+<span class="c1"># Combinar los datos</span>
+<span class="n">df_marketing</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">datos_control</span><span class="p">,</span> <span class="n">datos_tratamiento</span><span class="p">])</span>
+
+<span class="c1"># Graficar las tendencias paralelas con líneas negras y diferentes estilos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Graficar grupo Control (línea sólida negra)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_marketing</span><span class="p">[</span><span class="n">df_marketing</span><span class="p">[</span><span class="s1">&#39;grupo&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Control&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tiempo&#39;</span><span class="p">)[</span><span class="s1">&#39;ventas&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Grupo Control&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
+<span class="c1"># Graficar grupo Tratamiento (línea punteada negra)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_marketing</span><span class="p">[</span><span class="n">df_marketing</span><span class="p">[</span><span class="s1">&#39;grupo&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Tratamiento&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tiempo&#39;</span><span class="p">)[</span><span class="s1">&#39;ventas&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Grupo Tratamiento&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1"># Resaltar el tiempo de la campaña publicitaria (línea discontinua negra)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">tiempo_tratamiento</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Inicio de la campaña&#39;</span><span class="p">)</span>
+
+<span class="c1"># Etiquetas y título</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Tendencias Paralelas en un Estudio de Marketing con Diff-in-Diff&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
-</pre></div>
+<img alt="../../_images/a480b96fa0fa512cd415ea3c90d8b0974c4e743c0c4c62a2d828f31de0da24cd.png" src="../../_images/a480b96fa0fa512cd415ea3c90d8b0974c4e743c0c4c62a2d828f31de0da24cd.png" />
 </div>
 </div>
-</div>
+<p>En el ejemplo que te estoy mostrando, hicimos una simulación de una campaña de mercadotecnia.</p>
+<p>Para conocer el efecto verdadero de una campaña, necesitamos que exista un contrafactual. En otras palabras, debe haber algo con qué comparar la tendencia de las ventas. Ese pico que observamos en las ventas podría ser parte natural de un ciclo, o podría ser parte de un boom general en la economía.</p>
+<p>Incluir un grupo de control nos da certeza de que ese incremento se debe a la campaña y no a otros factores.</p>
+<div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="inferenciacausal.com" data-background-color="#ffffff" data-text-color="#000000" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="Escribe tu primer paper de Economía" data-description="Todos los meses recibe un tutorial de econometría, un análisis de un artículo y una guía" data-icon="https://marionomics.com/content/images/size/w192h192/size/w256h256/2024/08/2.svg" data-site="https://marionomics.com/" data-locale="es" async></script></div><p><em>Elaborado en el ejercicio de año sabático UJED</em></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -426,6 +552,24 @@ Niels Bohr en Oppenheimer</p>
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="06-Series-de-Tiempo.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../IV-Negocios/Lean-Startup.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">La única forma de crear valor es iterando a partir de los datos</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -435,6 +579,20 @@ Niels Bohr en Oppenheimer</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-supuesto-de-las-tendencias-paralelas">El supuesto de las tendencias paralelas</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
