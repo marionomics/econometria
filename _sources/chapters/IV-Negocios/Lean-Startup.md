@@ -173,3 +173,43 @@ Te lo aseguro.
 * Mollick, E. (2020) _The Unicorn’s Shadow: Combating the Dangerous Myths that Hold Back Startups, Founders, and Investors_
 
 * Spiegelhalter, D. (2019) _The Art of Statistics: How to Learn from Data_. Penguin.
+
+## Como citar este libro
+
+Cita en APA (7a edición)
+
+```
+García Meza, M. A. (2024). *Inferencia causal para negocios: Una guía práctica con Python*. https://inferenciacausal.com
+```
+
+Cita en MLA (9a edición)
+
+```
+García Meza, Mario A. *Inferencia Causal para Negocios: Una Guía Práctica con Python*. Durango, México, 2024. https://inferenciacausal.com.
+```
+
+Cita en Chicago
+
+```
+García Meza, Mario A. I*nferencia Causal para Negocios: Una Guía Práctica con Python*. Durango, México, 2024. https://inferenciacausal.com.
+```
+
+
+_Espero que este libro te resulte útil._
+
+_Si eres economista y deseas escribir tu primer paper de economía, hice este curso gratis por correo justo para tí._
+
+_En este curso aprenderás a:_
+
+* _Crear objetivos de investigación que tienen sentido, que ningún juez te podrá "tumbar"._
+* _Usar causalidad en tus modelos y no sólo seguir una receta de cocina para trabajar con datos._
+* _Apoyarte de otras personas y la tecnología para escribir al menos dos papers al año, todos los años, consistentemente y para siempre._
+
+<div style="text-align: center; margin-top: 20px;">
+  <a href="https://guiaeconomista.com" target="_blank" style="background-color: #154957; color: #FFFFFF; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+    Descarga La Guía del Economista aquí
+  </a>
+</div>
+
+
+<iframe src="https://guiaeconomista.com/#form" width="400" height="300" style="border: none;"></iframe>

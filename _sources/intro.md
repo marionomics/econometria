@@ -99,7 +99,7 @@ _En este curso aprenderás a:_
 </div>
 
 
-<iframe src="https://guiaeconomista.com/form-page" width="400" height="300" style="border: none;"></iframe>
+<iframe src="https://guiaeconomista.com/#form" width="400" height="300" style="border: none;"></iframe>
 
 
 
