@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l1"><a class="reference internal" href="05-Efectos-Fijos.html">Efectos Fijos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-Diferencias-en-Diferencias.html">Diferencias en Diferencias</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
 <ul class="nav bd-sidenav">
@@ -420,6 +421,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="si-solo-aprendes-un-modelo-aprende-este-regresion-lineal">
 <h1>Si sólo aprendes un modelo, aprende este: Regresión Lineal<a class="headerlink" href="#si-solo-aprendes-un-modelo-aprende-este-regresion-lineal" title="Permalink to this heading">#</a></h1>
+<p><em>Elaborado en el ejercicio del año sabático UJED</em></p>
 <p>La regresión es la base de los modelos de inferencia causal.</p>
 <p>Hay una razón por la que todos los libros de econometría y de ciencia de datos lo cubren. Se trata del modelo por el que debes comenzar <strong>antes de explorar</strong> modelos más complejos.</p>
 <p>No hay nada de malo en usar redes neuronales o modelos de random forest en tu proyecto, pero si usar regresión lineal, tus modelos tendrán los siguientes beneficios.</p>
@@ -1359,18 +1361,25 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon
 <li><p><strong>Normalidad de los Residuos</strong>: En muchos casos, se asume que los residuos siguen una distribución normal, especialmente importante para pequeñas muestras. Se pueden usar pruebas como la de Shapiro-Wilk para verificar esto.</p></li>
 <li><p><strong>Ausencia de Multicolinealidad</strong>: Se debe asegurar que las variables independientes no estén altamente correlacionadas entre sí. Esto se puede probar con el factor de inflación de la varianza (VIF).</p></li>
 </ol>
-<p>Espero que este libro te resulte útil.</p>
-<p>Si eres economista y deseas hacer crecer tu carrera, hice este curso gratis por correo que te puede dar el impulso que necesitas.</p>
-<p>En este curso aprenderás a</p>
+<p><em>Espero que este libro te resulte útil.</em></p>
+<p><em>Si eres economista y deseas escribir tu primer paper de economía, hice este curso gratis por correo justo para tí.</em></p>
+<p><em>En este curso aprenderás a:</em></p>
 <ul class="simple">
-<li><p>Crear tus propias oportunidades de carrera</p></li>
-<li><p>Enfocar tu carrera</p></li>
-<li><p>Aplicar los datos duros, pero también las habilidades blandas</p></li>
+<li><p><em>Crear objetivos de investigación que tienen sentido, que ningún juez te podrá “tumbar”.</em></p></li>
+<li><p><em>Usar causalidad en tus modelos y no sólo seguir una receta de cocina para trabajar con datos.</em></p></li>
+<li><p><em>Apoyarte de otras personas y la tecnología para escribir al menos dos papers al año, todos los años, consistentemente y para siempre.</em></p></li>
 </ul>
-<p>Descargalo gratis aquí:</p>
-<p><a href="https://guiaeconomista.com" target="_blank">La Guía del Economista</a></p>
-<iframe src="https://guiaeconomista.com" width="600" height="400"></iframe>
----<p><em>Elaborado en el ejercicio de año sabático UJED</em></p>
+<div style="text-align: center; margin-top: 20px;">
+  <a href="https://guiaeconomista.com" target="_blank" style="background-color: #154957; color: #FFFFFF; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+    Descarga La Guía del Economista aquí
+  </a>
+</div>
+<div style="text-align: center;">
+  <form action="https://guiaeconomista.com" method="post">
+    <input type="email" name="email" placeholder="El correo que siempre revisas aquí" required style="padding: 10px; width: 80%; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    <button type="submit" style="background-color: #154957; color: #FFFFFF; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Mándame la lección #1</button>
+  </form>
+</div><div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="inferenciacausal.com" data-background-color="#ffffff" data-text-color="#000000" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="Escribe tu primer paper de Economía" data-description="Todos los meses recibe un tutorial de econometría, un análisis de un artículo y una guía" data-icon="https://marionomics.com/content/images/size/w192h192/size/w256h256/2024/08/2.svg" data-site="https://marionomics.com/" data-locale="es" async></script></div><p><em>Elaborado en el ejercicio de año sabático UJED</em></p>
 </section>
 </section>
 </section>

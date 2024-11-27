@@ -1,9 +1,12 @@
 # La única forma de crear valor es iterando a partir de los datos
 
-> Po: You set me up to fail? Why? 
-> Shifu: If you only do what you can do you’ll never be more than you are now 
-> Po: But I don’t wanna be more! I like who I am! 
-> Shifu: You don’t even know who you are
+
+_Elaborado en el ejercicio de Año Sabático autorizado en la UJED_
+
+> Po: You set me up to fail? Why? <br>
+> Shifu: If you only do what you can do you’ll never be more than you are now <br>
+> Po: But I don’t wanna be more! I like who I am! <br>
+> Shifu: **You don’t even know who you are.** <br>
 - Maestro Shifu. Kung Fu Panda 3.
 > 
 

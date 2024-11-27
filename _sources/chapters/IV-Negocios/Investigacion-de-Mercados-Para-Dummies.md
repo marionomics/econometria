@@ -1,5 +1,7 @@
 # Cómo hacer Investigación de mercados con inteligencia artificial 
 
+_Elaborado en el ejercicio de Año Sabático autorizado en la UJED_
+
 Todos los negocios necesitan hacer investigación de mercado.
 
 Imagínate que te subes a un avión y el piloto te dice que los monitores de vuelo están descompuestos. No hay comunicación con las torres de control, no hay forma de saber cómo será el clima en el trayecto y no hay forma de saber si vas en la ruta correcta y llegarás al aeropuerto correcto (o a algún aeropuerto siquiera). ¿Te subes?
@@ -168,7 +170,42 @@ Dichter, E. (1950s). *Focus group studies on cake mix for General Mills*.
 
 Harina. (2022, March 10). *A veces no hacer nada es hacerlo todo*. En *Harina* (temporada 1, episodio 5). Amazon Prime Video.
 
+## Como citar este libro
 
-<div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="inferenciacausal.com" data-background-color="#ffffff" data-text-color="#000000" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="Escribe tu primer paper de Economía" data-description="Todos los meses recibe un tutorial de econometría, un análisis de un artículo y una guía" data-icon="https://marionomics.com/content/images/size/w192h192/size/w256h256/2024/08/2.svg" data-site="https://marionomics.com/" data-locale="es" async></script></div>
+Cita en APA (7a edición)
 
-_Elaborado en el ejercicio de año sabático UJED_
+```
+García Meza, M. A. (2024). *Inferencia causal para negocios: Una guía práctica con Python*. https://inferenciacausal.com
+```
+
+Cita en MLA (9a edición)
+
+```
+García Meza, Mario A. *Inferencia Causal para Negocios: Una Guía Práctica con Python*. Durango, México, 2024. https://inferenciacausal.com.
+```
+
+Cita en Chicago
+
+```
+García Meza, Mario A. I*nferencia Causal para Negocios: Una Guía Práctica con Python*. Durango, México, 2024. https://inferenciacausal.com.
+```
+
+
+_Espero que este libro te resulte útil._
+
+_Si eres economista y deseas escribir tu primer paper de economía, hice este curso gratis por correo justo para tí._
+
+_En este curso aprenderás a:_
+
+* _Crear objetivos de investigación que tienen sentido, que ningún juez te podrá "tumbar"._
+* _Usar causalidad en tus modelos y no sólo seguir una receta de cocina para trabajar con datos._
+* _Apoyarte de otras personas y la tecnología para escribir al menos dos papers al año, todos los años, consistentemente y para siempre._
+
+<div style="text-align: center; margin-top: 20px;">
+  <a href="https://guiaeconomista.com" target="_blank" style="background-color: #154957; color: #FFFFFF; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+    Descarga La Guía del Economista aquí
+  </a>
+</div>
+
+
+<iframe src="https://guiaeconomista.com/form-page" width="400" height="300" style="border: none;"></iframe>

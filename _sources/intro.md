@@ -3,11 +3,13 @@
 
 ![Book Cover Mockup](./figures/book-mockup.png)
 
-> Sólo se aprende metiendo la pata.
-> ¡Tanto laburo y tan poca plata!
-> Que hay gente que nunca va a entender por qué.
-*- Kilómetros, de Los Caligaris*
+> Sólo se aprende metiendo la pata. <br>
+> ¡Tanto laburo y tan poca plata! <br>
+> Que hay gente que nunca va a entender por qué. <br>
+> *- Kilómetros, de Los Caligaris*
 > 
+
+_Elaborado en el ejercicio de Año Sabático autorizado en la UJED_
 
 Los negocios son matemáticas.
 
@@ -80,8 +82,25 @@ Cita en Chicago
 García Meza, Mario A. I*nferencia Causal para Negocios: Una Guía Práctica con Python*. Durango, México, 2024. https://inferenciacausal.com.
 ```
 
+### _Espero que este libro te resulte útil._
 
-<div style="height: 100vh"><script src="https://cdn.jsdelivr.net/ghost/signup-form@~0.1/umd/signup-form.min.js" data-label-1="inferenciacausal.com" data-background-color="#ffffff" data-text-color="#000000" data-button-color="#154957" data-button-text-color="#FFFFFF" data-title="Escribe tu primer paper de Economía" data-description="Todos los meses recibe un tutorial de econometría, un análisis de un artículo y una guía" data-icon="https://marionomics.com/content/images/size/w192h192/size/w256h256/2024/08/2.svg" data-site="https://marionomics.com/" data-locale="es" async></script></div>
+_Si eres economista y deseas escribir tu primer paper de economía, hice este curso gratis por correo justo para tí._
+
+_En este curso aprenderás a:_
+
+* _Crear objetivos de investigación que tienen sentido, que ningún juez te podrá "tumbar"._
+* _Usar causalidad en tus modelos y no sólo seguir una receta de cocina para trabajar con datos._
+* _Apoyarte de otras personas y la tecnología para escribir al menos dos papers al año, todos los años, consistentemente y para siempre._
+
+<div style="text-align: center; margin-top: 20px;">
+  <a href="https://guiaeconomista.com" target="_blank" style="background-color: #154957; color: #FFFFFF; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+    Descarga La Guía del Economista aquí
+  </a>
+</div>
+
+
+<iframe src="https://guiaeconomista.com/form-page" width="400" height="300" style="border: none;"></iframe>
+
 
 
 ## Referencias
@@ -91,4 +110,3 @@ Campos-Vazquez, R. M., Esquivel, G., Ghosh, P., & Medina-Cortina, E. (2023). Lon
 Rothstein, J. (2020). **The Lost Generation? Labor Market Outcomes for Post Great Recession Entrants. NBER Papers. DOI:  10.3386/w27516**
 
 
-_Elaborado en el ejercicio de Año Sabático autorizado en la UJED_

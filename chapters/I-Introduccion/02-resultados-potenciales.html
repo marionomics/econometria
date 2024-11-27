@@ -171,6 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/05-Efectos-Fijos.html">Efectos Fijos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/06-Series-de-Tiempo.html">Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Modelos-y-Metodos/07-Diferencias-en-Diferencias.html">Diferencias en Diferencias</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Economía de Negocios</span></p>
 <ul class="nav bd-sidenav">
@@ -385,6 +386,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respuestas">Respuestas</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#como-citar-este-libro">Como citar este libro</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#espero-que-este-libro-te-resulte-util"><em>Espero que este libro te resulte útil.</em></a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -399,6 +404,7 @@ document.write(`
                   
   <section id="modelo-de-resultados-potenciales">
 <h1>Modelo de resultados potenciales<a class="headerlink" href="#modelo-de-resultados-potenciales" title="Permalink to this heading">#</a></h1>
+<p><em>Elaborado en el ejercicio del año sabático UJED</em></p>
 <p>La econometría moderna sufrió un cambio de paradigma a partir del modelo de resultados potenciales. Es este modelo el que permite pensar en términos de experimentos aún cuando los datos son observacionales para obtener inferencia causal.</p>
 <p>El truco está en pensar en términos de <strong>universos paralelos</strong>, para identificar los efectos que tiene algún <strong>tratamiento</strong>.</p>
 <div class="tip admonition">
@@ -628,18 +634,42 @@ Y_B^0 =9
 <li><p><strong>Efecto del Tratamiento en el Modelo de Resultados Potenciales</strong>: El efecto del tratamiento en este modelo se refiere a la diferencia en el resultado que un tratamiento causa en una unidad experimental. Se calcula comparando el resultado observado de las unidades que recibieron el tratamiento con el resultado que habrían tenido si no lo hubieran recibido. Esto se representa como <span class="math notranslate nohighlight">\(\delta_i = Y_{i}^1 - Y_{i}^0\)</span>, donde <span class="math notranslate nohighlight">\(Y_{i}^1\)</span> es el resultado observado con tratamiento y <span class="math notranslate nohighlight">\(Y_{i}^0\)</span> es el resultado contrafactual sin tratamiento. Sin embargo, como no podemos observar ambos estados simultáneamente en la misma unidad, se utilizan métodos estadísticos para estimar el efecto del tratamiento.</p></li>
 <li><p><strong>Inferencia Causal a partir de Datos Observacionales</strong>: El modelo de resultados potenciales permite obtener inferencia causal a partir de datos observacionales al conceptualizar cada posible estado de una unidad experimental (con y sin tratamiento) y comparar estos estados entre diferentes unidades. A través de técnicas como el emparejamiento por puntaje de propensión (propensity score matching), regresiones ajustadas y otros métodos estadísticos, se intenta controlar las variables confusoras y aproximar las condiciones de un experimento aleatorizado. Esto ayuda a estimar el efecto causal del tratamiento en presencia de datos observacionales, donde la asignación aleatoria del tratamiento no es posible.</p></li>
 </ol>
-<p>Espero que este libro te resulte útil.</p>
-<p>Si eres economista y deseas hacer crecer tu carrera, hice este curso gratis por correo que te puede dar el impulso que necesitas.</p>
-<p>En este curso aprenderás a</p>
+</section>
+</section>
+<section id="como-citar-este-libro">
+<h1>Como citar este libro<a class="headerlink" href="#como-citar-este-libro" title="Permalink to this heading">#</a></h1>
+<p>Cita en APA (7a edición)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">García</span> <span class="n">Meza</span><span class="p">,</span> <span class="n">M</span><span class="o">.</span> <span class="n">A</span><span class="o">.</span> <span class="p">(</span><span class="mi">2024</span><span class="p">)</span><span class="o">.</span> <span class="o">*</span><span class="n">Inferencia</span> <span class="n">causal</span> <span class="n">para</span> <span class="n">negocios</span><span class="p">:</span> <span class="n">Una</span> <span class="n">guía</span> <span class="n">práctica</span> <span class="n">con</span> <span class="n">Python</span><span class="o">*.</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">inferenciacausal</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>Cita en MLA (9a edición)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">García</span> <span class="n">Meza</span><span class="p">,</span> <span class="n">Mario</span> <span class="n">A</span><span class="o">.</span> <span class="o">*</span><span class="n">Inferencia</span> <span class="n">Causal</span> <span class="n">para</span> <span class="n">Negocios</span><span class="p">:</span> <span class="n">Una</span> <span class="n">Guía</span> <span class="n">Práctica</span> <span class="n">con</span> <span class="n">Python</span><span class="o">*.</span> <span class="n">Durango</span><span class="p">,</span> <span class="n">México</span><span class="p">,</span> <span class="mf">2024.</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">inferenciacausal</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Cita en Chicago</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">García</span> <span class="n">Meza</span><span class="p">,</span> <span class="n">Mario</span> <span class="n">A</span><span class="o">.</span> <span class="n">I</span><span class="o">*</span><span class="n">nferencia</span> <span class="n">Causal</span> <span class="n">para</span> <span class="n">Negocios</span><span class="p">:</span> <span class="n">Una</span> <span class="n">Guía</span> <span class="n">Práctica</span> <span class="n">con</span> <span class="n">Python</span><span class="o">*.</span> <span class="n">Durango</span><span class="p">,</span> <span class="n">México</span><span class="p">,</span> <span class="mf">2024.</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">inferenciacausal</span><span class="o">.</span><span class="n">com</span><span class="o">.</span>
+</pre></div>
+</div>
+<section id="espero-que-este-libro-te-resulte-util">
+<h2><em>Espero que este libro te resulte útil.</em><a class="headerlink" href="#espero-que-este-libro-te-resulte-util" title="Permalink to this heading">#</a></h2>
+<p><em>Si eres economista y deseas escribir tu primer paper de economía, hice este curso gratis por correo justo para tí.</em></p>
+<p><em>En este curso aprenderás a:</em></p>
 <ul class="simple">
-<li><p>Crear tus propias oportunidades de carrera</p></li>
-<li><p>Enfocar tu carrera</p></li>
-<li><p>Aplicar los datos duros, pero también las habilidades blandas</p></li>
+<li><p><em>Crear objetivos de investigación que tienen sentido, que ningún juez te podrá “tumbar”.</em></p></li>
+<li><p><em>Usar causalidad en tus modelos y no sólo seguir una receta de cocina para trabajar con datos.</em></p></li>
+<li><p><em>Apoyarte de otras personas y la tecnología para escribir al menos dos papers al año, todos los años, consistentemente y para siempre.</em></p></li>
 </ul>
-<p>Descargalo gratis aquí:</p>
-<p><a href="https://guiaeconomista.com" target="_blank">La Guía del Economista</a></p>
-<iframe src="https://guiaeconomista.com" width="600" height="400"></iframe>
----<p><em>Elaborado en el ejercicio del año sabático UJED</em></p>
+<div style="text-align: center; margin-top: 20px;">
+  <a href="https://guiaeconomista.com" target="_blank" style="background-color: #154957; color: #FFFFFF; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+    Descarga La Guía del Economista aquí
+  </a>
+</div>
+<div style="text-align: center;">
+  <form action="https://guiaeconomista.com" method="post">
+    <input type="email" name="email" placeholder="El correo que siempre revisas aquí" required style="padding: 10px; width: 80%; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    <button type="submit" style="background-color: #154957; color: #FFFFFF; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Mándame la lección #1</button>
+  </form>
+</div>
 </section>
 </section>
 
@@ -701,6 +731,10 @@ Y_B^0 =9
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-en-python">El modelo en Python</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas-para-repasar">Preguntas para repasar</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respuestas">Respuestas</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#como-citar-este-libro">Como citar este libro</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#espero-que-este-libro-te-resulte-util"><em>Espero que este libro te resulte útil.</em></a></li>
 </ul>
 </li>
 </ul>
