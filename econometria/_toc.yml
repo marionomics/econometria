@@ -4,7 +4,22 @@
 format: jb-book
 root: intro
 parts:
-  - caption: I Introducción
+  - caption: Introducción
     chapters:
-    - file: chapters/I-Introduccion/01-python-para-econometria
-    - file: chapters/I-Introduccion/02-resultados-potenciales
+    - file: chapters/I-Introduccion/00-que-es-inferencia-causal
+    - file: chapters/I-Introduccion/01-los-negocios-son-matematicas
+    - file: chapters/I-Introduccion/02-python-para-econometria
+  - caption: Inferencia Causal
+    chapters:
+    - file: chapters/II-Inferencia-Causal/03-resultados-potenciales
+    - file: chapters/II-Inferencia-Causal/04-experimentos
+  - caption: Modelos
+    chapters:
+    - file: chapters/III-Modelos/05-regresion
+    - file: chapters/III-Modelos/06-series-de-tiempo
+    - file: chapters/III-Modelos/07-efectos-fijos
+    - file: chapters/III-Modelos/08-diff-in-diff
+  - caption: Negocios
+    chapters:
+    - file: chapters/IV-Negocios/09-iteracion
+    - file: chapters/IV-Negocios/10-investigacion-mercados-ia
