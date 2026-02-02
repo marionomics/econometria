@@ -1,0 +1,904 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Ejercicios &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/II-Recursos/03-ejercicios';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">I Introducción</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/01-python-para-econometria.html">Python para Econometría</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-resultados-potenciales.html">Modelo de resultados potenciales</a></li>
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/II-Recursos/03-ejercicios.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/II-Recursos/03-ejercicios.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ejercicios</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-la-loteria-para-python">Ejercicio 1. La lotería para python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-sesgo-de-seleccion">Ejercicio 2. Sesgo de Selección.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-sesgo-de-seleccion-2">Ejercicio 3. Sesgo de Selección (2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-campana-de-marketing-en-una-empresa">Ejercicio 4. Campaña de Marketing en una Empresa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-5-impacto-de-la-formacion-en-el-rendimiento-de-los-empleados">Ejercicio 5. Impacto de la Formación en el Rendimiento de los Empleados</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ejercicios">
+<h1>Ejercicios<a class="headerlink" href="#ejercicios" title="Permalink to this heading">#</a></h1>
+<p>Esta sección incluye los ejercicios del libro.</p>
+<section id="ejercicio-1-la-loteria-para-python">
+<h2>Ejercicio 1. La lotería para python<a class="headerlink" href="#ejercicio-1-la-loteria-para-python" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Creación de la lista de cartas</span>
+<span class="n">cartas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;La maceta&quot;</span><span class="p">,</span> <span class="s2">&quot;El borracho&quot;</span><span class="p">,</span> <span class="s2">&quot;La campana&quot;</span><span class="p">,</span> <span class="s2">&quot;El catrin&quot;</span><span class="p">,</span> <span class="s2">&quot;El violoncello&quot;</span><span class="p">,</span> <span class="s2">&quot;La sandia&quot;</span><span class="p">,</span> <span class="s2">&quot;La chalupa&quot;</span><span class="p">,</span> <span class="s2">&quot;El gorrito&quot;</span><span class="p">,</span> <span class="s2">&quot;El arpa&quot;</span><span class="p">,</span> <span class="s2">&quot;El camaron&quot;</span><span class="p">,</span> <span class="s2">&quot;El barril&quot;</span><span class="p">,</span> <span class="s2">&quot;La dama&quot;</span><span class="p">,</span> <span class="s2">&quot;La bota&quot;</span><span class="p">,</span> <span class="s2">&quot;El pajaro&quot;</span><span class="p">,</span> <span class="s2">&quot;El melon&quot;</span><span class="p">,</span> <span class="s2">&quot;El cotorro&quot;</span><span class="p">,</span> <span class="s2">&quot;La palma&quot;</span><span class="p">,</span> <span class="s2">&quot;El mundo&quot;</span><span class="p">,</span> <span class="s2">&quot;El apache&quot;</span><span class="p">,</span> <span class="s2">&quot;El pescado&quot;</span><span class="p">,</span> <span class="s2">&quot;La muerte&quot;</span><span class="p">,</span> <span class="s2">&quot;El alacran&quot;</span><span class="p">,</span> <span class="s2">&quot;El gallo&quot;</span><span class="p">,</span> <span class="s2">&quot;La calavera&quot;</span><span class="p">]</span>
+<span class="n">cartas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;El diablito&quot;</span><span class="p">)</span>
+<span class="n">cartas</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;El valiente&quot;</span><span class="p">,</span> <span class="s2">&quot;La corona&quot;</span><span class="p">,</span> <span class="s2">&quot;El barril&quot;</span><span class="p">])</span>
+
+<span class="c1"># Mostrar las cartas</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cartas</span><span class="p">)</span>
+
+<span class="c1"># Crear un DataFrame con las cartas</span>
+<span class="n">deck_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cartas</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Carta&#39;</span><span class="p">])</span>
+
+<span class="c1"># Función para crear una tabla de jugador</span>
+<span class="k">def</span> <span class="nf">crear_tabla</span><span class="p">(</span><span class="n">deck_df</span><span class="p">):</span>
+    <span class="n">tabla</span> <span class="o">=</span> <span class="n">deck_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tabla</span><span class="p">[</span><span class="s1">&#39;Marcada&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">tabla</span>
+
+<span class="c1"># Crear una tabla para un jugador y mostrarla</span>
+<span class="n">tabla_jugador</span> <span class="o">=</span> <span class="n">crear_tabla</span><span class="p">(</span><span class="n">deck_df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tabla del Jugador:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabla_jugador</span><span class="p">)</span>
+
+<span class="c1"># Función para &quot;cantar&quot; una carta</span>
+<span class="k">def</span> <span class="nf">cantar_carta</span><span class="p">(</span><span class="n">deck_df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">deck_df</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Carta&#39;</span><span class="p">]</span>
+
+<span class="c1"># Cantar una carta y mostrarla</span>
+<span class="n">carta_cantada</span> <span class="o">=</span> <span class="n">cantar_carta</span><span class="p">(</span><span class="n">deck_df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Carta Cantada:&quot;</span><span class="p">,</span> <span class="n">carta_cantada</span><span class="p">)</span>
+
+<span class="c1"># Función para marcar una carta en la tabla</span>
+<span class="k">def</span> <span class="nf">marcar_carta</span><span class="p">(</span><span class="n">tabla</span><span class="p">,</span> <span class="n">carta_cantada</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">carta_cantada</span> <span class="ow">in</span> <span class="n">tabla</span><span class="p">[</span><span class="s1">&#39;Carta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="n">tabla</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tabla</span><span class="p">[</span><span class="s1">&#39;Carta&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">carta_cantada</span><span class="p">,</span> <span class="s1">&#39;Marcada&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;¡Carta marcada!&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Esta carta no está en tu tabla.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Marcar una carta y mostrar la tabla actualizada</span>
+<span class="n">marcar_carta</span><span class="p">(</span><span class="n">tabla_jugador</span><span class="p">,</span> <span class="n">carta_cantada</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabla_jugador</span><span class="p">)</span>
+
+<span class="c1"># Función para verificar si hay un ganador</span>
+<span class="k">def</span> <span class="nf">verificar_ganador</span><span class="p">(</span><span class="n">tabla</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">tabla</span><span class="p">[</span><span class="s1">&#39;Marcada&#39;</span><span class="p">])</span>
+
+<span class="c1"># Verificar si hay un ganador</span>
+<span class="k">if</span> <span class="n">verificar_ganador</span><span class="p">(</span><span class="n">tabla_jugador</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;¡Felicidades, has ganado!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sigue jugando.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;La maceta&#39;, &#39;El borracho&#39;, &#39;La campana&#39;, &#39;El catrin&#39;, &#39;El violoncello&#39;, &#39;La sandia&#39;, &#39;La chalupa&#39;, &#39;El gorrito&#39;, &#39;El arpa&#39;, &#39;El camaron&#39;, &#39;El barril&#39;, &#39;La dama&#39;, &#39;La bota&#39;, &#39;El pajaro&#39;, &#39;El melon&#39;, &#39;El cotorro&#39;, &#39;La palma&#39;, &#39;El mundo&#39;, &#39;El apache&#39;, &#39;El pescado&#39;, &#39;La muerte&#39;, &#39;El alacran&#39;, &#39;El gallo&#39;, &#39;La calavera&#39;, &#39;El diablito&#39;, &#39;El valiente&#39;, &#39;La corona&#39;, &#39;El barril&#39;]
+Tabla del Jugador:
+          Carta  Marcada
+0      El mundo    False
+1    El alacran    False
+2       La dama    False
+3    El cotorro    False
+4       El arpa    False
+5     La maceta    False
+6     El barril    False
+7   La calavera    False
+8      El melon    False
+9      El gallo    False
+10    La corona    False
+11    La sandia    False
+12    El barril    False
+13  El diablito    False
+14     La palma    False
+15  El valiente    False
+Carta Cantada: La calavera
+¡Carta marcada!
+          Carta  Marcada
+0      El mundo    False
+1    El alacran    False
+2       La dama    False
+3    El cotorro    False
+4       El arpa    False
+5     La maceta    False
+6     El barril    False
+7   La calavera     True
+8      El melon    False
+9      El gallo    False
+10    La corona    False
+11    La sandia    False
+12    El barril    False
+13  El diablito    False
+14     La palma    False
+15  El valiente    False
+Sigue jugando.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-2-sesgo-de-seleccion">
+<h2>Ejercicio 2. Sesgo de Selección.<a class="headerlink" href="#ejercicio-2-sesgo-de-seleccion" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_ind</span>
+
+<span class="c1"># Crear un DataFrame inventado de ejemplo</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># número de observaciones</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;edad&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>
+    <span class="s1">&#39;sexo&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>
+    <span class="s1">&#39;promedio_pre&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>  <span class="c1"># promedio antes del evento</span>
+    <span class="s1">&#39;tratamiento&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>  <span class="c1"># 1 si asistieron a la fiesta, 0 si no</span>
+<span class="p">})</span>
+
+<span class="c1"># Añadir una variable de resultado influenciada por el tratamiento y otras variables</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;resultado&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;promedio_pre&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Propensity score matching</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">,</span> <span class="s1">&#39;resultado&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># Variables confusoras</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span>  <span class="c1"># Variable de tratamiento</span>
+
+<span class="c1"># Ajustar un modelo logístico</span>
+<span class="n">modelo_logistico</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">modelo_logistico</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">propensity_scores</span> <span class="o">=</span> <span class="n">modelo_logistico</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Añadir propensity score al DataFrame</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;propensity_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">propensity_scores</span>
+
+<span class="c1"># Separar en grupos de tratamiento y control</span>
+<span class="n">tratados</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">control</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">emparejados</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tratados</span><span class="p">,</span> <span class="n">control</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;propensity_score&#39;</span><span class="p">)</span>
+
+<span class="c1"># Análisis de resultados</span>
+<span class="n">tratados_resultados</span> <span class="o">=</span> <span class="n">emparejados</span><span class="p">[</span><span class="n">emparejados</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s1">&#39;resultado&#39;</span><span class="p">]</span>
+<span class="n">control_resultados</span> <span class="o">=</span> <span class="n">emparejados</span><span class="p">[</span><span class="n">emparejados</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="s1">&#39;resultado&#39;</span><span class="p">]</span>
+
+<span class="c1"># Test t para comparar las medias</span>
+<span class="n">t_stat</span><span class="p">,</span> <span class="n">p_valor</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">tratados_resultados</span><span class="p">,</span> <span class="n">control_resultados</span><span class="p">)</span>
+
+<span class="n">t_stat</span><span class="p">,</span> <span class="n">p_valor</span>
+<span class="c1"># (-5.993753901826858, 3.4170361050226936e-08)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">973969</span><span class="n">f56798</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_ind</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Configuración de estilo para los gráficos</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="c1"># Creando gráficos</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Boxplot antes del emparejamiento</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;resultado&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución de Calificaciones Antes del Emparejamiento&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tratamiento (Asistencia a la Fiesta)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Calificaciones&#39;</span><span class="p">)</span>
+
+<span class="c1"># Boxplot después del emparejamiento</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;resultado&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">emparejados</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución de Calificaciones Después del Emparejamiento&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tratamiento (Asistencia a la Fiesta)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Calificaciones&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-3-sesgo-de-seleccion-2">
+<h2>Ejercicio 3. Sesgo de Selección (2)<a class="headerlink" href="#ejercicio-3-sesgo-de-seleccion-2" title="Permalink to this heading">#</a></h2>
+<p>Escenario del Ejercicio: Estudio de Salud en una Empresa
+Imagina que eres un científico de datos en una empresa y se te ha pedido realizar un estudio sobre la salud de los empleados. La empresa tiene empleados que trabajan en oficina y empleados que trabajan en campo. Quieres comparar su nivel de actividad física.</p>
+<p>Tarea 1: Crear una Base de Datos de Empleados
+Primero, vamos a simular una base de datos de empleados. Cada empleado tiene un ID, su tipo de trabajo (oficina o campo) y su nivel de actividad física (medido en pasos por día).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Crear una base de datos simulada</span>
+<span class="n">empleados</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;ID&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">),</span>
+    <span class="s1">&#39;Tipo_Trabajo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Oficina&#39;</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="s1">&#39;Campo&#39;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)],</span>
+    <span class="s1">&#39;Actividad_Fisica&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">7000</span><span class="p">)</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">7000</span><span class="p">,</span> <span class="mi">12000</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Tarea 2: Seleccionar Participantes para el Estudio
+Ahora, seleccionaremos un grupo de empleados para el estudio. Aquí es donde introduciremos el sesgo de selección.</p>
+<p>Selección Aleatoria: Seleccionar 30 empleados al azar.
+Selección Sesgada: Seleccionar 30 empleados que trabajan en oficina.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Selección aleatoria</span>
+<span class="n">participantes_aleatorios</span> <span class="o">=</span> <span class="n">empleados</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="c1"># Selección sesgada</span>
+<span class="n">participantes_sesgados</span> <span class="o">=</span> <span class="n">empleados</span><span class="p">[</span><span class="n">empleados</span><span class="p">[</span><span class="s1">&#39;Tipo_Trabajo&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Oficina&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Tarea 3: Análisis y Comparación
+Finalmente, compararemos los resultados de los dos grupos para ver cómo el método de selección afecta las conclusiones del estudio.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular el promedio de actividad física para cada grupo</span>
+<span class="n">promedio_aleatorio</span> <span class="o">=</span> <span class="n">participantes_aleatorios</span><span class="p">[</span><span class="s1">&#39;Actividad_Fisica&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">promedio_sesgado</span> <span class="o">=</span> <span class="n">participantes_sesgados</span><span class="p">[</span><span class="s1">&#39;Actividad_Fisica&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Promedio de Actividad Física (Selección Aleatoria): </span><span class="si">{</span><span class="n">promedio_aleatorio</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Promedio de Actividad Física (Selección Sesgada): </span><span class="si">{</span><span class="n">promedio_sesgado</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Discusión
+Puedes discutir con los estudiantes cómo la selección sesgada (solo empleados de oficina) podría llevar a conclusiones erróneas sobre la actividad física de todos los empleados de la empresa. Este ejercicio ayuda a entender la importancia de una selección adecuada de la muestra en estudios y encuestas para evitar sesgos.</p>
+</section>
+<section id="ejercicio-4-campana-de-marketing-en-una-empresa">
+<h2>Ejercicio 4. Campaña de Marketing en una Empresa<a class="headerlink" href="#ejercicio-4-campana-de-marketing-en-una-empresa" title="Permalink to this heading">#</a></h2>
+<p>Imagina que eres un analista de datos en una empresa que recientemente ha lanzado una campaña de marketing para aumentar las ventas. La empresa quiere saber si la campaña ha sido efectiva.</p>
+<p>Tarea 1: Crear una Base de Datos Simulada
+Primero, vamos a simular una base de datos de ventas semanales antes y después de la campaña de marketing. Además, incluiremos un factor externo que también podría afectar las ventas (por ejemplo, una festividad importante).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Semanas antes, durante y después de la campaña</span>
+<span class="n">semanas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>  <span class="c1"># Ajustado a 30 para coincidir con la longitud total de las ventas</span>
+
+<span class="c1"># Ventas simuladas (en miles)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ventas_antes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ventas_durante</span> <span class="o">=</span> <span class="n">ventas_antes</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># Pequeña variación</span>
+<span class="n">ventas_despues</span> <span class="o">=</span> <span class="n">ventas_antes</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># Pequeña variación</span>
+
+<span class="c1"># Simular una festividad que aumenta las ventas</span>
+<span class="n">ventas_durante</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">20</span>
+
+<span class="c1"># Crear DataFrame</span>
+<span class="n">ventas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Semana&#39;</span><span class="p">:</span> <span class="n">semanas</span><span class="p">,</span>
+    <span class="s1">&#39;Ventas&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">ventas_antes</span><span class="p">,</span> <span class="n">ventas_durante</span><span class="p">,</span> <span class="n">ventas_despues</span><span class="p">]),</span>
+    <span class="s1">&#39;Periodo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Antes&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Durante&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Después&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Tarea 2: Análisis de las Ventas
+Ahora, analizaremos las ventas antes, durante y después de la campaña para ver si hay un cambio significativo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Gráfico de las ventas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">periodo</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;Antes&#39;</span><span class="p">,</span> <span class="s1">&#39;Durante&#39;</span><span class="p">,</span> <span class="s1">&#39;Después&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]):</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">ventas</span><span class="p">[</span><span class="n">ventas</span><span class="p">[</span><span class="s1">&#39;Periodo&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">periodo</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Semana&#39;</span><span class="p">],</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Ventas&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">periodo</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Ventas Semanales Durante Diferentes Periodos&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Semana&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas (en miles)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/67b14dbb54f3c135d3827efed09411485b956f21eb061b916fa6ec7f084b168e.png" src="../../_images/67b14dbb54f3c135d3827efed09411485b956f21eb061b916fa6ec7f084b168e.png" />
+</div>
+</div>
+<p>Tarea 3: Interpretación
+La interpretación de los datos podría mostrar que no hay un cambio significativo en las ventas durante y después de la campaña en comparación con el periodo anterior. Sin embargo, hay un pico durante la festividad, lo que podría llevar a la conclusión errónea de que la campaña no tuvo efecto.</p>
+<p>Discusión sobre Endogeneidad
+Este es un ejemplo clásico de endogeneidad, donde un factor externo (la festividad) está afectando tanto a la variable independiente (la campaña de marketing) como a la variable dependiente (las ventas). La presencia de este factor confunde la relación causal entre la campaña y las ventas.</p>
+<p>Podrías discutir con los estudiantes cómo, en ausencia de la festividad, quizás las ventas habrían sido más bajas durante el periodo de la campaña, lo que indicaría que la campaña efectivamente tuvo un efecto positivo. Este es el concepto del contrafactual en la inferencia causal: ¿qué habría pasado si no se hubiera llevado a cabo la campaña?</p>
+</section>
+<section id="ejercicio-5-impacto-de-la-formacion-en-el-rendimiento-de-los-empleados">
+<h2>Ejercicio 5. Impacto de la Formación en el Rendimiento de los Empleados<a class="headerlink" href="#ejercicio-5-impacto-de-la-formacion-en-el-rendimiento-de-los-empleados" title="Permalink to this heading">#</a></h2>
+<p>Imagina que eres un economista en una empresa y quieres evaluar el impacto de un programa de formación en el rendimiento de los empleados. La hipótesis es que la formación mejora el rendimiento.</p>
+<p>Tarea 1: Simular Datos de Empleados
+Primero, vamos a simular una base de datos de empleados con sus horas de formación y su rendimiento (puntuación).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Configurar la semilla aleatoria para reproducibilidad</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Número de empleados</span>
+<span class="n">n_empleados</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Horas de formación (simuladas)</span>
+<span class="n">horas_formacion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_empleados</span><span class="p">)</span>
+
+<span class="c1"># Rendimiento (puntuación), influenciado por las horas de formación y otros factores</span>
+<span class="n">rendimiento</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">horas_formacion</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_empleados</span><span class="p">)</span>
+
+<span class="c1"># Crear DataFrame</span>
+<span class="n">datos_empleados</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Horas_Formacion&#39;</span><span class="p">:</span> <span class="n">horas_formacion</span><span class="p">,</span>
+    <span class="s1">&#39;Rendimiento&#39;</span><span class="p">:</span> <span class="n">rendimiento</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Tarea 2: Análisis de Regresión Lineal con Statsmodels
+Ahora, realizamos una regresión lineal utilizando statsmodels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Añadir una constante al modelo (intercepto)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">datos_empleados</span><span class="p">[</span><span class="s1">&#39;Horas_Formacion&#39;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">datos_empleados</span><span class="p">[</span><span class="s1">&#39;Rendimiento&#39;</span><span class="p">]</span>
+
+<span class="c1"># Crear y ajustar el modelo de regresión lineal</span>
+<span class="n">modelo</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Mostrar el resumen del modelo</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># Realizar predicciones</span>
+<span class="n">predicciones</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Graficar los resultados</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">datos_empleados</span><span class="p">[</span><span class="s1">&#39;Horas_Formacion&#39;</span><span class="p">],</span> <span class="n">datos_empleados</span><span class="p">[</span><span class="s1">&#39;Rendimiento&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Datos Reales&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">datos_empleados</span><span class="p">[</span><span class="s1">&#39;Horas_Formacion&#39;</span><span class="p">],</span> <span class="n">predicciones</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ajuste Lineal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Relación entre Horas de Formación y Rendimiento&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Horas de Formación&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Rendimiento&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            Rendimiento   R-squared:                       0.266
+Model:                            OLS   Adj. R-squared:                  0.259
+Method:                 Least Squares   F-statistic:                     35.58
+Date:                Sat, 25 Nov 2023   Prob (F-statistic):           3.89e-08
+Time:                        22:11:27   Log-Likelihood:                -305.62
+No. Observations:                 100   AIC:                             615.2
+Df Residuals:                      98   BIC:                             620.4
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+===================================================================================
+                      coef    std err          t      P&gt;|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               8.0818      2.155      3.750      0.000       3.805      12.359
+Horas_Formacion     0.6147      0.103      5.965      0.000       0.410       0.819
+==============================================================================
+Omnibus:                        5.184   Durbin-Watson:                   1.995
+Prob(Omnibus):                  0.075   Jarque-Bera (JB):                3.000
+Skew:                           0.210   Prob(JB):                        0.223
+Kurtosis:                       2.262   Cond. No.                         87.0
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+<img alt="../../_images/089a19158d25364e4a571d1e29a4a8656029a47e4a8b8a14c1c4858c4b28756c.png" src="../../_images/089a19158d25364e4a571d1e29a4a8656029a47e4a8b8a14c1c4858c4b28756c.png" />
+</div>
+</div>
+<p>Tarea 3: Interpretación y Discusión
+El resumen del modelo proporcionado por statsmodels incluye una gran cantidad de información estadística, incluyendo el coeficiente para las horas de formación (la pendiente de la regresión), el intercepto, el valor p, el R-cuadrado, entre otros. Estos resultados nos ayudan a interpretar la relación entre las horas de formación y el rendimiento de los empleados.</p>
+<p>Discusión sobre Álgebra Lineal en Econometría
+Este ejercicio, utilizando statsmodels, demuestra cómo el álgebra lineal es esencial en econometría para estimar los parámetros de los modelos lineales. La regresión lineal, en su núcleo, resuelve un sistema de ecuaciones lineales para encontrar los coeficientes que minimizan el error cuadrático. statsmodels facilita este proceso y proporciona herramientas adicionales para la interpretación estadística.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/II-Recursos"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-la-loteria-para-python">Ejercicio 1. La lotería para python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-sesgo-de-seleccion">Ejercicio 2. Sesgo de Selección.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-sesgo-de-seleccion-2">Ejercicio 3. Sesgo de Selección (2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-campana-de-marketing-en-una-empresa">Ejercicio 4. Campaña de Marketing en una Empresa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-5-impacto-de-la-formacion-en-el-rendimiento-de-los-empleados">Ejercicio 5. Impacto de la Formación en el Rendimiento de los Empleados</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

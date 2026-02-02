@@ -61,11 +61,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/I-Introduccion/02-resultados-potenciales';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Supuestos de la inferencia causal" href="04-supuestos-inferencia-causal.html" />
-    <link rel="prev" title="Introducción" href="01-inferencia-causal.html" />
+    <link rel="prev" title="Python para Econometría" href="01-python-para-econometria.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -141,8 +142,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
@@ -158,10 +159,15 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">I Introducción</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01-inferencia-causal.html">Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-python-para-econometria.html">Python para Econometría</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Modelo de resultados potenciales</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-supuestos-inferencia-causal.html">Supuestos de la inferencia causal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-DAGs.html">Gráficos Acíclicos Dirigidos (DAGs)</a></li>
+
+
+
+
+
+
+
 </ul>
 
     </div>
@@ -332,7 +338,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -348,6 +356,25 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Modelo de resultados potenciales</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#como-se-hacen-los-experimentos-en-la-vida-real">Cómo se hacen los experimentos en la vida real</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#algo-de-notacion">Algo de notación</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#no-hagas-una-diferencia-de-medias-simple">No hagas una diferencia de medias simple</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#universos-paralelos">Universos Paralelos</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sesgo-de-seleccion">Sesgo de selección</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-en-python">El modelo en Python</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas-para-repasar">Preguntas para repasar</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respuestas">Respuestas</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -359,6 +386,228 @@ document.write(`
                   
   <section id="modelo-de-resultados-potenciales">
 <h1>Modelo de resultados potenciales<a class="headerlink" href="#modelo-de-resultados-potenciales" title="Permalink to this heading">#</a></h1>
+<p>La econometría moderna sufrió un cambio de paradigma a partir del modelo de resultados potenciales. Es este modelo el que permite pensar en términos de experimentos aún cuando los datos son observacionales para obtener inferencia causal.</p>
+<p>El truco está en pensar en términos de <strong>universos paralelos</strong>, para identificar los efectos que tiene algún <strong>tratamiento</strong>.</p>
+<div class="tip admonition">
+<p class="admonition-title">Cita</p>
+<p>“If your experiment needs statistics, you ought to have done a better experiment”</p>
+<ul class="simple">
+<li><p>Ernest Rutherford</p></li>
+</ul>
+</div>
+</section>
+<section id="como-se-hacen-los-experimentos-en-la-vida-real">
+<h1>Cómo se hacen los experimentos en la vida real<a class="headerlink" href="#como-se-hacen-los-experimentos-en-la-vida-real" title="Permalink to this heading">#</a></h1>
+<p>Desde que soy un niño siempre quise ser científico. Crecí con shows que mostraban personas ingeniosas haciendo experimentos interesantes para resolver sus problemas. Uno de mis shows favoritos en la TV era “El Mundo de Beakman”, donde se mostraban curiosidades sorprendentes, pero también se hacían experimentos divertidos para entretener. En ocasiones intentaba replicar los experimentos, sólo para darme cuenta de que no era fácil conseguir muchos de los materiales por mi cuenta en el pequeño pueblo en el que vivía. Me quedaba maravillado, pensando en dónde estarán esos famosos científicos que se mencionaban siempre en la Televisión.</p>
+<p>No fue sino hasta que fui un adolescente que me di cuenta de que mi papá era un científico de la vida real. Él me pedía que le ayudara a revisar el inglés de sus artículos, que son la forma en que se comunican los resultados científicos.</p>
+<p>Lo interesante es que es precisamente en los estudios agrícolas donde nace la tradición de hacer experimentos para identificar los efectos que tiene un tratamiento sobre un campo.</p>
+<p>El procedimiento es el siguiente: supón que deseas conocer si un insecticida es efectivo, i.e. logra matar muchos insectos. Tu objetivo no es realmente matar insectos, lo que tú deseas en realidad es aumentar tu producción de tomates, o lo que sea que estás sembrando.</p>
+</section>
+<section id="algo-de-notacion">
+<h1>Algo de notación<a class="headerlink" href="#algo-de-notacion" title="Permalink to this heading">#</a></h1>
+<p>Para este ejercicio la variable <strong>resultado</strong> es el nivel de producción del campo, que denotamos con <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<p>Llamamos <strong>tratamiento</strong> al insecticida y lo denotamos con <span class="math notranslate nohighlight">\(D\)</span>, que es una variable <strong>dummy</strong>, es decir, sus valores pueden ser <span class="math notranslate nohighlight">\(1\)</span> o <span class="math notranslate nohighlight">\(0\)</span>, según si se aplica o no el tratamiento.</p>
+<p>Las variables <span class="math notranslate nohighlight">\(Y\)</span> y <span class="math notranslate nohighlight">\(D\)</span> son <strong>vectores</strong> que contienen diferentes unidades de medición <span class="math notranslate nohighlight">\(Y_i\)</span> y <span class="math notranslate nohighlight">\(D_i\)</span>, respectivamente. La <span class="math notranslate nohighlight">\(i\)</span> es un indicador que nos ayuda a identificar a un invernadero específico. Puedes imaginar que tenemos un campo con <span class="math notranslate nohighlight">\(N\)</span> invernaderos (si tienes problemas para imaginar <span class="math notranslate nohighlight">\(N\)</span> piensa en 100 hasta que alguien te diga lo contrario) y que todos están numerados del <span class="math notranslate nohighlight">\(1\)</span> al <span class="math notranslate nohighlight">\(N=100\)</span>. Entonces <span class="math notranslate nohighlight">\(i\)</span> puede ser el invernadero <span class="math notranslate nohighlight">\(1\)</span> o el <span class="math notranslate nohighlight">\(100\)</span>, o cualquier otro número intermedio.</p>
+<p>Puede ser que algunos invernaderos reciban tratamiento. Esto lo denotamos con <span class="math notranslate nohighlight">\(D_i = 1\)</span>. Por lo tanto, cuando el invernadero <span class="math notranslate nohighlight">\(i\)</span> no recibe tratamiento escribimos <span class="math notranslate nohighlight">\(D_i = 0\)</span>.</p>
+<p>Entonces tenemos dos tipos de valores para la producción del invernadero <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p>[
+Y_i = \begin{cases} Y_{i}^1 \qquad \text{si }D_i=1 \ Y_{i}^0 \qquad \text{si }D_i=0 \end{cases}
+]</p>
+<p>Si nunca habías visto una fórmula con llaves así, no te preocupes. Del lado derecho estamos planteando dos escenarios para <span class="math notranslate nohighlight">\(Y_i\)</span> que dependen del valor de <span class="math notranslate nohighlight">\(D_i\)</span>. Estos dos valores no pueden darse al mismo tiempo: no puedes ponerle y a la vez no ponerle insecticida a un invernadero.</p>
+<p>Para distinguir cada uno de estos dos escenarios le incluimos un número adicional en el superíndice. Este no es un exponente, es una forma de indicar si la producción proviene de un invernadero con tratamiento o sin él. Entonces <span class="math notranslate nohighlight">\(Y_{i}^1\)</span> nos dice el nivel de producción del invernadero <span class="math notranslate nohighlight">\(i\)</span> si se aplica el insecticida y <span class="math notranslate nohighlight">\(Y_{i}^0\)</span> es el nivel de producción del mismo invernadero si no se le aplicara este tratamiento.</p>
+<p>Como puedes imaginar, no podemos observar <span class="math notranslate nohighlight">\(Y_{i}^1\)</span> y <span class="math notranslate nohighlight">\(Y_{i}^0\)</span> al mismo tiempo, pues están en diferentes universos. Pero esto es justo lo que necesitamos medir si deseamos medir el efecto que tiene el insecticida en nuestro invernadero. Si pudiéramos acceder a los dos universos al mismo tiempo, la medición del efecto sería tan fácil como tomar la diferencia del rendimiento con insecticida y sin insecticida.</p>
+<p>[
+\delta_i = Y_{i}^1 - Y_{i}^0
+]</p>
+<p>Para este caso, idealmente estaríamos esperando un número positivo, que nos indica que el insecticida incrementa nuestro rendimiento. Denotamos entonces al efecto del tratamiento con <span class="math notranslate nohighlight">\(\delta_i\)</span>.</p>
+</section>
+<section id="no-hagas-una-diferencia-de-medias-simple">
+<h1>No hagas una diferencia de medias simple<a class="headerlink" href="#no-hagas-una-diferencia-de-medias-simple" title="Permalink to this heading">#</a></h1>
+<p>¿Has seguido el hilo hasta el momento? Que bueno, porque aquí es la parte en la que la mayoría se equivoca.</p>
+<p>No podemos ir a visitar universos alternos para revisar el efecto de nuestro tratamiento, pero sí podemos <strong>observar</strong> lo que sucede en los invernaderos que aplican el insecticida y compararlos con lo que no lo aplican.</p>
+<p>Considera que tenemos <span class="math notranslate nohighlight">\(N^0\)</span> invernaderos a los que no se les ha aplicado el insecticida y <span class="math notranslate nohighlight">\(N^1\)</span> a los que sí. Lo que muchos hacen en este punto es tomar una diferencia de medias para comparar.</p>
+<p>[
+E[Y_i^1] - E[Y_i^0]
+]</p>
+<p>A la ecuación anterior se le conoce como el <strong>efecto promedio del tratamiento</strong> y se denota por <span class="math notranslate nohighlight">\(E[\delta_i]\)</span>.</p>
+<p>Falso. Tomar una diferencia de medias significa asumir que los dos invernaderos son iguales en todos los demás aspectos además del tratamiento que se les aplicó. Todo lo demás igual: <strong>ceteris paribus</strong>.</p>
+<p>Pero la realidad normalmente es más compleja. Si tú observas dos invernaderos y notas que el que aplicó insecticida tiene mayor rendimiento que el que no, no puedes asumir inmediatamente que el efecto que estás midiendo viene del insecticida. Podría ser que en el invernadero sin insecticida la semilla es de mala calidad. Ambas cosas se deben a que el agricultor está invirtiendo menor presupuesto al invernadero.</p>
+</section>
+<section id="universos-paralelos">
+<h1>Universos Paralelos<a class="headerlink" href="#universos-paralelos" title="Permalink to this heading">#</a></h1>
+<p>Intenta generalizar el ejemplo anterior a otros problemas. Si quieres conocer por ejemplo si la educación (tratamiento) representa un aumento en los ingresos (resultado), no es posible tomar la diferencia de los valores esperados. Hacer esto nos dejaría con un sesgo que conocemos como el <strong>sesgo de selección</strong>. Veamos cómo funciona.</p>
+<p>Consideremos el siguiente caso hipotético para notar cómo la diferencia de medias puede ser engañosa. Alicia y Bob quieren decidir si asistir a una fiesta la noche antes a un examen muy importante de la clase de Econometría. Todo en economía se mide en términos de su costo de oportunidad y asistir a esa fiesta puede afectar sus calificaciones, por lo que en teoría, el efecto de asistir (<span class="math notranslate nohighlight">\(D_i = 1\)</span>) debería ser negativo.</p>
+<p>Sin embargo, podemos encontrar cosas curiosas si no somos atentos. Alicia es una alumna que tiene un excelente promedio, habilidades matemáticas excepcionales y puso mucha atención en clase. Digamos que Alicia decidió asistir a la fiesta y aún así se sacó un 10. Lo podemos expresar en la ecuación</p>
+<p>[
+Y_A^1 =10
+]</p>
+<p>Donde el subíndice <span class="math notranslate nohighlight">\(A\)</span> nos sirve para indicar que se trata de Alicia. En este caso, si Alicia se hubiera quedado en casa para estudiar, también se hubiera sacado un 10 (<span class="math notranslate nohighlight">\(Y_A^0 = 10\)</span>), por lo que el efecto habría sido cero:
+[
+\delta_A = Y_A^1 - Y_A^0 = 10 - 10 = 0
+]</p>
+<p>Naturalmente, <span class="math notranslate nohighlight">\(Y_A^0\)</span> se refiere a algo que no existe y que no podemos ver. A estos casos que no podemos ver los vamos a llamaar <strong>contrafactuales</strong>. Para el caso de Alicia es fácil ver que se hubiera también sacado 10 porque es la máxima calificación, pero no siempre tenemos tanta suerte.</p>
+<p>Por ejemplo, consideremos a Bob. Bob se perdió algunas clases y no tiene tantas ventajas en Econometría como las tiene Alicia, por lo que decide mejor quedarse en casa y estudiar para el examen. Imaginemos que llega el día del examen y Bob se sacó un 9.</p>
+<p>[
+Y_B^0 =9
+]</p>
+<p>Bob está contento con su resultado, porque si no hubiera estudiado para ese examen, seguro se habría sacado un 8 (<span class="math notranslate nohighlight">\(Y_B^1 = 8\)</span>). Ese 8 no existe en nuestra realidad, pero si lo pudiéramos observar, nos indicaría exactamente cuál es el efecto que asistir a la fiesta hubiera tenido para Bob:</p>
+<p>[
+\delta_B = Y_B^1 - Y_B^0 = 8 - 9 = -1
+]</p>
+<p>Pero este es el efecto que encontramos si pudiéramos observar el universo paralelo en el que Bob si asistió a la fiesta. En la realidad sólo tenemos los datos de la calificación de Alicia, que si asistió a la fiesta, y Bob, que no lo hizo.</p>
+</section>
+<section id="sesgo-de-seleccion">
+<h1>Sesgo de selección<a class="headerlink" href="#sesgo-de-seleccion" title="Permalink to this heading">#</a></h1>
+<p>¿Qué sucede cuando hacemos una diferencia simple de los datos que observamos? Veamos lo que sucede en la siguiente ecuación.</p>
+<p>[
+Y_A^1 - Y_B^0 = 10 - 9 = 1
+]
+Esta diferencia la podemos interpretar como si asistir a la fiesta hubiera ayudado a <strong>subir</strong> las calificaciones. Nosotros sabemos que esto no es verdad, pero es lo que nos indican los datos. ¿Cuál es el error?</p>
+<p>La ecuación anterior está contaminada con el <strong>sesgo de selección</strong>. Para verlo, podemos introducir a <span class="math notranslate nohighlight">\(Y_B^1\)</span> en la ecuación. Hacer esto requiere que lo cancelemos para no afectar la igualdad. Manipulando un poco la ecuación, el resultado se vería así:</p>
+<p>[
+Y_A^1 - Y_B^0 = (Y_B^1 - Y_B^0) + (Y_A^1 -Y_B^1)
+]</p>
+<p>Esta última parte la escribí separando en dos paréntesis. El primer paréntesis muestra el efecto <span class="math notranslate nohighlight">\(\delta_B\)</span>, que mide la diferencia de lo que pasó y un contrafactual. Pero, ¿qué es lo que quedó en el segundo paréntesis? Ese es el que conocemos como el <strong>sesgo de selección</strong>, y es lo que no nos permite determinar el efecto real.</p>
+<p>Nota que el primer paréntesis suma <span class="math notranslate nohighlight">\(-1\)</span> mientras que el segundo deja un resultado de <span class="math notranslate nohighlight">\(+2\)</span>, que sumados nos dan el <span class="math notranslate nohighlight">\(1\)</span> observado. Pero este no es el efecto de la fiesta, lo que pasa es que el sesgo de selección es suficientemente fuerte para cambiar el signo.</p>
+</section>
+<section id="el-modelo-en-python">
+<h1>El modelo en Python<a class="headerlink" href="#el-modelo-en-python" title="Permalink to this heading">#</a></h1>
+<p>Para abordar este tipo de problemas en Python, podemos utilizar herramientas estadísticas y de aprendizaje automático para estimar los efectos causales en presencia de sesgo de selección. Una técnica común es el uso de métodos de emparejamiento o “matching”, como el Propensity Score Matching, o modelos de regresión ajustados para controlar por variables confusoras.</p>
+<p>Aquí te muestro cómo podrías comenzar a implementar un análisis básico utilizando Python. Supongamos que tienes un conjunto de datos que incluye tanto la variable de tratamiento (por ejemplo, asistir a una fiesta) como el resultado (calificaciones en el examen), junto con otras variables que podrían influir en el resultado (como habilidades previas, asistencia a clases, etc.).</p>
+<p>Primero, necesitarás instalar algunas bibliotecas si aún no las tienes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install pandas numpy scipy sklearn
+</pre></div>
+</div>
+<p>Luego, puedes comenzar con algo de código:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_ind</span>
+
+<span class="c1"># Crear un DataFrame inventado de ejemplo</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># número de observaciones</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;edad&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>
+    <span class="s1">&#39;sexo&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>
+    <span class="s1">&#39;promedio_pre&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>  <span class="c1"># promedio antes del evento</span>
+    <span class="s1">&#39;tratamiento&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>  <span class="c1"># 1 si asistieron a la fiesta, 0 si no</span>
+<span class="p">})</span>
+
+<span class="c1"># Añadir una variable de resultado influenciada por el tratamiento y otras variables</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;resultado&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;promedio_pre&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Propensity score matching</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">,</span> <span class="s1">&#39;resultado&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># Variables confusoras</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span>  <span class="c1"># Variable de tratamiento</span>
+
+<span class="c1"># Ajustar un modelo logístico</span>
+<span class="n">modelo_logistico</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">modelo_logistico</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">propensity_scores</span> <span class="o">=</span> <span class="n">modelo_logistico</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Añadir propensity score al DataFrame</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;propensity_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">propensity_scores</span>
+
+<span class="c1"># Separar en grupos de tratamiento y control</span>
+<span class="n">tratados</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">control</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">emparejados</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tratados</span><span class="p">,</span> <span class="n">control</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;propensity_score&#39;</span><span class="p">)</span>
+
+<span class="c1"># Análisis de resultados</span>
+<span class="n">tratados_resultados</span> <span class="o">=</span> <span class="n">emparejados</span><span class="p">[</span><span class="n">emparejados</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s1">&#39;resultado&#39;</span><span class="p">]</span>
+<span class="n">control_resultados</span> <span class="o">=</span> <span class="n">emparejados</span><span class="p">[</span><span class="n">emparejados</span><span class="p">[</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="s1">&#39;resultado&#39;</span><span class="p">]</span>
+
+<span class="c1"># Test t para comparar las medias</span>
+<span class="n">t_stat</span><span class="p">,</span> <span class="n">p_valor</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">tratados_resultados</span><span class="p">,</span> <span class="n">control_resultados</span><span class="p">)</span>
+
+<span class="n">t_stat</span><span class="p">,</span> <span class="n">p_valor</span>
+<span class="c1"># (-5.993753901826858, 3.4170361050226936e-08)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">973969</span><span class="n">f56798</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_ind</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>En este conjunto de datos:</p>
+<ul class="simple">
+<li><p>La variable de tratamiento es si los individuos asistieron a una fiesta (<strong><code class="docutils literal notranslate"><span class="pre">tratamiento</span></code></strong>).</p></li>
+<li><p>La variable de resultado son las calificaciones (<strong><code class="docutils literal notranslate"><span class="pre">resultado</span></code></strong>), que está influenciada tanto por la asistencia a la fiesta como por otras variables confusoras como la edad, el sexo y el promedio previo.</p></li>
+</ul>
+<p>Después de emparejar los datos según los Propensity Scores y comparar los grupos tratados y de control, los resultados del test t son los siguientes:</p>
+<ul class="simple">
+<li><p><strong>Estadístico t</strong>: -5.9938</p></li>
+<li><p><strong>P-valor</strong>: aproximadamente 3.42e-08</p></li>
+</ul>
+<p>Este resultado sugiere que hay una diferencia estadísticamente significativa entre las calificaciones de los estudiantes que asistieron a la fiesta y aquellos que no lo hicieron, con un nivel de confianza muy alto (p-valor muy bajo). En este contexto, el signo negativo del estadístico t indica que el grupo que asistió a la fiesta tuvo, en promedio, calificaciones más bajas que el grupo que no asistió.</p>
+<p>Este código es solo un punto de partida. En la práctica, deberías considerar cuidadosamente cómo manejas los datos, cómo ajustas el modelo y cómo interpretas los resultados. Además, hay técnicas más avanzadas y robustas para el análisis causal, como los modelos de efectos mixtos, regresión discontinua, y métodos basados en aprendizaje automático.</p>
+<p>Veamos una visualización de los datos de este ejemplo</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Configuración de estilo para los gráficos</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="c1"># Creando gráficos</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Boxplot antes del emparejamiento</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;resultado&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución de Calificaciones Antes del Emparejamiento&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tratamiento (Asistencia a la Fiesta)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Calificaciones&#39;</span><span class="p">)</span>
+
+<span class="c1"># Boxplot después del emparejamiento</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;tratamiento&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;resultado&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">emparejados</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución de Calificaciones Después del Emparejamiento&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tratamiento (Asistencia a la Fiesta)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Calificaciones&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/3f42d27cabe9d5cf90539bfae727100b84ef2f024cb360e7fd2a90de0642bac7.png" src="../../_images/3f42d27cabe9d5cf90539bfae727100b84ef2f024cb360e7fd2a90de0642bac7.png" />
+</div>
+</div>
+</section>
+<section id="preguntas-para-repasar">
+<h1>Preguntas para repasar<a class="headerlink" href="#preguntas-para-repasar" title="Permalink to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p>¿Qué es una variable dummy y cómo se utiliza para denotar el tratamiento en un experimento?</p></li>
+<li><p>¿Qué son los vectores <span class="math notranslate nohighlight">\(Y\)</span> y <span class="math notranslate nohighlight">\(D\)</span> y cómo se utilizan para medir la producción y el tratamiento en los invernaderos de un campo?</p></li>
+<li><p>¿Qué es el efecto del tratamiento en el modelo de resultados potenciales y cómo se puede calcular?</p></li>
+<li><p>¿Cómo se puede utilizar el modelo de resultados potenciales para obtener inferencia causal a partir de datos observacionales?</p></li>
+</ol>
+<hr class="docutils" />
+<section id="respuestas">
+<h2>Respuestas<a class="headerlink" href="#respuestas" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Variable Dummy</strong>: Una variable dummy es una variable binaria que toma valores de 0 o 1 para indicar la ausencia o presencia de alguna característica categórica que puede tener un efecto en el resultado que se está estudiando. En el contexto de un experimento, una variable dummy se utiliza para denotar si una unidad experimental (como un invernadero en un campo) ha recibido el tratamiento o no. Por ejemplo, en un estudio sobre el efecto de un insecticida, la variable dummy (denotada como <span class="math notranslate nohighlight">\(D\)</span>) podría tomar el valor de 1 si al invernadero se le aplicó el insecticida (tratamiento) y 0 si no se le aplicó.</p></li>
+<li><p><strong>Vectores <span class="math notranslate nohighlight">\(Y\)</span> y <span class="math notranslate nohighlight">\(D\)</span></strong>: En el contexto de un experimento, el vector <span class="math notranslate nohighlight">\(Y\)</span> representa los resultados observados de cada unidad experimental. Cada elemento <span class="math notranslate nohighlight">\(Y_i\)</span> del vector representa el resultado de una unidad específica, como la producción de un invernadero. Por otro lado, el vector <span class="math notranslate nohighlight">\(D\)</span> indica si cada unidad recibió el tratamiento o no, utilizando variables dummy como se explicó anteriormente. Cada elemento <span class="math notranslate nohighlight">\(D_i\)</span> del vector es 1 si la unidad i recibió el tratamiento y 0 si no lo recibió. Estos vectores son fundamentales para analizar y comparar los resultados entre las unidades que recibieron el tratamiento y las que no.</p></li>
+<li><p><strong>Efecto del Tratamiento en el Modelo de Resultados Potenciales</strong>: El efecto del tratamiento en este modelo se refiere a la diferencia en el resultado que un tratamiento causa en una unidad experimental. Se calcula comparando el resultado observado de las unidades que recibieron el tratamiento con el resultado que habrían tenido si no lo hubieran recibido. Esto se representa como <span class="math notranslate nohighlight">\(\delta_i = Y_{i}^1 - Y_{i}^0\)</span>, donde <span class="math notranslate nohighlight">\(Y_{i}^1\)</span> es el resultado observado con tratamiento y <span class="math notranslate nohighlight">\(Y_{i}^0\)</span> es el resultado contrafactual sin tratamiento. Sin embargo, como no podemos observar ambos estados simultáneamente en la misma unidad, se utilizan métodos estadísticos para estimar el efecto del tratamiento.</p></li>
+<li><p><strong>Inferencia Causal a partir de Datos Observacionales</strong>: El modelo de resultados potenciales permite obtener inferencia causal a partir de datos observacionales al conceptualizar cada posible estado de una unidad experimental (con y sin tratamiento) y comparar estos estados entre diferentes unidades. A través de técnicas como el emparejamiento por puntaje de propensión (propensity score matching), regresiones ajustadas y otros métodos estadísticos, se intenta controlar las variables confusoras y aproximar las condiciones de un experimento aleatorizado. Esto ayuda a estimar el efecto causal del tratamiento en presencia de datos observacionales, donde la asignación aleatoria del tratamiento no es posible.</p></li>
+</ol>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -393,22 +642,13 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="01-inferencia-causal.html"
+       href="01-python-para-econometria.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introducción</p>
+        <p class="prev-next-title">Python para Econometría</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="04-supuestos-inferencia-causal.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Supuestos de la inferencia causal</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
@@ -419,6 +659,31 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Modelo de resultados potenciales</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#como-se-hacen-los-experimentos-en-la-vida-real">Cómo se hacen los experimentos en la vida real</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#algo-de-notacion">Algo de notación</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#no-hagas-una-diferencia-de-medias-simple">No hagas una diferencia de medias simple</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#universos-paralelos">Universos Paralelos</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sesgo-de-seleccion">Sesgo de selección</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-en-python">El modelo en Python</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas-para-repasar">Preguntas para repasar</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respuestas">Respuestas</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

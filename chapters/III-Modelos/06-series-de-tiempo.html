@@ -1,0 +1,1269 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Series de Tiempo &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/III-Modelos/06-series-de-tiempo';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Efectos Fijos" href="07-efectos-fijos.html" />
+    <link rel="prev" title="Una guía para entender y hacer modelos de Regresión Lineal" href="05-regresion.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducción</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/00-que-es-inferencia-causal.html">Antes de comenzar: ¿Qué es la inferencia causal?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/01-los-negocios-son-matematicas.html">Los negocios son matemáticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-python-para-econometria.html">Python para hacer Econometría</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inferencia Causal</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/03-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/04-experimentos.html">Experimentos y Pruebas A/B</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="05-regresion.html">Una guía para entender y hacer modelos de Regresión Lineal</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Series de Tiempo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-efectos-fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-diff-in-diff.html">Diferencias en Diferencias</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/09-iteracion.html">La única forma de crear valor es iterando a partir de los datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/10-investigacion-mercados-ia.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/III-Modelos/06-series-de-tiempo.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/III-Modelos/06-series-de-tiempo.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Series de Tiempo</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-ejemplo-de-una-serie-de-tiempo">Un ejemplo de una Serie de Tiempo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estacionariedad">Estacionariedad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-arima">El modelo ARIMA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-parte-autorregresiva-ar-p">La parte Autorregresiva: AR(p)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datos-reales-el-igae-de-mexico">Datos reales: El IGAE de México</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones-de-autocorrelacion-acf-y-autocorrelacion-parcial-pacf">Funciones de Autocorrelación (ACF) y Autocorrelación Parcial (PACF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ajustando-un-modelo-ar-3">Ajustando un modelo AR(3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccion-de-modelo-con-aic-y-bic">Selección de modelo con AIC y BIC</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pronostico-con-el-modelo-ar">Pronóstico con el modelo AR</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#medias-moviles-la-ma-de-arima">Medias Móviles: La MA de ARIMA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-i-del-arima">¿Y la I del ARIMA?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apendice">Apéndice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proceso-estocastico">Proceso estocástico</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ruido-blanco">Ruido blanco</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raices-unitarias">Raíces unitarias</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen">Resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="series-de-tiempo">
+<h1>Series de Tiempo<a class="headerlink" href="#series-de-tiempo" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p><em>“The way I see it, every life is a pile of good things and bad things. The good things don’t always soften the bad things, but vice versa, the bad things don’t always spoil the good things and make them unimportant.”</em> — The Doctor</p>
+</div></blockquote>
+<blockquote>
+<div><p><em>“It’s tough to make predictions, especially about the future.”</em> — Yogi Berra</p>
+</div></blockquote>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h2>
+<p>Las series de tiempo son una de las herramientas más poderosas en la econometría aplicada. En esencia, una serie de tiempo combina <strong>modelos estadísticos</strong> con <strong>registros de datos ordenados cronológicamente</strong> para encontrar patrones y hacer pronósticos.</p>
+<p>¿Para qué sirven las series de tiempo en los negocios y la economía?</p>
+<ul class="simple">
+<li><p><strong>Proyección de ventas</strong>: Estimar cuánto venderá una empresa en los próximos meses o años.</p></li>
+<li><p><strong>Predicción de demanda</strong>: Anticipar la demanda de un producto para optimizar inventarios.</p></li>
+<li><p><strong>Finanzas</strong>: Modelar el comportamiento de precios de acciones, tipos de cambio y tasas de interés.</p></li>
+<li><p><strong>Energía</strong>: Pronosticar el consumo eléctrico o la producción de energía renovable.</p></li>
+<li><p><strong>Mercados</strong>: Analizar tendencias en mercados de commodities, bienes raíces y más.</p></li>
+<li><p><strong>Inventarios</strong>: Planificar la cadena de suministro con base en patrones históricos.</p></li>
+</ul>
+<p>En este capítulo aprenderemos los fundamentos de los modelos de series de tiempo, desde la caminata aleatoria hasta el modelo ARIMA, con ejemplos prácticos en Python.</p>
+</section>
+<section id="un-ejemplo-de-una-serie-de-tiempo">
+<h2>Un ejemplo de una Serie de Tiempo<a class="headerlink" href="#un-ejemplo-de-una-serie-de-tiempo" title="Permalink to this heading">#</a></h2>
+<p>Comencemos con el modelo más sencillo de una serie de tiempo: la <strong>caminata aleatoria</strong> (<em>random walk</em>).</p>
+<p>La caminata aleatoria se define como:</p>
+<div class="math notranslate nohighlight">
+\[X_t = X_{t-1} + \varepsilon_t\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\varepsilon_t \sim N(0, \sigma^2)\)</span> es un término de error aleatorio (ruido blanco).</p>
+<p>En palabras simples: el valor de hoy es igual al valor de ayer más un choque aleatorio. No hay tendencia, no hay patrón predecible. Es como lanzar una moneda en cada paso y decidir si subes o bajas.</p>
+<p>A pesar de su simplicidad, la caminata aleatoria es un modelo fundamental porque muchas series financieras se comportan de forma similar. Si los precios de una acción siguen una caminata aleatoria, entonces no es posible predecir su dirección futura con base en su historia.</p>
+<p>Simulemos una caminata aleatoria con Python.</p>
+<p><img alt="Caminata aleatoria" src="../../_images/random_walk.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">X_0</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">X_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">X_t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_0</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="n">epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+    <span class="n">X_t</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_t</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">epsilon</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$X_t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Paso del tiempo&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Valor&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simulación de $X_t = X_{t-1} + </span><span class="se">\\</span><span class="s1">varepsilon$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d577345754c19816dff95b696745b74ffa11877a7770a2a1efc659baa4d04788.png" src="../../_images/d577345754c19816dff95b696745b74ffa11877a7770a2a1efc659baa4d04788.png" />
+</div>
+</div>
+<p>Observa cómo la serie parece tener tendencias y patrones, pero en realidad es completamente aleatoria. Esto es una propiedad importante de la caminata aleatoria: puede engañar al ojo humano haciéndonos creer que hay un patrón donde no lo hay.</p>
+<section id="estacionariedad">
+<h3>Estacionariedad<a class="headerlink" href="#estacionariedad" title="Permalink to this heading">#</a></h3>
+<p>Una serie de tiempo es <strong>estacionaria</strong> si sus propiedades estadísticas (media, varianza y autocovarianza) no cambian a lo largo del tiempo. La estacionariedad es un supuesto fundamental para la mayoría de los modelos de series de tiempo.</p>
+<p>Una caminata aleatoria <strong>no es estacionaria</strong> porque su varianza crece con el tiempo: <span class="math notranslate nohighlight">\(\text{Var}(X_t) = t \cdot \sigma^2\)</span>.</p>
+<p>¿Cómo sabemos si una serie es estacionaria o no? Podemos usar la <strong>prueba de Dickey-Fuller Aumentada</strong> (ADF, por sus siglas en inglés). Esta prueba tiene las siguientes hipótesis:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H_0\)</span>: La serie tiene una raíz unitaria (no es estacionaria).</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_1\)</span>: La serie es estacionaria.</p></li>
+</ul>
+<p>Si el p-valor es menor a 0.05, rechazamos <span class="math notranslate nohighlight">\(H_0\)</span> y concluimos que la serie es estacionaria.</p>
+<p>Cuando una serie no es estacionaria, una técnica común es <strong>diferenciarla</strong>. La primera diferencia de una serie <span class="math notranslate nohighlight">\(Y_t\)</span> se define como:</p>
+<div class="math notranslate nohighlight">
+\[\Delta Y_t = Y_t - Y_{t-1}\]</div>
+<p>Si la serie original no es estacionaria pero su primera diferencia sí lo es, decimos que la serie es <strong>integrada de orden 1</strong>, o <span class="math notranslate nohighlight">\(I(1)\)</span>.</p>
+<p>Veamos un ejemplo donde simulamos una serie no estacionaria, la diferenciamos y aplicamos la prueba ADF a ambas.</p>
+<p><img alt="Diferenciación" src="../../_images/diff.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">beta0</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">beta1</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta1</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta1</span> <span class="o">*</span> <span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">phi</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="n">y_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">adf_result_original</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">adf_result_diff</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">y_diff</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Serie Original&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Serie de Tiempo No Estacionaria&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valor&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">y_diff</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Serie Diferenciada&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Serie de Tiempo Diferenciada&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valor&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Prueba ADF: Serie Original ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico ADF: </span><span class="si">{</span><span class="n">adf_result_original</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p-valor: </span><span class="si">{</span><span class="n">adf_result_original</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Prueba ADF: Serie Diferenciada ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico ADF: </span><span class="si">{</span><span class="n">adf_result_diff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p-valor: </span><span class="si">{</span><span class="n">adf_result_diff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4405571c6b6adf28a1af233cf85d8cb82ea896655eb546b08396aa37038b4e29.png" src="../../_images/4405571c6b6adf28a1af233cf85d8cb82ea896655eb546b08396aa37038b4e29.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Prueba ADF: Serie Original ---
+Estadístico ADF: -2.2971
+p-valor: 0.1729
+
+--- Prueba ADF: Serie Diferenciada ---
+Estadístico ADF: -6.6163
+p-valor: 0.0000
+</pre></div>
+</div>
+</div>
+</div>
+<p>Como puedes ver, la serie original probablemente no pasa la prueba ADF (p-valor alto), lo que indica que no es estacionaria. Pero al diferenciarla, el p-valor cae drásticamente, confirmando que la serie diferenciada sí es estacionaria.</p>
+<p>Este concepto de diferenciar para lograr estacionariedad es la base de la <strong>I</strong> en ARIMA.</p>
+</section>
+</section>
+<section id="el-modelo-arima">
+<h2>El modelo ARIMA<a class="headerlink" href="#el-modelo-arima" title="Permalink to this heading">#</a></h2>
+<p>ARIMA significa <strong>A</strong>uto<strong>R</strong>egressive <strong>I</strong>ntegrated <strong>M</strong>oving <strong>A</strong>verage. Vamos a construir la intuición paso a paso.</p>
+<section id="la-parte-autorregresiva-ar-p">
+<h3>La parte Autorregresiva: AR(p)<a class="headerlink" href="#la-parte-autorregresiva-ar-p" title="Permalink to this heading">#</a></h3>
+<p>Un modelo autorregresivo de orden 1, o <strong>AR(1)</strong>, dice que el valor actual de la serie depende de su valor anterior más un error:</p>
+<div class="math notranslate nohighlight">
+\[Y_t = c + \phi_1 Y_{t-1} + \varepsilon_t\]</div>
+<p>donde <span class="math notranslate nohighlight">\(c\)</span> es una constante, <span class="math notranslate nohighlight">\(\phi_1\)</span> es el coeficiente autorregresivo y <span class="math notranslate nohighlight">\(\varepsilon_t\)</span> es ruido blanco.</p>
+<p>Si <span class="math notranslate nohighlight">\(|\phi_1| &lt; 1\)</span>, la serie es estacionaria. Si <span class="math notranslate nohighlight">\(\phi_1 = 1\)</span>, tenemos una caminata aleatoria.</p>
+<p>Podemos generalizar a un modelo <strong>AR(p)</strong> que incluye <span class="math notranslate nohighlight">\(p\)</span> rezagos:</p>
+<div class="math notranslate nohighlight">
+\[Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \cdots + \phi_p Y_{t-p} + \varepsilon_t\]</div>
+<p>Piénsalo así: las ventas de hoy dependen de las ventas de los últimos <span class="math notranslate nohighlight">\(p\)</span> días. Un modelo AR(3) usa los tres valores previos para predecir el actual.</p>
+<p>Simulemos un proceso AR(3) con 1000 observaciones.</p>
+<p><img alt="AR(3) simulado" src="../../_images/ar3.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>  <span class="c1"># Coeficientes AR(3)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">y</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">phi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">phi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">phi</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simulación de un proceso AR(3)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Valor&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/8eb985c006a563b11853071c3f82d18ecb51f81a853bb39bd7c96baf61226c19.png" src="../../_images/8eb985c006a563b11853071c3f82d18ecb51f81a853bb39bd7c96baf61226c19.png" />
+</div>
+</div>
+<p>Ahora verifiquemos que esta serie simulada es estacionaria usando la prueba ADF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
+
+<span class="n">adf_result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Prueba de Dickey-Fuller Aumentada ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico ADF: </span><span class="si">{</span><span class="n">adf_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p-valor: </span><span class="si">{</span><span class="n">adf_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de rezagos usados: </span><span class="si">{</span><span class="n">adf_result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Número de observaciones: </span><span class="si">{</span><span class="n">adf_result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores críticos:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">adf_result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">adf_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Conclusión: Rechazamos H0. La serie ES estacionaria.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Conclusión: No rechazamos H0. La serie NO es estacionaria.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Prueba de Dickey-Fuller Aumentada ---
+Estadístico ADF: -15.3109
+p-valor: 0.000000
+Número de rezagos usados: 2
+Número de observaciones: 997
+Valores críticos:
+  1%: -3.4369
+  5%: -2.8644
+  10%: -2.5683
+
+Conclusión: Rechazamos H0. La serie ES estacionaria.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="datos-reales-el-igae-de-mexico">
+<h3>Datos reales: El IGAE de México<a class="headerlink" href="#datos-reales-el-igae-de-mexico" title="Permalink to this heading">#</a></h3>
+<p>Ahora trabajemos con datos reales. El <strong>Indicador Global de la Actividad Económica (IGAE)</strong> es un indicador mensual publicado por el INEGI que mide la evolución de la actividad económica en México. Es como un PIB mensual.</p>
+<p>Vamos a cargar los datos del IGAE y explorar su comportamiento.</p>
+<p><img alt="IGAE" src="../../_images/igae.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Cargar datos del IGAE desde INEGI</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.inegi.org.mx/contenidos/programas/igae/2018/tabulados/igae_tabla.xlsx&quot;</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">igae</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Datos cargados exitosamente.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">igae</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Dimensiones: </span><span class="si">{</span><span class="n">igae</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No se pudieron cargar los datos desde INEGI: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generando datos sintéticos del IGAE para continuar el ejemplo...&quot;</span><span class="p">)</span>
+    
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">fechas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">168</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;MS&#39;</span><span class="p">)</span>
+    <span class="n">tendencia</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mi">168</span><span class="p">)</span>
+    <span class="n">estacionalidad</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">168</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">ruido</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">168</span><span class="p">)</span>
+    <span class="n">valores</span> <span class="o">=</span> <span class="n">tendencia</span> <span class="o">+</span> <span class="n">estacionalidad</span> <span class="o">+</span> <span class="n">ruido</span>
+    <span class="c1"># Simular caída por COVID</span>
+    <span class="n">valores</span><span class="p">[</span><span class="mi">122</span><span class="p">:</span><span class="mi">128</span><span class="p">]</span> <span class="o">=</span> <span class="n">valores</span><span class="p">[</span><span class="mi">122</span><span class="p">:</span><span class="mi">128</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    
+    <span class="n">igae</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Fecha&#39;</span><span class="p">:</span> <span class="n">fechas</span><span class="p">,</span> <span class="s1">&#39;IGAE&#39;</span><span class="p">:</span> <span class="n">valores</span><span class="p">})</span>
+    <span class="n">igae</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">if</span> <span class="s1">&#39;Fecha&#39;</span> <span class="ow">in</span> <span class="n">igae</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">igae</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">],</span> <span class="n">igae</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">igae</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">igae</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Indicador Global de la Actividad Económica (IGAE)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Índice&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No se pudieron cargar los datos desde INEGI: Excel file format cannot be determined, you must specify an engine manually.
+Generando datos sintéticos del IGAE para continuar el ejemplo...
+</pre></div>
+</div>
+<img alt="../../_images/51b26d68d266913a56926288361476004eb2dcbc271b9d589f1f8003dce831e1.png" src="../../_images/51b26d68d266913a56926288361476004eb2dcbc271b9d589f1f8003dce831e1.png" />
+</div>
+</div>
+</section>
+<section id="funciones-de-autocorrelacion-acf-y-autocorrelacion-parcial-pacf">
+<h3>Funciones de Autocorrelación (ACF) y Autocorrelación Parcial (PACF)<a class="headerlink" href="#funciones-de-autocorrelacion-acf-y-autocorrelacion-parcial-pacf" title="Permalink to this heading">#</a></h3>
+<p>Para decidir qué modelo usar, necesitamos herramientas de diagnóstico. Las dos más importantes son:</p>
+<ul class="simple">
+<li><p><strong>ACF (Función de Autocorrelación)</strong>: Mide la correlación entre <span class="math notranslate nohighlight">\(Y_t\)</span> y <span class="math notranslate nohighlight">\(Y_{t-k}\)</span> para diferentes rezagos <span class="math notranslate nohighlight">\(k\)</span>. Incluye efectos directos e indirectos.</p></li>
+<li><p><strong>PACF (Función de Autocorrelación Parcial)</strong>: Mide la correlación entre <span class="math notranslate nohighlight">\(Y_t\)</span> y <span class="math notranslate nohighlight">\(Y_{t-k}\)</span> eliminando el efecto de los rezagos intermedios.</p></li>
+</ul>
+<p><strong>Reglas generales para identificar modelos:</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Modelo</p></th>
+<th class="head"><p>ACF</p></th>
+<th class="head"><p>PACF</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AR(p)</p></td>
+<td><p>Decae gradualmente</p></td>
+<td><p>Se corta después del rezago <span class="math notranslate nohighlight">\(p\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MA(q)</p></td>
+<td><p>Se corta después del rezago <span class="math notranslate nohighlight">\(q\)</span></p></td>
+<td><p>Decae gradualmente</p></td>
+</tr>
+<tr class="row-even"><td><p>ARMA(p,q)</p></td>
+<td><p>Decae gradualmente</p></td>
+<td><p>Decae gradualmente</p></td>
+</tr>
+</tbody>
+</table>
+<p>Veamos las gráficas ACF y PACF de los datos del IGAE, tanto en su forma original como diferenciada.</p>
+<p><img alt="ACF y PACF originales" src="../../_images/afc_pafc_original.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
+
+<span class="c1"># Usar la serie del IGAE</span>
+<span class="k">if</span> <span class="s1">&#39;Fecha&#39;</span> <span class="ow">in</span> <span class="n">igae</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">serie</span> <span class="o">=</span> <span class="n">igae</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">serie</span> <span class="o">=</span> <span class="n">igae</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">serie</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ACF - Serie Original&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plot_pacf</span><span class="p">(</span><span class="n">serie</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;PACF - Serie Original&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.9/site-packages/statsmodels/graphics/tsaplots.py:348: FutureWarning: The default method &#39;yw&#39; can produce PACF values outside of the [-1,1] interval. After 0.13, the default will change tounadjusted Yule-Walker (&#39;ywm&#39;). You can use this method now by setting method=&#39;ywm&#39;.
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="../../_images/ae6200e9392ba724a7b31649d4c427c196611f32b8abb2d56d7d3a365c7461f6.png" src="../../_images/ae6200e9392ba724a7b31649d4c427c196611f32b8abb2d56d7d3a365c7461f6.png" />
+</div>
+</div>
+<p>Ahora veamos la ACF y PACF de la serie diferenciada.</p>
+<p><img alt="ACF y PACF diferenciadas" src="../../_images/afc_pafc_diff.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serie_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">serie</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ACF - Serie Diferenciada&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plot_pacf</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;PACF - Serie Diferenciada&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c794c49d0ad89d610313cea39e6505c9667188c2c7b43fa2a5d0a43cfdcba8cc.png" src="../../_images/c794c49d0ad89d610313cea39e6505c9667188c2c7b43fa2a5d0a43cfdcba8cc.png" />
+</div>
+</div>
+</section>
+<section id="ajustando-un-modelo-ar-3">
+<h3>Ajustando un modelo AR(3)<a class="headerlink" href="#ajustando-un-modelo-ar-3" title="Permalink to this heading">#</a></h3>
+<p>Supongamos que con base en el análisis de ACF/PACF decidimos ajustar un modelo AR(3). Usaremos la función <code class="docutils literal notranslate"><span class="pre">AutoReg</span></code> de <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.ar_model</span> <span class="kn">import</span> <span class="n">AutoReg</span>
+
+<span class="c1"># Ajustar un modelo AR(3) a la serie diferenciada</span>
+<span class="n">modelo_ar3</span> <span class="o">=</span> <span class="n">AutoReg</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">modelo_ar3</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            AutoReg Model Results                             
+==============================================================================
+Dep. Variable:                      y   No. Observations:                  167
+Model:                     AutoReg(3)   Log Likelihood                -387.489
+Method:               Conditional MLE   S.D. of innovations              2.570
+Date:                Mon, 02 Feb 2026   AIC                            784.979
+Time:                        13:32:23   BIC                            800.478
+Sample:                             3   HQIC                           791.271
+                                  167                                         
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.1431      0.202      0.710      0.478      -0.252       0.538
+y.L1          -0.1777      0.078     -2.275      0.023      -0.331      -0.025
+y.L2          -0.0272      0.079     -0.343      0.731      -0.182       0.128
+y.L3           0.0530      0.078      0.680      0.497      -0.100       0.206
+                                    Roots                                    
+=============================================================================
+                  Real          Imaginary           Modulus         Frequency
+-----------------------------------------------------------------------------
+AR.1           -1.3857           -1.9564j            2.3974           -0.3481
+AR.2           -1.3857           +1.9564j            2.3974            0.3481
+AR.3            3.2842           -0.0000j            3.2842           -0.0000
+-----------------------------------------------------------------------------
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="seleccion-de-modelo-con-aic-y-bic">
+<h3>Selección de modelo con AIC y BIC<a class="headerlink" href="#seleccion-de-modelo-con-aic-y-bic" title="Permalink to this heading">#</a></h3>
+<p>¿Cómo elegimos entre un AR(2), AR(3) o AR(4)? Usamos criterios de información:</p>
+<ul class="simple">
+<li><p><strong>AIC (Criterio de Información de Akaike)</strong>: Penaliza la complejidad del modelo. Menor es mejor.</p></li>
+<li><p><strong>BIC (Criterio de Información Bayesiano)</strong>: Similar al AIC pero con una penalización más fuerte por complejidad. Menor es mejor.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\text{AIC} = 2k - 2\ln(\hat{L})\]</div>
+<div class="math notranslate nohighlight">
+\[\text{BIC} = k\ln(n) - 2\ln(\hat{L})\]</div>
+<p>donde <span class="math notranslate nohighlight">\(k\)</span> es el número de parámetros, <span class="math notranslate nohighlight">\(n\)</span> es el número de observaciones y <span class="math notranslate nohighlight">\(\hat{L}\)</span> es la verosimilitud maximizada.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.ar_model</span> <span class="kn">import</span> <span class="n">AutoReg</span>
+
+<span class="n">resultados</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">modelo</span> <span class="o">=</span> <span class="n">AutoReg</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">resultados</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;AR(</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;AIC&#39;</span><span class="p">:</span> <span class="n">modelo</span><span class="o">.</span><span class="n">aic</span><span class="p">,</span>
+        <span class="s1">&#39;BIC&#39;</span><span class="p">:</span> <span class="n">modelo</span><span class="o">.</span><span class="n">bic</span>
+    <span class="p">})</span>
+
+<span class="n">df_resultados</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultados</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Comparación de modelos AR:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_resultados</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor modelo según AIC: </span><span class="si">{</span><span class="n">df_resultados</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_resultados</span><span class="p">[</span><span class="s1">&#39;AIC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">(),</span><span class="w"> </span><span class="s1">&#39;Modelo&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mejor modelo según BIC: </span><span class="si">{</span><span class="n">df_resultados</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_resultados</span><span class="p">[</span><span class="s1">&#39;BIC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">(),</span><span class="w"> </span><span class="s1">&#39;Modelo&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Comparación de modelos AR:
+Modelo        AIC        BIC
+ AR(2) 787.873147 800.296929
+ AR(3) 784.978863 800.478195
+ AR(4) 770.422529 788.985030
+
+Mejor modelo según AIC: AR(4)
+Mejor modelo según BIC: AR(4)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pronostico-con-el-modelo-ar">
+<h3>Pronóstico con el modelo AR<a class="headerlink" href="#pronostico-con-el-modelo-ar" title="Permalink to this heading">#</a></h3>
+<p>Ahora vamos a dividir nuestra serie en un conjunto de <strong>entrenamiento</strong> y uno de <strong>prueba</strong> para evaluar qué tan bien predice nuestro modelo.</p>
+<p>El <strong>Error Absoluto Medio (MAE)</strong> nos dice, en promedio, cuánto se desvían nuestras predicciones de los valores reales:</p>
+<div class="math notranslate nohighlight">
+\[\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|\]</div>
+<p><img alt="Pronóstico" src="../../_images/forecast.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+
+<span class="c1"># Dividir en entrenamiento (80%) y prueba (20%)</span>
+<span class="n">n_train</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">serie_diff</span><span class="p">[:</span><span class="n">n_train</span><span class="p">]</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">serie_diff</span><span class="p">[</span><span class="n">n_train</span><span class="p">:]</span>
+
+<span class="c1"># Ajustar modelo AR(3) en datos de entrenamiento</span>
+<span class="n">modelo</span> <span class="o">=</span> <span class="n">AutoReg</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Pronóstico</span>
+<span class="n">predicciones</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">n_train</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Calcular MAE</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">predicciones</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error Absoluto Medio (MAE): </span><span class="si">{</span><span class="n">mae</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gráfica</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">)),</span> <span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Entrenamiento&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_train</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">)),</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Datos reales (prueba)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_train</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">serie_diff</span><span class="p">)),</span> <span class="n">predicciones</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pronóstico AR(3)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">n_train</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;División train/test&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Pronóstico AR(3) vs Datos Reales&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Valor (diferenciado)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error Absoluto Medio (MAE): 2.0007
+</pre></div>
+</div>
+<img alt="../../_images/e6979253314d13f7320d650e401575c2ecdb56f5481ee259503d45719b51573d.png" src="../../_images/e6979253314d13f7320d650e401575c2ecdb56f5481ee259503d45719b51573d.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="medias-moviles-la-ma-de-arima">
+<h2>Medias Móviles: La MA de ARIMA<a class="headerlink" href="#medias-moviles-la-ma-de-arima" title="Permalink to this heading">#</a></h2>
+<p>La parte de <strong>Medias Móviles</strong> (MA) del modelo ARIMA captura la dependencia entre <span class="math notranslate nohighlight">\(Y_t\)</span> y los errores pasados. Un modelo MA(q) se define como:</p>
+<div class="math notranslate nohighlight">
+\[Y_t = \mu + \varepsilon_t + \theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2} + \cdots + \theta_q \varepsilon_{t-q}\]</div>
+<p>Cuando combinamos la parte AR con la parte MA, obtenemos un modelo <strong>ARMA(p, q)</strong>:</p>
+<div class="math notranslate nohighlight">
+\[Y_t = c + \phi_1 Y_{t-1} + \cdots + \phi_p Y_{t-p} + \varepsilon_t + \theta_1 \varepsilon_{t-1} + \cdots + \theta_q \varepsilon_{t-q}\]</div>
+<p>La intuición es la siguiente:</p>
+<ul class="simple">
+<li><p>La parte <strong>AR</strong> captura cómo el pasado de la serie afecta al presente.</p></li>
+<li><p>La parte <strong>MA</strong> captura cómo los choques (errores) pasados afectan al presente.</p></li>
+</ul>
+<p>Simulemos un proceso ARMA(1,3) y ajustemos un modelo.</p>
+<p><img alt="ARMA" src="../../_images/arma.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="c1"># Parámetros ARMA(1,3)</span>
+<span class="n">phi_1</span> <span class="o">=</span> <span class="mf">0.6</span>        <span class="c1"># Coeficiente AR</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>  <span class="c1"># Coeficientes MA</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># extra para inicialización</span>
+
+<span class="n">y_arma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">y_arma</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">phi_1</span> <span class="o">*</span> <span class="n">y_arma</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> 
+                 <span class="o">+</span> <span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">epsilon</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
+                 <span class="o">+</span> <span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">epsilon</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> 
+                 <span class="o">+</span> <span class="n">theta</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">epsilon</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">y_arma</span> <span class="o">=</span> <span class="n">y_arma</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>  <span class="c1"># Descartar observaciones de inicialización</span>
+
+<span class="c1"># Ajustar modelo ARMA(1,3) usando ARIMA con d=0</span>
+<span class="n">modelo_arma</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">y_arma</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">modelo_arma</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+<span class="c1"># Predicciones in-sample</span>
+<span class="n">pred_arma</span> <span class="o">=</span> <span class="n">modelo_arma</span><span class="o">.</span><span class="n">fittedvalues</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_arma</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Serie simulada ARMA(1,3)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pred_arma</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Valores ajustados&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Modelo ARMA(1,3): Datos vs Valores Ajustados&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Valor&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                      y   No. Observations:                  500
+Model:                 ARIMA(1, 0, 3)   Log Likelihood                -701.577
+Date:                Mon, 02 Feb 2026   AIC                           1415.153
+Time:                        13:32:24   BIC                           1440.441
+Sample:                             0   HQIC                          1425.076
+                                - 500                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.0068      0.131     -0.052      0.958      -0.263       0.249
+ar.L1          0.4538      0.135      3.356      0.001       0.189       0.719
+ma.L1          0.5358      0.136      3.947      0.000       0.270       0.802
+ma.L2         -0.1644      0.148     -1.110      0.267      -0.455       0.126
+ma.L3          0.2254      0.049      4.568      0.000       0.129       0.322
+sigma2         0.9644      0.059     16.320      0.000       0.849       1.080
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 4.85
+Prob(Q):                              0.98   Prob(JB):                         0.09
+Heteroskedasticity (H):               1.21   Skew:                             0.21
+Prob(H) (two-sided):                  0.22   Kurtosis:                         3.23
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+</pre></div>
+</div>
+<img alt="../../_images/2be6896cb1abdcf5b8c5a261cb3f93ce4e2b7dd1d80133f9e5415c356119aef7.png" src="../../_images/2be6896cb1abdcf5b8c5a261cb3f93ce4e2b7dd1d80133f9e5415c356119aef7.png" />
+</div>
+</div>
+<p>Veamos la ACF y PACF del proceso ARMA simulado.</p>
+<p><img alt="ACF y PACF del ARMA" src="../../_images/arma_afc_pafc.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">y_arma</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ACF - Proceso ARMA(1,3)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plot_pacf</span><span class="p">(</span><span class="n">y_arma</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;PACF - Proceso ARMA(1,3)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.9/site-packages/statsmodels/graphics/tsaplots.py:348: FutureWarning: The default method &#39;yw&#39; can produce PACF values outside of the [-1,1] interval. After 0.13, the default will change tounadjusted Yule-Walker (&#39;ywm&#39;). You can use this method now by setting method=&#39;ywm&#39;.
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="../../_images/915cb61580e65ede80547acd53316b75f5e33632aa440a7d2d2f05372784a640.png" src="../../_images/915cb61580e65ede80547acd53316b75f5e33632aa440a7d2d2f05372784a640.png" />
+</div>
+</div>
+<p>Observa cómo tanto la ACF como la PACF decaen gradualmente, lo cual es consistente con un proceso ARMA. Esto contrasta con un proceso AR puro (donde la PACF se corta abruptamente) o un MA puro (donde la ACF se corta abruptamente).</p>
+</section>
+<section id="y-la-i-del-arima">
+<h2>¿Y la I del ARIMA?<a class="headerlink" href="#y-la-i-del-arima" title="Permalink to this heading">#</a></h2>
+<p>La <strong>I</strong> de ARIMA se refiere a <strong>Integración</strong>. Una serie es integrada de orden <span class="math notranslate nohighlight">\(d\)</span> si necesitamos diferenciarla <span class="math notranslate nohighlight">\(d\)</span> veces para hacerla estacionaria.</p>
+<p>Un modelo <strong>ARIMA(p, d, q)</strong> aplica:</p>
+<ol class="arabic simple">
+<li><p><strong>d</strong> diferenciaciones a la serie para hacerla estacionaria.</p></li>
+<li><p>Un modelo <strong>ARMA(p, q)</strong> a la serie diferenciada.</p></li>
+</ol>
+<p>Las fórmulas de diferenciación son:</p>
+<p><strong>Primera diferencia</strong> (<span class="math notranslate nohighlight">\(d = 1\)</span>):
+$<span class="math notranslate nohighlight">\(\Delta Y_t = Y_t - Y_{t-1}\)</span>$</p>
+<p><strong>Segunda diferencia</strong> (<span class="math notranslate nohighlight">\(d = 2\)</span>):
+$<span class="math notranslate nohighlight">\(\Delta^2 Y_t = \Delta Y_t - \Delta Y_{t-1} = (Y_t - Y_{t-1}) - (Y_{t-1} - Y_{t-2}) = Y_t - 2Y_{t-1} + Y_{t-2}\)</span>$</p>
+<p><strong>Tercera diferencia</strong> (<span class="math notranslate nohighlight">\(d = 3\)</span>):
+$<span class="math notranslate nohighlight">\(\Delta^3 Y_t = Y_t - 3Y_{t-1} + 3Y_{t-2} - Y_{t-3}\)</span>$</p>
+<p>En la práctica, rara vez necesitamos más de <span class="math notranslate nohighlight">\(d = 2\)</span>. La mayoría de las series económicas son <span class="math notranslate nohighlight">\(I(1)\)</span>, es decir, se vuelven estacionarias con una sola diferencia.</p>
+<p>Por lo tanto, un modelo ARIMA(1, 1, 1) significa:</p>
+<ul class="simple">
+<li><p>Diferenciamos la serie una vez (<span class="math notranslate nohighlight">\(d = 1\)</span>).</p></li>
+<li><p>Aplicamos un AR(1) y un MA(1) a la serie diferenciada.</p></li>
+</ul>
+<p>Esto es exactamente lo que hicimos en secciones anteriores: primero diferenciamos y luego modelamos. ARIMA simplemente lo hace todo en un solo paso.</p>
+</section>
+<section id="apendice">
+<h2>Apéndice<a class="headerlink" href="#apendice" title="Permalink to this heading">#</a></h2>
+<section id="proceso-estocastico">
+<h3>Proceso estocástico<a class="headerlink" href="#proceso-estocastico" title="Permalink to this heading">#</a></h3>
+<p>Un <strong>proceso estocástico</strong> es una colección de variables aleatorias <span class="math notranslate nohighlight">\(\{X_t\}\)</span> indexadas por el tiempo <span class="math notranslate nohighlight">\(t\)</span>. Formalmente, es una función <span class="math notranslate nohighlight">\(X: T \times \Omega \rightarrow \mathbb{R}\)</span>, donde <span class="math notranslate nohighlight">\(T\)</span> es el conjunto de índices temporales y <span class="math notranslate nohighlight">\(\Omega\)</span> es el espacio muestral.</p>
+<p>Una serie de tiempo es una <strong>realización</strong> de un proceso estocástico: es lo que observamos en la práctica. El proceso estocástico subyacente genera infinitas posibles realizaciones, pero nosotros sólo observamos una.</p>
+</section>
+<section id="ruido-blanco">
+<h3>Ruido blanco<a class="headerlink" href="#ruido-blanco" title="Permalink to this heading">#</a></h3>
+<p>Un proceso de <strong>ruido blanco</strong> <span class="math notranslate nohighlight">\(\{\varepsilon_t\}\)</span> satisface las siguientes condiciones:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(E[\varepsilon_t] = 0\)</span> para todo <span class="math notranslate nohighlight">\(t\)</span> (media cero).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Var}(\varepsilon_t) = \sigma^2\)</span> para todo <span class="math notranslate nohighlight">\(t\)</span> (varianza constante).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(\varepsilon_t, \varepsilon_s) = 0\)</span> para todo <span class="math notranslate nohighlight">\(t \neq s\)</span> (no hay autocorrelación).</p></li>
+</ol>
+<p>El ruido blanco es el bloque fundamental de construcción de todos los modelos de series de tiempo. Es la parte que no podemos predecir: el componente puramente aleatorio.</p>
+</section>
+<section id="raices-unitarias">
+<h3>Raíces unitarias<a class="headerlink" href="#raices-unitarias" title="Permalink to this heading">#</a></h3>
+<p>Una <strong>raíz unitaria</strong> aparece cuando el polinomio característico del modelo AR tiene una raíz igual a 1. Consideremos un AR(1):</p>
+<div class="math notranslate nohighlight">
+\[Y_t = \phi Y_{t-1} + \varepsilon_t\]</div>
+<p>Reescrito como operador de rezago <span class="math notranslate nohighlight">\(L\)</span> (donde <span class="math notranslate nohighlight">\(LY_t = Y_{t-1}\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[(1 - \phi L) Y_t = \varepsilon_t\]</div>
+<p>La raíz del polinomio <span class="math notranslate nohighlight">\((1 - \phi z) = 0\)</span> es <span class="math notranslate nohighlight">\(z = 1/\phi\)</span>. Si <span class="math notranslate nohighlight">\(\phi = 1\)</span>, la raíz es 1, y tenemos una <strong>raíz unitaria</strong>. Esto significa que la serie es una caminata aleatoria y no es estacionaria.</p>
+<p>La prueba de Dickey-Fuller que usamos anteriormente es precisamente una prueba para detectar raíces unitarias.</p>
+</section>
+</section>
+<section id="resumen">
+<h2>Resumen<a class="headerlink" href="#resumen" title="Permalink to this heading">#</a></h2>
+<p>En este capítulo aprendimos los conceptos fundamentales de las series de tiempo:</p>
+<ol class="arabic simple">
+<li><p><strong>Caminata aleatoria</strong>: El modelo más simple donde <span class="math notranslate nohighlight">\(X_t = X_{t-1} + \varepsilon_t\)</span>.</p></li>
+<li><p><strong>Estacionariedad</strong>: Propiedad fundamental que requiere media y varianza constantes. Se verifica con la prueba ADF.</p></li>
+<li><p><strong>Diferenciación</strong>: Técnica para convertir una serie no estacionaria en estacionaria.</p></li>
+<li><p><strong>Modelos AR(p)</strong>: El valor actual depende de <span class="math notranslate nohighlight">\(p\)</span> valores pasados.</p></li>
+<li><p><strong>Modelos MA(q)</strong>: El valor actual depende de <span class="math notranslate nohighlight">\(q\)</span> errores pasados.</p></li>
+<li><p><strong>ARIMA(p,d,q)</strong>: Combina AR, diferenciación y MA en un solo modelo.</p></li>
+<li><p><strong>ACF y PACF</strong>: Herramientas de diagnóstico para identificar el tipo de modelo.</p></li>
+<li><p><strong>AIC y BIC</strong>: Criterios para seleccionar el mejor modelo.</p></li>
+</ol>
+<p>Las series de tiempo son una herramienta esencial para cualquier economista o científico de datos que necesite hacer pronósticos con datos históricos.</p>
+</section>
+<section id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Simula una caminata aleatoria con 500 observaciones y <span class="math notranslate nohighlight">\(\sigma = 2\)</span>. Grafica el resultado y aplica la prueba ADF. ¿Es estacionaria?</p></li>
+<li><p>Genera un proceso AR(2) con coeficientes <span class="math notranslate nohighlight">\(\phi_1 = 0.7\)</span> y <span class="math notranslate nohighlight">\(\phi_2 = -0.3\)</span> y 1000 observaciones. Grafica la ACF y PACF. ¿La PACF se corta después del rezago 2?</p></li>
+<li><p>Toma la serie del IGAE y ajusta un modelo ARIMA(1,1,1). Compara su AIC con un ARIMA(2,1,1) y un ARIMA(1,1,2). ¿Cuál es el mejor modelo?</p></li>
+<li><p>Simula un proceso MA(2) con <span class="math notranslate nohighlight">\(\theta_1 = 0.8\)</span> y <span class="math notranslate nohighlight">\(\theta_2 = -0.5\)</span>. Grafica la ACF. ¿Se corta después del rezago 2?</p></li>
+<li><p>Descarga datos de ventas mensuales de alguna empresa pública (puedes usar Yahoo Finance). Aplica la prueba ADF. Si no es estacionaria, diferencia la serie y vuelve a aplicar la prueba.</p></li>
+<li><p>Usando los datos del ejercicio anterior, divide en entrenamiento (80%) y prueba (20%). Ajusta un modelo ARIMA y calcula el MAE del pronóstico.</p></li>
+<li><p>Simula una caminata aleatoria con deriva (<em>drift</em>): <span class="math notranslate nohighlight">\(X_t = \mu + X_{t-1} + \varepsilon_t\)</span> con <span class="math notranslate nohighlight">\(\mu = 0.1\)</span>. ¿Cómo se ve diferente de una caminata aleatoria sin deriva?</p></li>
+<li><p>Genera una serie estacionaria AR(1) con <span class="math notranslate nohighlight">\(\phi = 0.9\)</span> (cerca de una raíz unitaria) y otra con <span class="math notranslate nohighlight">\(\phi = 0.3\)</span>. Grafica ambas. ¿Cuál se ve más parecida a una caminata aleatoria?</p></li>
+<li><p>Investiga sobre el modelo <strong>SARIMA</strong> (ARIMA estacional). ¿Qué parámetros adicionales necesita? Ajusta un SARIMA a los datos del IGAE.</p></li>
+<li><p>Compara las predicciones de un modelo ARIMA con un promedio móvil simple de 12 periodos. ¿Cuál tiene menor MAE en datos de prueba?</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/III-Modelos"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05-regresion.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Una guía para entender y hacer modelos de Regresión Lineal</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07-efectos-fijos.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Efectos Fijos</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-ejemplo-de-una-serie-de-tiempo">Un ejemplo de una Serie de Tiempo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estacionariedad">Estacionariedad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-arima">El modelo ARIMA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-parte-autorregresiva-ar-p">La parte Autorregresiva: AR(p)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datos-reales-el-igae-de-mexico">Datos reales: El IGAE de México</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones-de-autocorrelacion-acf-y-autocorrelacion-parcial-pacf">Funciones de Autocorrelación (ACF) y Autocorrelación Parcial (PACF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ajustando-un-modelo-ar-3">Ajustando un modelo AR(3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccion-de-modelo-con-aic-y-bic">Selección de modelo con AIC y BIC</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pronostico-con-el-modelo-ar">Pronóstico con el modelo AR</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#medias-moviles-la-ma-de-arima">Medias Móviles: La MA de ARIMA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-i-del-arima">¿Y la I del ARIMA?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apendice">Apéndice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proceso-estocastico">Proceso estocástico</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ruido-blanco">Ruido blanco</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raices-unitarias">Raíces unitarias</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen">Resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

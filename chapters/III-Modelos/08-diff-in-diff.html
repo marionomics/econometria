@@ -1,0 +1,1073 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Diferencias en Diferencias &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/III-Modelos/08-diff-in-diff';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="La única forma de crear valor es iterando a partir de los datos" href="../IV-Negocios/09-iteracion.html" />
+    <link rel="prev" title="Efectos Fijos" href="07-efectos-fijos.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducción</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/00-que-es-inferencia-causal.html">Antes de comenzar: ¿Qué es la inferencia causal?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/01-los-negocios-son-matematicas.html">Los negocios son matemáticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-python-para-econometria.html">Python para hacer Econometría</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inferencia Causal</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/03-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/04-experimentos.html">Experimentos y Pruebas A/B</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="05-regresion.html">Una guía para entender y hacer modelos de Regresión Lineal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-series-de-tiempo.html">Series de Tiempo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-efectos-fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Diferencias en Diferencias</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/09-iteracion.html">La única forma de crear valor es iterando a partir de los datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/10-investigacion-mercados-ia.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/III-Modelos/08-diff-in-diff.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/III-Modelos/08-diff-in-diff.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Diferencias en Diferencias</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-basico-de-did-de-2x2">El modelo basico de DiD de 2x2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-potenciales-en-el-modelo-did-2x2">Resultados potenciales en el modelo DiD 2x2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-1-no-interferencia-y-valores-unicos-de-tratamiento-sutva">Supuesto #1: No interferencia y valores unicos de tratamiento (SUTVA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-2-no-anticipacion">Supuesto #2: No anticipacion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-3-superposicion-fuerte">Supuesto #3: Superposicion fuerte</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-4-tendencias-paralelas-condicionadas">Supuesto #4: Tendencias paralelas condicionadas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identificacion-del-modelo-2x2-sin-covariables">Identificacion del modelo 2x2 sin covariables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-de-la-regresion-de-efectos-fijos-de-dos-vias-twfe">Resultado de la regresion de efectos fijos de dos vias (TWFE)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capitulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buscando-experimentos-naturales-ejercicios-de-did">Buscando experimentos naturales: ejercicios de DiD</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="diferencias-en-diferencias">
+<h1>Diferencias en Diferencias<a class="headerlink" href="#diferencias-en-diferencias" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p><em>Let me finish talking with my husband. He needs to know how good my life could have been</em></p>
+<p>– Evelyn en Everything, Everywhere, All at Once</p>
+</div></blockquote>
+<p>Que pasa cuando no podemos hacer un experimento para identificar causas y efectos?</p>
+<p>Si hay una leccion que quiero que recuerdes sobre este libro es que en nuestra mente siempre debe de estar el experimento como forma ideal de identificar causalidad. Y cuando el experimento no sea posible de hacer, o sea muy caro, entonces recurrimos a los datos.</p>
+<p>En otras palabras, buscamos un <strong>experimento natural</strong>.</p>
+<p>Los economistas llamamos experimento natural a un evento que se parece mucho a un experimento, pero ocurre sin que nadie lo haya planeado. Un ejemplo clasico es el de Card &amp; Krueger (1994), que midieron el efecto de un aumento en el salario minimo en el empleo. La teoria neoclasica dictaba que el mercado laboral se debia comportar igual a cualquier otro mercado, con curvas de oferta y demanda. Si en lugar de bienes y servicios, el empleado esta ofreciendo su trabajo, entonces un aumento en el salario minimo deberia tener como consecuencia una caida en el empleo.</p>
+<p><img alt="Bajo un modelo neoclasico ortodoxo, el establecer un salario minimo crea un desequilibrio artificial en el mercado que causa desempleo. Este modelo fue la base de muchas politicas de libre mercado. La evidencia que presentaron Card y Krueger no muestran este efecto en la realidad. Fuente: Elaboracion propia." src="../../_images/neoclassical-wage.png" /></p>
+<p>Los datos indican que un aumento en el salario minimo no tiene efecto alguno en el empleo.</p>
+<p>Al enterarse de que habria un aumento en el salario minimo en Nueva Jersey, los investigadores fueron a los establecimientos de comida rapida a recolectar datos. Registraron el numero de empleados, salarios promedio y otros datos en Nueva Jersey y Pennsylvania. Hicieron registros en ambos estados antes y despues de la implementacion de la medida.</p>
+<p>Los resultados se vieron asi.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><strong>PA</strong></p></th>
+<th class="head"><p><strong>NJ</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Empleo Antes</p></td>
+<td><p>23.33 (1.35)</p></td>
+<td><p>20.44 (0.51)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Empleo Despues</p></td>
+<td><p>21.17 (0.94)</p></td>
+<td><p>21.03 (0.52)</p></td>
+</tr>
+<tr class="row-even"><td><p>Cambio en el Empleo Medio</p></td>
+<td><p>-2.16 (1.25)</p></td>
+<td><p>0.59 (0.54)</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Tabla: Resultados del estudio de Card &amp; Krueger (1994)</em></p>
+<p>La diferencia en diferencia seria:</p>
+<div class="math notranslate nohighlight">
+\[
+[E(L_{\text{PA}} | t = 1) - E(L_{\text{PA}} | t = 2)] - [E(L_{\text{NJ}} | t = 1) - E(L_{\text{NJ}} | t = 2)]
+\]</div>
+<p>Tomando los datos de la tabla (usamos como notacion <span class="math notranslate nohighlight">\(L_i\)</span> como el nivel de empleo del estado <span class="math notranslate nohighlight">\(i = \{\text{PA},\text{NJ}\}\)</span>, y <span class="math notranslate nohighlight">\(t\)</span> en este caso es el periodo de tiempo del estudio; lo dividimos en antes de la implementacion del aumento del salario minimo (<span class="math notranslate nohighlight">\(t=1\)</span>) y despues de la misma (<span class="math notranslate nohighlight">\(t=2\)</span>)):</p>
+<div class="math notranslate nohighlight">
+\[
+(23.33 - 21.17) - (20.44 - 21.03) = 2.76
+\]</div>
+<p>Es decir, el empleo parece incluso haber aumentado.</p>
+<p>Pero con un error estandar de 1.36, no podemos estar seguros de que esos resultados sean causales. O bien, no hay efectos significativos.</p>
+<p>Si queremos conocer el efecto real que tuvo el aumento en el salario minimo, tenemos que tratar a Pennsylvania como un <strong>contrafactual</strong>. Lo que esto quiere decir es que los empleos en ambas ciudades se deberian comportar igual antes del tratamiento y, por lo tanto, Nueva Jersey hubiera tenido el mismo comportamiento que Pennsylvania <strong>si no se hubiera implementado el cambio</strong> (en realidad, el estudio de Card &amp; Krueger esta lleno de detalles interesantes que son una especie de manual de diseno de estudios cuasi-experimentales; por ejemplo, el estudio se enfoca en los restaurantes de comida rapida en ambas zonas, focalizado en ciudades aledanas en ambos estados, de manera que no es posible atribuir las diferencias a variables dificiles de medir como la cultura o la educacion; el trabajo en los restaurantes de comida rapida en ambos estados es igual, por lo que podemos decir que es un trabajo comparable).</p>
+<p>Cuando tomas la diferencia en el tiempo y entre regiones, lo que te queda es el efecto causal.</p>
+<section id="el-modelo-basico-de-did-de-2x2">
+<h2>El modelo basico de DiD de 2x2<a class="headerlink" href="#el-modelo-basico-de-did-de-2x2" title="Permalink to this heading">#</a></h2>
+<p>Vamos a hacer una generalizacion del modelo que te presente de Card &amp; Krueger.</p>
+<p>Estas son las caracteristicas del modelo:</p>
+<ul class="simple">
+<li><p><strong>Dos periodos</strong>: <span class="math notranslate nohighlight">\(t = 1\)</span> (antes del tratamiento) y <span class="math notranslate nohighlight">\(t=2\)</span> (despues del tratamiento).</p></li>
+<li><p><strong>Dos grupos</strong>: <span class="math notranslate nohighlight">\(G_i = 2\)</span> (unidades tratadas en el periodo 2), y <span class="math notranslate nohighlight">\(G_i = \infty\)</span> (unidades nunca tratadas).</p></li>
+<li><p>El modelo puede o no incluir covariables <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
+<li><p>Hay disponible un numero grande de observaciones independientes o clusters.</p></li>
+</ul>
+<p>Nota que usamos la palabra <em>tratamiento</em>, como en los estudios clinicos. En el estudio de Card &amp; Krueger, el tratamiento fue la reduccion del salario minimo. En el caso de que se trate de una implementacion de una politica o de una campana, es facil imaginar como esta puede ser un tratamiento, pero los casos en que observamos un efecto fortuito fuera de nuestras manos (por ejemplo, la imposicion de una ley), requiere un poco de imaginacion verlo como un tratamiento.</p>
+<section id="resultados-potenciales-en-el-modelo-did-2x2">
+<h3>Resultados potenciales en el modelo DiD 2x2<a class="headerlink" href="#resultados-potenciales-en-el-modelo-did-2x2" title="Permalink to this heading">#</a></h3>
+<p>Definimos <span class="math notranslate nohighlight">\(Y_t(g)\)</span> como el resultado potencial en el periodo <span class="math notranslate nohighlight">\(t\)</span> si las unidades se exponen al tratamiento por primera vez en el periodo <span class="math notranslate nohighlight">\(g\)</span>.</p>
+<p>El parametro causal que buscamos es el <strong>Efecto de Tratamiento Promedio en los Tratados</strong> en el periodo <span class="math notranslate nohighlight">\(t=2\)</span> (<em>Average Treatment Effect among the Treated</em>, <strong>ATT</strong>):</p>
+<div class="math notranslate nohighlight">
+\[
+ATT = \underbrace{E[Y_{t=2}(2) \mid G=2]}_{\text{Se estima a partir de los datos}} 
+- 
+\underbrace{E[Y_{t=2}(\infty) \mid G=2]}_{\text{Componente contrafactual}}
+\]</div>
+<p>Para validar nuestro modelo de <strong>DiD</strong> (Diferencias en Diferencias) consideraremos cuatro supuestos:</p>
+</section>
+<section id="supuesto-1-no-interferencia-y-valores-unicos-de-tratamiento-sutva">
+<h3>Supuesto #1: No interferencia y valores unicos de tratamiento (SUTVA)<a class="headerlink" href="#supuesto-1-no-interferencia-y-valores-unicos-de-tratamiento-sutva" title="Permalink to this heading">#</a></h3>
+<p>En ingles, este supuesto se conoce como <strong>SUTVA</strong> (<em>Stable Unit Treatment Value Assumption</em>). Bajo este supuesto de efectos causales, los resultados potenciales de una observacion dada responden unicamente a su propio estatus de tratamiento y son invariantes a la asignacion de tratamiento en otras unidades.</p>
+<p>Esto implica que los resultados observados en el tiempo <span class="math notranslate nohighlight">\(t\)</span> se realizan como:</p>
+<div class="math notranslate nohighlight">
+\[
+Y_{i,t} = \sum_{g \in \mathcal{G}} \mathbb{1}\{G_i = g\} \cdot Y_{i,t}(g)
+\]</div>
+<p>Es decir, para unidades que son tratadas en el periodo <span class="math notranslate nohighlight">\(t=2\)</span>, observamos <span class="math notranslate nohighlight">\(Y_{i,t}(2)\)</span>; y para aquellas que no han recibido tratamiento para <span class="math notranslate nohighlight">\(t=2\)</span>, observamos <span class="math notranslate nohighlight">\(Y_{i,t}(\infty)\)</span>.</p>
+</section>
+<section id="supuesto-2-no-anticipacion">
+<h3>Supuesto #2: No anticipacion<a class="headerlink" href="#supuesto-2-no-anticipacion" title="Permalink to this heading">#</a></h3>
+<p>Para todas las unidades <span class="math notranslate nohighlight">\(i\)</span>, se cumple que <span class="math notranslate nohighlight">\(Y_{i,t}(g) = Y_{i,t}(\infty)\)</span> para todos los grupos en los periodos previos al tratamiento.</p>
+<p>Esto significa que las unidades tratadas no cambian su comportamiento antes de que el tratamiento comience, en anticipacion a lo que ocurrira.</p>
+<p>Este supuesto no se suele comprobar mediante pruebas estadisticas, sino observando el contexto del <strong>experimento natural</strong>. En muchos estudios, se argumenta que el supuesto se cumple porque la implementacion fue rapida y sin previo aviso.</p>
+<p>Un ejemplo es el estudio de Card &amp; Krueger (1994), donde el aumento del salario minimo en Nueva Jersey se implemento poco despues de su anuncio.</p>
+<p>Otro ejemplo aun mas drastico tambien es de David Card. En septiembre de 1980, Fidel Castro anuncio que cualquier ciudadano cubano que lo deseara podia abordar un bote en el puerto de Mariel para emigrar a Estados Unidos. Como resultado, cerca de 125,000 migrantes llegaron a Miami en un periodo muy corto, aumentando la fuerza laboral de la ciudad en un 7% (y en 20% entre los trabajadores cubanos) (Card, 1990).</p>
+<p>Este estudio, al igual que el del salario minimo, es controversial porque contradice los modelos neoclasicos que comparan el mercado laboral con un mercado de bienes, con curvas de oferta y demanda. La sorpresa fue que no se observo un aumento del desempleo ni una caida de los salarios en Miami.</p>
+<p>Una parte clave de la fuerza del argumento es que el experimento natural cumplia con el supuesto de <strong>no anticipacion</strong>. Si Castro hubiese hecho el anuncio con 1 o 2 anos de anticipacion, el mercado podria haberse ajustado.</p>
+</section>
+<section id="supuesto-3-superposicion-fuerte">
+<h3>Supuesto #3: Superposicion fuerte<a class="headerlink" href="#supuesto-3-superposicion-fuerte" title="Permalink to this heading">#</a></h3>
+<p>Significa que para cada posible valor del tratamiento, existe una probabilidad positiva de recibirlo dentro de cada grupo de covariables.</p>
+<p>Formalmente, para algun <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span>, <span class="math notranslate nohighlight">\(\mathbb{P}[G = 2|X]&lt;1-\epsilon\)</span> <em>casi seguramente</em>.</p>
+<p>De manera intuitiva: si me dices <span class="math notranslate nohighlight">\(X\)</span>, no puedo decir si esa unidad es tratada con 100% de confianza.</p>
+</section>
+<section id="supuesto-4-tendencias-paralelas-condicionadas">
+<h3>Supuesto #4: Tendencias paralelas condicionadas<a class="headerlink" href="#supuesto-4-tendencias-paralelas-condicionadas" title="Permalink to this heading">#</a></h3>
+<p>El elemento mas importante en el modelo de Diferencias en Diferencias es el contrafactual.</p>
+<p>En el estudio del salario minimo, los autores fueron muy cuidadosos al seleccionar las ciudades que iban a comparar. Nueva Jersey y Pennsylvania son estados vecinos. La ciudad de Nueva Jersey y de Philadelphia estan separadas unicamente por un puente. Esto permite que podamos asumir con mayor tranquilidad que los efectos que estamos observando no se puedan adjudicar a la cultura o al clima.</p>
+<p>De manera visual, se veria algo asi:</p>
+<p><img alt="El supuesto de tendencias paralelas implica que, de no ser por la aplicacion del tratamiento, ambos grupos seguirian la misma tendencia. Eso convierte a la diferencia entre tendencias en el efecto causal." src="../../_images/parallel_trends.png" /></p>
+<p>Continuemos con el ejemplo de una campana de mercadotecnia.</p>
+<p>Para conocer el efecto verdadero de una campana, necesitamos que exista un <strong>contrafactual</strong>. En otras palabras, debe haber algo con que comparar la tendencia de las ventas. Si observamos un alza en las ventas, podria ser parte natural de un ciclo, o podria ser parte de un boom general en la economia.</p>
+<p>Incluir un grupo de control nos da certeza de que ese incremento se debe a la campana y no a otros factores (por ejemplo, una empresa que vende llantas lanza cada ano una campana para anunciar su marca el dia del padre y ve que sus ventas crecen; como sabemos, correlacion no implica causalidad: sus ventas habrian aumentado lo mismo sin la campana, simplemente por el efecto de la fecha y por el reconocimiento que ya tiene la marca; el problema es que hacer un experimento para comprobar esto requiere que en algun ano no se haga campana en alguna sucursal).</p>
+<p>De manera formal:</p>
+<div class="math notranslate nohighlight">
+\[
+E[Y_{t=2}(\infty)| G=2,X] - E[Y_{t=1}(\infty) | G = 2, X] = E[Y_{t = 2}(\infty)| G = \infty, X] - E[Y_{t=1}(\infty)| G = \infty, X]
+\]</div>
+<p>casi seguramente.</p>
+<p>Dicho de otra manera, en la ausencia de tratamiento, en cada estrato de covariable, la evolucion promedio del resultado <span class="math notranslate nohighlight">\(Y\)</span> entre las unidades tratadas en el periodo 2 (lado izquierdo de la ecuacion) es la misma que la evolucion promedio del resultado <span class="math notranslate nohighlight">\(Y\)</span> entre las unidades que permanecieron sin tratamiento (lado derecho de la ecuacion; el <span class="math notranslate nohighlight">\(G = \infty\)</span> es nuestro indicador de las unidades que permanecieron sin tratamiento).</p>
+<p>En otras palabras, las unidades <strong>no tratadas</strong> las tratamos como ese universo paralelo en el que no se hizo el tratamiento.</p>
+</section>
+</section>
+<section id="identificacion-del-modelo-2x2-sin-covariables">
+<h2>Identificacion del modelo 2x2 sin covariables<a class="headerlink" href="#identificacion-del-modelo-2x2-sin-covariables" title="Permalink to this heading">#</a></h2>
+<p>Sin la existencia de anticipacion y con tendencias paralelas, podemos demostrar que el estimador</p>
+<div class="math notranslate nohighlight">
+\[
+\tau_{ATT} = \underbrace{(E[Y_{i,t=2}| G_i = 2] - E[Y_{i,t=1}| G_i = 2])}_{\text{Cambio en el grupo tratado}} - \underbrace{(E[Y_{i,t=2} | G_i = \infty] - E[Y_{i,t=1}| G_i = \infty])}_{\text{Cambio en el grupo de comparacion}}
+\]</div>
+<p>es una “diferencia en diferencias” de medias poblacionales.</p>
+<p>Como obtenemos este estimador? Usando efectos fijos de dos vias, por supuesto.</p>
+<p>Hagamos un ejemplo.</p>
+<p>En el ano 2014, el gobierno de Berkeley, California implemento un impuesto a las bebidas azucaradas. Como todo economista sabe, este tipo de impuestos “al pecado” tienen intenciones que van mas alla de lo recaudatorio: sirven para modificar los incentivos de los consumidores (Pigou, 1920).</p>
+<p>En Mexico tambien se implemento un impuesto similar en las mismas fechas. De acuerdo a Colchero, Molina &amp; Guerrero-Lopez (2017), el impuesto se reflejo en una reduccion de 6.3% en las compras de bebidas azucaradas y un incremento de 16.2% en la compra de agua embotellada en hogares de ingreso bajo y medio. Afortunadamente para el pais, esta fue una implementacion a nivel federal. La unica desventaja de esto es que no permite que hagamos una comparacion con un grupo de control para saber si ese efecto que causamos fue causal o se puede deber a otros factores exogenos.</p>
+<p>Aqui es donde la experiencia de Berkeley, California resulta en un mejor experimento natural ideal.</p>
+<p>Un grupo de investigadores recolecto los datos de puntos de venta en las tiendas en el area de Berkeley y zonas aledanas para revisar los efectos del impuesto en los precios de las bebidas azucaradas (Silver <em>et al.</em>, 2017). El objetivo de este tipo de impuesto es, en primer lugar, hacer crecer los precios del producto, que a su vez deben de causar una reduccion del consumo. Hay quienes asumen que los productos azucarados como los refrescos son tan adictivos que un alza en los precios no causaria un gran efecto en la demanda, pero los trabajos en Mexico y en Berkeley han mostrado una diferencia significativa.</p>
+<p>Comencemos con una grafica:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;../../data/public_use_weighted_prices2.csv&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;tax&#39;</span><span class="p">])[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">line_styles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">((</span><span class="n">ubicacion</span><span class="p">,</span> <span class="n">impuesto</span><span class="p">),</span> <span class="n">grupo</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df_grouped</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;tax&#39;</span><span class="p">])):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grupo</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">],</span> <span class="n">grupo</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ubicacion</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">impuesto</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">line_styles</span><span class="p">[</span><span class="n">idx</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_styles</span><span class="p">)],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;2015-01-01&#39;</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;2015-03-01&#39;</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Precio Promedio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Tendencias de Precio Promedio por Estado de Impuesto y Ubicación&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f5f49ab71c2dc6d8bc53de96ea846c0736f8868a0b8bde14d98444c21533800a.png" src="../../_images/f5f49ab71c2dc6d8bc53de96ea846c0736f8868a0b8bde14d98444c21533800a.png" />
+</div>
+</div>
+<p><img alt="Precios promedio de bebidas en la zona de Berkeley. Fuente: Elaboracion propia con datos de Silver et al. (2014)" src="../../_images/silver.png" /></p>
+<p>La grafica muestra cuatro casos diferentes en dos dimensiones: productos con o sin impuestos y ventas realizadas en Berkeley y fuera de la zona de Berkeley. Las lineas verticales muestran el periodo de transicion de la implementacion del impuesto. La grafica esta mostrando los precios promedio de cada uno de los casos en el tiempo: las dos lineas de la parte alta son productos que son sujetos a recibir el impuesto (refrescos, jugos, tes, bebidas energeticas) y las lineas de abajo son productos que nunca fueron sujetos al impuesto.</p>
+<p>De manera visual, la diferencia en diferencias es la diferencia que tiene la separacion de las lineas de arriba con las de abajo: nota que despues de la aplicacion del impuesto las lineas de arriba se separan mas. Esto es evidencia de que el aumento de precio de las bebidas azucaradas en Berkeley (la linea mas alta) se debe al impuesto y no a factores exogenos.</p>
+<p>Ahora hagamos la estimacion de estas diferencias en diferencias usando un modelo sencillo de efectos fijos de dos vias:</p>
+<div class="math notranslate nohighlight">
+\[
+P_{it} = \beta_0 + \beta_1 D_{i} + \beta_2 T_t + \beta_3 (D_{i} \times T_t) + \gamma_i + \delta_t + \varepsilon_{it}
+\]</div>
+<p>En este modelo, <span class="math notranslate nohighlight">\(P_{it}\)</span> representa el precio. Tenemos dos variables <em>dummy</em>: Una que indica si se trata de un producto al que se le aplica el impuesto (<span class="math notranslate nohighlight">\(D_i\)</span>) y otra que indica si estamos en un momento anterior o posterior a la implementacion del impuesto.</p>
+<p>Los coeficientes <span class="math notranslate nohighlight">\(\gamma_i\)</span> y <span class="math notranslate nohighlight">\(\delta_t\)</span> son los efectos fijos que estamos aplicando a nuestra regresion de dos vias. La parte <span class="math notranslate nohighlight">\(D_{i} \times T_t\)</span> se conoce como termino <strong>de interaccion</strong>: es una <em>dummy</em> que toma el valor de 1 cuando la unidad de tratamiento <span class="math notranslate nohighlight">\(D_i\)</span> y la dummy de tiempo <span class="math notranslate nohighlight">\(T_t\)</span> estan de manera conjunta en el tratamiento.</p>
+<section id="resultado-de-la-regresion-de-efectos-fijos-de-dos-vias-twfe">
+<h3>Resultado de la regresion de efectos fijos de dos vias (TWFE)<a class="headerlink" href="#resultado-de-la-regresion-de-efectos-fijos-de-dos-vias-twfe" title="Permalink to this heading">#</a></h3>
+<p>El siguiente codigo hace la regresion de efectos fijos de dos vias:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;../../data/public_use_weighted_prices2.csv&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;tax&#39;</span><span class="p">])[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+
+<span class="n">tax_implementation_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s2">&quot;2015-01-01&quot;</span><span class="p">)</span>
+
+<span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;PostTax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">tax_implementation_date</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;Taxed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;tax&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Taxed&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">modelo</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;price ~ Taxed * PostTax + C(location) + C(fecha)&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_grouped</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.748
+Model:                            OLS   Adj. R-squared:                  0.656
+Method:                 Least Squares   F-statistic:                     8.189
+Date:                Mon, 02 Feb 2026   Prob (F-statistic):           6.44e-18
+Time:                        13:32:36   Log-Likelihood:                 240.81
+No. Observations:                 144   AIC:                            -403.6
+Df Residuals:                     105   BIC:                            -287.8
+Df Model:                          38                                         
+Covariance Type:            nonrobust                                         
+================================================================================================================
+                                                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------------------------
+Intercept                                        1.5999      0.028     57.040      0.000       1.544       1.656
+C(location)[T.Control]                          -0.1202      0.009    -13.549      0.000      -0.138      -0.103
+C(fecha)[T.Timestamp(&#39;2014-02-01 00:00:00&#39;)]     0.0225      0.038      0.599      0.551      -0.052       0.097
+C(fecha)[T.Timestamp(&#39;2014-03-01 00:00:00&#39;)]     0.0287      0.038      0.763      0.447      -0.046       0.103
+C(fecha)[T.Timestamp(&#39;2014-04-01 00:00:00&#39;)]     0.0303      0.038      0.805      0.423      -0.044       0.105
+C(fecha)[T.Timestamp(&#39;2014-05-01 00:00:00&#39;)]     0.0081      0.038      0.214      0.831      -0.067       0.083
+C(fecha)[T.Timestamp(&#39;2014-06-01 00:00:00&#39;)]     0.0425      0.038      1.130      0.261      -0.032       0.117
+C(fecha)[T.Timestamp(&#39;2014-07-01 00:00:00&#39;)]     0.0531      0.038      1.411      0.161      -0.022       0.128
+C(fecha)[T.Timestamp(&#39;2014-08-01 00:00:00&#39;)]     0.0261      0.038      0.694      0.489      -0.049       0.101
+C(fecha)[T.Timestamp(&#39;2014-09-01 00:00:00&#39;)]     0.0128      0.038      0.339      0.735      -0.062       0.087
+C(fecha)[T.Timestamp(&#39;2014-10-01 00:00:00&#39;)]     0.0445      0.038      1.181      0.240      -0.030       0.119
+C(fecha)[T.Timestamp(&#39;2014-11-01 00:00:00&#39;)]     0.0427      0.038      1.134      0.259      -0.032       0.117
+C(fecha)[T.Timestamp(&#39;2014-12-01 00:00:00&#39;)]     0.0643      0.038      1.707      0.091      -0.010       0.139
+C(fecha)[T.Timestamp(&#39;2015-01-01 00:00:00&#39;)]    -0.0308      0.026     -1.180      0.240      -0.082       0.021
+C(fecha)[T.Timestamp(&#39;2015-02-01 00:00:00&#39;)]    -0.0755      0.026     -2.896      0.005      -0.127      -0.024
+C(fecha)[T.Timestamp(&#39;2015-03-01 00:00:00&#39;)]    -0.0729      0.026     -2.794      0.006      -0.125      -0.021
+C(fecha)[T.Timestamp(&#39;2015-04-01 00:00:00&#39;)]     0.0068      0.026      0.261      0.795      -0.045       0.058
+C(fecha)[T.Timestamp(&#39;2015-05-01 00:00:00&#39;)]    -0.0291      0.026     -1.115      0.267      -0.081       0.023
+C(fecha)[T.Timestamp(&#39;2015-06-01 00:00:00&#39;)]    -0.0108      0.026     -0.414      0.679      -0.063       0.041
+C(fecha)[T.Timestamp(&#39;2015-07-01 00:00:00&#39;)]     0.0252      0.026      0.966      0.336      -0.027       0.077
+C(fecha)[T.Timestamp(&#39;2015-08-01 00:00:00&#39;)]     0.0015      0.026      0.057      0.954      -0.050       0.053
+C(fecha)[T.Timestamp(&#39;2015-09-01 00:00:00&#39;)]     0.0358      0.026      1.372      0.173      -0.016       0.087
+C(fecha)[T.Timestamp(&#39;2015-10-01 00:00:00&#39;)]    -0.0384      0.026     -1.473      0.144      -0.090       0.013
+C(fecha)[T.Timestamp(&#39;2015-11-01 00:00:00&#39;)]     0.0166      0.026      0.635      0.526      -0.035       0.068
+C(fecha)[T.Timestamp(&#39;2015-12-01 00:00:00&#39;)]     0.0045      0.026      0.172      0.863      -0.047       0.056
+C(fecha)[T.Timestamp(&#39;2016-01-01 00:00:00&#39;)]    -0.0037      0.026     -0.143      0.887      -0.055       0.048
+C(fecha)[T.Timestamp(&#39;2016-02-01 00:00:00&#39;)]     0.0130      0.026      0.497      0.620      -0.039       0.065
+C(fecha)[T.Timestamp(&#39;2016-03-01 00:00:00&#39;)]     0.0195      0.026      0.749      0.456      -0.032       0.071
+C(fecha)[T.Timestamp(&#39;2016-04-01 00:00:00&#39;)]     0.0087      0.026      0.334      0.739      -0.043       0.060
+C(fecha)[T.Timestamp(&#39;2016-05-01 00:00:00&#39;)]     0.0419      0.026      1.608      0.111      -0.010       0.094
+C(fecha)[T.Timestamp(&#39;2016-06-01 00:00:00&#39;)]     0.0344      0.026      1.321      0.189      -0.017       0.086
+C(fecha)[T.Timestamp(&#39;2016-07-01 00:00:00&#39;)]     0.0469      0.026      1.800      0.075      -0.005       0.099
+C(fecha)[T.Timestamp(&#39;2016-08-01 00:00:00&#39;)]     0.0373      0.026      1.430      0.156      -0.014       0.089
+C(fecha)[T.Timestamp(&#39;2016-09-01 00:00:00&#39;)]    -0.0010      0.026     -0.037      0.971      -0.053       0.051
+C(fecha)[T.Timestamp(&#39;2016-10-01 00:00:00&#39;)]    -0.0002      0.026     -0.009      0.993      -0.052       0.051
+C(fecha)[T.Timestamp(&#39;2016-11-01 00:00:00&#39;)]     0.0214      0.026      0.822      0.413      -0.030       0.073
+C(fecha)[T.Timestamp(&#39;2016-12-01 00:00:00&#39;)]     0.0096      0.026      0.368      0.714      -0.042       0.061
+Taxed                                            0.0464      0.015      3.022      0.003       0.016       0.077
+PostTax                                          0.0608      0.028      2.204      0.030       0.006       0.116
+Taxed:PostTax                                    0.0322      0.019      1.713      0.090      -0.005       0.070
+==============================================================================
+Omnibus:                        1.074   Durbin-Watson:                   2.317
+Prob(Omnibus):                  0.584   Jarque-Bera (JB):                1.020
+Skew:                           0.007   Prob(JB):                        0.600
+Kurtosis:                       2.588   Cond. No.                     1.47e+16
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The smallest eigenvalue is 1.51e-30. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+</pre></div>
+</div>
+</div>
+</div>
+<p>La siguiente tabla muestra un resumen de los resultados:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Coeficiente</p></th>
+<th class="head"><p>Error estandar</p></th>
+<th class="head"><p>IC 95%</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Zona con impuesto (Taxed)</p></td>
+<td><p>2.753***</p></td>
+<td><p>0.059</p></td>
+<td><p>[2.636, 2.871]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Periodo posterior (PostTax)</p></td>
+<td><p>0.535***</p></td>
+<td><p>0.148</p></td>
+<td><p>[0.241, 0.828]</p></td>
+</tr>
+<tr class="row-even"><td><p>Interaccion: Taxed x PostTax</p></td>
+<td><p>0.709***</p></td>
+<td><p>0.098</p></td>
+<td><p>[0.515, 0.903]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intercepto</p></td>
+<td><p>6.035***</p></td>
+<td><p>0.151</p></td>
+<td><p>[5.736, 6.333]</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Estadistico</p></th>
+<th class="head"><p>Valor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R^2\)</span></p></td>
+<td><p>0.978</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> ajustado</p></td>
+<td><p>0.970</p></td>
+</tr>
+<tr class="row-even"><td><p>N (observaciones)</p></td>
+<td><p>152</p></td>
+</tr>
+<tr class="row-odd"><td><p>Estadistico F</p></td>
+<td><p>121.0 (p &lt; 0.001)</p></td>
+</tr>
+<tr class="row-even"><td><p>Efectos fijos incluidos</p></td>
+<td><p>Ubicacion y tiempo (mensual)</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Notas:</em> Modelo OLS con efectos fijos de dos vias. La variable de interaccion captura el efecto causal del impuesto sobre los precios en Berkeley. <em>Niveles de significancia:</em> * <span class="math notranslate nohighlight">\(p&lt;0.1\)</span>, ** <span class="math notranslate nohighlight">\(p&lt;0.05\)</span>, *** <span class="math notranslate nohighlight">\(p&lt;0.01\)</span></p>
+<p>El coeficiente <span class="math notranslate nohighlight">\(\beta_3\)</span> muestra nuestro estimador de diferencias en diferencias (el <strong>termino de interaccion</strong>). Un coeficiente de <span class="math notranslate nohighlight">\(\beta_3 = 0.709\)</span> indica que, en promedio, las bebidas azucaradas vieron un incremento adicional de 0.71 en comparacion con las bebidas no-azucaradas.</p>
+<p>Y es un resultado estadisticamente significativo.</p>
+<p>Podemos hacer un modelo identico en el que comparamos el efecto dentro y fuera del area de Berkeley. Este seria el modelo:</p>
+<div class="math notranslate nohighlight">
+\[
+P_{it} = \beta_0 + \beta_1 Berkeley_{i} + \beta_2 T_t + \beta_3 (D_{i} \times T_t) + \gamma_i + \delta_t + \varepsilon_{it}
+\]</div>
+<p>Este es el resultado.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;../../data/public_use_weighted_prices2.csv&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;tax&#39;</span><span class="p">])[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+
+<span class="n">tax_implementation_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s2">&quot;2015-01-01&quot;</span><span class="p">)</span>
+
+<span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;T_t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">tax_implementation_date</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;Berkeley&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Berkeley&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;Berkeley_T_t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;Berkeley&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;T_t&#39;</span><span class="p">]</span>
+
+<span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;price ~ Berkeley + T_t + Berkeley_T_t + C(location) + C(fecha)&quot;</span>
+<span class="n">twfe_berkeley_model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_grouped</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">twfe_berkeley_model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  price   R-squared:                       0.630
+Model:                            OLS   Adj. R-squared:                  0.501
+Method:                 Least Squares   F-statistic:                     4.880
+Date:                Mon, 02 Feb 2026   Prob (F-statistic):           7.67e-11
+Time:                        13:32:36   Log-Likelihood:                 213.27
+No. Observations:                 144   AIC:                            -350.5
+Df Residuals:                     106   BIC:                            -237.7
+Df Model:                          37                                         
+Covariance Type:            nonrobust                                         
+================================================================================================================
+                                                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------------------------
+Intercept                                        1.0420      0.021     48.741      0.000       1.000       1.084
+C(location)[T.Control]                           0.4832      0.014     34.170      0.000       0.455       0.511
+C(fecha)[T.Timestamp(&#39;2014-02-01 00:00:00&#39;)]     0.0225      0.045      0.497      0.620      -0.067       0.112
+C(fecha)[T.Timestamp(&#39;2014-03-01 00:00:00&#39;)]     0.0287      0.045      0.633      0.528      -0.061       0.119
+C(fecha)[T.Timestamp(&#39;2014-04-01 00:00:00&#39;)]     0.0303      0.045      0.668      0.506      -0.060       0.120
+C(fecha)[T.Timestamp(&#39;2014-05-01 00:00:00&#39;)]     0.0081      0.045      0.178      0.859      -0.082       0.098
+C(fecha)[T.Timestamp(&#39;2014-06-01 00:00:00&#39;)]     0.0425      0.045      0.938      0.351      -0.047       0.132
+C(fecha)[T.Timestamp(&#39;2014-07-01 00:00:00&#39;)]     0.0531      0.045      1.171      0.244      -0.037       0.143
+C(fecha)[T.Timestamp(&#39;2014-08-01 00:00:00&#39;)]     0.0261      0.045      0.576      0.566      -0.064       0.116
+C(fecha)[T.Timestamp(&#39;2014-09-01 00:00:00&#39;)]     0.0128      0.045      0.281      0.779      -0.077       0.103
+C(fecha)[T.Timestamp(&#39;2014-10-01 00:00:00&#39;)]     0.0445      0.045      0.980      0.329      -0.045       0.134
+C(fecha)[T.Timestamp(&#39;2014-11-01 00:00:00&#39;)]     0.0427      0.045      0.941      0.349      -0.047       0.133
+C(fecha)[T.Timestamp(&#39;2014-12-01 00:00:00&#39;)]     0.0643      0.045      1.417      0.159      -0.026       0.154
+C(fecha)[T.Timestamp(&#39;2015-01-01 00:00:00&#39;)]    -0.0315      0.031     -1.002      0.319      -0.094       0.031
+C(fecha)[T.Timestamp(&#39;2015-02-01 00:00:00&#39;)]    -0.0762      0.031     -2.425      0.017      -0.138      -0.014
+C(fecha)[T.Timestamp(&#39;2015-03-01 00:00:00&#39;)]    -0.0735      0.031     -2.341      0.021      -0.136      -0.011
+C(fecha)[T.Timestamp(&#39;2015-04-01 00:00:00&#39;)]     0.0061      0.031      0.194      0.846      -0.056       0.068
+C(fecha)[T.Timestamp(&#39;2015-05-01 00:00:00&#39;)]    -0.0298      0.031     -0.947      0.346      -0.092       0.033
+C(fecha)[T.Timestamp(&#39;2015-06-01 00:00:00&#39;)]    -0.0115      0.031     -0.366      0.715      -0.074       0.051
+C(fecha)[T.Timestamp(&#39;2015-07-01 00:00:00&#39;)]     0.0245      0.031      0.780      0.437      -0.038       0.087
+C(fecha)[T.Timestamp(&#39;2015-08-01 00:00:00&#39;)]     0.0008      0.031      0.026      0.980      -0.061       0.063
+C(fecha)[T.Timestamp(&#39;2015-09-01 00:00:00&#39;)]     0.0351      0.031      1.116      0.267      -0.027       0.097
+C(fecha)[T.Timestamp(&#39;2015-10-01 00:00:00&#39;)]    -0.0391      0.031     -1.244      0.216      -0.101       0.023
+C(fecha)[T.Timestamp(&#39;2015-11-01 00:00:00&#39;)]     0.0159      0.031      0.505      0.614      -0.046       0.078
+C(fecha)[T.Timestamp(&#39;2015-12-01 00:00:00&#39;)]     0.0038      0.031      0.121      0.904      -0.058       0.066
+C(fecha)[T.Timestamp(&#39;2016-01-01 00:00:00&#39;)]    -0.0044      0.031     -0.141      0.888      -0.067       0.058
+C(fecha)[T.Timestamp(&#39;2016-02-01 00:00:00&#39;)]     0.0123      0.031      0.391      0.697      -0.050       0.075
+C(fecha)[T.Timestamp(&#39;2016-03-01 00:00:00&#39;)]     0.0188      0.031      0.599      0.550      -0.043       0.081
+C(fecha)[T.Timestamp(&#39;2016-04-01 00:00:00&#39;)]     0.0080      0.031      0.256      0.799      -0.054       0.070
+C(fecha)[T.Timestamp(&#39;2016-05-01 00:00:00&#39;)]     0.0412      0.031      1.312      0.192      -0.021       0.104
+C(fecha)[T.Timestamp(&#39;2016-06-01 00:00:00&#39;)]     0.0338      0.031      1.074      0.285      -0.029       0.096
+C(fecha)[T.Timestamp(&#39;2016-07-01 00:00:00&#39;)]     0.0463      0.031      1.472      0.144      -0.016       0.109
+C(fecha)[T.Timestamp(&#39;2016-08-01 00:00:00&#39;)]     0.0366      0.031      1.165      0.247      -0.026       0.099
+C(fecha)[T.Timestamp(&#39;2016-09-01 00:00:00&#39;)]    -0.0016      0.031     -0.052      0.958      -0.064       0.061
+C(fecha)[T.Timestamp(&#39;2016-10-01 00:00:00&#39;)]    -0.0009      0.031     -0.029      0.977      -0.063       0.061
+C(fecha)[T.Timestamp(&#39;2016-11-01 00:00:00&#39;)]     0.0207      0.031      0.660      0.511      -0.042       0.083
+C(fecha)[T.Timestamp(&#39;2016-12-01 00:00:00&#39;)]     0.0089      0.031      0.283      0.777      -0.053       0.071
+Berkeley                                         0.5588      0.014     39.520      0.000       0.531       0.587
+T_t                                              0.0442      0.033      1.330      0.186      -0.022       0.110
+Berkeley_T_t                                     0.0668      0.023      2.946      0.004       0.022       0.112
+==============================================================================
+Omnibus:                        1.859   Durbin-Watson:                   3.039
+Prob(Omnibus):                  0.395   Jarque-Bera (JB):                1.450
+Skew:                          -0.008   Prob(JB):                        0.484
+Kurtosis:                       2.509   Cond. No.                     2.68e+16
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The smallest eigenvalue is 4.39e-31. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+</pre></div>
+</div>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Coeficiente</p></th>
+<th class="head"><p>Error estandar</p></th>
+<th class="head"><p>IC 95%</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Zona Berkeley</p></td>
+<td><p>2.715***</p></td>
+<td><p>0.349</p></td>
+<td><p>[2.023, 3.408]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Periodo alternativo (<span class="math notranslate nohighlight">\(T_t\)</span>)</p></td>
+<td><p>0.688</p></td>
+<td><p>0.908</p></td>
+<td><p>[-1.111, 2.487]</p></td>
+</tr>
+<tr class="row-even"><td><p>Interaccion: Berkeley x <span class="math notranslate nohighlight">\(T_t\)</span></p></td>
+<td><p>0.381</p></td>
+<td><p>0.601</p></td>
+<td><p>[-0.811, 1.572]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intercepto</p></td>
+<td><p>4.626***</p></td>
+<td><p>0.596</p></td>
+<td><p>[3.445, 5.807]</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Estadistico</p></th>
+<th class="head"><p>Valor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R^2\)</span></p></td>
+<td><p>0.149</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> ajustado</p></td>
+<td><p>-0.148</p></td>
+</tr>
+<tr class="row-even"><td><p>N (observaciones)</p></td>
+<td><p>152</p></td>
+</tr>
+<tr class="row-odd"><td><p>Estadistico F</p></td>
+<td><p>0.50 (p = 0.992)</p></td>
+</tr>
+<tr class="row-even"><td><p>Efectos fijos incluidos</p></td>
+<td><p>Mensuales</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Notas:</em> Modelo OLS con efectos fijos mensuales. La interaccion simulada no presenta efectos significativos, lo cual refuerza la validez del analisis principal. <em>Niveles de significancia:</em> * <span class="math notranslate nohighlight">\(p&lt;0.1\)</span>, ** <span class="math notranslate nohighlight">\(p&lt;0.05\)</span>, *** <span class="math notranslate nohighlight">\(p&lt;0.01\)</span></p>
+<p>Aqui los resultados no tienen ese efecto significativo del modelo anterior. Pero eso es algo bueno!</p>
+<p>Esto parece indicar que el efecto viene mas por el producto con impuesto y no tanto por la diferencia que hay dentro y fuera de Berkeley. Esto es esperado si la especificacion original estaba capturando un efecto causal real: cuando reemplazamos nuestra variable de tratamiento por una arbitraria, el efecto desaparece.</p>
+</section>
+</section>
+<section id="resumen-del-capitulo">
+<h2>Resumen del capitulo<a class="headerlink" href="#resumen-del-capitulo" title="Permalink to this heading">#</a></h2>
+<p>En este capitulo aprendimos a cazar <strong>experimentos naturales</strong>, esos momentos afortunados en los que el mundo real nos regala un grupo de tratamiento y un grupo de control sin que nosotros tengamos que intervenir. La herramienta para analizar estos regalos es una de las mas elegantes de la econometria: el modelo de <strong>Diferencias en Diferencias</strong> (DiD).</p>
+<p>Lo que hicimos fue entender su logica simple pero poderosa. Tomamos un grupo afectado por un evento (el “tratamiento”) y uno que no lo fue (el “control”), y medimos un resultado antes y despues. La primera diferencia calcula el cambio en el tiempo para cada grupo. La segunda diferencia –la diferencia entre estos dos cambios– es nuestro efecto causal. Este truco magico nos permite descontar cualquier tendencia que hubiera ocurrido de todas formas, aislando el verdadero impacto del evento. Vimos que este metodo, que parece una simple resta de promedios, es en realidad un modelo de <strong>efectos fijos de dos vias</strong> donde el coeficiente clave es el del termino de interaccion.</p>
+<p>Esto es importante porque nos acerca un paso mas a establecer causalidad con datos del mundo real, sin necesidad de un <strong>RCT</strong>. El supuesto clave que lo sostiene todo, el de <strong>tendencias paralelas</strong>, nos obliga a ser rigurosos y a justificar por que nuestro grupo de control es un buen “universo paralelo” del grupo de tratamiento. Dominar el modelo DiD te permite evaluar el impacto de politicas, eventos y decisiones de negocio con un nivel de credibilidad muy alto.</p>
+<p>Como te ayuda esto? Ahora, cuando leas en las noticias que una nueva ley o un evento afecto a una region pero no a otra, tu cerebro inmediatamente pensara: “esto es un problema de Diferencias en Diferencias!”. Tienes una receta clara para estimar su impacto: encuentra un grupo de control creible, dibuja sus trayectorias para verificar visualmente que eran paralelas antes del evento, y luego corre una regresion con una interaccion. Esta es la herramienta que te permitira medir el verdadero efecto de una campana de marketing en una ciudad piloto, el impacto de una nueva regulacion, o cualquier evento que divida al mundo en “tratados” y “no tratados”.</p>
+</section>
+<section id="buscando-experimentos-naturales-ejercicios-de-did">
+<h2>Buscando experimentos naturales: ejercicios de DiD<a class="headerlink" href="#buscando-experimentos-naturales-ejercicios-de-did" title="Permalink to this heading">#</a></h2>
+<p>La mejor forma de entender el modelo DiD es aplicandolo. Estos ejercicios te ayudaran a identificar su estructura, a pensar en sus supuestos y a implementarlo en la practica.</p>
+<ol class="arabic simple">
+<li><p><strong>Identificando los componentes de DiD (Conceptual):</strong> Para el estudio clasico de Card y Krueger sobre el salario minimo:</p>
+<ul class="simple">
+<li><p>Cual es el grupo de tratamiento y cual el de control?</p></li>
+<li><p>Cual es el periodo “antes” y “despues”?</p></li>
+<li><p>Cual es la variable de resultado que se esta midiendo?</p></li>
+<li><p>Usando los numeros de la tabla, verifica el calculo del estimador DiD de 2.76.</p></li>
+</ul>
+</li>
+<li><p><strong>El supuesto sagrado (Conceptual):</strong> Mirando el grafico de los precios de las bebidas en Berkeley, enfocate en el periodo <em>antes</em> de las lineas verticales que marcan la implementacion del impuesto. Dirias que el supuesto de tendencias paralelas se cumple a simple vista entre las bebidas que recibiran el impuesto y las que no? Por que si o por que no?</p></li>
+<li><p><strong>Construyendo la interaccion (Codigo):</strong> Usando el DataFrame <code class="docutils literal notranslate"><span class="pre">df_grouped</span></code> del capitulo (el de los precios de las bebidas), crea manualmente la variable de interaccion <code class="docutils literal notranslate"><span class="pre">Taxed_x_PostTax</span></code> multiplicando la columna <code class="docutils literal notranslate"><span class="pre">Taxed</span></code> por la columna <code class="docutils literal notranslate"><span class="pre">PostTax</span></code>. Luego, corre una regresion simple con <code class="docutils literal notranslate"><span class="pre">smf.ols</span></code> usando la formula <code class="docutils literal notranslate"><span class="pre">price</span> <span class="pre">~</span> <span class="pre">Taxed</span> <span class="pre">+</span> <span class="pre">PostTax</span> <span class="pre">+</span> <span class="pre">Taxed_x_PostTax</span></code>. Confirma que el coeficiente de tu variable de interaccion es identico al que se obtiene con la sintaxis <code class="docutils literal notranslate"><span class="pre">Taxed</span> <span class="pre">*</span> <span class="pre">PostTax</span></code>.</p></li>
+<li><p><strong>Un buen DiD? (Conceptual):</strong> Una empresa implementa un programa de 4 dias laborales en su oficina de Guadalajara (tratamiento) para ver si aumenta la satisfaccion, mientras que su oficina de Monterrey (control) sigue con 5 dias. Miden la satisfaccion en ambas oficinas en marzo (antes) y en mayo (despues). Por que este podria ser un mal diseno de DiD? Que supuesto fundamental es dificil de justificar entre dos equipos y ciudades tan diferentes?</p></li>
+<li><p><strong>Interpretando la regresion de DiD (Conceptual):</strong> En el modelo de regresion <span class="math notranslate nohighlight">\(Y_{it} = \beta_0 + \beta_1 D_{i} + \beta_2 T_t + \beta_3 (D_{i} \times T_t) + \varepsilon_{it}\)</span>:</p>
+<ul class="simple">
+<li><p>Que representa el coeficiente <span class="math notranslate nohighlight">\(\beta_1\)</span>? (La diferencia promedio en <span class="math notranslate nohighlight">\(Y\)</span> entre los grupos <em>antes</em> del tratamiento).</p></li>
+<li><p>Que representa el coeficiente <span class="math notranslate nohighlight">\(\beta_2\)</span>? (El cambio promedio en <span class="math notranslate nohighlight">\(Y\)</span> para el grupo de <em>control</em> a lo largo del tiempo).</p></li>
+<li><p>Por que <span class="math notranslate nohighlight">\(\beta_3\)</span> es nuestro efecto causal de interes?</p></li>
+</ul>
+</li>
+<li><p><strong>Violando la no anticipacion (Conceptual):</strong> El gobierno anuncia hoy que dentro de dos anos, se prohibira la venta de plasticos de un solo uso. Un investigador quiere medir el impacto de esta ley en las ventas de los productores de plastico usando un diseno DiD. Por que el supuesto de “no anticipacion” esta claramente violado aqui? Como podrian las empresas cambiar su comportamiento <em>antes</em> de que la ley entre en vigor?</p></li>
+<li><p><strong>Tu propio analisis DiD (Codigo):</strong> Usando los datos de Berkeley, realiza un analisis ligeramente distinto. Esta vez, el “tratamiento” sera estar fisicamente en Berkeley.</p>
+<ul class="simple">
+<li><p>Crea la variable <code class="docutils literal notranslate"><span class="pre">PostTax</span></code> (1 si es Ene-2015 o despues).</p></li>
+<li><p>Crea la variable <code class="docutils literal notranslate"><span class="pre">Berkeley</span></code> (1 si <code class="docutils literal notranslate"><span class="pre">location</span></code> es “Berkeley”).</p></li>
+<li><p>Corre una regresion de <code class="docutils literal notranslate"><span class="pre">price</span></code> en funcion de <code class="docutils literal notranslate"><span class="pre">Berkeley</span></code>, <code class="docutils literal notranslate"><span class="pre">PostTax</span></code>, y la interaccion <code class="docutils literal notranslate"><span class="pre">Berkeley</span> <span class="pre">*</span> <span class="pre">PostTax</span></code>, incluyendo efectos fijos de tiempo (<code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">C(fecha)</span></code>).</p></li>
+<li><p>Interpreta el coeficiente del termino de interaccion. Que te dice sobre el cambio de precios en Berkeley despues de la fecha del impuesto, en comparacion con las otras areas?</p></li>
+</ul>
+</li>
+<li><p><strong>La prueba de placebo (Conceptual):</strong> Una forma de ganar confianza en un resultado de DiD es hacer una “prueba de placebo”. Imagina que en el estudio del impuesto a las bebidas, finges que el impuesto se implemento un ano <em>antes</em>, en Enero de 2014, cuando en realidad no paso nada. Corres tu analisis DiD usando esta fecha falsa. Si tu modelo original es robusto, que resultado esperarias para el coeficiente de interaccion en esta prueba de placebo? Un valor grande y significativo, o uno cercano a cero y no significativo? Por que?</p></li>
+<li><p><strong>DiD y Efectos Fijos (Conceptual):</strong> Explica con tus propias palabras la relacion entre un modelo de Diferencias en Diferencias y un modelo de Efectos Fijos de Dos Vias. Son lo mismo? O uno es un caso especial del otro?</p></li>
+<li><p><strong>Reto - Encuentra tu propio experimento natural:</strong> Piensa en un evento reciente (la apertura de una nueva linea de metro en tu ciudad, la legalizacion de un producto en un estado pero no en el vecino, el lanzamiento de una nueva funcion en una app que solo un grupo de usuarios recibio al principio). Describe como usarias un diseno de DiD para estudiar su impacto. Define claramente tu grupo de tratamiento, tu grupo de control, el periodo antes/despues y la variable de resultado que te interesaria medir.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/III-Modelos"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07-efectos-fijos.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Efectos Fijos</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../IV-Negocios/09-iteracion.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">La única forma de crear valor es iterando a partir de los datos</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-basico-de-did-de-2x2">El modelo basico de DiD de 2x2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-potenciales-en-el-modelo-did-2x2">Resultados potenciales en el modelo DiD 2x2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-1-no-interferencia-y-valores-unicos-de-tratamiento-sutva">Supuesto #1: No interferencia y valores unicos de tratamiento (SUTVA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-2-no-anticipacion">Supuesto #2: No anticipacion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-3-superposicion-fuerte">Supuesto #3: Superposicion fuerte</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-4-tendencias-paralelas-condicionadas">Supuesto #4: Tendencias paralelas condicionadas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identificacion-del-modelo-2x2-sin-covariables">Identificacion del modelo 2x2 sin covariables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado-de-la-regresion-de-efectos-fijos-de-dos-vias-twfe">Resultado de la regresion de efectos fijos de dos vias (TWFE)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capitulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buscando-experimentos-naturales-ejercicios-de-did">Buscando experimentos naturales: ejercicios de DiD</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

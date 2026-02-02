@@ -1,0 +1,847 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>El modelo de resultados potenciales &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/II-Inferencia-Causal/03-resultados-potenciales';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Experimentos y Pruebas A/B" href="04-experimentos.html" />
+    <link rel="prev" title="Python para hacer Econometría" href="../I-Introduccion/02-python-para-econometria.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducción</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/00-que-es-inferencia-causal.html">Antes de comenzar: ¿Qué es la inferencia causal?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/01-los-negocios-son-matematicas.html">Los negocios son matemáticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-python-para-econometria.html">Python para hacer Econometría</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inferencia Causal</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">El modelo de resultados potenciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-experimentos.html">Experimentos y Pruebas A/B</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/05-regresion.html">Una guía para entender y hacer modelos de Regresión Lineal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/06-series-de-tiempo.html">Series de Tiempo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/07-efectos-fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/08-diff-in-diff.html">Diferencias en Diferencias</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/09-iteracion.html">La única forma de crear valor es iterando a partir de los datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/10-investigacion-mercados-ia.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/II-Inferencia-Causal/03-resultados-potenciales.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/II-Inferencia-Causal/03-resultados-potenciales.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>El modelo de resultados potenciales</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-seria-tu-vida-si-hubieras-entrado-en-harvard">¿Como seria tu vida si hubieras entrado en Harvard?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#para-identificar-el-efecto-debemos-ir-mas-alla-de-la-diferencia-de-medias">Para identificar el efecto, debemos ir mas alla de la diferencia de medias</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sesgo-de-seleccion">Sesgo de seleccion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-beneficio-de-entrar-a-una-escuela-mas-selectiva">El beneficio de entrar a una escuela mas selectiva</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descubriendo-el-sesgo-de-seleccion">Descubriendo el sesgo de seleccion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-eliminamos-el-sesgo-de-seleccion">¿Como eliminamos el sesgo de seleccion?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-experimento-aleatorio-ideal">El experimento aleatorio ideal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimento-ideal-y-experimentos-naturales">Experimento ideal y experimentos naturales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disena-tu-experimento-ideal-con-inteligencia-artificial">Disena tu experimento ideal con Inteligencia Artificial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen">Resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="el-modelo-de-resultados-potenciales">
+<h1>El modelo de resultados potenciales<a class="headerlink" href="#el-modelo-de-resultados-potenciales" title="Permalink to this heading">#</a></h1>
+<blockquote class="epigraph">
+<div><p>“La prediccion es muy dificil, especialmente si se trata del futuro.”</p>
+<p class="attribution">—Niels Bohr (citado en la pelicula <em>Oppenheimer</em>)</p>
+</div></blockquote>
+<blockquote class="epigraph">
+<div><p>“Yo hago lo que me da la gana.”</p>
+<p class="attribution">—Bad Bunny</p>
+</div></blockquote>
+<p>Imagina que pudieras vivir en un <strong>multiverso</strong>, donde en cada universo paralelo tomas una decision diferente y observas las consecuencias. En un universo estudias economia, en otro medicina, en otro decides no ir a la universidad. Si pudieras comparar tu vida en cada uno de esos universos, podrias medir exactamente el efecto que tuvo cada decision.</p>
+<p>Este concepto no es solo ciencia ficcion. En 1957, el fisico Hugh Everett propuso la interpretacion de los muchos mundos de la mecanica cuantica, sugiriendo que cada decision cuantica genera una bifurcacion del universo. Aunque en econometria no tenemos acceso a universos paralelos, el <strong>modelo de resultados potenciales</strong> nos permite pensar de forma rigurosa sobre lo que <em>hubiera pasado</em> si las cosas fueran diferentes.</p>
+<p>A lo que <em>hubiera pasado</em> le llamamos <strong>contrafactual</strong>: el resultado que habriamos observado en un escenario alternativo. El gran reto de la inferencia causal es que nunca podemos observar el contrafactual directamente. Solo podemos observar lo que realmente sucedio. El modelo de resultados potenciales nos da un marco formal para pensar en este problema.</p>
+<section id="como-seria-tu-vida-si-hubieras-entrado-en-harvard">
+<h2>¿Como seria tu vida si hubieras entrado en Harvard?<a class="headerlink" href="#como-seria-tu-vida-si-hubieras-entrado-en-harvard" title="Permalink to this heading">#</a></h2>
+<p>Una de las preguntas mas importantes en economia de la educacion es: <strong>¿vale la pena asistir a una universidad mas selectiva?</strong> La intuicion nos dice que si, pero la evidencia no es tan clara.</p>
+<p>Gary Becker, premio Nobel de Economia, desarrollo la teoria del <strong>capital humano</strong>, que modela la relacion entre educacion e ingresos. En su forma mas simple, los ingresos de un individuo se pueden expresar como:</p>
+<div class="math notranslate nohighlight">
+\[w = w_0 e^{rS}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(w_0\)</span> es el salario base, <span class="math notranslate nohighlight">\(r\)</span> es la tasa de retorno a la educacion y <span class="math notranslate nohighlight">\(S\)</span> son los anos de escolaridad. Esta ecuacion sugiere que cada ano adicional de educacion incrementa los ingresos en una proporcion <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<p>Sin embargo, Heckman, Lochner y Todd mostraron que los retornos a la educacion no son iguales para todos: <strong>difieren segun la habilidad del individuo, su entorno familiar y la calidad de la educacion recibida</strong>. No es lo mismo un ano de educacion en una escuela rural que en una universidad de elite.</p>
+<p>Esto nos lleva a la pregunta central: <strong>¿asistir a una universidad mas selectiva incrementa los ingresos?</strong></p>
+<p>Dale y Krueger (2002) estudiaron esta pregunta con datos de estudiantes que fueron <strong>aceptados en universidades selectivas pero decidieron asistir a universidades menos selectivas</strong>. Su hallazgo fue sorprendente: para la mayoria de los estudiantes, <strong>asistir a una universidad selectiva no tiene un impacto significativo en los ingresos futuros</strong>.</p>
+<p>Es como la escena de <em>Spider-Man: No Way Home</em>, donde vemos multiples versiones de Spider-Man. Cada uno tomo caminos diferentes, pero al final, sus habilidades intrinsecas son las que determinan quien son. De forma similar, lo que importa no es tanto a que universidad asistes, sino las habilidades y la motivacion que ya traes contigo.</p>
+<p>Pero hay una <strong>excepcion importante</strong>: para estudiantes de <strong>bajos ingresos y minorias</strong>, asistir a una universidad mas selectiva <strong>si tiene un efecto positivo significativo</strong> en sus ingresos futuros. Para estos estudiantes, la universidad selectiva abre puertas que de otra forma estarian cerradas: redes de contactos, oportunidades de empleo y senalizacion en el mercado laboral.</p>
+<section id="para-identificar-el-efecto-debemos-ir-mas-alla-de-la-diferencia-de-medias">
+<h3>Para identificar el efecto, debemos ir mas alla de la diferencia de medias<a class="headerlink" href="#para-identificar-el-efecto-debemos-ir-mas-alla-de-la-diferencia-de-medias" title="Permalink to this heading">#</a></h3>
+<p>Un <strong>error de novatos</strong> en la identificacion causal es pensar que podemos medir el efecto de un tratamiento simplemente comparando los promedios de los grupos tratado y de control:</p>
+<div class="math notranslate nohighlight">
+\[E[Y_1] - E[Y_0]\]</div>
+<p>donde <span class="math notranslate nohighlight">\(Y\)</span> es la variable de resultado (por ejemplo, ingresos), y <span class="math notranslate nohighlight">\(D\)</span> es la variable de tratamiento. Usamos la siguiente notacion:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(D_i = 1\)</span>: el individuo <span class="math notranslate nohighlight">\(i\)</span> recibio el tratamiento (por ejemplo, asistio a una universidad selectiva)</p></li>
+<li><p><span class="math notranslate nohighlight">\(D_i = 0\)</span>: el individuo <span class="math notranslate nohighlight">\(i\)</span> no recibio el tratamiento</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y_{1i}\)</span>: resultado potencial del individuo <span class="math notranslate nohighlight">\(i\)</span> si recibe el tratamiento</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y_{0i}\)</span>: resultado potencial del individuo <span class="math notranslate nohighlight">\(i\)</span> si no recibe el tratamiento</p></li>
+</ul>
+<p>El problema es que los individuos que reciben el tratamiento pueden ser <strong>sistematicamente diferentes</strong> de los que no lo reciben. Veamos esto con una simulacion.</p>
+<p>Supongamos que los ingresos de un individuo <span class="math notranslate nohighlight">\(i\)</span> estan determinados por:</p>
+<div class="math notranslate nohighlight">
+\[Y_i = 1000 + 250 \cdot D_i + 250 \cdot A_i + \varepsilon_i\]</div>
+<p>donde <span class="math notranslate nohighlight">\(D_i\)</span> indica si el individuo asistio a una universidad selectiva, <span class="math notranslate nohighlight">\(A_i\)</span> es su habilidad (no observada) y <span class="math notranslate nohighlight">\(\varepsilon_i\)</span> es un termino de error aleatorio. El efecto <strong>verdadero</strong> de asistir a la universidad selectiva es exactamente <span class="math notranslate nohighlight">\(250\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">alumnos</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">180</span><span class="p">))}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">alumnos</span><span class="p">)</span>
+
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;habilidad&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))]</span>
+
+<span class="n">ruido_habilidad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;selectivas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;habilidad&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">ruido_habilidad</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingresos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;selectivas&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">250</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;habilidad&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">250</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>habilidad</th>
+      <th>selectivas</th>
+      <th>ingresos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0.496714</td>
+      <td>1</td>
+      <td>1519.595562</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>-0.138264</td>
+      <td>0</td>
+      <td>1394.600820</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>0.647689</td>
+      <td>0</td>
+      <td>1131.469293</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1.523030</td>
+      <td>1</td>
+      <td>1743.236746</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>-0.234153</td>
+      <td>0</td>
+      <td>1134.701974</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Veamos los promedios de ingresos por grupo:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Grupo</p></th>
+<th class="head"><p>Ingreso promedio</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Universidad selectiva (<span class="math notranslate nohighlight">\(D=1\)</span>)</p></td>
+<td><p>~1,530</p></td>
+</tr>
+<tr class="row-odd"><td><p>Universidad no selectiva (<span class="math notranslate nohighlight">\(D=0\)</span>)</p></td>
+<td><p>~854</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Diferencia</strong></p></td>
+<td><p><strong>~676</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>Calculemos la diferencia de medias directamente:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;selectivas&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s1">&#39;ingresos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;selectivas&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="s1">&#39;ingresos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>676.1391841200148
+</pre></div>
+</div>
+</div>
+</div>
+<p>La diferencia de medias es aproximadamente <strong>676.14</strong>, que es mucho mayor que el efecto verdadero de <strong>250</strong>. ¿Por que? Porque los estudiantes que asisten a universidades selectivas tienen, en promedio, <strong>mayor habilidad</strong> que los que no asisten. La diferencia de medias esta capturando no solo el efecto de la universidad, sino tambien la diferencia en habilidades entre los dos grupos.</p>
+</section>
+</section>
+<section id="sesgo-de-seleccion">
+<h2>Sesgo de seleccion<a class="headerlink" href="#sesgo-de-seleccion" title="Permalink to this heading">#</a></h2>
+<p><img alt="Sesgo de seleccion" src="../../_images/sesgo_seleccion.png" /></p>
+<p>El <strong>sesgo de seleccion</strong> ocurre cuando los individuos que reciben el tratamiento son sistematicamente diferentes de los que no lo reciben, de maneras que tambien afectan el resultado. En nuestro ejemplo, la <strong>habilidad</strong> es una variable que:</p>
+<ol class="arabic simple">
+<li><p>Afecta la probabilidad de asistir a una universidad selectiva (los estudiantes mas habiles tienen mas probabilidad de ser aceptados)</p></li>
+<li><p>Afecta directamente los ingresos (los estudiantes mas habiles tienden a ganar mas, independientemente de la universidad)</p></li>
+</ol>
+<p>Cuando la seleccion al tratamiento no es aleatoria, la simple comparacion de medias <strong>no nos da el efecto causal</strong>. En cambio, nos da el efecto causal <strong>mas</strong> el sesgo de seleccion.</p>
+</section>
+<section id="el-beneficio-de-entrar-a-una-escuela-mas-selectiva">
+<h2>El beneficio de entrar a una escuela mas selectiva<a class="headerlink" href="#el-beneficio-de-entrar-a-una-escuela-mas-selectiva" title="Permalink to this heading">#</a></h2>
+<p>Para entender mejor el problema, consideremos un ejemplo con dos individuos:</p>
+<ul class="simple">
+<li><p><strong>Alicia</strong>: tiene alta habilidad y asistio a una universidad selectiva (<span class="math notranslate nohighlight">\(D_A = 1\)</span>)</p></li>
+<li><p><strong>Bernardo</strong>: tiene baja habilidad y no asistio a una universidad selectiva (<span class="math notranslate nohighlight">\(D_B = 0\)</span>)</p></li>
+</ul>
+<p>Observamos que Alicia gana mas que Bernardo. Pero, ¿podemos concluir que la diferencia se debe a la universidad? <strong>No</strong>, porque Alicia y Bernardo son diferentes en muchas dimensiones ademas de la universidad a la que asistieron.</p>
+<p>Para formalizar esto, usamos la notacion de <strong>resultados potenciales</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Y_{1i}\)</span>: lo que ganaria el individuo <span class="math notranslate nohighlight">\(i\)</span> si asistiera a una universidad selectiva</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y_{0i}\)</span>: lo que ganaria el individuo <span class="math notranslate nohighlight">\(i\)</span> si <strong>no</strong> asistiera a una universidad selectiva</p></li>
+<li><p><span class="math notranslate nohighlight">\(D_i\)</span>: indicador de si el individuo <span class="math notranslate nohighlight">\(i\)</span> asistio a una universidad selectiva</p></li>
+</ul>
+<p>El ingreso observado de cada individuo se puede escribir como:</p>
+<div class="math notranslate nohighlight">
+\[Y_i = Y_{0i} + D_i (Y_{1i} - Y_{0i})\]</div>
+<p>Esta ecuacion nos dice que el ingreso observado es igual al ingreso sin tratamiento mas el efecto del tratamiento (si es que lo recibio). El termino <span class="math notranslate nohighlight">\((Y_{1i} - Y_{0i})\)</span> es el <strong>efecto causal individual</strong> del tratamiento.</p>
+<p>El problema fundamental es que para cada individuo solo observamos <strong>uno</strong> de los dos resultados potenciales. Para Alicia observamos <span class="math notranslate nohighlight">\(Y_{1A}\)</span> pero no <span class="math notranslate nohighlight">\(Y_{0A}\)</span>. Para Bernardo observamos <span class="math notranslate nohighlight">\(Y_{0B}\)</span> pero no <span class="math notranslate nohighlight">\(Y_{1B}\)</span>. El resultado que no observamos es el <strong>contrafactual</strong>:</p>
+<div class="math notranslate nohighlight">
+\[E[Y_{0i} | D_i = 1]\]</div>
+<p>es decir, ¿cuanto habrian ganado los que asistieron a la universidad selectiva si <strong>no</strong> hubieran asistido? Este es el contrafactual que necesitamos pero que nunca podemos observar directamente.</p>
+</section>
+<section id="descubriendo-el-sesgo-de-seleccion">
+<h2>Descubriendo el sesgo de seleccion<a class="headerlink" href="#descubriendo-el-sesgo-de-seleccion" title="Permalink to this heading">#</a></h2>
+<p>Podemos descomponer la diferencia de medias observada para revelar el sesgo de seleccion. Partimos de:</p>
+<div class="math notranslate nohighlight">
+\[E[Y_i | D_i = 1] - E[Y_i | D_i = 0]\]</div>
+<p>Usando la ecuacion de resultados potenciales <span class="math notranslate nohighlight">\(Y_i = Y_{0i} + D_i(Y_{1i} - Y_{0i})\)</span>, podemos escribir:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+E[Y_i | D_i = 1] - E[Y_i | D_i = 0] &amp;= E[Y_{1i} | D_i = 1] - E[Y_{0i} | D_i = 0] \\
+&amp;= E[Y_{1i} | D_i = 1] - E[Y_{0i} | D_i = 1] + E[Y_{0i} | D_i = 1] - E[Y_{0i} | D_i = 0] \\
+&amp;= \underbrace{E[Y_{1i} - Y_{0i} | D_i = 1]}_{\text{ATT}} + \underbrace{E[Y_{0i} | D_i = 1] - E[Y_{0i} | D_i = 0]}_{\text{Sesgo de seleccion}}
+\end{aligned}
+\end{split}\]</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><p><strong>ATT</strong> (Average Treatment Effect on the Treated): es el efecto promedio del tratamiento <strong>sobre los tratados</strong>. Es lo que realmente queremos medir: ¿cuanto beneficio obtuvieron, en promedio, los que asistieron a la universidad selectiva?</p></li>
+<li><p><strong>Sesgo de seleccion</strong>: es la diferencia en los resultados potenciales <em>sin tratamiento</em> entre los grupos tratado y de control. Nos dice que tan diferentes eran estos grupos <strong>antes</strong> del tratamiento.</p></li>
+</ul>
+<p>La ecuacion clave es entonces:</p>
+<div class="math notranslate nohighlight">
+\[\text{Diferencia de medias} = \text{ATT} + \text{Sesgo de seleccion}\]</div>
+<section id="como-eliminamos-el-sesgo-de-seleccion">
+<h3>¿Como eliminamos el sesgo de seleccion?<a class="headerlink" href="#como-eliminamos-el-sesgo-de-seleccion" title="Permalink to this heading">#</a></h3>
+<p>La forma mas directa de eliminar el sesgo de seleccion es mediante la <strong>aleatorizacion</strong>. Si asignamos el tratamiento de forma aleatoria, entonces:</p>
+<div class="math notranslate nohighlight">
+\[E[Y_{0i} | D_i = 1] = E[Y_{0i} | D_i = 0]\]</div>
+<p>es decir, los grupos tratado y de control son, en promedio, iguales en todas las caracteristicas (observadas y no observadas). El sesgo de seleccion desaparece y la diferencia de medias nos da directamente el efecto causal.</p>
+<p><img alt="Sesgo de muestreo" src="../../_images/sampling_bias.JPG" /></p>
+<p>Un ejemplo clasico de sesgo de seleccion en la vida real es el estudio de <strong>Bertrand y Mullainathan (2004)</strong>, quienes enviaron curricula ficticios a ofertas de empleo en Estados Unidos. Los curricula eran identicos en todo excepto por el nombre del candidato: algunos tenian nombres que sonaban tipicamente afroamericanos (como Lakisha o Jamal) y otros tenian nombres que sonaban tipicamente blancos (como Emily o Greg). Los resultados mostraron que los curricula con nombres blancos recibieron un <strong>50% mas de llamadas</strong> para entrevistas. Este es un experimento de campo (<strong>audit study</strong>) que elimina el sesgo de seleccion al asignar aleatoriamente el “tratamiento” (el nombre en el curriculum).</p>
+</section>
+</section>
+<section id="el-experimento-aleatorio-ideal">
+<h2>El experimento aleatorio ideal<a class="headerlink" href="#el-experimento-aleatorio-ideal" title="Permalink to this heading">#</a></h2>
+<p>Los <strong>ensayos controlados aleatorios</strong> (RCTs, por sus siglas en ingles) son considerados el <strong>estandar de oro</strong> para la identificacion causal. La idea es simple: si asignamos el tratamiento de forma aleatoria, eliminamos el sesgo de seleccion.</p>
+<p>Un ejemplo clasico es el estudio de <strong>Miguel y Kremer (2003)</strong> sobre los efectos de la desparasitacion en la asistencia escolar en Kenia. Los investigadores asignaron aleatoriamente escuelas a recibir tratamiento de desparasitacion y midieron el efecto en la asistencia de los estudiantes. Encontraron que la desparasitacion redujo significativamente el ausentismo escolar.</p>
+<p>Los pasos para disenar un experimento aleatorio son:</p>
+<ol class="arabic simple">
+<li><p><strong>Definir la poblacion de interes</strong>: ¿a quienes queremos estudiar?</p></li>
+<li><p><strong>Asignar aleatoriamente el tratamiento</strong>: usar un mecanismo aleatorio (como lanzar una moneda o un generador de numeros aleatorios) para decidir quien recibe el tratamiento</p></li>
+<li><p><strong>Medir los resultados</strong>: observar la variable de resultado para ambos grupos (tratado y control)</p></li>
+<li><p><strong>Comparar los promedios</strong>: la diferencia de medias entre el grupo tratado y el grupo de control nos da una estimacion insesgada del efecto causal promedio</p></li>
+</ol>
+</section>
+<section id="experimento-ideal-y-experimentos-naturales">
+<h2>Experimento ideal y experimentos naturales<a class="headerlink" href="#experimento-ideal-y-experimentos-naturales" title="Permalink to this heading">#</a></h2>
+<p>En muchos casos, no es posible realizar un experimento aleatorio por razones eticas, logisticas o economicas. Por ejemplo, no podemos asignar aleatoriamente a personas a asistir o no a Harvard.</p>
+<p>Aqui es donde entra la estrategia de <strong>Dale y Krueger</strong>: en lugar de aleatorizar, buscaron un grupo de comparacion <strong>natural</strong>. Compararon a estudiantes que fueron aceptados en las mismas universidades selectivas pero que eligieron asistir a universidades diferentes. Al condicionar en el conjunto de universidades a las que fueron aceptados, controlaron por la habilidad no observada.</p>
+<p>Este tipo de estrategias se conocen como <strong>experimentos naturales</strong>: situaciones en las que algun evento o politica genera una variacion en el tratamiento que es <em>como si</em> fuera aleatoria, aunque no fue disenada explicitamente como un experimento. Los experimentos naturales son una de las herramientas mas poderosas de la econometria moderna y seran un tema recurrente a lo largo de este libro.</p>
+<p>Algunos ejemplos clasicos de experimentos naturales incluyen:</p>
+<ul class="simple">
+<li><p>Loterias de reclutamiento militar (para estudiar el efecto del servicio militar en ingresos)</p></li>
+<li><p>Cambios en leyes de edad minima para beber (para estudiar el efecto del alcohol en mortalidad)</p></li>
+<li><p>Distancia a la universidad mas cercana (para estudiar el efecto de la educacion en ingresos)</p></li>
+</ul>
+</section>
+<section id="disena-tu-experimento-ideal-con-inteligencia-artificial">
+<h2>Disena tu experimento ideal con Inteligencia Artificial<a class="headerlink" href="#disena-tu-experimento-ideal-con-inteligencia-artificial" title="Permalink to this heading">#</a></h2>
+<p>Una forma interesante de practicar el diseno de experimentos es usar herramientas de inteligencia artificial como ChatGPT para ayudarte a pensar en los detalles. Aqui tienes un ejercicio:</p>
+<ol class="arabic simple">
+<li><p><strong>Elige una pregunta causal</strong> que te interese (por ejemplo: ¿el teletrabajo aumenta la productividad?)</p></li>
+<li><p><strong>Piensa en el tratamiento y el resultado</strong>: ¿cual es la variable de tratamiento? ¿cual es la variable de resultado?</p></li>
+<li><p><strong>Identifica posibles fuentes de sesgo de seleccion</strong>: ¿por que los grupos tratado y de control podrian ser diferentes?</p></li>
+<li><p><strong>Disena tu experimento ideal</strong>: ¿como asignarias aleatoriamente el tratamiento?</p></li>
+<li><p><strong>Usa el siguiente prompt en ChatGPT</strong> para refinar tu diseno:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Soy</span> <span class="n">un</span> <span class="n">estudiante</span> <span class="n">de</span> <span class="n">econometria</span> <span class="n">y</span> <span class="n">estoy</span> <span class="n">aprendiendo</span> <span class="n">sobre</span> <span class="n">inferencia</span> <span class="n">causal</span><span class="o">.</span>
+<span class="n">Quiero</span> <span class="n">disenar</span> <span class="n">un</span> <span class="n">experimento</span> <span class="n">aleatorio</span> <span class="n">ideal</span> <span class="n">para</span> <span class="n">responder</span> <span class="n">la</span> <span class="n">siguiente</span>
+<span class="n">pregunta</span> <span class="n">causal</span><span class="p">:</span> <span class="p">[</span><span class="n">TU</span> <span class="n">PREGUNTA</span> <span class="n">AQUI</span><span class="p">]</span><span class="o">.</span>
+
+<span class="n">Por</span> <span class="n">favor</span> <span class="n">ayudame</span> <span class="n">a</span><span class="p">:</span>
+<span class="mf">1.</span> <span class="n">Definir</span> <span class="n">claramente</span> <span class="n">la</span> <span class="n">variable</span> <span class="n">de</span> <span class="n">tratamiento</span> <span class="n">y</span> <span class="n">la</span> <span class="n">variable</span> <span class="n">de</span> <span class="n">resultado</span>
+<span class="mf">2.</span> <span class="n">Identificar</span> <span class="n">posibles</span> <span class="n">fuentes</span> <span class="n">de</span> <span class="n">sesgo</span> <span class="n">de</span> <span class="n">seleccion</span>
+<span class="mf">3.</span> <span class="n">Disenar</span> <span class="n">un</span> <span class="n">protocolo</span> <span class="n">de</span> <span class="n">aleatorizacion</span>
+<span class="mf">4.</span> <span class="n">Anticipar</span> <span class="n">posibles</span> <span class="n">problemas</span> <span class="p">(</span><span class="n">incumplimiento</span><span class="p">,</span> <span class="n">desercion</span><span class="p">,</span> <span class="n">efectos</span> <span class="n">derrame</span><span class="p">)</span>
+<span class="mf">5.</span> <span class="n">Sugerir</span> <span class="n">un</span> <span class="n">tamano</span> <span class="n">de</span> <span class="n">muestra</span> <span class="n">razonable</span>
+
+<span class="n">Explicamelo</span> <span class="n">de</span> <span class="n">forma</span> <span class="n">clara</span> <span class="n">y</span> <span class="n">concisa</span><span class="p">,</span> <span class="n">como</span> <span class="n">si</span> <span class="n">fuera</span> <span class="n">un</span> <span class="n">capitulo</span> <span class="n">de</span> <span class="n">un</span>
+<span class="n">libro</span> <span class="n">de</span> <span class="n">texto</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Este ejercicio te ayudara a internalizar los conceptos de este capitulo y a pensar como un econometrista.</p>
+</section>
+<section id="resumen">
+<h2>Resumen<a class="headerlink" href="#resumen" title="Permalink to this heading">#</a></h2>
+<p>En este capitulo aprendimos los conceptos fundamentales del <strong>modelo de resultados potenciales</strong>, que es la base de la inferencia causal moderna:</p>
+<ul class="simple">
+<li><p>Cada individuo tiene dos <strong>resultados potenciales</strong>: <span class="math notranslate nohighlight">\(Y_{1i}\)</span> (con tratamiento) y <span class="math notranslate nohighlight">\(Y_{0i}\)</span> (sin tratamiento)</p></li>
+<li><p>Solo podemos observar <strong>uno</strong> de los dos resultados; el otro es el <strong>contrafactual</strong></p></li>
+<li><p>La diferencia de medias entre tratados y no tratados captura el <strong>efecto causal</strong> mas el <strong>sesgo de seleccion</strong></p></li>
+<li><p>El sesgo de seleccion surge cuando el tratamiento no se asigna de forma aleatoria</p></li>
+<li><p>La <strong>aleatorizacion</strong> elimina el sesgo de seleccion al hacer que los grupos sean comparables</p></li>
+<li><p>Cuando la aleatorizacion no es posible, los <strong>experimentos naturales</strong> ofrecen una alternativa</p></li>
+</ul>
+</section>
+<section id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Contrafactuales en la vida cotidiana</strong>: Piensa en una decision importante que hayas tomado en tu vida (por ejemplo, elegir una carrera, mudarte a otra ciudad, etc.). ¿Cual seria el contrafactual? ¿Por que es imposible observarlo directamente?</p></li>
+<li><p><strong>Sesgo de seleccion</strong>: Un estudio encuentra que las personas que hacen ejercicio regularmente tienen menores tasas de depresion. ¿Podemos concluir que el ejercicio reduce la depresion? Identifica posibles fuentes de sesgo de seleccion.</p></li>
+<li><p><strong>Resultados potenciales</strong>: Supongamos que queremos medir el efecto de un programa de tutoria en las calificaciones de los estudiantes. Define formalmente <span class="math notranslate nohighlight">\(Y_{1i}\)</span>, <span class="math notranslate nohighlight">\(Y_{0i}\)</span> y <span class="math notranslate nohighlight">\(D_i\)</span> para este problema.</p></li>
+<li><p><strong>Descomposicion de la diferencia de medias</strong>: Usando la notacion del capitulo, demuestra que la diferencia de medias entre tratados y no tratados se puede descomponer en ATT + sesgo de seleccion.</p></li>
+<li><p><strong>Simulacion en Python</strong>: Modifica el codigo de simulacion de este capitulo para un caso donde el sesgo de seleccion es <strong>negativo</strong> (es decir, los individuos con peores resultados potenciales son los que reciben el tratamiento). Pista: cambia la relacion entre habilidad y seleccion al tratamiento.</p></li>
+<li><p><strong>Diseno experimental</strong>: Disena un experimento aleatorio para medir el efecto de ofrecer desayunos gratuitos en las escuelas sobre el rendimiento academico. Describe los pasos y las posibles dificultades.</p></li>
+<li><p><strong>Experimentos naturales</strong>: Investiga un ejemplo de experimento natural en la literatura economica (distinto a los mencionados en el capitulo). Describe la pregunta causal, la fuente de variacion exogena y los resultados principales.</p></li>
+<li><p><strong>Audit study</strong>: Inspirandote en el estudio de Bertrand y Mullainathan, disena un audit study para medir discriminacion en el mercado laboral de tu pais. ¿Que caracteristicas variarias en los curricula? ¿Que resultados medirias?</p></li>
+<li><p><strong>Critica</strong>: Un amigo te dice: “las personas que van a universidades privadas ganan mas dinero, por lo tanto las universidades privadas son mejores”. Usando los conceptos de este capitulo, explica por que esta conclusion puede ser erronea.</p></li>
+<li><p><strong>Reflexion etica</strong>: ¿Existen preguntas causales para las cuales seria <strong>poco etico</strong> realizar un experimento aleatorio? Da un ejemplo y discute como un econometrista podria abordar esa pregunta de forma alternativa.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/II-Inferencia-Causal"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../I-Introduccion/02-python-para-econometria.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Python para hacer Econometría</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04-experimentos.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Experimentos y Pruebas A/B</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-seria-tu-vida-si-hubieras-entrado-en-harvard">¿Como seria tu vida si hubieras entrado en Harvard?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#para-identificar-el-efecto-debemos-ir-mas-alla-de-la-diferencia-de-medias">Para identificar el efecto, debemos ir mas alla de la diferencia de medias</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sesgo-de-seleccion">Sesgo de seleccion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-beneficio-de-entrar-a-una-escuela-mas-selectiva">El beneficio de entrar a una escuela mas selectiva</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descubriendo-el-sesgo-de-seleccion">Descubriendo el sesgo de seleccion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-eliminamos-el-sesgo-de-seleccion">¿Como eliminamos el sesgo de seleccion?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-experimento-aleatorio-ideal">El experimento aleatorio ideal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimento-ideal-y-experimentos-naturales">Experimento ideal y experimentos naturales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disena-tu-experimento-ideal-con-inteligencia-artificial">Disena tu experimento ideal con Inteligencia Artificial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen">Resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

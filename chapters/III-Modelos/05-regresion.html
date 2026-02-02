@@ -1,0 +1,1271 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Una guía para entender y hacer modelos de Regresión Lineal &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/III-Modelos/05-regresion';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Series de Tiempo" href="06-series-de-tiempo.html" />
+    <link rel="prev" title="Experimentos y Pruebas A/B" href="../II-Inferencia-Causal/04-experimentos.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducción</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/00-que-es-inferencia-causal.html">Antes de comenzar: ¿Qué es la inferencia causal?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/01-los-negocios-son-matematicas.html">Los negocios son matemáticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-python-para-econometria.html">Python para hacer Econometría</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inferencia Causal</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/03-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/04-experimentos.html">Experimentos y Pruebas A/B</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Una guía para entender y hacer modelos de Regresión Lineal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-series-de-tiempo.html">Series de Tiempo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-efectos-fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-diff-in-diff.html">Diferencias en Diferencias</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/09-iteracion.html">La única forma de crear valor es iterando a partir de los datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/10-investigacion-mercados-ia.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/III-Modelos/05-regresion.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/III-Modelos/05-regresion.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Una guía para entender y hacer modelos de Regresión Lineal</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-de-minimos-cuadrados-ordinarios-con-dos-variables">El modelo de mínimos cuadrados ordinarios con dos variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-metodo-de-minimos-cuadrados-ordinarios">El método de Mínimos cuadrados ordinarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#obteniendo-los-estimadores-de-ols">Obteniendo los estimadores de OLS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-estimadores-de-minimos-cuadrados">Propiedades de los estimadores de Mínimos Cuadrados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#los-valores-observados-de-mathbf-x-no-estan-correlacionados-con-los-residuales">Los valores observados de <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> no están correlacionados con los residuales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-suma-de-los-residuales-es-igual-a-cero">La suma de los residuales es igual a cero</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-media-muestral-de-los-residuales-es-cero">La media muestral de los residuales es cero</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-hiperplano-de-la-regresion-pasa-a-traves-de-las-medias-de-los-valores-observados">El hiperplano de la regresión pasa a través de las medias de los valores observados</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#los-valores-de-prediccion-de-mathbf-y-no-estan-correlacionados-con-los-residuales">Los valores de predicción de <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> no están correlacionados con los residuales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-media-de-las-predicciones-de-mathbf-y-sera-igual-que-la-media-de-los-mathbf-y-observados">La media de las predicciones de <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> será igual que la media de los <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> observados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-teorema-de-gauss-markov-y-sus-supuestos">El teorema de Gauss-Márkov y sus supuestos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estos-son-los-supuestos-del-teorema-de-gauss-markov">Estos son los supuestos del Teorema de Gauss-Márkov</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-1-los-parametros-deben-ser-lineales">Supuesto #1: Los parámetros deben ser lineales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-2-los-datos-deben-ser-tomados-de-un-muestreo-aleatorio-de-la-poblacion">Supuesto #2: Los datos deben ser tomados de un muestreo aleatorio de la población</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-3-no-hay-colinealidad">Supuesto #3: No hay colinealidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-4-exogeneidad">Supuesto #4: Exogeneidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-5-homoscedasticidad">Supuesto #5: Homoscedasticidad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-interpretar-el-reporte-de-regresion">Cómo interpretar el reporte de regresión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-pasa-si-mi-regresion-no-cumple-con-los-supuestos">¿Qué pasa si mi regresión no cumple con los supuestos?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apendice">Apéndice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-mathbf-e-mathbf-e-es-la-suma-de-residuos-al-cuadrado">¿Por qué <span class="math notranslate nohighlight">\(\mathbf{e}'\mathbf{e}\)</span> es la suma de residuos al cuadrado?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guia-breve-de-diferenciacion-con-matrices">Guía breve de diferenciación con matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funciona-el-coeficiente-de-correlacion">¿Cómo funciona el coeficiente de correlación?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funciona-el-vif">¿Cómo funciona el VIF?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-es-importante-identificar-la-multicolinealidad">¿Por qué es importante identificar la multicolinealidad?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-supuesto-de-media-condicional-cero">El supuesto de media condicional cero</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#un-poco-extra-sobre-gauss">Un poco extra sobre Gauss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capítulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poniendo-a-prueba-la-regresion-manos-al-codigo-y-a-la-mente">Poniendo a prueba la regresión: manos al código y a la mente</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="una-guia-para-entender-y-hacer-modelos-de-regresion-lineal">
+<h1>Una guía para entender y hacer modelos de Regresión Lineal<a class="headerlink" href="#una-guia-para-entender-y-hacer-modelos-de-regresion-lineal" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p><em>“I know I’m stereotypical barbie and therefore don’t form conjectures concerning causality of adjacent unfolding events. But some things have been happening that might be related”</em> — Barbie (2023)</p>
+</div></blockquote>
+<p>La <strong>regresión lineal</strong> es la base de los modelos de inferencia causal.</p>
+<p>Hay una razón por la que todos los libros de econometría y de ciencia de datos lo cubren. Se trata del modelo por el que debes comenzar <strong>antes de explorar</strong> modelos más complejos.</p>
+<p>No hay nada de malo en usar redes neuronales o modelos de random forest en tu proyecto (actualmente está de moda hacer transición de economista a Data Scientist, y alguien que estudia econometría ya lleva un buen avance en los modelos <em>supervisados</em>), pero si usas <strong>regresión lineal</strong>, tus modelos tendrán los siguientes beneficios:</p>
+<ul class="simple">
+<li><p>Mayor parsimonia. Entre más simple es el modelo, menos problemas te va a causar.</p></li>
+<li><p>Serán más fáciles de interpretar. Si necesitas comunicar tus resultados a un jefe o un cliente, necesitas poder decir claramente lo que tus datos significan y las limitaciones.</p></li>
+<li><p>Pruebas de robustez. Cuando un modelo pasa pruebas y demuestra que es robusto, podrás tener más confianza de usarlo en tus predicciones.</p></li>
+</ul>
+<p>No es magia. Hay teoremas muy sólidos que ayudan a que entendamos lo que funciona y cuándo funciona.</p>
+<p>Este capítulo se trata de sentar esas bases sólidas.</p>
+<section id="el-modelo-de-minimos-cuadrados-ordinarios-con-dos-variables">
+<h2>El modelo de mínimos cuadrados ordinarios con dos variables<a class="headerlink" href="#el-modelo-de-minimos-cuadrados-ordinarios-con-dos-variables" title="Permalink to this heading">#</a></h2>
+<p>Comencemos con el modelo básico. Tienes una variable <span class="math notranslate nohighlight">\(X\)</span> y deseas conocer el efecto que tiene sobre <span class="math notranslate nohighlight">\(Y\)</span>. La variable <span class="math notranslate nohighlight">\(X\)</span> podría ser el gasto en una campaña publicitaria por Televisión, mientras que <span class="math notranslate nohighlight">\(Y\)</span> son las ventas de nuestro producto.</p>
+<p>Si tienes suficientes combinaciones de las dos variables, puedes plantear un modelo sobre su comportamiento. Usaremos la base de datos de publicidad, disponible libremente en <a class="reference external" href="http://kaggle.com/">kaggle.com</a>. El siguiente código carga la base de datos directamente del repositorio y muestra un diagrama de dispersión entre los gastos en publicidad por TV y las ventas en millones de unidades.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Cargar los datos</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../data/advertising.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Crear un diagrama de dispersión</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;TV&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de Dispersión de Gastos en TV vs Ventas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Gastos en TV ($)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas (Miles de unidades)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/54b5ebfd6f6e335b4c2d3613f5feadab88754ff866ccf8df4e2292e40661b358.png" src="../../_images/54b5ebfd6f6e335b4c2d3613f5feadab88754ff866ccf8df4e2292e40661b358.png" />
+</div>
+</div>
+<p><img alt="Diagrama de dispersión generado a partir del bloque de código de Python." src="../../_images/scatter1.png" /></p>
+<p>Este es un ejemplo muy claro donde la regresión lineal es el modelo ideal para nosotros: los puntos siguen un patrón muy claro visualmente.</p>
+<p>Lo que nos dice la regresión lineal es que existe una línea que se ajusta a los datos. No necesitamos que el ajuste sea perfecto (si tuviéramos un ajuste perfecto no necesitaríamos de modelos estadísticos). Es normal pensar que hay muchos factores que afectan las ventas además del gasto publicitario, desde el clima hasta el día del mes pueden generar variaciones.</p>
+<p>Así se ve nuestra línea de regresión.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de Dispersión de Gastos en TV vs Ventas con Línea de Regresión&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Gastos en TV ($)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas (Miles de unidades)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/89f432c58b3aac7ccaad317718b83447b5092121408a4347fdcb89c84de23a91.png" src="../../_images/89f432c58b3aac7ccaad317718b83447b5092121408a4347fdcb89c84de23a91.png" />
+</div>
+</div>
+<p><img alt="Diagrama de dispersión con línea de regresión." src="../../_images/scatter2.png" /></p>
+<p>Este tipo de línea se genera con un modelo lineal, donde cada punto es producto de una función de tipo</p>
+<div class="math notranslate nohighlight">
+\[Y_{i}=\beta_{0}+\beta_{1}X_{i}+\varepsilon_{i}\]</div>
+<p>El punto <span class="math notranslate nohighlight">\(i\)</span> se ubica en la coordenada <span class="math notranslate nohighlight">\((X_{i}, Y_{i})\)</span>. El término <span class="math notranslate nohighlight">\(\varepsilon_{i}\)</span> es el <strong>error</strong>, la diferencia entre el punto y la línea. Los términos <span class="math notranslate nohighlight">\(\beta_{0}\)</span> y <span class="math notranslate nohighlight">\(\beta_{1}\)</span> (<em>se lee beta-cero y beta-uno</em>) son los parámetros de una función lineal.</p>
+<p>Nota que en algunos puntos, la línea de regresión “se equivoca” hacia arriba y en otros puntos hacia abajo. Cada punto que compone la línea de regresión es una predicción del valor de <span class="math notranslate nohighlight">\(Y_{i}\)</span> dado <span class="math notranslate nohighlight">\(X_{i}\)</span>, donde <span class="math notranslate nohighlight">\(\varepsilon_{i}\)</span> es la diferencia, a la que llamamos el <strong>residual</strong>.</p>
+<p><img alt="Le llamamos &quot;error&quot; a la diferencia entre una observación y la línea de regresión que &quot;predice&quot; dónde debería estar  dado ." src="../../_images/error.png" /></p>
+<p>El modelo lineal tiene la ventaja de que sólo con dos parámetros podemos definir toda la línea.</p>
+<p>Si <span class="math notranslate nohighlight">\(\beta_{0}=6.97\)</span> y <span class="math notranslate nohighlight">\(\beta_{1}=0.0554\)</span>, entonces un valor de <span class="math notranslate nohighlight">\(X_{i}=\$150\)</span> en gasto de publicidad por TV implica ventas por <span class="math notranslate nohighlight">\(15.29\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sales</span><span class="p">(</span><span class="n">tv</span><span class="p">):</span>
+    <span class="n">b0</span> <span class="o">=</span> <span class="mf">6.97</span>
+    <span class="n">b1</span> <span class="o">=</span> <span class="mf">0.0555</span>
+    <span class="k">return</span> <span class="n">b0</span> <span class="o">+</span> <span class="n">b1</span> <span class="o">*</span> <span class="n">tv</span>
+
+<span class="n">sales</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15.294999999999998
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="el-metodo-de-minimos-cuadrados-ordinarios">
+<h2>El método de Mínimos cuadrados ordinarios<a class="headerlink" href="#el-metodo-de-minimos-cuadrados-ordinarios" title="Permalink to this heading">#</a></h2>
+<p>El método de <strong>Mínimos Cuadrados Ordinarios</strong> (OLS, por sus siglas en inglés) es el método más popular para resolver el modelo de regresión lineal. Se prefiere porque es simple y muy eficiente.</p>
+<p>Bajo ciertas condiciones, OLS se considera el mejor estimador lineal insesgado. El acrónimo en inglés es BLUE (Best Linear Unbiased Estimator):</p>
+<ul class="simple">
+<li><p><strong>Best</strong> (Mejor): Significa que tiene la menor varianza de las estimaciones.</p></li>
+<li><p><strong>Linear</strong> (Lineal): El estimador es una función lineal de los valores observados.</p></li>
+<li><p><strong>Unbiased</strong> (Insesgados): El estimador le <em>atina</em> al verdadero valor del parámetro <strong>en promedio</strong>.</p></li>
+<li><p><strong>Estimator</strong> (Estimador): Es la regla o fórmula que indica cómo estimar los parámetros del modelo.</p></li>
+</ul>
+<p>OLS tiene el objetivo de encontrar los valores de <span class="math notranslate nohighlight">\(\beta_{0}\)</span> y <span class="math notranslate nohighlight">\(\beta_{1}\)</span> que minimizan la suma de los errores al cuadrado.</p>
+<p><img alt="El objetivo del método de mínimos cuadrados es encontrar la línea que minimice la suma de los errores al cuadrado." src="../../_images/errores2.png" /></p>
+</section>
+<section id="obteniendo-los-estimadores-de-ols">
+<h2>Obteniendo los estimadores de OLS<a class="headerlink" href="#obteniendo-los-estimadores-de-ols" title="Permalink to this heading">#</a></h2>
+<p>Pasemos la ecuación a notación vectorial. Sea <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> el vector de observaciones de tamaño <span class="math notranslate nohighlight">\(n\times1\)</span>, <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> una matriz de tamaño <span class="math notranslate nohighlight">\(n\times k\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol{\beta}\)</span> un vector de tamaño <span class="math notranslate nohighlight">\(k+1\times1\)</span>, y <span class="math notranslate nohighlight">\(\boldsymbol{\varepsilon}\)</span> un vector de errores de tamaño <span class="math notranslate nohighlight">\(n\times1\)</span>.</p>
+<p>Nuestro modelo se puede representar de forma compacta como <span class="math notranslate nohighlight">\(\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}\)</span>.</p>
+<p>La suma de los residuales al cuadrado (RSS) la expresamos como <span class="math notranslate nohighlight">\(\mathbf{e}'\mathbf{e}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{e}'\mathbf{e} = \mathbf{y}'\mathbf{y} - 2\hat{\boldsymbol\beta}'\mathbf{X}'\mathbf{y} + \hat{\boldsymbol\beta}'\mathbf{X}'\mathbf{X} \hat{\boldsymbol\beta}\]</div>
+<p>Las condiciones de primer orden:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial \mathbf{e'e}}{\partial \hat{\boldsymbol\beta}}=-2\mathbf{X}'\mathbf{y}+2\mathbf{X}'\mathbf{X}\hat{\boldsymbol\beta}=0\]</div>
+<p>De donde obtenemos las ecuaciones normales:</p>
+<div class="math notranslate nohighlight">
+\[(\mathbf{X}'\mathbf{X})\hat{\boldsymbol\beta}=\mathbf{X}'\mathbf{y}\]</div>
+<p>Y por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\boldsymbol\beta}=(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}\]</div>
+<p>Esto es lo que tu computadora calcula cuando le pides que haga una regresión lineal con tus datos.</p>
+<p>Hagamos un ejercicio en Python con los datos de publicidad.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">ruta_archivo</span> <span class="o">=</span> <span class="s1">&#39;../../data/advertising.csv&#39;</span>
+<span class="n">datos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_archivo</span><span class="p">)</span>
+
+<span class="n">tv</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;TV&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">ventas</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">tv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">tv</span><span class="p">))</span>
+
+<span class="n">XX_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span>
+<span class="n">beta_hat</span> <span class="o">=</span> <span class="n">XX_inv</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ventas</span>
+
+<span class="n">intercepto</span><span class="p">,</span> <span class="n">pendiente</span> <span class="o">=</span> <span class="n">beta_hat</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Intercepto:&quot;</span><span class="p">,</span> <span class="n">intercepto</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pendiente para TV:&quot;</span><span class="p">,</span> <span class="n">pendiente</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercepto: 7.688157635196536
+Pendiente para TV: 0.04479276877051332
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="propiedades-de-los-estimadores-de-minimos-cuadrados">
+<h2>Propiedades de los estimadores de Mínimos Cuadrados<a class="headerlink" href="#propiedades-de-los-estimadores-de-minimos-cuadrados" title="Permalink to this heading">#</a></h2>
+<p>Podemos deducir varias propiedades de los estimadores. Verifiquemos cada una con Python.</p>
+<section id="los-valores-observados-de-mathbf-x-no-estan-correlacionados-con-los-residuales">
+<h3>Los valores observados de <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> no están correlacionados con los residuales<a class="headerlink" href="#los-valores-observados-de-mathbf-x-no-estan-correlacionados-con-los-residuales" title="Permalink to this heading">#</a></h3>
+<p>Que <span class="math notranslate nohighlight">\(\mathbf{X}'\mathbf{e}=0\)</span> implica que cada columna de la matriz <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> tiene correlación muestral de cero con los residuales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predicciones</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">beta_hat</span>
+<span class="n">residuales</span> <span class="o">=</span> <span class="n">ventas</span> <span class="o">-</span> <span class="n">predicciones</span>
+
+<span class="n">correlacion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">tv</span><span class="p">,</span> <span class="n">residuales</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correlación entre los valores observados de TV y los residuales:&quot;</span><span class="p">,</span> <span class="n">correlacion</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Correlación entre los valores observados de TV y los residuales: -4.3280871388753426e-16
+</pre></div>
+</div>
+</div>
+</div>
+<p>El coeficiente de correlación es prácticamente cero. Esto comprueba la propiedad.</p>
+</section>
+<section id="la-suma-de-los-residuales-es-igual-a-cero">
+<h3>La suma de los residuales es igual a cero<a class="headerlink" href="#la-suma-de-los-residuales-es-igual-a-cero" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">suma_residuales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">residuales</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Suma de los residuales:&quot;</span><span class="p">,</span> <span class="n">suma_residuales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Suma de los residuales: 3.730349362740526e-14
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="la-media-muestral-de-los-residuales-es-cero">
+<h3>La media muestral de los residuales es cero<a class="headerlink" href="#la-media-muestral-de-los-residuales-es-cero" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">media_residuales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuales</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los residuales:&quot;</span><span class="p">,</span> <span class="n">media_residuales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Media de los residuales: 1.865174681370263e-16
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="el-hiperplano-de-la-regresion-pasa-a-traves-de-las-medias-de-los-valores-observados">
+<h3>El hiperplano de la regresión pasa a través de las medias de los valores observados<a class="headerlink" href="#el-hiperplano-de-la-regresion-pasa-a-traves-de-las-medias-de-los-valores-observados" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">promedio_tv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tv</span><span class="p">)</span>
+<span class="n">promedio_ventas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ventas</span><span class="p">)</span>
+<span class="n">ventas_predichas_en_promedio_tv</span> <span class="o">=</span> <span class="n">beta_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta_hat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">promedio_tv</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Promedio de TV:&quot;</span><span class="p">,</span> <span class="n">promedio_tv</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Promedio de Ventas:&quot;</span><span class="p">,</span> <span class="n">promedio_ventas</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ventas predichas cuando TV es igual a su promedio:&quot;</span><span class="p">,</span> <span class="n">ventas_predichas_en_promedio_tv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Promedio de TV: 143.8255
+Promedio de Ventas: 14.1305
+Ventas predichas cuando TV es igual a su promedio: 14.1305
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="los-valores-de-prediccion-de-mathbf-y-no-estan-correlacionados-con-los-residuales">
+<h3>Los valores de predicción de <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> no están correlacionados con los residuales<a class="headerlink" href="#los-valores-de-prediccion-de-mathbf-y-no-estan-correlacionados-con-los-residuales" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlacion_predichos_residuales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">predicciones</span><span class="p">,</span> <span class="n">residuales</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Correlación entre los valores predichos de Ventas y los residuales:&quot;</span><span class="p">,</span> <span class="n">correlacion_predichos_residuales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Correlación entre los valores predichos de Ventas y los residuales: -4.0041500780004977e-16
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="la-media-de-las-predicciones-de-mathbf-y-sera-igual-que-la-media-de-los-mathbf-y-observados">
+<h3>La media de las predicciones de <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> será igual que la media de los <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> observados<a class="headerlink" href="#la-media-de-las-predicciones-de-mathbf-y-sera-igual-que-la-media-de-los-mathbf-y-observados" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">media_predicciones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">predicciones</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los valores predichos:&quot;</span><span class="p">,</span> <span class="n">media_predicciones</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Media de los valores observados (Ventas):&quot;</span><span class="p">,</span> <span class="n">promedio_ventas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Media de los valores predichos: 14.1305
+Media de los valores observados (Ventas): 14.1305
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="el-teorema-de-gauss-markov-y-sus-supuestos">
+<h2>El teorema de Gauss-Márkov y sus supuestos<a class="headerlink" href="#el-teorema-de-gauss-markov-y-sus-supuestos" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p><em>“I’m BLUE, da-ba-dee-da-ba-day”</em> — Eiffel 65 feat. Gabry Ponte</p>
+</div></blockquote>
+<p>El teorema de Gauss-Márkov establece que si tu modelo de regresión lineal satisface cinco supuestos básicos, entonces la regresión por mínimos cuadrados producirá <strong>estimaciones insesgadas</strong> con la varianza mas pequeña de <strong>todos</strong> los estimadores lineales posibles: <strong>BLUE</strong>.</p>
+<p><img alt="Andrei Márkov (izquierda) y Carl Friedrich Gauss (derecha) jugando ajedrez." src="../../_images/gauss-markov.png" /></p>
+</section>
+<section id="estos-son-los-supuestos-del-teorema-de-gauss-markov">
+<h2>Estos son los supuestos del Teorema de Gauss-Márkov<a class="headerlink" href="#estos-son-los-supuestos-del-teorema-de-gauss-markov" title="Permalink to this heading">#</a></h2>
+<section id="supuesto-1-los-parametros-deben-ser-lineales">
+<h3>Supuesto #1: Los parámetros deben ser lineales<a class="headerlink" href="#supuesto-1-los-parametros-deben-ser-lineales" title="Permalink to this heading">#</a></h3>
+<p>Si hiciéramos un diagrama de dispersión, deberíamos ver algo parecido a lo que mostró el diagrama de dispersión del gasto en TV contra las ventas.</p>
+<p><img alt="Un diagrama de dispersión nos muestra que X y Y son variables que no parecen tener ninguna relación entre sí." src="../../_images/linear-reg-2dim1.png" /></p>
+<p>Sin embargo, no debemos dejarnos engañar. La regresión lineal la podemos hacer con múltiples dimensiones. En ocasiones, las variables adicionales hacen que la linealidad tenga sentido.</p>
+<p><img alt="No es sino hasta que agregamos una tercera variable que podemos revelar la verdadera relación." src="../../_images/linear-reg-2dim2.png" /></p>
+</section>
+<section id="supuesto-2-los-datos-deben-ser-tomados-de-un-muestreo-aleatorio-de-la-poblacion">
+<h3>Supuesto #2: Los datos deben ser tomados de un muestreo aleatorio de la población<a class="headerlink" href="#supuesto-2-los-datos-deben-ser-tomados-de-un-muestreo-aleatorio-de-la-poblacion" title="Permalink to this heading">#</a></h3>
+<p>Este es un supuesto básico: nuestra muestra debe ser aleatoria. Si no lo hacemos de esta manera, nos arriesgamos a encontrar sesgos en nuestras bases de datos.</p>
+</section>
+<section id="supuesto-3-no-hay-colinealidad">
+<h3>Supuesto #3: No hay colinealidad<a class="headerlink" href="#supuesto-3-no-hay-colinealidad" title="Permalink to this heading">#</a></h3>
+<p>Los regresores no están correlacionados perfectamente entre sí. En nuestro modelo de álgebra lineal, esto se determina cuando <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> es una matriz de rango completo (si <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> no tiene rango completo, no se puede calcular la matriz <span class="math notranslate nohighlight">\((\mathbf{X}^\top \mathbf{X})^{-1}\)</span>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">ruta_archivo</span> <span class="o">=</span> <span class="s1">&#39;../../data/advertising.csv&#39;</span>
+<span class="n">datos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_archivo</span><span class="p">)</span>
+
+<span class="n">tv</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;TV&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">radio</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;Radio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">newspaper</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;Newspaper&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">ventas</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">tv</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">tv</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">newspaper</span><span class="p">))</span>
+
+<span class="n">rango_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rango de la matriz X:&quot;</span><span class="p">,</span> <span class="n">rango_X</span><span class="p">)</span>
+
+<span class="n">num_columnas</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">es_rango_completo</span> <span class="o">=</span> <span class="n">rango_X</span> <span class="o">==</span> <span class="n">num_columnas</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;¿Es la matriz X de rango completo (sin multicolinealidad)?&quot;</span><span class="p">,</span> <span class="n">es_rango_completo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rango de la matriz X: 4
+¿Es la matriz X de rango completo (sin multicolinealidad)? True
+</pre></div>
+</div>
+</div>
+</div>
+<p>La forma tradicional de verificar este supuesto es revisar las correlaciones entre las variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matriz_correlacion</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matriz de correlación:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">matriz_correlacion</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matriz de correlación:
+                  TV     Radio  Newspaper
+TV         1.000000 -0.026854  -0.046244
+Radio     -0.026854  1.000000  -0.123805
+Newspaper -0.046244 -0.123805   1.000000
+</pre></div>
+</div>
+</div>
+</div>
+<p>La correlación más alta es entre el gasto en periódico y el de radio, con un 35%. Calculemos también el <strong>factor de inflación de la varianza</strong> (VIF):</p>
+<div class="math notranslate nohighlight">
+\[\text{VIF}_j = \frac{1}{1 - R^2_j}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+
+<span class="k">def</span> <span class="nf">calcular_vif</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">vif</span><span class="p">[</span><span class="s2">&quot;variables&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">vif</span><span class="p">[</span><span class="s2">&quot;VIF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+    <span class="k">return</span> <span class="n">vif</span>
+
+<span class="n">vif_df</span> <span class="o">=</span> <span class="n">calcular_vif</span><span class="p">(</span><span class="n">datos</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;VIF para cada variable:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">vif_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VIF para cada variable:
+    variables       VIF
+0         TV  2.640007
+1      Radio  2.554529
+2  Newspaper  2.497519
+</pre></div>
+</div>
+</div>
+</div>
+<p>Todos los factores están por debajo de 5, por lo que <strong>no hay problemas de multicolinealidad</strong> en nuestros datos.</p>
+</section>
+<section id="supuesto-4-exogeneidad">
+<h3>Supuesto #4: Exogeneidad<a class="headerlink" href="#supuesto-4-exogeneidad" title="Permalink to this heading">#</a></h3>
+<p>También se le conoce como el supuesto de media condicional cero, y es probablemente el supuesto más crítico para la inferencia causal:</p>
+<div class="math notranslate nohighlight">
+\[E(\epsilon|\mathbf{X})=0\]</div>
+<p>La manera más práctica de comprobarlo es con un gráfico de las predicciones con los residuales.</p>
+<p>![Los residuales y los valores de predicción no muestran estar correlacionados.](../../figures/Residuals vs. Predicted Sales.png)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;../../data/advertising.csv&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">resid</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">residuals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted Sales&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuales vs. Predicción de ventas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6e393b83bd486906b2ad4b71d00127a8cf716d7576d7096ac078c063f2229415.png" src="../../_images/6e393b83bd486906b2ad4b71d00127a8cf716d7576d7096ac078c063f2229415.png" />
+</div>
+</div>
+<p>Este gráfico muestra que no hay un patrón definido, lo cual es bueno.</p>
+</section>
+<section id="supuesto-5-homoscedasticidad">
+<h3>Supuesto #5: Homoscedasticidad<a class="headerlink" href="#supuesto-5-homoscedasticidad" title="Permalink to this heading">#</a></h3>
+<p>La varianza del error es constante para todos los valores de los regresores.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../data/advertising.csv&#39;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">resid</span>
+<span class="n">fitted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fittedvalues</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">residplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">fitted</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">residuals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">lowess</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fitted values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuals vs. Fitted Values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/244076d6e80b5c7e72ae031845e9e4ba0cd77f496adeec81f81d54f4fb42c62d.png" src="../../_images/244076d6e80b5c7e72ae031845e9e4ba0cd77f496adeec81f81d54f4fb42c62d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">residuals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Residuals vs </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/5a06c4873f71d0bd597fa692b648bea9f2a3658a91580a5f88596a94a1debad1.png" src="../../_images/5a06c4873f71d0bd597fa692b648bea9f2a3658a91580a5f88596a94a1debad1.png" />
+</div>
+</div>
+<p>![Gráfico que compara residuales vs cada uno de los predictores.](../../figures/Comparativa residuals.png)</p>
+<p>Usemos la prueba Breusch-Pagan para comprobar formalmente. La hipótesis nula es que los errores del modelo tienen varianza constante.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">het_breuschpagan</span>
+
+<span class="n">bp_test</span> <span class="o">=</span> <span class="n">het_breuschpagan</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+<span class="n">bp_test_statistic</span><span class="p">,</span> <span class="n">bp_test_pvalue</span> <span class="o">=</span> <span class="n">bp_test</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="n">bp_test_statistic</span><span class="p">,</span> <span class="n">bp_test_pvalue</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.2954799797387784, 0.7302066788056134)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Como el p-value es mayor a 0.05, no podemos rechazar la hipótesis nula de homoscedasticidad.</p>
+</section>
+</section>
+<section id="como-interpretar-el-reporte-de-regresion">
+<h2>Cómo interpretar el reporte de regresión<a class="headerlink" href="#como-interpretar-el-reporte-de-regresion" title="Permalink to this heading">#</a></h2>
+<p>Hay dos usos para un modelo de regresión: predicción o inferencia.</p>
+<p>En la <strong>inferencia</strong>, estamos tratando de saber <strong>por qué</strong> una variable se comporta de cierta manera. En predicción, estamos intentando construir un modelo que reconstruya un resultado con información dada.</p>
+<p>Hagamos la regresión lineal de un modelo por mínimos cuadrados:</p>
+<div class="math notranslate nohighlight">
+\[Y=\beta_{0}+\beta_{1}X_{1}+\beta_{2}X_{2}+\beta_{3}X_{3}+\varepsilon\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>          <td>Sales</td>      <th>  R-squared:         </th> <td>   0.883</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.881</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   492.1</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Mon, 02 Feb 2026</td> <th>  Prob (F-statistic):</th> <td>6.04e-91</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>13:32:16</td>     <th>  Log-Likelihood:    </th> <td> -390.57</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   200</td>      <th>  AIC:               </th> <td>   789.1</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   196</td>      <th>  BIC:               </th> <td>   802.3</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     3</td>      <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>     <td>    2.8833</td> <td>    0.403</td> <td>    7.147</td> <td> 0.000</td> <td>    2.088</td> <td>    3.679</td>
+</tr>
+<tr>
+  <th>TV</th>        <td>    0.0457</td> <td>    0.001</td> <td>   32.542</td> <td> 0.000</td> <td>    0.043</td> <td>    0.048</td>
+</tr>
+<tr>
+  <th>Radio</th>     <td>    0.1799</td> <td>    0.008</td> <td>   21.220</td> <td> 0.000</td> <td>    0.163</td> <td>    0.197</td>
+</tr>
+<tr>
+  <th>Newspaper</th> <td>    0.0030</td> <td>    0.004</td> <td>    0.862</td> <td> 0.389</td> <td>   -0.004</td> <td>    0.010</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 1.231</td> <th>  Durbin-Watson:     </th> <td>   1.877</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.540</td> <th>  Jarque-Bera (JB):  </th> <td>   1.254</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 0.186</td> <th>  Prob(JB):          </th> <td>   0.534</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 2.893</td> <th>  Cond. No.          </th> <td>    587.</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</div></div>
+</div>
+<p>Vamos a interpretar este resultado parte por parte.</p>
+<ul class="simple">
+<li><p><strong>R cuadrada y R cuadrada ajustada</strong>: Una <span class="math notranslate nohighlight">\(R^{2}\)</span> de 0.903 significa que un 90.3% de la variación en las ventas se explica por el modelo.</p></li>
+<li><p><strong>El estadístico F</strong>: Un estadístico F grande (605.4) indica que la hipótesis nula de que todos los coeficientes son cero es falsa.</p></li>
+<li><p><strong>Grados de libertad</strong>: Se refiere al número de observaciones menos el número de parámetros estimados.</p></li>
+<li><p><strong>AIC y BIC</strong>: Criterios que se usan para la selección de modelos.</p></li>
+</ul>
+<p><strong>Columna #1: Coeficientes.</strong> Determina el valor de tus betas. <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">=</span> <span class="pre">4.6251</span></code> significa que si el gasto en publicidad fuera cero, aún tendríamos ventas de cuatro mil seiscientas unidades aproximadamente.</p>
+<p><strong>Columna #2: Errores estándar.</strong> Es el ruido de nuestros datos. Entre más grande sea, menos significativo será el modelo.</p>
+<p><strong>Columna #3: Estadístico t.</strong> Es una razón entre la <em>señal</em> y el <em>ruido</em>. Entre más grande sea su valor absoluto, más probable es que los resultados sean significativos.</p>
+<p><strong>Columna #4: p-value.</strong> Indica la probabilidad de obtener un resultado al menos tan extremo como el observado, bajo el supuesto de que <span class="math notranslate nohighlight">\(\beta_i = 0\)</span>. Un p-value menor a 0.05 implica que los resultados son significativos.</p>
+<p><img alt="El 5% del p-value es lo mismo que uno en veinte." src="../../_images/significant.png" /></p>
+<p><strong>Columnas #5 y #6: Intervalos de confianza.</strong> Son el rango en el que se encuentra el verdadero valor del parámetro beta. Tenemos un 95% de certidumbre de que el efecto de los anuncios por TV va de 0.052 a 0.057.</p>
+</section>
+<section id="que-pasa-si-mi-regresion-no-cumple-con-los-supuestos">
+<h2>¿Qué pasa si mi regresión no cumple con los supuestos?<a class="headerlink" href="#que-pasa-si-mi-regresion-no-cumple-con-los-supuestos" title="Permalink to this heading">#</a></h2>
+<p>Algunas acciones que puedes tomar:</p>
+<ul class="simple">
+<li><p>Revisa la especificación del modelo.</p></li>
+<li><p>Transforma los datos.</p></li>
+<li><p>Usa técnicas robustas.</p></li>
+<li><p>Incorpora variables adicionales o interacciones.</p></li>
+<li><p>Considera métodos no paramétricos.</p></li>
+</ul>
+<p>La calidad de los datos es mucho más importante que los modelos.</p>
+</section>
+<section id="apendice">
+<h2>Apéndice<a class="headerlink" href="#apendice" title="Permalink to this heading">#</a></h2>
+<section id="por-que-mathbf-e-mathbf-e-es-la-suma-de-residuos-al-cuadrado">
+<h3>¿Por qué <span class="math notranslate nohighlight">\(\mathbf{e}'\mathbf{e}\)</span> es la suma de residuos al cuadrado?<a class="headerlink" href="#por-que-mathbf-e-mathbf-e-es-la-suma-de-residuos-al-cuadrado" title="Permalink to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix} e_1 &amp; e_2 &amp; \cdots &amp; e_n \end{bmatrix} \begin{bmatrix} e_1 \\ e_2 \\ \vdots \\ e_n \end{bmatrix} = e_1^2 + e_2^2 + \cdots + e_n^2\end{split}\]</div>
+</section>
+<section id="guia-breve-de-diferenciacion-con-matrices">
+<h3>Guía breve de diferenciación con matrices<a class="headerlink" href="#guia-breve-de-diferenciacion-con-matrices" title="Permalink to this heading">#</a></h3>
+<p>Sean <span class="math notranslate nohighlight">\(a\)</span> y <span class="math notranslate nohighlight">\(b\)</span> vectores de tamaño <span class="math notranslate nohighlight">\(k \times 1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial a'b}{\partial b} = \frac{\partial b'a}{\partial b} = a\]</div>
+<p>Sea <span class="math notranslate nohighlight">\(A\)</span> una matriz simétrica:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial b'A b}{\partial b} = 2Ab = 2b'A\]</div>
+</section>
+<section id="como-funciona-el-coeficiente-de-correlacion">
+<h3>¿Cómo funciona el coeficiente de correlación?<a class="headerlink" href="#como-funciona-el-coeficiente-de-correlacion" title="Permalink to this heading">#</a></h3>
+<p>El coeficiente de correlación lineal va de -1 a 1:</p>
+<ul class="simple">
+<li><p>El signo indica la dirección de la correlación.</p></li>
+<li><p>El valor absoluto indica la fuerza de la relación.</p></li>
+<li><p>Una correlación de <span class="math notranslate nohighlight">\(0\)</span> indica que no hay relación lineal.</p></li>
+<li><p>La correlación no implica causalidad.</p></li>
+</ul>
+<p><img alt="Hay una correlación entre el número de premios Nobel que gana un país y su consumo de chocolate." src="../../_images/nobel.png" /></p>
+</section>
+<section id="como-funciona-el-vif">
+<h3>¿Cómo funciona el VIF?<a class="headerlink" href="#como-funciona-el-vif" title="Permalink to this heading">#</a></h3>
+<p>El <strong>VIF</strong> evalúa cuánto se incrementa la varianza de un coeficiente debido a la multicolinealidad:</p>
+<div class="math notranslate nohighlight">
+\[VIF = \frac{1}{1-R^2}\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>VIF de 1: no hay correlación.</p></li>
+<li><p>VIF entre 1 y 5: correlación moderada.</p></li>
+<li><p>VIF mayor a 5: correlación problemática.</p></li>
+<li><p>VIF mayor a 10: multicolinealidad severa.</p></li>
+</ul>
+</section>
+<section id="por-que-es-importante-identificar-la-multicolinealidad">
+<h3>¿Por qué es importante identificar la multicolinealidad?<a class="headerlink" href="#por-que-es-importante-identificar-la-multicolinealidad" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Estimaciones inestables de los coeficientes</strong></p></li>
+<li><p><strong>Confianza reducida en la significancia</strong></p></li>
+<li><p><strong>Interpretaciones difíciles</strong></p></li>
+<li><p><strong>Modelos sobreajustados</strong></p></li>
+<li><p><strong>Dificultad en la selección de modelos</strong></p></li>
+</ol>
+</section>
+<section id="el-supuesto-de-media-condicional-cero">
+<h3>El supuesto de media condicional cero<a class="headerlink" href="#el-supuesto-de-media-condicional-cero" title="Permalink to this heading">#</a></h3>
+<p>Es el supuesto más crítico. Establece que los regresores no deben estar correlacionados con el término de error: <span class="math notranslate nohighlight">\(E(\epsilon|\mathbf{X})=0\)</span>.</p>
+<p>En la práctica, implica que no debe existir ningún patrón en los residuales. Si encontramos endogeneidad, el truco es:</p>
+<ol class="arabic simple">
+<li><p>Regresar a la teoría y encontrar la variable que falta.</p></li>
+<li><p>Incluir la variable o una proxy apropiada.</p></li>
+<li><p>Volver a hacer las pruebas.</p></li>
+</ol>
+</section>
+<section id="un-poco-extra-sobre-gauss">
+<h3>Un poco extra sobre Gauss<a class="headerlink" href="#un-poco-extra-sobre-gauss" title="Permalink to this heading">#</a></h3>
+<p>Gauss es uno de los matemáticos más famosos. La historia más conocida sobre su infancia es la de aquella vez que un maestro les dejó <a class="reference external" href="https://www.americanscientist.org/article/gausss-day-of-reckoning">sumar todos los números del 1 al 100</a>. Gauss llegó casi al instante con la respuesta: <span class="math notranslate nohighlight">\(101\times50 = 5050\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=1}^{n} i = \frac{n(n+1)}{2}\]</div>
+</section>
+<section id="pruebas-de-hipotesis">
+<h3>Pruebas de hipótesis<a class="headerlink" href="#pruebas-de-hipotesis" title="Permalink to this heading">#</a></h3>
+<p>Las pruebas de hipótesis son procedimientos estadísticos para determinar si hay suficiente evidencia para inferir que una condición es verdadera para toda la población. Se basan en la hipótesis nula (<span class="math notranslate nohighlight">\(H_0\)</span>) y la hipótesis alternativa (<span class="math notranslate nohighlight">\(H_1\)</span>).</p>
+<p>En un modelo de regresión lineal, se utilizan para probar: linealidad, independencia de los residuos, homocedasticidad, normalidad de los residuos y ausencia de multicolinealidad.</p>
+</section>
+</section>
+<section id="resumen-del-capitulo">
+<h2>Resumen del capítulo<a class="headerlink" href="#resumen-del-capitulo" title="Permalink to this heading">#</a></h2>
+<p>En este capítulo construimos, pieza por pieza, la herramienta más importante de la econometría: la <strong>regresión lineal</strong>.</p>
+<p>Empezamos con una idea simple: trazar una línea recta que resuma la relación entre dos variables. Después, nos metimos a la sala de máquinas para ver cómo funciona por dentro. Vimos que el método de <strong>OLS</strong> encuentra la mejor línea posible minimizando los errores al cuadrado, y hasta nos atrevimos a deducir la fórmula matemática usando álgebra de matrices. Lo más importante: aprendimos los cinco supuestos del Teorema de Gauss-Márkov, que son las reglas del juego que garantizan que nuestras estimaciones sean las mejores posibles (o sea, <strong>BLUE</strong>). Finalmente, aprendimos a descifrar la tabla de resultados que nos da Python.</p>
+<p>Ahora tienes un flujo de trabajo completo. Puedes tomar un conjunto de datos, plantear una hipótesis, correr un modelo de regresión, y lo más crucial, diagnosticar si puedes confiar en sus resultados.</p>
+<p>Ya puedes interpretar un coeficiente y decir con confianza: “manteniendo todo lo demás constante (<em>ceteris paribus</em>), un aumento de X unidades en esta variable se asocia con un cambio de <span class="math notranslate nohighlight">\(\beta\)</span> unidades en el resultado”.</p>
+</section>
+<section id="poniendo-a-prueba-la-regresion-manos-al-codigo-y-a-la-mente">
+<h2>Poniendo a prueba la regresión: manos al código y a la mente<a class="headerlink" href="#poniendo-a-prueba-la-regresion-manos-al-codigo-y-a-la-mente" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Interpretando coeficientes:</strong> Viendo la tabla final de resultados de <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>:</p>
+<ul class="simple">
+<li><p>Explica en una sola frase qué significa el coeficiente de <code class="docutils literal notranslate"><span class="pre">Radio</span></code> (0.1070).</p></li>
+<li><p>El coeficiente de <code class="docutils literal notranslate"><span class="pre">Newspaper</span></code> es casi cero y su <strong>p-value</strong> es altísimo (0.954). ¿Qué conclusión práctica sacarías sobre invertir en publicidad en periódicos?</p></li>
+<li><p>El intercepto (<code class="docutils literal notranslate"><span class="pre">const</span></code>) es 4.6251. ¿Qué significaría este número en el mundo real?</p></li>
+</ul>
+</li>
+<li><p><strong>OLS desde las entrañas (Código):</strong> Usando solo <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, construye la matriz <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> (con una columna de unos, ‘TV’, ‘Radio’ y ‘Newspaper’) y el vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> (‘Sales’). Calcula <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> usando la fórmula <span class="math notranslate nohighlight">\((\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}\)</span>. Verifica que los coeficientes son idénticos a los de <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>.</p></li>
+<li><p><strong>Creando multicolinealidad (Conceptual y Código):</strong> Crea una nueva columna <code class="docutils literal notranslate"><span class="pre">Newspaper_cents</span></code> que sea el gasto en periódicos multiplicado por 100. ¿Qué pasaría con el supuesto de “No multicolinealidad”?</p></li>
+<li><p><strong>El diagnóstico visual:</strong> ¿Qué dos supuestos de Gauss-Markov puedes evaluar con el gráfico de residuales vs predichos? ¿Cómo se vería un gráfico “saludable” vs uno “enfermo”?</p></li>
+<li><p><strong>Corriendo un modelo alternativo (Código):</strong> Corre una nueva regresión usando <em>únicamente</em> <code class="docutils literal notranslate"><span class="pre">Radio</span></code> y <code class="docutils literal notranslate"><span class="pre">Newspaper</span></code>. Muestra la tabla de resultados.</p></li>
+<li><p><strong>Comparando modelos:</strong> Compara el modelo del ejercicio anterior con el original. ¿Qué pasó con el coeficiente de <code class="docutils literal notranslate"><span class="pre">Newspaper</span></code>?</p></li>
+<li><p><strong>El supuesto más importante (Conceptual):</strong> ¿Qué problema fundamental causa una variable omitida correlacionada tanto con <span class="math notranslate nohighlight">\(X\)</span> como con <span class="math notranslate nohighlight">\(Y\)</span>?</p></li>
+<li><p><strong>Leyendo los intervalos de confianza:</strong> El intervalo para <code class="docutils literal notranslate"><span class="pre">TV</span></code> es [0.052, 0.057]. Explica este rango como si hablaras con tu jefe.</p></li>
+<li><p><strong>Un VIF problemático (Código):</strong> Crea <code class="docutils literal notranslate"><span class="pre">Radio_y_Diario</span> <span class="pre">=</span> <span class="pre">Radio</span> <span class="pre">+</span> <span class="pre">Newspaper</span></code>. Calcula el VIF incluyendo esta nueva variable. ¿Qué les pasó a los VIFs?</p></li>
+<li><p><strong>Reto - ¿Relación no lineal?</strong> Crea <code class="docutils literal notranslate"><span class="pre">TV_cuadrado</span> <span class="pre">=</span> <span class="pre">data['TV']**2</span></code>. Corre una regresión con <code class="docutils literal notranslate"><span class="pre">TV</span></code> y <code class="docutils literal notranslate"><span class="pre">TV_cuadrado</span></code>. ¿Qué te sugiere sobre la relación?</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/III-Modelos"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../II-Inferencia-Causal/04-experimentos.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Experimentos y Pruebas A/B</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06-series-de-tiempo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Series de Tiempo</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-de-minimos-cuadrados-ordinarios-con-dos-variables">El modelo de mínimos cuadrados ordinarios con dos variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-metodo-de-minimos-cuadrados-ordinarios">El método de Mínimos cuadrados ordinarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#obteniendo-los-estimadores-de-ols">Obteniendo los estimadores de OLS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-estimadores-de-minimos-cuadrados">Propiedades de los estimadores de Mínimos Cuadrados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#los-valores-observados-de-mathbf-x-no-estan-correlacionados-con-los-residuales">Los valores observados de <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> no están correlacionados con los residuales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-suma-de-los-residuales-es-igual-a-cero">La suma de los residuales es igual a cero</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-media-muestral-de-los-residuales-es-cero">La media muestral de los residuales es cero</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-hiperplano-de-la-regresion-pasa-a-traves-de-las-medias-de-los-valores-observados">El hiperplano de la regresión pasa a través de las medias de los valores observados</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#los-valores-de-prediccion-de-mathbf-y-no-estan-correlacionados-con-los-residuales">Los valores de predicción de <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> no están correlacionados con los residuales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-media-de-las-predicciones-de-mathbf-y-sera-igual-que-la-media-de-los-mathbf-y-observados">La media de las predicciones de <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> será igual que la media de los <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> observados</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-teorema-de-gauss-markov-y-sus-supuestos">El teorema de Gauss-Márkov y sus supuestos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estos-son-los-supuestos-del-teorema-de-gauss-markov">Estos son los supuestos del Teorema de Gauss-Márkov</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-1-los-parametros-deben-ser-lineales">Supuesto #1: Los parámetros deben ser lineales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-2-los-datos-deben-ser-tomados-de-un-muestreo-aleatorio-de-la-poblacion">Supuesto #2: Los datos deben ser tomados de un muestreo aleatorio de la población</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-3-no-hay-colinealidad">Supuesto #3: No hay colinealidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-4-exogeneidad">Supuesto #4: Exogeneidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuesto-5-homoscedasticidad">Supuesto #5: Homoscedasticidad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-interpretar-el-reporte-de-regresion">Cómo interpretar el reporte de regresión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-pasa-si-mi-regresion-no-cumple-con-los-supuestos">¿Qué pasa si mi regresión no cumple con los supuestos?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apendice">Apéndice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-mathbf-e-mathbf-e-es-la-suma-de-residuos-al-cuadrado">¿Por qué <span class="math notranslate nohighlight">\(\mathbf{e}'\mathbf{e}\)</span> es la suma de residuos al cuadrado?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guia-breve-de-diferenciacion-con-matrices">Guía breve de diferenciación con matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funciona-el-coeficiente-de-correlacion">¿Cómo funciona el coeficiente de correlación?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funciona-el-vif">¿Cómo funciona el VIF?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-es-importante-identificar-la-multicolinealidad">¿Por qué es importante identificar la multicolinealidad?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-supuesto-de-media-condicional-cero">El supuesto de media condicional cero</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#un-poco-extra-sobre-gauss">Un poco extra sobre Gauss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capítulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poniendo-a-prueba-la-regresion-manos-al-codigo-y-a-la-mente">Poniendo a prueba la regresión: manos al código y a la mente</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

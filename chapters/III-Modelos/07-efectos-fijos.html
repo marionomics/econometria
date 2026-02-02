@@ -1,0 +1,1397 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Efectos Fijos &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/III-Modelos/07-efectos-fijos';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Diferencias en Diferencias" href="08-diff-in-diff.html" />
+    <link rel="prev" title="Series de Tiempo" href="06-series-de-tiempo.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducción</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/00-que-es-inferencia-causal.html">Antes de comenzar: ¿Qué es la inferencia causal?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/01-los-negocios-son-matematicas.html">Los negocios son matemáticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-python-para-econometria.html">Python para hacer Econometría</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inferencia Causal</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/03-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/04-experimentos.html">Experimentos y Pruebas A/B</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="05-regresion.html">Una guía para entender y hacer modelos de Regresión Lineal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-series-de-tiempo.html">Series de Tiempo</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-diff-in-diff.html">Diferencias en Diferencias</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/09-iteracion.html">La única forma de crear valor es iterando a partir de los datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/10-investigacion-mercados-ia.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/III-Modelos/07-efectos-fijos.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/III-Modelos/07-efectos-fijos.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Efectos Fijos</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-se-ven-los-datos-en-panel">Como se ven los datos en panel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-efectos-fijos-son-solo-una-aglomeracion-de-variables-de-control-en-una-sola">Los <strong>efectos fijos</strong> son solo una aglomeracion de variables de control en una sola</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variacion-dentro-del-individuo-within">Variacion dentro del individuo (<em>within</em>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-efecto-fijo-de-dos-vias">El efecto fijo de dos vias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capitulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#controlando-el-caos-ejercicios-de-panel-y-efectos-fijos">Controlando el caos: ejercicios de panel y efectos fijos</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="efectos-fijos">
+<h1>Efectos Fijos<a class="headerlink" href="#efectos-fijos" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p><em>I’ve learned a lot.</em>
+<em>And one of the things I’ve learned is life is really unpredictable.</em>
+<em>And people can make forecasts, and they can make predictions.</em>
+<em>But those predictions and forecasts may not come true</em>
+<em>if there’s an unforseeable factor involved</em>
+– Taylor Swift en el iHeartRadio Music Awards en el dia de <span class="math notranslate nohighlight">\(\pi\)</span> de 2019.</p>
+</div></blockquote>
+<p>La regresion lineal es un modelo muy importante porque permite establecer controles en nuestros datos. El problema es que depende de un supuesto clave: <strong>inconfundibilidad condicional</strong> (las variables del lado izquierdo son los contrafactuales, la <span class="math notranslate nohighlight">\(T\)</span> es el tratamiento y la <span class="math notranslate nohighlight">\(X\)</span> son las covariables que usamos como control):</p>
+<div class="math notranslate nohighlight">
+\[(Y_0,Y_1)\perp T|X\]</div>
+<p>En otras palabras, requiere que todas las variables de confusion sean conocidas y medidas de tal manera que podamos incluirlas en el modelo y hacer que el grupo de tratamiento se comporte como si hubiera sido fruto de una asignacion aleatoria (para cada observacion, el resultado observado se puede expresar como <span class="math notranslate nohighlight">\(Y = T\cdot Y^1 + (1-T)\cdot Y^0\)</span>; esto implica que la <span class="math notranslate nohighlight">\(Y\)</span> y la <span class="math notranslate nohighlight">\(T\)</span> son dependientes porque el valor promedio de <span class="math notranslate nohighlight">\(T\times Y^1\)</span> no equivale al promedio de <span class="math notranslate nohighlight">\((1-T)\cdot Y^0\)</span>). Pero, a pesar de que no siempre tenemos el lujo de que nuestras variables sean observables, siempre podemos agruparlos con caracteristicas en comun.</p>
+<p>Ese es el problema que resuelven los modelos de <strong>datos en panel</strong>.</p>
+<section id="como-se-ven-los-datos-en-panel">
+<h2>Como se ven los datos en panel<a class="headerlink" href="#como-se-ven-los-datos-en-panel" title="Permalink to this heading">#</a></h2>
+<p>Imagina que estamos estudiando el efecto que hay entre el gasto en publicidad y los ingresos que nos genera.</p>
+<p>Para ser mas claros, estamos haciendo una campana para incrementar las ventas de una e-commerce por tres canales de venta. La primera es por anuncios de Google, el segundo con anuncios en Meta (que incluye Facebook e Instagram) y el tercero es por mail marketing.</p>
+<p>Comencemos cargando nuestra base de datos en panel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../data/sales-panel.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Medio</th>
+      <th>Año</th>
+      <th>Ad cost</th>
+      <th>Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Google Ads</td>
+      <td>2020</td>
+      <td>3.25</td>
+      <td>5.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Google Ads</td>
+      <td>2021</td>
+      <td>1.94</td>
+      <td>7.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Google Ads</td>
+      <td>2022</td>
+      <td>1.35</td>
+      <td>6.7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Google Ads</td>
+      <td>2023</td>
+      <td>5.25</td>
+      <td>11.4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Google Ads</td>
+      <td>2024</td>
+      <td>1.12</td>
+      <td>4.8</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Esto es el encabezado de los datos que nos genera el codigo de arriba.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Medio</p></th>
+<th class="head"><p>Ano</p></th>
+<th class="head"><p>Costo de publicidad</p></th>
+<th class="head"><p>Ventas</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Google Ads</p></td>
+<td><p>2020</p></td>
+<td><p>1.25</p></td>
+<td><p>3.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Google Ads</p></td>
+<td><p>2021</p></td>
+<td><p>2.00</p></td>
+<td><p>10.0</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Google Ads</p></td>
+<td><p>2022</p></td>
+<td><p>6.00</p></td>
+<td><p>13.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Google Ads</p></td>
+<td><p>2023</p></td>
+<td><p>5.00</p></td>
+<td><p>8.0</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Google Ads</p></td>
+<td><p>2024</p></td>
+<td><p>6.00</p></td>
+<td><p>11.0</p></td>
+</tr>
+</tbody>
+</table>
+<p>Algunas observaciones sobre los datos:</p>
+<ul class="simple">
+<li><p>Estamos agrupando los datos por el medio en el que se hace la publicidad (Anuncios de Google, Anuncios de Facebook y una campana de email marketing). Eso quiere decir que la base de datos va a repetir cada uno de esos medios en la primera columna (esta forma de presentar los datos es menos visual que si extendieramos cada uno de los medios en una columna cada uno, o <em>wide format</em>, pero hace mas facil aplicar los modelos que veremos en adelante).</p></li>
+<li><p>El supuesto clave en estos datos es que los clientes que obtenemos a partir de medios diferentes son distintos entre si (este supuesto tiene sentido, simplemente porque se interactua diferente en diferentes medios. El medio entonces agrupa muchas caracteristicas no observables de los grupos. Por ejemplo, podriamos imaginar que los clientes de mail marketing ya confian mas en nuestro contenido, mientras que los que vienen de publicidad de Meta podrian desconfiar aun en nosotros. La confianza no se puede medir, pero queda implicita en el medio).</p></li>
+<li><p>Es un ejemplo simple, pero en realidad un analisis de panel como este podria ser muy util para analizar campanas distintas que corren en paralelo.</p></li>
+</ul>
+<p>Hagamos un diagrama de dispersion para analizar los datos.</p>
+<p>Lo que deseamos conocer es el efecto que hay entre el costo de la publicidad y las ventas de esa campana particular.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../data/sales-panel.csv&quot;</span><span class="p">)</span>
+
+<span class="n">markers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Google Ads&#39;</span><span class="p">:</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Facebook Ads&#39;</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Email Marketing&#39;</span><span class="p">:</span> <span class="s1">&#39;D&#39;</span>
+<span class="p">}</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">medio</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">medio</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">],</span> 
+        <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">],</span> 
+        <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> 
+        <span class="n">label</span><span class="o">=</span><span class="n">medio</span><span class="p">,</span> 
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> 
+        <span class="n">marker</span><span class="o">=</span><span class="n">markers</span><span class="p">[</span><span class="n">medio</span><span class="p">]</span>
+    <span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de dispersion del costo de publicidad vs ventas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Costos de publicidad&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d1145123a3fce60d7e97bb26e4c65faad56be4b40cb9b7659211d21065970124.png" src="../../_images/d1145123a3fce60d7e97bb26e4c65faad56be4b40cb9b7659211d21065970124.png" />
+</div>
+</div>
+<p><img alt="En una regresion lineal que no distingue los datos entre diferentes medios, no parece haber ningun efecto entre el gasto de publicidad y las ventas." src="../../_images/publicidad.png" /></p>
+<p>Le puse formas distintas para que notes a simple vista: una regresion simple no es lo que deseamos hacer.</p>
+<p>Si hicieramos una regresion lineal simple tendriamos que nuestro gasto en publicidad no esta aumentando las ventas. Al contrario, las esta haciendo caer! Pero al separarlos por medio nos podemos dar cuenta de que no es asi: cada una de las campanas de manera individual tiene un efecto positivo claro en las ventas.</p>
+<p>Esto se ve mas claro si trazamos una linea de regresion para cada uno de los medios en nuestro diagrama de dispersion.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unique_media</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">,</span> 
+    <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> 
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> 
+    <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Medio&#39;</span><span class="p">,</span> 
+    <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">][:</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_media</span><span class="p">)],</span>
+    <span class="n">palette</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()),</span> 
+    <span class="n">height</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de dispersion del costo de publicidad vs ventas con lineas de regresion separadas por medio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Costos de publicidad&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d57a96ba11166a180b708891fcc178d2829eb1cc9cd2973088e81ed876839e54.png" src="../../_images/d57a96ba11166a180b708891fcc178d2829eb1cc9cd2973088e81ed876839e54.png" />
+</div>
+</div>
+<p><img alt="Solo es necesario incluir el medio como variable de control. Hacerlo delata la verdadera relacion que hay entre la publicidad y las ventas." src="../../_images/lineas_separadas.png" /></p>
+</section>
+<section id="los-efectos-fijos-son-solo-una-aglomeracion-de-variables-de-control-en-una-sola">
+<h2>Los <strong>efectos fijos</strong> son solo una aglomeracion de variables de control en una sola<a class="headerlink" href="#los-efectos-fijos-son-solo-una-aglomeracion-de-variables-de-control-en-una-sola" title="Permalink to this heading">#</a></h2>
+<p>La clave de los efectos fijos es que:</p>
+<ul class="simple">
+<li><p>Podemos incluir el efecto del tiempo en nuestro modelo, pero el tiempo en si mismo no es una variable.</p></li>
+<li><p>Lo que importa es que estamos capturando todas las caracteristicas intrinsecas de nuestro medio y estamos asumiendo que son “fijas”.</p></li>
+</ul>
+<p>El modelo de efectos fijos se define en terminos generales como</p>
+<div class="math notranslate nohighlight">
+\[Y_{it}=\beta X_{it}+\gamma U_{i}+\epsilon_{it}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(Y_{it}\)</span> es el resultado que tiene el individuo <span class="math notranslate nohighlight">\(i\)</span> en el tiempo <span class="math notranslate nohighlight">\(t\)</span>, que puede medirse en meses, anos, trimestres o lo que sea que tenga sentido. Nuevamente, <span class="math notranslate nohighlight">\(X_{it}\)</span> es el vector de variables para el individuo <span class="math notranslate nohighlight">\(i\)</span> en el tiempo <span class="math notranslate nohighlight">\(t\)</span> (es muy comun aprender sobre datos en panel con zonas geograficas, por ejemplo, con registros de diferentes paises en el tiempo).</p>
+<p>Nota que ahora incluimos una variable <span class="math notranslate nohighlight">\(U_i\)</span> que no tiene subindice de tiempo <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>Esta representa el conjunto de inobservables del individuo <span class="math notranslate nohighlight">\(i\)</span> (la <span class="math notranslate nohighlight">\(U\)</span> es porque en ingles se dice <em>unobservables</em>). Este elemento no tiene subindice <span class="math notranslate nohighlight">\(t\)</span> porque asumimos que estos inobservables no tienen variacion en el tiempo. Por ejemplo, en una campana de anuncios de google podemos asumir que el algoritmo que subasta un termino de busqueda es el mismo para todas las observaciones que hacemos.</p>
+</section>
+<section id="variacion-dentro-del-individuo-within">
+<h2>Variacion dentro del individuo (<em>within</em>)<a class="headerlink" href="#variacion-dentro-del-individuo-within" title="Permalink to this heading">#</a></h2>
+<p>En teoria, los efectos fijos funcionan igual que si usaramos una variable dummy para cada uno de los individuos.</p>
+<p>El problema es que no es raro que nuestro panel se componga de mas de 3 variables como en el ejemplo. Imaginemos que estamos tratando de hacer un panel para una campana gigantesca ultrasegmentada de contenido con facebook ads. Una campana asi funcionaria haciendo un anuncio para cada pieza de contenido que hacemos, pautando (haciendo publicidad) y dejando que el algoritmo de meta encuentre a los consumidores ideales de ese contenido. Lo que obtenemos es una campana para cada pieza de contenido que corre en paralelo. Esto puede hacer que el tamano de nuestra base de datos aumente muy rapido (si de verdad usaramos <em>dummies</em> para cada uno de los individuos, serian <span class="math notranslate nohighlight">\(n-1\)</span> variables adicionales las que tendriamos que incluir en nuestra regresion. Si estas usando R como software para hacer tu trabajo y si incluyes la variable de clasificacion como un objeto de tipo <code class="docutils literal notranslate"><span class="pre">factor</span></code>, el software lo transforma en <em>dummies</em> de forma automatica y hace la regresion con la funcion <code class="docutils literal notranslate"><span class="pre">lm()</span></code>).</p>
+<p>Por eso haremos un pequeno truco que nos permitira obtener el mismo resultado que si usaramos variables <em>dummy</em>, pero con un conjunto mas manejable de datos.</p>
+<p>El primer paso es obtener el valor de la media condicional de publicidad y ventas en cada uno de los medios. Nuestro objetivo sera identificar el punto en el que se cruzan los puntos medios de cada grupo para posteriormente juntarlos en un mismo medio.</p>
+<p>Asi se ven de manera visual.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">media_stats</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Medio&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">],</span> <span class="s1">&#39;Sales&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Medio&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;Medio&#39;</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">][:</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_media</span><span class="p">)])</span>
+
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">media_stats</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">medio</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span>
+    <span class="n">ad_cost_mean</span> <span class="o">=</span> <span class="n">row</span><span class="p">[(</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)]</span>
+    <span class="n">ad_cost_std</span> <span class="o">=</span> <span class="n">row</span><span class="p">[(</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">)]</span>
+    <span class="n">sales_mean</span> <span class="o">=</span> <span class="n">row</span><span class="p">[(</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)]</span>
+    <span class="n">sales_std</span> <span class="o">=</span> <span class="n">row</span><span class="p">[(</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">)]</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">ad_cost_mean</span> <span class="o">-</span> <span class="n">ad_cost_std</span><span class="p">,</span> <span class="n">ad_cost_mean</span> <span class="o">+</span> <span class="n">ad_cost_std</span><span class="p">],</span> <span class="p">[</span><span class="n">sales_mean</span><span class="p">,</span> <span class="n">sales_mean</span><span class="p">],</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">ad_cost_mean</span><span class="p">,</span> <span class="n">ad_cost_mean</span><span class="p">],</span> <span class="p">[</span><span class="n">sales_mean</span> <span class="o">-</span> <span class="n">sales_std</span><span class="p">,</span> <span class="n">sales_mean</span> <span class="o">+</span> <span class="n">sales_std</span><span class="p">],</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de Dispersion de Costo de Anuncio vs. Ventas con Promedios y Desviaciones Estandar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Costo de Anuncio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ventas&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Medio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/3133212dbe26c4ff69b488dcd4c6d00def569b5b46e6afc91bb681d7037ec33d.png" src="../../_images/3133212dbe26c4ff69b488dcd4c6d00def569b5b46e6afc91bb681d7037ec33d.png" />
+</div>
+</div>
+<p><img alt="Cada medio de publicidad tiene un valor promedio de ventas y del costo del anuncio. Las lineas en el grafico muestran donde se cruzan esos valores promedio, con una desviacion estandar para determinar el tamano de la linea. Este es un paso determinante para crear nuestras variables within." src="../../_images/averages.png" /></p>
+<p>El siguiente paso es restar estas medias de nuestros individuos.</p>
+<div class="math notranslate nohighlight">
+\[\ddot{Y}_{it}=Y_{it}-\bar{Y}_{i}\]</div>
+<div class="math notranslate nohighlight">
+\[\ddot{X}_{it}=X_{it}-\bar{X}_{i}\]</div>
+<p>Visualmente lo que esto logra es como si “empalmaramos” las cruces que se formaron en el grafico anterior.</p>
+<p>Ahora solo tenemos que hacer una regresion de <span class="math notranslate nohighlight">\(\ddot{Y}_{it}\)</span> contra <span class="math notranslate nohighlight">\(\ddot{X}_{it}\)</span>, o bien</p>
+<div class="math notranslate nohighlight">
+\[(Y_{it}-\bar{Y}_{i})=\beta(X_{it}-\bar{X}_{i})+(\epsilon_{it}-\bar{\epsilon}_{i})\]</div>
+<div class="math notranslate nohighlight">
+\[\ddot{Y}_{it}=\beta\ddot{X}_{it}+\ddot{\epsilon}_{it}\]</div>
+<p>Estas son las nuevas variables de nuestra regresion de efectos fijos.</p>
+<p>Nota que el termino de elementos inobservables desaparece. Esto es porque <span class="math notranslate nohighlight">\(U_{i}=\bar{U}_{i}\)</span>, por su propia definicion. Es una operacion que elimina todos los terminos constantes en el tiempo.</p>
+<p>En concreto, la regresion se hace sobre este conjunto de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Within Ad cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Medio&#39;</span><span class="p">)[</span><span class="s1">&#39;Ad cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sales Within&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Medio&#39;</span><span class="p">)[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Medio</th>
+      <th>Año</th>
+      <th>Ad cost</th>
+      <th>Sales</th>
+      <th>Within Ad cost</th>
+      <th>Sales Within</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Google Ads</td>
+      <td>2020</td>
+      <td>3.25</td>
+      <td>5.5</td>
+      <td>0.748333</td>
+      <td>-1.383333</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Google Ads</td>
+      <td>2021</td>
+      <td>1.94</td>
+      <td>7.2</td>
+      <td>-0.561667</td>
+      <td>0.316667</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Google Ads</td>
+      <td>2022</td>
+      <td>1.35</td>
+      <td>6.7</td>
+      <td>-1.151667</td>
+      <td>-0.183333</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Google Ads</td>
+      <td>2023</td>
+      <td>5.25</td>
+      <td>11.4</td>
+      <td>2.748333</td>
+      <td>4.516667</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Google Ads</td>
+      <td>2024</td>
+      <td>1.12</td>
+      <td>4.8</td>
+      <td>-1.381667</td>
+      <td>-2.083333</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Ano</p></th>
+<th class="head"><p>Gasto publicitario</p></th>
+<th class="head"><p>Ventas</p></th>
+<th class="head"><p>Gasto interno</p></th>
+<th class="head"><p>Ventas internas</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2020</p></td>
+<td><p>1.25</p></td>
+<td><p>3.4</p></td>
+<td><p>-2.625</p></td>
+<td><p>-6.42</p></td>
+</tr>
+<tr class="row-odd"><td><p>2021</p></td>
+<td><p>2.00</p></td>
+<td><p>10.0</p></td>
+<td><p>-1.875</p></td>
+<td><p>0.18</p></td>
+</tr>
+<tr class="row-even"><td><p>2022</p></td>
+<td><p>6.00</p></td>
+<td><p>13.5</p></td>
+<td><p>2.125</p></td>
+<td><p>3.68</p></td>
+</tr>
+<tr class="row-odd"><td><p>2023</p></td>
+<td><p>5.00</p></td>
+<td><p>8.0</p></td>
+<td><p>1.125</p></td>
+<td><p>-1.82</p></td>
+</tr>
+<tr class="row-even"><td><p>2024</p></td>
+<td><p>6.00</p></td>
+<td><p>11.0</p></td>
+<td><p>2.125</p></td>
+<td><p>1.18</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Notas:</em> El “Gasto interno” y “Ventas internas” corresponden a las variables centradas dentro del medio (<strong>within</strong>). Todos los valores corresponden a la plataforma Google Ads.</p>
+<p>Y visualmente, podemos observar que colocamos juntos los centros que calculamos con anterioridad. Nuestro modelo es una regresion lineal con los datos modificados de esta manera:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">media_within_stats</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Medio&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;Within Ad cost&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">],</span> <span class="s1">&#39;Sales Within&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Within Ad cost&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales Within&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Medio&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;Medio&#39;</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">][:</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Within Ad cost&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Sales Within&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">media_within_stats</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">medio</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Medio&#39;</span><span class="p">]</span>
+    <span class="n">within_ad_cost_mean</span> <span class="o">=</span> <span class="n">row</span><span class="p">[(</span><span class="s1">&#39;Within Ad cost&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)]</span>
+    <span class="n">within_ad_cost_std</span> <span class="o">=</span> <span class="n">row</span><span class="p">[(</span><span class="s1">&#39;Within Ad cost&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">)]</span>
+    <span class="n">sales_within_mean</span> <span class="o">=</span> <span class="n">row</span><span class="p">[(</span><span class="s1">&#39;Sales Within&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)]</span>
+    <span class="n">sales_within_std</span> <span class="o">=</span> <span class="n">row</span><span class="p">[(</span><span class="s1">&#39;Sales Within&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">)]</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">within_ad_cost_mean</span> <span class="o">-</span> <span class="n">within_ad_cost_std</span><span class="p">,</span> <span class="n">within_ad_cost_mean</span> <span class="o">+</span> <span class="n">within_ad_cost_std</span><span class="p">],</span> <span class="p">[</span><span class="n">sales_within_mean</span><span class="p">,</span> <span class="n">sales_within_mean</span><span class="p">],</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">within_ad_cost_mean</span><span class="p">,</span> <span class="n">within_ad_cost_mean</span><span class="p">],</span> <span class="p">[</span><span class="n">sales_within_mean</span> <span class="o">-</span> <span class="n">sales_within_std</span><span class="p">,</span> <span class="n">sales_within_mean</span> <span class="o">+</span> <span class="n">sales_within_std</span><span class="p">],</span> 
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Diagrama de Dispersion de Within Ad Cost vs. Sales Within con Cruces y Unica Linea de Regresion&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Within Ad Cost&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Sales Within&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Medio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b98813026ac48c8ea2f3a5b41adf30811f7fa25b25c8aa3b3043cf91ece97ac9.png" src="../../_images/b98813026ac48c8ea2f3a5b41adf30811f7fa25b25c8aa3b3043cf91ece97ac9.png" />
+</div>
+</div>
+<p><img alt="Al absorber los efectos fijos, los datos se conjuntan en un solo punto medio de publicidad y ventas. El resultado es que el coeficiente de una regresion conjunta captura el efecto independiente del medio que se esta usando." src="../../_images/within.png" /></p>
+<p>Nota como ahora las medias estan en cero en los dos ejes.</p>
+<p>Ahora todos los datos estan en un punto comparable. A esto se le llama “absorber” los efectos fijos.</p>
+<p>Naturalmente, ahora podemos aplicar una regresion lineal simple a nuestros datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;Q(&quot;Sales Within&quot;) ~ Q(&quot;Within Ad cost&quot;)&#39;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.9/site-packages/scipy/stats/_stats_py.py:1477: UserWarning: kurtosistest only valid for n&gt;=20 ... continuing anyway, n=18
+  warnings.warn(&quot;kurtosistest only valid for n&gt;=20 ... continuing &quot;
+</pre></div>
+</div>
+<div class="output text_html"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>Q("Sales Within")</td> <th>  R-squared:         </th> <td>   0.325</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>        <th>  Adj. R-squared:    </th> <td>   0.283</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>   <th>  F-statistic:       </th> <td>   7.709</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Mon, 02 Feb 2026</td>  <th>  Prob (F-statistic):</th>  <td>0.0135</td> 
+</tr>
+<tr>
+  <th>Time:</th>                 <td>13:32:31</td>      <th>  Log-Likelihood:    </th> <td> -35.170</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>    18</td>       <th>  AIC:               </th> <td>   74.34</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>    16</td>       <th>  BIC:               </th> <td>   76.12</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     1</td>       <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>     <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+           <td></td>              <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>           <td> 2.776e-16</td> <td>    0.427</td> <td>  6.5e-16</td> <td> 1.000</td> <td>   -0.905</td> <td>    0.905</td>
+</tr>
+<tr>
+  <th>Q("Within Ad cost")</th> <td>    0.9509</td> <td>    0.342</td> <td>    2.777</td> <td> 0.013</td> <td>    0.225</td> <td>    1.677</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 1.382</td> <th>  Durbin-Watson:     </th> <td>   2.487</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.501</td> <th>  Jarque-Bera (JB):  </th> <td>   0.429</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td>-0.361</td> <th>  Prob(JB):          </th> <td>   0.807</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 3.229</td> <th>  Cond. No.          </th> <td>    1.25</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</div></div>
+</div>
+<p>Y listo. En la siguiente tabla mostramos los resultados de la regresion.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Coeficientes</p></th>
+<th class="head"><p>Error estandar</p></th>
+<th class="head"><p>IC 95%</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Costo de publicidad</p></td>
+<td><p>0.828</p></td>
+<td><p>0.214</p></td>
+<td><p>[0.374, 1.282]</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intercepto</p></td>
+<td><p>0.000</p></td>
+<td><p>0.517</p></td>
+<td><p>[-1.095, 1.095]</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Estadistico</p></th>
+<th class="head"><p>Valor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R^2\)</span></p></td>
+<td><p>0.483</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> ajustada</p></td>
+<td><p>0.451</p></td>
+</tr>
+<tr class="row-even"><td><p>N (observaciones)</p></td>
+<td><p>18</p></td>
+</tr>
+</tbody>
+</table>
+<p>La regresion sobre nuestros datos centrados es una regresion lineal simple. Podemos observar que la relacion entre la publicidad y las ventas es positiva al ver el coeficiente. Tambien es una relacion significativa, de acuerdo al estadistico t y al <em>p-value</em>.</p>
+<p>Este es un modelo sencillo con solo dos variables. Por eso podemos aplicar el truco de centrar las variables en grupos directamente y usar una regresion sencilla de minimos cuadrados. Sin embargo, en modelos mas complejos, tendras que usar paqueteria especializada para el manejo de datos en panel.</p>
+<p>Este es el codigo para hacer la regresion de efectos fijos con la funcion <code class="docutils literal notranslate"><span class="pre">PanelOLS</span></code>, del modulo <code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">linearmodels.panel</span> <span class="kn">import</span> <span class="n">PanelOLS</span>
+
+<span class="n">df_panel</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;Medio&#39;</span><span class="p">,</span> <span class="s1">&#39;Año&#39;</span><span class="p">])</span>
+<span class="n">panel_model</span> <span class="o">=</span> <span class="n">PanelOLS</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="s1">&#39;Sales ~ Q(&quot;Ad cost&quot;) + EntityEffects&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_panel</span><span class="p">)</span>
+<span class="n">panel_results</span> <span class="o">=</span> <span class="n">panel_model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">panel_results</span><span class="o">.</span><span class="n">summary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>PanelOLS Estimation Summary</caption>
+<tr>
+  <th>Dep. Variable:</th>          <td>Sales</td>      <th>  R-squared:         </th>   <td>0.3252</td> 
+</tr>
+<tr>
+  <th>Estimator:</th>            <td>PanelOLS</td>     <th>  R-squared (Between):</th>  <td>0.5732</td> 
+</tr>
+<tr>
+  <th>No. Observations:</th>        <td>18</td>        <th>  R-squared (Within):</th>   <td>0.3252</td> 
+</tr>
+<tr>
+  <th>Date:</th>             <td>Mon, Feb 02 2026</td> <th>  R-squared (Overall):</th>  <td>0.5562</td> 
+</tr>
+<tr>
+  <th>Time:</th>                 <td>13:32:31</td>     <th>  Log-likelihood     </th>   <td>-35.170</td>
+</tr>
+<tr>
+  <th>Cov. Estimator:</th>      <td>Unadjusted</td>    <th>                     </th>      <td></td>    
+</tr>
+<tr>
+  <th></th>                          <td></td>         <th>  F-statistic:       </th>   <td>6.7455</td> 
+</tr>
+<tr>
+  <th>Entities:</th>                 <td>3</td>        <th>  P-value            </th>   <td>0.0211</td> 
+</tr>
+<tr>
+  <th>Avg Obs:</th>               <td>6.0000</td>      <th>  Distribution:      </th>   <td>F(1,14)</td>
+</tr>
+<tr>
+  <th>Min Obs:</th>               <td>6.0000</td>      <th>                     </th>      <td></td>    
+</tr>
+<tr>
+  <th>Max Obs:</th>               <td>6.0000</td>      <th>  F-statistic (robust):</th> <td>6.7455</td> 
+</tr>
+<tr>
+  <th></th>                          <td></td>         <th>  P-value            </th>   <td>0.0211</td> 
+</tr>
+<tr>
+  <th>Time periods:</th>             <td>6</td>        <th>  Distribution:      </th>   <td>F(1,14)</td>
+</tr>
+<tr>
+  <th>Avg Obs:</th>               <td>3.0000</td>      <th>                     </th>      <td></td>    
+</tr>
+<tr>
+  <th>Min Obs:</th>               <td>3.0000</td>      <th>                     </th>      <td></td>    
+</tr>
+<tr>
+  <th>Max Obs:</th>               <td>3.0000</td>      <th>                     </th>      <td></td>    
+</tr>
+<tr>
+  <th></th>                          <td></td>         <th>                     </th>      <td></td>    
+</tr>
+</table>
+<table class="simpletable">
+<caption>Parameter Estimates</caption>
+<tr>
+        <td></td>       <th>Parameter</th> <th>Std. Err.</th> <th>T-stat</th> <th>P-value</th> <th>Lower CI</th> <th>Upper CI</th>
+</tr>
+<tr>
+  <th>Q('Ad cost')</th>  <td>0.9509</td>    <td>0.3661</td>   <td>2.5972</td> <td>0.0211</td>   <td>0.1656</td>   <td>1.7362</td> 
+</tr>
+</table><br/><br/>F-test for Poolability: 12.316<br/>P-value: 0.0008<br/>Distribution: F(2,14)<br/><br/>Included effects: Entity</div></div>
+</div>
+<p>La siguiente tabla condensa la informacion que nos genera el reporte de nuestra regresion por panel.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Coeficiente</p></th>
+<th class="head"><p>Error estandar</p></th>
+<th class="head"><p>IC 95%</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Costo publicitario (<span class="math notranslate nohighlight">\(x_{it}\)</span>)</p></td>
+<td><p>0.828***</p></td>
+<td><p>0.229</p></td>
+<td><p>[0.337, 1.319]</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Estadistico</p></th>
+<th class="head"><p>Valor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> (dentro)</p></td>
+<td><p>0.483</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> (entre)</p></td>
+<td><p>0.667</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> (global)</p></td>
+<td><p>0.643</p></td>
+</tr>
+<tr class="row-odd"><td><p>N (observaciones)</p></td>
+<td><p>18</p></td>
+</tr>
+<tr class="row-even"><td><p>Numero de entidades</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>Numero de periodos</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-even"><td><p>Efectos incluidos</p></td>
+<td><p>Entidad (efectos fijos)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Estadistico F (modelo)</p></td>
+<td><p>13.09 (p = 0.0028)</p></td>
+</tr>
+<tr class="row-even"><td><p>Prueba de agrupabilidad</p></td>
+<td><p>F(2,14) = 13.45, p = 0.0006</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Notas:</em> Estimaciones obtenidas mediante minimos cuadrados para datos de panel con efectos fijos. <em>Niveles de significancia:</em> * <span class="math notranslate nohighlight">\(p&lt;0.1\)</span>, ** <span class="math notranslate nohighlight">\(p&lt;0.05\)</span>, *** <span class="math notranslate nohighlight">\(p&lt;0.01\)</span></p>
+<p>Que significa todo esto? Aqui algunos puntos a los que poner atencion:</p>
+<ul class="simple">
+<li><p>El modelo muestra un valor de <span class="math notranslate nohighlight">\(R^2\)</span> <em>within</em> (dentro), de 0.483. Lo podemos interpretar como que un 48% de la variacion de las ventas se explica por el gasto en publicidad.</p></li>
+<li><p>La prueba de agrupabilidad rechaza la hipotesis nula de que se pueda agrupar a todos los medios en un intercepto comun. Con esto validamos el uso de un modelo de efectos fijos por entidad, a diferencia de un modelo agrupado (que seria la regresion simple de todos los datos).</p></li>
+<li><p>El modelo estima un resultado positivo y significativo. Un aumento en una unidad del gasto en publicidad se asocia con un aumento de 0.828 unidades en ventas. Este resultado ya controla diferencias constantes entre medios.</p></li>
+</ul>
+<p>Nada mal, cierto?</p>
+</section>
+<section id="el-efecto-fijo-de-dos-vias">
+<h2>El efecto fijo de dos vias<a class="headerlink" href="#el-efecto-fijo-de-dos-vias" title="Permalink to this heading">#</a></h2>
+<p>Digamos que queremos hacer lo mismo no solo para los individuos, sino tambien para el tiempo.</p>
+<p>El resultado seria un modelo como este:</p>
+<div class="math notranslate nohighlight">
+\[Y_{it}=U_{i}+U_{t}+\beta X_{it}+\epsilon_{it}\]</div>
+<p>Lo que este modelo nos da es una estimacion que permite comparar la variacion entre individuos al mismo tiempo que <em>entre anos</em>.</p>
+<p>Por ejemplo, nota que en los datos anteriores, las ventas del ano 2020 son relativamente mas bajas que las demas. Es un recordatorio de la epoca de pandemia, en la que cerraron todos los negocios y las ventas de muchas cosas bajaron, a menos de que vendas cubrebocas. En el caso de las ventas por Facebook, el nivel de ventas que muestran los datos es muy bajo para lo que estamos acostumbrados a vender por ese medio, pero no es un nivel de ventas tan fuera de lo normal para el marketing por e-mail.</p>
+<p>Usa este codigo para hacer una regresion de panel por dos vias.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">linearmodels.panel</span> <span class="kn">import</span> <span class="n">PanelOLS</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">PanelOLS</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="s1">&#39;Sales ~ Q(&quot;Ad cost&quot;) + EntityEffects + TimeEffects&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_panel</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:                  Sales   R-squared:                        0.5334
+Estimator:                   PanelOLS   R-squared (Between):              0.6610
+No. Observations:                  18   R-squared (Within):               0.3090
+Date:                Mon, Feb 02 2026   R-squared (Overall):              0.6369
+Time:                        13:32:31   Log-likelihood                   -29.418
+Cov. Estimator:            Unadjusted                                           
+                                        F-statistic:                      10.287
+Entities:                           3   P-value                           0.0107
+Avg Obs:                       6.0000   Distribution:                     F(1,9)
+Min Obs:                       6.0000                                           
+Max Obs:                       6.0000   F-statistic (robust):             10.287
+                                        P-value                           0.0107
+Time periods:                       6   Distribution:                     F(1,9)
+Avg Obs:                       3.0000                                           
+Min Obs:                       3.0000                                           
+Max Obs:                       3.0000                                           
+                                                                                
+                              Parameter Estimates                               
+================================================================================
+              Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+--------------------------------------------------------------------------------
+Q(&#39;Ad cost&#39;)     1.1629     0.3626     3.2073     0.0107      0.3427      1.9831
+================================================================================
+
+F-test for Poolability: 5.4363
+P-value: 0.0111
+Distribution: F(7,9)
+
+Included effects: Entity, Time
+</pre></div>
+</div>
+</div>
+</div>
+<p>Veamos un resumen de los resultados.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Coeficiente</p></th>
+<th class="head"><p>Error estandar</p></th>
+<th class="head"><p>IC 95%</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Costo publicitario (<span class="math notranslate nohighlight">\(x_{it}\)</span>)</p></td>
+<td><p>-0.089</p></td>
+<td><p>0.322</p></td>
+<td><p>[-0.817, 0.639]</p></td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Estadistico</p></th>
+<th class="head"><p>Valor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> (dentro)</p></td>
+<td><p>-0.109</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> (entre)</p></td>
+<td><p>-0.142</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R^2\)</span> (global)</p></td>
+<td><p>-0.138</p></td>
+</tr>
+<tr class="row-odd"><td><p>N (observaciones)</p></td>
+<td><p>18</p></td>
+</tr>
+<tr class="row-even"><td><p>Numero de entidades</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>Numero de periodos</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-even"><td><p>Efectos incluidos</p></td>
+<td><p>Entidad y tiempo (efectos fijos)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Estadistico F (modelo)</p></td>
+<td><p>0.08 (p = 0.789)</p></td>
+</tr>
+<tr class="row-even"><td><p>Prueba de agrupabilidad</p></td>
+<td><p>F(7,9) = 14.19, p = 0.0003</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Notas:</em> Estimaciones obtenidas mediante minimos cuadrados para datos de panel con efectos fijos por entidad y por periodo. <em>Niveles de significancia:</em> * <span class="math notranslate nohighlight">\(p&lt;0.1\)</span>, ** <span class="math notranslate nohighlight">\(p&lt;0.05\)</span>, *** <span class="math notranslate nohighlight">\(p&lt;0.01\)</span></p>
+<p>Nota que Python permite hacer este tipo de modelos de una manera muy sencilla. Solo es necesario incluir en la regresion los <code class="docutils literal notranslate"><span class="pre">EntityEffects</span></code> al mismo tiempo que los <code class="docutils literal notranslate"><span class="pre">TimeEffects</span></code>.</p>
+<p>En esta tabla los resultados no parecen ser tan alentadores. El gasto en publicidad no tiene un efecto significativo con las ventas cuando controlamos por medio y por el tiempo a la vez.</p>
+<p>Los <strong>efectos fijos de dos vias</strong> son un tema muy interesante, pues capturan las caracteristicas completas del ano, a la vez que segmentan los efectos de los grupos en los que estan clasificados los datos. Por eso este tipo de modelos son la base del modelo de <strong>diferencias en diferencias</strong>, que permiten diferenciar el efecto en el tiempo que tienen los grupos de “tratamiento” contra los de “control”.</p>
+<p>Lo que en la practica quiere decir es que los modelos de diferencias en diferencias son modelos de efectos fijos de dos vias, pero no todos los efectos fijos de dos vias pueden generar un diseno de diferencias en diferencias.</p>
+<p>Cual es la diferencia? La forma en la que seleccionamos los grupos para que sean de tratamiento y de control.</p>
+<p>En un modelo de diferencias en diferencias, lo que queremos es asemejar el diseno del estudio a un experimento natural.</p>
+<p>Eso lo veremos en el siguiente capitulo.</p>
+</section>
+<section id="resumen-del-capitulo">
+<h2>Resumen del capitulo<a class="headerlink" href="#resumen-del-capitulo" title="Permalink to this heading">#</a></h2>
+<p>En este capitulo nos enfrentamos a uno de los mayores enemigos de la inferencia causal: las variables importantes que no podemos ver ni medir.</p>
+<p>Lo que hicimos fue aprender a usar una nueva estructura de datos, los <strong>datos en panel</strong>, que nos permiten seguir a los mismos individuos (empresas, paises, o en nuestro caso, medios de publicidad) a lo largo del tiempo. Vimos como una regresion simple puede mentirnos descaradamente, mostrandonos una relacion negativa donde en realidad habia una positiva. La solucion fue aplicar la magia de los <strong>efectos fijos</strong>, un metodo que controla por todas esas caracteristicas “inobservables” y constantes de cada individuo, como la “calidad” o la “confianza” inherente a cada medio de publicidad. Lo hicimos de dos formas: a mano, con la transformacion <em>within</em>, y luego con las herramientas profesionales de Python. Finalmente, subimos el nivel con los <strong>efectos fijos de dos vias</strong> para controlar no solo por las diferencias entre individuos, sino tambien por los shocks que afectan a todos por igual en un ano determinado.</p>
+<p>Esto es importante porque la mayoria de los problemas del mundo real estan plagados de heterogeneidad inobservable. La “cultura” de una empresa, la “habilidad” de un vendedor, o la “calidad” de una escuela son factores decisivos que casi nunca tenemos en una columna de nuestros datos. Ignorarlos lleva a conclusiones erroneas. El modelo de efectos fijos es tu primera gran herramienta para aislar un efecto causal en datos que no vienen de un experimento, permitiendote hacer comparaciones mucho mas justas.</p>
+<p>Como te ayuda esto? Ahora tienes un metodo para analizar datos de individuos a lo largo del tiempo. Cuando sospeches que hay diferencias fundamentales y persistentes entre los grupos que comparas (ej. distintas sucursales de una tienda, distintos paises, distintos productos), tu primer instinto sera usar un modelo de efectos fijos. Te permite responder a la pregunta: “Dentro de cada sucursal, que efecto tuvo cambiar X en el resultado Y, una vez que eliminamos las diferencias preexistentes entre la sucursal buena y la mala?”. Es una tecnica increiblemente poderosa y es la base para entender el modelo de Diferencias en Diferencias que veremos a continuacion.</p>
+</section>
+<section id="controlando-el-caos-ejercicios-de-panel-y-efectos-fijos">
+<h2>Controlando el caos: ejercicios de panel y efectos fijos<a class="headerlink" href="#controlando-el-caos-ejercicios-de-panel-y-efectos-fijos" title="Permalink to this heading">#</a></h2>
+<p>Es hora de aplicar esta poderosa tecnica. Estos ejercicios te ayudaran a solidificar la intuicion detras de los efectos fijos y a practicar su implementacion.</p>
+<ol class="arabic">
+<li><p><strong>La trampa de la regresion simple (Conceptual):</strong> El capitulo mostro como una regresion simple (o “agrupada”) daba un resultado enganoso. Describe otro escenario de negocios donde podria pasar lo mismo. Por ejemplo, si analizaras la relacion entre las horas trabajadas por los vendedores y las ventas totales, que “efecto fijo” a nivel de vendedor podria confundir los resultados si lo ignoras?</p></li>
+<li><p><strong>La magia de la transformacion <em>within</em> (Conceptual):</strong> El truco de restar la media de cada individuo (“de-meaning”) elimina la variable inobservable <span class="math notranslate nohighlight">\(U_i\)</span>. Por que funciona esto? Que caracteristica fundamental debe tener esa variable inobservable para que el truco de la resta la haga desaparecer?</p></li>
+<li><p><strong>Calculando el “Within” a mano (Codigo):</strong> Usando el DataFrame <code class="docutils literal notranslate"><span class="pre">sales-panel.csv</span></code>, calcula manualmente las variables “within” para el medio <code class="docutils literal notranslate"><span class="pre">Facebook</span> <span class="pre">Ads</span></code>. Es decir, calcula la media de <code class="docutils literal notranslate"><span class="pre">Ad</span> <span class="pre">cost</span></code> y <code class="docutils literal notranslate"><span class="pre">Sales</span></code> <em>solo para Facebook Ads</em>, y luego resta esas medias de los valores originales para obtener <code class="docutils literal notranslate"><span class="pre">Within</span> <span class="pre">Ad</span> <span class="pre">cost</span></code> y <code class="docutils literal notranslate"><span class="pre">Sales</span> <span class="pre">Within</span></code> para ese medio.</p></li>
+<li><p><strong>Requisitos para un modelo de panel (Conceptual):</strong> Un colega te entrega un archivo de Excel y te pregunta si puede usar un modelo de efectos fijos. Que dos caracteristicas clave debe tener esa tabla de datos para que tu respuesta sea “si”?</p></li>
+<li><p><strong>Efectos fijos por entidad (Codigo):</strong> Carga el dataset <code class="docutils literal notranslate"><span class="pre">sales-panel.csv</span></code>. Usando la libreria <code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>, corre un modelo de efectos fijos por entidad (<code class="docutils literal notranslate"><span class="pre">EntityEffects</span></code>) para predecir <code class="docutils literal notranslate"><span class="pre">Sales</span></code> a partir de <code class="docutils literal notranslate"><span class="pre">Ad</span> <span class="pre">cost</span></code>. Muestra la tabla de resultados. Confirma que el coeficiente que obtienes para <code class="docutils literal notranslate"><span class="pre">Ad</span> <span class="pre">cost</span></code> es el mismo (0.828) que el que se obtuvo con la regresion sobre los datos transformados manualmente en el capitulo.</p></li>
+<li><p><strong>Efectos fijos por tiempo (Codigo y Conceptual):</strong> Ahora, usando <code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>, corre un modelo de efectos fijos <em>solamente por tiempo</em> (<code class="docutils literal notranslate"><span class="pre">TimeEffects</span></code>), sin efectos de entidad. Que coeficiente obtienes para <code class="docutils literal notranslate"><span class="pre">Ad</span> <span class="pre">cost</span></code>? Es significativo? Que te dice este resultado sobre la importancia de controlar por las caracteristicas de cada <em>medio</em> en lugar de controlar solo por el <em>ano</em>?</p></li>
+<li><p><strong>Interpretando el R-cuadrado “Within” (Conceptual):</strong> El reporte de <code class="docutils literal notranslate"><span class="pre">PanelOLS</span></code> con efectos de entidad te da un <span class="math notranslate nohighlight">\(R^2\)</span> <em>within</em> de 0.483. Explica en una frase que significa este numero. A que porcentaje de la varianza se refiere?</p></li>
+<li><p><strong>El poder de los dos efectos (Codigo y Conceptual):</strong> Corre el modelo de efectos fijos de dos vias (<code class="docutils literal notranslate"><span class="pre">EntityEffects</span> <span class="pre">+</span> <span class="pre">TimeEffects</span></code>) como se muestra en el capitulo. El resultado para <code class="docutils literal notranslate"><span class="pre">Ad</span> <span class="pre">cost</span></code> ahora no es significativo (p-value = 0.789). Propon una historia de negocio que explique por que podria pasar esto. Que pudo haber ocurrido en ciertos anos que, al controlarlo, “absorbio” el efecto que antes veiamos en la publicidad?</p></li>
+<li><p><strong>La prueba de Poolability (Conceptual):</strong> En el resultado del modelo con solo efectos de entidad, la prueba de “Poolability” tiene un p-value muy bajo (0.0006). La hipotesis nula de esta prueba es que los efectos fijos de todos los medios son iguales entre si. Dado el p-value, rechazas o no rechazas la hipotesis nula? Que te dice esto sobre si fue buena idea usar efectos fijos en lugar de una regresion simple?</p></li>
+<li><p><strong>Reto - Estructurando datos de panel (Conceptual y Codigo):</strong> Imagina que tienes un archivo CSV con esta estructura (formato “ancho” o <em>wide</em>):</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tienda</p></th>
+<th class="head"><p>Ventas_2022</p></th>
+<th class="head"><p>GastoPubli_2022</p></th>
+<th class="head"><p>Ventas_2023</p></th>
+<th class="head"><p>GastoPubli_2023</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>100</p></td>
+<td><p>10</p></td>
+<td><p>120</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>200</p></td>
+<td><p>15</p></td>
+<td><p>210</p></td>
+<td><p>16</p></td>
+</tr>
+</tbody>
+</table>
+<p>Los modelos de panel necesitan un formato “largo” (<em>long</em>). Describe como se veria esta tabla en formato largo. (Pista: investiga la funcion <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> de pandas).</p>
+</li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/III-Modelos"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06-series-de-tiempo.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Series de Tiempo</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="08-diff-in-diff.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Diferencias en Diferencias</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-se-ven-los-datos-en-panel">Como se ven los datos en panel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-efectos-fijos-son-solo-una-aglomeracion-de-variables-de-control-en-una-sola">Los <strong>efectos fijos</strong> son solo una aglomeracion de variables de control en una sola</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variacion-dentro-del-individuo-within">Variacion dentro del individuo (<em>within</em>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-efecto-fijo-de-dos-vias">El efecto fijo de dos vias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capitulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#controlando-el-caos-ejercicios-de-panel-y-efectos-fijos">Controlando el caos: ejercicios de panel y efectos fijos</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

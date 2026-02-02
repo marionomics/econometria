@@ -1,0 +1,608 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Antes de comenzar: ¿Qué es la inferencia causal? &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/I-Introduccion/00-que-es-inferencia-causal';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Los negocios son matemáticas" href="01-los-negocios-son-matematicas.html" />
+    <link rel="prev" title="Econometría e Inferencia Causal con ejemplos en Python" href="../../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducción</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Antes de comenzar: ¿Qué es la inferencia causal?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-los-negocios-son-matematicas.html">Los negocios son matemáticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-python-para-econometria.html">Python para hacer Econometría</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inferencia Causal</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/03-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/04-experimentos.html">Experimentos y Pruebas A/B</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/05-regresion.html">Una guía para entender y hacer modelos de Regresión Lineal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/06-series-de-tiempo.html">Series de Tiempo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/07-efectos-fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/08-diff-in-diff.html">Diferencias en Diferencias</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/09-iteracion.html">La única forma de crear valor es iterando a partir de los datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/10-investigacion-mercados-ia.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/I-Introduccion/00-que-es-inferencia-causal.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/I-Introduccion/00-que-es-inferencia-causal.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Antes de comenzar: ¿Qué es la inferencia causal?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-la-epoca-la-teoria-dominante-de-la-causa-del-colera-era-el-miasma">En la época, la teoría dominante de la causa del cólera era el <em>miasma</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-inferencia-causal-se-trata-mas-de-sentido-comun-que-de-la-estadistica-en-si-misma">La inferencia causal se trata más de sentido común que de la estadística en sí misma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capítulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conviertete-en-un-detective-de-datos-ejercicios-introductorios">Conviértete en un detective de datos: ejercicios introductorios</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="antes-de-comenzar-que-es-la-inferencia-causal">
+<h1>Antes de comenzar: ¿Qué es la inferencia causal?<a class="headerlink" href="#antes-de-comenzar-que-es-la-inferencia-causal" title="Permalink to this heading">#</a></h1>
+<p>A mediados del siglo XIX hubo un brote de cólera que cambió el mundo por completo (John Snow luego le llamaría “El brote más terrible de cólera que haya ocurrido en este reino”).</p>
+<p>El cólera es una enfermedad terrible. Hoy en día sabemos con certeza que su origen proviene de una bacteria. Saber esto es muy útil: si nos llegara a infectar esa bacteria, simplemente tendríamos que tomar un antibiótico y asunto resuelto. Nuestra vida no estaría en peligro.</p>
+<p>Pero para las personas que vivían en Londres en 1854, saber la verdad era cuestión de vida o muerte.</p>
+<p>A lo largo de la historia hubo muchas pandemias de cólera. La primera registrada es la de 1817 a 1824 y desde entonces la Organización Mundial de la Salud (OMS) considera siete pandemias distintas. Aunque las pandemias son eventos separados, algunas se han extendido por décadas, como la que comenzó en 1961 y sigue vigente hasta el día de hoy. El brote de 1854 de Londres sucedió en la calle Broad Street y mató a 616 personas.</p>
+<section id="en-la-epoca-la-teoria-dominante-de-la-causa-del-colera-era-el-miasma">
+<h2>En la época, la teoría dominante de la causa del cólera era el <em>miasma</em><a class="headerlink" href="#en-la-epoca-la-teoria-dominante-de-la-causa-del-colera-era-el-miasma" title="Permalink to this heading">#</a></h2>
+<figure class="align-default" id="fig-pump">
+<a class="reference internal image-reference" href="../../_images/pump.png"><img alt="../../_images/pump.png" src="../../_images/pump.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Broad Street en Londres durante el brote de cólera de 1854. John Snow apunta a la bomba de agua como fuente de la enfermedad. Fuente: imaginado por el autor y creado por DALL-E 3.</span><a class="headerlink" href="#fig-pump" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>El <em>miasma</em> se refería a <strong>aires malos</strong>. La idea era que las enfermedades se transmitían por los aires de una persona enferma. Es una teoría que duró por muchos siglos desde Hipócrates, más de 400 años antes de Cristo hasta que la teoría de los gérmenes la sustituyó (fue hasta los 1860s que Louis Pasteur publicó su trabajo).</p>
+<p>John Snow aún no sabía de la teoría de los gérmenes, pero no le convencía la teoría del <em>miasma</em> y decidió ponerla a prueba.</p>
+<p>Usó lo que los economistas conocemos como un experimento natural.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Un <em>experimento natural</em> ocurre cuando las condiciones del mundo real imitan un experimento aleatorio. Veremos más al respecto más adelante.</p>
+</div>
+<p>En la zona de la epidemia habían dos compañías que tomaban el agua del río Támesis y la distribuían en la ciudad: <em>Southwark and Vauxhall</em> y <em>Lambeth</em>. El agua que llevaban estaba muy contaminada. <strong>Visiblemente</strong> contaminada. Fue durante el mismo periodo que Lambeth decidió cambiar su toma de agua un poco más río arriba.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>El problema era que todos los desechos de la ciudad desembocaban en el río Támesis. Entre esos deshechos, naturalmente, estaban las heces de todos los habitantes de una ciudad. El problema llegó a ser tan grande que en el verano de 1858 el olor insoportable obligó a los miembros del parlamento a abandonar el palacio de Buckingham en un episodio que se conoció como <em>el gran hedor</em>. Incidentalmente, fue esta la razón que motivó al parlamento a cambiar el sistema de drenaje de la ciudad.</p>
+</div>
+<p>La gran aportación de John Snow fue haber tomado nota de las muertes por cólera antes y después del cambio de la toma de agua. El cuadro muestra este registro para las dos empresas. Snow notó que algunos distritos recibían su agua de ambas compañías, pero otros tomaban su agua de una compañía en específico.</p>
+<p>Esta era la clave para identificar sin lugar a dudas que la causa de la enfermedad era el agua y no los malos aires.</p>
+<p>Observa las muertes por cólera de los distritos donde el suministro de agua es Southwark &amp; Vauxhall. Prácticamente no hay cambio. En cambio, pon atención a las muertes por cólera de los distritos que suministraban su agua de Lambeth: cayeron dramáticamente. Las muertes de los distritos que se suministraban de ambas compañías también cayeron, pero ese dato no sería tan informativo sin los datos por separado.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Suministro de Agua</strong></p></th>
+<th class="head"><p><strong>Muertes en 1849</strong></p></th>
+<th class="head"><p><strong>Muertes en 1854</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Lambeth</p></td>
+<td><p>162</p></td>
+<td><p>37</p></td>
+</tr>
+<tr class="row-odd"><td><p>Southwark &amp; Vauxhall</p></td>
+<td><p>2261</p></td>
+<td><p>2458</p></td>
+</tr>
+<tr class="row-even"><td><p>Lambeth y Southwark &amp; Vauxhall</p></td>
+<td><p>3905</p></td>
+<td><p>2547</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Tabla de resumen de las muertes antes y después del cambio de la toma de agua por la compañía Lambeth. Fuente: Elaboración propia basada en Snow (1859), p. 90.</em></p>
+</section>
+<section id="la-inferencia-causal-se-trata-mas-de-sentido-comun-que-de-la-estadistica-en-si-misma">
+<h2>La inferencia causal se trata más de sentido común que de la estadística en sí misma<a class="headerlink" href="#la-inferencia-causal-se-trata-mas-de-sentido-comun-que-de-la-estadistica-en-si-misma" title="Permalink to this heading">#</a></h2>
+<p>Más de 150 años después, el desafío sigue siendo similar. Hoy en día tenemos mucha más disponibilidad de datos que en 1859, y a pesar de eso, estamos en el punto en el que somos más vulnerables a la desinformación.</p>
+<p>Durante la pandemia de Covid-19, la desinformación fue responsable de la muerte de muchas personas. Un estudio demostró que en Estados Unidos, las personas afiliadas al partido Republicano fueron más vulnerables a las noticias falsas sobre los efectos de las vacunas. La consecuencia fue que hubo un exceso de muertes 43% mayor entre republicanos que entre demócratas.</p>
+<p>El problema es que estamos tan inundados ahora con información, que lo más crítico es saber qué hacer con ella.</p>
+<p>John Snow reunió muchos datos sobre las muertes por cólera. Pero su contribución más importante fue darle sentido a esos datos para transformarlos en información. No se limitó a recolectar datos: él entendía la importancia de explicar las causas y efectos y comunicarlos correctamente.</p>
+<p>Esa es la esencia de la inferencia causal.</p>
+<figure class="align-default" id="fig-snow-map">
+<a class="reference internal image-reference" href="../../_images/snow.jpg"><img alt="../../_images/snow.jpg" src="../../_images/snow.jpg" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">El mapa que John Snow trazó para identificar que el origen del cólera no era el <em>miasma</em>, sino el agua contaminada. Ubicar geográficamente los brotes en un mapa es algo que no se había hecho antes y ayudó a identificar con facilidad que la fuente era una bomba específica. Cerrar esa bomba de agua logró salvar algunas vidas, pero el modelo de pensamiento de Snow sigue salvando muchas vidas más hasta la fecha.</span><a class="headerlink" href="#fig-snow-map" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="resumen-del-capitulo">
+<h2>Resumen del capítulo<a class="headerlink" href="#resumen-del-capitulo" title="Permalink to this heading">#</a></h2>
+<p>En este primer capítulo viajamos en el tiempo al Londres de 1854 para conocer a John Snow, el que podría ser el primer detective de datos de la historia, y su lucha contra el cólera.</p>
+<p>Lo que hicimos fue usar su historia para entender la idea más importante de este libro. Vimos cómo Snow desafió una teoría dominante pero incorrecta (el miasma) no con opiniones, sino con un método brillante. Usó un experimento natural –el hecho de que una compañía de agua cambiara su fuente mientras otra no– para crear una comparación justa y demostrar sin lugar a dudas que la verdadera causa de la epidemia era el agua contaminada.</p>
+<p>Esto es importante porque la historia de John Snow es la historia de origen de la inferencia causal. Nos enseña la lección fundamental: para encontrar la verdad, no basta con tener datos; necesitas un diseño de comparación inteligente. Sin un grupo de control creíble (la compañía que no cambió su agua), la evidencia de Snow habría sido solo una correlación interesante. Esta idea de buscar comparaciones justas para aislar la causa real es la base de todo lo que haremos en este libro.</p>
+<p>¿Cómo te ayuda esto? Este capítulo te instala un nuevo software en el cerebro. De ahora en adelante, cuando escuches que “A causó B”, tu primera pregunta no será sobre la estadística, sino sobre el método: “¿Con qué lo compararon?”. Te da el superpoder del escepticismo estructurado. Te enseña a pensar como un detective, buscando siempre el grupo de control o el “experimento natural” escondido en los datos para poder aislar la verdadera causa. Es la base para no caer en la desinformación y para empezar a construir argumentos sólidos.</p>
+</section>
+<section id="conviertete-en-un-detective-de-datos-ejercicios-introductorios">
+<h2>Conviértete en un detective de datos: ejercicios introductorios<a class="headerlink" href="#conviertete-en-un-detective-de-datos-ejercicios-introductorios" title="Permalink to this heading">#</a></h2>
+<p>La inferencia causal empieza con la forma en que piensas. Estos ejercicios son para que practiques la lógica de detective que usó John Snow.</p>
+<ol class="arabic simple">
+<li><p><strong>El Miasma Moderno (Conceptual):</strong> La teoría del miasma era una explicación fácil pero incorrecta. Piensa en un “miasma moderno”: una correlación que la gente comúnmente confunde con una causa. (Ejemplo: “Las empresas que más invierten en publicidad en el Super Bowl son las más exitosas”). ¿Por qué esta afirmación podría ser una correlación y no una causa directa?</p></li>
+<li><p><strong>El Grupo de Control es tu Ancla (Conceptual):</strong> Imagina que John Snow solo hubiera tenido los datos de la compañía Lambeth (la que mejoró su agua). Habría visto que las muertes bajaron y podría haber dicho que esa era la prueba. ¿Por qué su argumento habría sido mucho más débil sin los datos de la compañía Southwark &amp; Vauxhall? ¿Qué otras explicaciones para la caída de las muertes no podría haber descartado?</p></li>
+<li><p><strong>Diseñando una Comparación Justa (Conceptual):</strong> Quieres saber si una nueva estrategia de descuentos (tratamiento) realmente aumenta el valor promedio de compra en tu tienda en línea. Usando la lógica de John Snow, ¿cuál sería un buen “grupo de control”? ¿Por qué comparar las ventas de esta semana (con descuentos) con las de la semana pasada (sin descuentos) podría ser una comparación injusta?</p></li>
+<li><p><strong>Encontrando Experimentos Naturales (Conceptual):</strong> Un experimento natural ocurre cuando el mundo te “asigna” por accidente un grupo de tratamiento y uno de control. Describe un posible experimento natural que podrías usar para estudiar el efecto de:</p>
+<ul class="simple">
+<li><p>a) El trabajo remoto en los precios de las rentas de oficinas. (Pista: piensa en una gran empresa que anuncia el teletrabajo permanente, afectando una zona de la ciudad más que otras).</p></li>
+<li><p>b) Una nueva ciclovía en el número de accidentes viales. (Pista: la ciclovía se construye en una avenida principal, pero no en otra avenida paralela muy similar).</p></li>
+</ul>
+</li>
+<li><p><strong>Una Imagen Vale Más que Mil Números (Conceptual):</strong> El capítulo dice que Snow no solo recolectó datos, sino que los comunicó correctamente. Además de su famosa tabla, ¿qué otra herramienta (visual) usó para que su argumento fuera tan convincente, y por qué crees que fue tan efectiva?</p></li>
+<li><p><strong>Sentido Común y Estadística (Reflexión):</strong> La frase clave del capítulo es “La inferencia causal se trata más de sentido común que de la estadística en sí misma”. ¿Significa esto que las matemáticas no son importantes? ¿O que el diseño del estudio es la base sobre la cual se construye cualquier análisis estadístico? Justifica tu respuesta usando el caso de John Snow.</p></li>
+<li><p><strong>El Universo Contrafactual (Conceptual):</strong> Para una familia que vivía en un distrito servido por Lambeth, el “resultado contrafactual” es lo que les <em>hubiera</em> pasado si Lambeth <em>no hubiera</em> cambiado su fuente de agua. ¿Cómo usó John Snow los datos de la compañía Southwark &amp; Vauxhall como una ventana a ese universo contrafactual?</p></li>
+<li><p><strong>Aplicando la Lógica al Negocio (Conceptual):</strong> El director de una cadena de cafeterías observa que las sucursales que tienen más de 10 empleados tienen mayores ventas. Propone como política que todas las sucursales contraten hasta tener al menos 10 empleados para aumentar las ventas. Como analista de datos inspirado en John Snow, ¿qué preguntas harías antes de apoyar esa decisión? ¿Qué datos buscarías para determinar si la relación es causal o solo una correlación?</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/I-Introduccion"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Econometría e Inferencia Causal con ejemplos en Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01-los-negocios-son-matematicas.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Los negocios son matemáticas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-la-epoca-la-teoria-dominante-de-la-causa-del-colera-era-el-miasma">En la época, la teoría dominante de la causa del cólera era el <em>miasma</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-inferencia-causal-se-trata-mas-de-sentido-comun-que-de-la-estadistica-en-si-misma">La inferencia causal se trata más de sentido común que de la estadística en sí misma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capítulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conviertete-en-un-detective-de-datos-ejercicios-introductorios">Conviértete en un detective de datos: ejercicios introductorios</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

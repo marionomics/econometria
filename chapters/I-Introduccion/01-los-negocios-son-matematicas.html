@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Los negocios son matemáticas &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/I-Introduccion/01-los-negocios-son-matematicas';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Python para hacer Econometría" href="02-python-para-econometria.html" />
+    <link rel="prev" title="Antes de comenzar: ¿Qué es la inferencia causal?" href="00-que-es-inferencia-causal.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducción</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00-que-es-inferencia-causal.html">Antes de comenzar: ¿Qué es la inferencia causal?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Los negocios son matemáticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-python-para-econometria.html">Python para hacer Econometría</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inferencia Causal</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/03-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../II-Inferencia-Causal/04-experimentos.html">Experimentos y Pruebas A/B</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/05-regresion.html">Una guía para entender y hacer modelos de Regresión Lineal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/06-series-de-tiempo.html">Series de Tiempo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/07-efectos-fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/08-diff-in-diff.html">Diferencias en Diferencias</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/09-iteracion.html">La única forma de crear valor es iterando a partir de los datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/10-investigacion-mercados-ia.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/I-Introduccion/01-los-negocios-son-matematicas.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/I-Introduccion/01-los-negocios-son-matematicas.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Los negocios son matemáticas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cometi-dos-errores-grandes-con-ese-negocio">Cometí dos errores grandes con ese negocio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usar-datos-en-los-negocios-significa-tener-la-humildad-de-aceptar-que-no-lo-sabemos-todo">Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#este-libro-esta-disenado-para-un-mundo-donde-la-inteligencia-artificial-puede-hacer-analisis-de-datos">Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-necesitas-saber-antes-de-comenzar">¿Qué necesitas saber antes de comenzar?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen">Resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="los-negocios-son-matematicas">
+<h1>Los negocios son matemáticas<a class="headerlink" href="#los-negocios-son-matematicas" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p><em>Es mejor haber entendido por qué fallaste que ser ignorante de por qué tuviste éxito</em></p>
+<p>- Robert A. Burgelman</p>
+</div></blockquote>
+<p><strong>Cuando salí de la universidad</strong>, tenía un solo objetivo: abrir mi propio negocio. Había emprendido de muchas formas durante la carrera: había vendido promociones para una taquería que comenzamos en mi familia (falló) y había aprendido a crear productos que solucionan problemas y sabía vender. Ya estaba listo para las grandes ligas (según yo).</p>
+<p>El año era 2009: justo en medio de la gran recesión.</p>
+<p>La gran recesión afectó los ingresos de mi generación de una manera brutal. Quienes salimos al mundo laboral ese año nos encontramos un escenario post-apocalíptico sin opciones de trabajo y con negocios cerrando por doquier.</p>
+<p>Y fue en los negocios que cerraban donde vi oportunidad (no hagas esto en casa).</p>
+<p>Mi café favorito estaba en venta. Era un café en el centro histórico, con una clientela establecida y operando al 100%. Era la oportunidad perfecta para poner en práctica todo lo que había aprendido los últimos cuatro años en la universidad (o eso creía yo).</p>
+<p>El único problema era que no tenía dinero.</p>
+<p>Decidí juntar 10 amigos, hacerlos socios y comprar el negocio. Venía junto con una renta mensual de 11 mil pesos y un barista muy hábil, aunque un poco antipático. Hice modificaciones mínimas y abrimos al público ese mismo mes. Jamás olvidaré la sensación de abrir un negocio y comenzar a recibir clientes ese mismo día. Pensé que si seguía a ese mismo ritmo, recuperaría mi inversión en menos de un mes y me imaginaba como el próximo Steve Jobs antes de los 30.</p>
+<p>Para noviembre de ese mismo año, acabé con una neumonía que casi me mata y el negocio quebrado.</p>
+<section id="cometi-dos-errores-grandes-con-ese-negocio">
+<h2>Cometí dos errores grandes con ese negocio<a class="headerlink" href="#cometi-dos-errores-grandes-con-ese-negocio" title="Permalink to this heading">#</a></h2>
+<p>Si no hubiera cometido estos errores, habría tenido un negocio exitoso en lugar del rotundo fracaso que viví.</p>
+<ul class="simple">
+<li><p><strong>El primer error fue no haberme ensuciado las manos lo suficiente.</strong> Pensaba que mis conocimientos de administración eran suficientes para manejar cualquier situación. Si volviera al pasado, habría dedicado más tiempo a aprender a hacer todo en la operación del negocio. ¡Al menos hubiera aprendido a hacerla de barista!</p></li>
+<li><p><strong>Mi segundo error fue seguir demasiado mi intuición y muy poco a lo que decían los datos.</strong> También fue por arrogancia. Saliendo de la universidad sentía que ya lo sabía todo y que todos los demás estaban equivocados.</p></li>
+</ul>
+<p>Nunca más.</p>
+</section>
+<section id="usar-datos-en-los-negocios-significa-tener-la-humildad-de-aceptar-que-no-lo-sabemos-todo">
+<h2>Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo<a class="headerlink" href="#usar-datos-en-los-negocios-significa-tener-la-humildad-de-aceptar-que-no-lo-sabemos-todo" title="Permalink to this heading">#</a></h2>
+<p>En retrospectiva, veo que no fue una idea absurda. No estaba loco, simplemente no entendí los números.</p>
+<figure class="align-default" id="fig-gdp-mexico">
+<img alt="../../_images/gdp.png" src="../../_images/gdp.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Crecimiento del PIB de México de 1990 a la actualidad. Como millenial, me ha tocado vivir 3 crisis: la crisis del peso mexicano (o efecto tequila), la llamada “gran recesión” y la crisis del Covid-19. Fuente: Elaboración propia con datos del Banco Mundial.</span><a class="headerlink" href="#fig-gdp-mexico" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Para convencer a 10 amigos a que invirtieran conmigo usé gráficas del ciclo económico. Les expliqué que probablemente estábamos en el punto más bajo y que la economía no tenía más opción que subir. Los datos históricos me respaldaban, pero esta no era una recesión normal, sino una crisis financiera con raíces estructurales profundas.</p>
+<p>Si hubiera sido más cuidadoso al revisar los datos, probablemente no habría tomado un riesgo tan alocado.</p>
+</section>
+<section id="este-libro-esta-disenado-para-un-mundo-donde-la-inteligencia-artificial-puede-hacer-analisis-de-datos">
+<h2>Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos<a class="headerlink" href="#este-libro-esta-disenado-para-un-mundo-donde-la-inteligencia-artificial-puede-hacer-analisis-de-datos" title="Permalink to this heading">#</a></h2>
+<p>La primera sección se enfoca en el mindset de la inferencia causal.</p>
+<p>Hoy en día ya es posible subir una base de datos a ChatGPT y pedirle que limpie y prepare los datos para hacer análisis. Luego le puedes pedir que haga una regresión lineal y que te dé su interpretación de los resultados. Finalmente, le puedes pedir que haga las pruebas de hipótesis más comunes.</p>
+<p>Pero incluso con todo eso, hay algo que la IA todavía no puede hacer: distinguir entre correlación y causalidad. Eso sólo lo vas a poder hacer tú. Porque eres tú el que tiene una <em>ventana de contexto</em> más completa (la ventana de contexto es el número de tokens que una IA usa en su memoria para dar respuestas; todos los días aumenta más, pero la forma en que los humanos damos contexto y conectamos ideas lo considero más potente), tienes ojos y oídos y puedes salir al mundo a ver si tus hipótesis tienen sentido o no.</p>
+<p>La segunda sección tiene elementos de negocios indispensables para generar crecimiento basado en datos.</p>
+<p>El análisis de datos hoy en día es un elemento integral de los negocios. No se trata de un accesorio adicional: los datos son tu negocio. Cada paso que damos en negocios, lo debemos hacer tomando la evidencia como un elemento central.</p>
+<p>En la última sección veremos los modelos más avanzados. Porque al inicio estaremos intentando hacer experimentos, pero cuando no es posible hacer uno, nos apoyaremos en los llamados <strong>experimentos naturales</strong> para hacer modelos de diferencias en diferencias que nos entreguen resultados con interpretación similar a la que tendríamos si hiciéramos un experimento.</p>
+<blockquote>
+<div><p><em>It’s the economist way.</em></p>
+</div></blockquote>
+</section>
+<section id="que-necesitas-saber-antes-de-comenzar">
+<h2>¿Qué necesitas saber antes de comenzar?<a class="headerlink" href="#que-necesitas-saber-antes-de-comenzar" title="Permalink to this heading">#</a></h2>
+<p>Lo más importante son tus ánimos de aprender y tu curiosidad.</p>
+<p>Procuro a lo largo de este libro mantener las ideas a nivel intuitivo. Sin embargo, hay algunos temas que requieren conocimientos previos:</p>
+<ul class="simple">
+<li><p>En el capítulo de Regresión, cuando paso de la regresión con una variable a múltiples variables, explico el resultado final usando álgebra lineal. Es un segmento que te puedes saltar, pero me pareció indispensable explicarlo de esa manera.</p></li>
+<li><p>En general, a lo largo del libro, usamos modelos sencillos, pero es necesario tener una intuición sobre lo que representa una variable aleatoria y cómo funciona la probabilidad básica.</p></li>
+<li><p>Comenzamos el libro con un repaso de programación en Python. Aunque es muy básico, es suficiente para entender el código en los siguientes capítulos o al menos formar una intuición. Sin embargo, te recomiendo hacer más ejercicios para solidificar tu conocimiento.</p></li>
+</ul>
+</section>
+<section id="resumen">
+<h2>Resumen<a class="headerlink" href="#resumen" title="Permalink to this heading">#</a></h2>
+<p>En este capítulo introductorio compartí la historia de mi primer negocio fallido para ilustrar la importancia de usar datos en la toma de decisiones. Los dos errores principales fueron: no involucrarme lo suficiente en la operación y confiar demasiado en la intuición en lugar de analizar los datos con rigor. Este libro está diseñado para un mundo donde la IA puede hacer análisis de datos, pero donde la capacidad de distinguir entre correlación y causalidad sigue siendo una habilidad humana fundamental.</p>
+</section>
+<section id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Piensa en una decisión importante que hayas tomado basándote en tu intuición. ¿Qué datos podrías haber consultado antes de tomarla?</p></li>
+<li><p>Busca un ejemplo reciente en las noticias donde se confunda correlación con causalidad. Describe el ejemplo y explica por qué la conclusión podría ser incorrecta.</p></li>
+<li><p>Investiga brevemente qué fue la “gran recesión” de 2008-2009. ¿Qué indicadores económicos habrías revisado antes de invertir en un negocio en ese momento?</p></li>
+<li><p>¿Cuál es la diferencia entre correlación y causalidad? Escribe un ejemplo de cada una con tus propias palabras.</p></li>
+<li><p>Imagina que tienes un negocio de comida y las ventas bajan un 20% en un mes. Haz una lista de al menos 5 posibles causas y describe qué datos buscarías para investigar cada una.</p></li>
+<li><p>Reflexiona sobre el concepto de “ventana de contexto” que se menciona en el capítulo. ¿Por qué crees que los humanos todavía tenemos una ventaja sobre la IA al momento de interpretar datos?</p></li>
+<li><p>Describe un escenario en el que un experimento natural podría ayudarte a entender el efecto de una política pública. ¿Qué datos necesitarías?</p></li>
+<li><p>Lee sobre el ciclo económico y dibuja una gráfica simplificada. Marca en qué punto del ciclo crees que estamos actualmente y justifica tu respuesta con al menos un dato o indicador.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/I-Introduccion"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00-que-es-inferencia-causal.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Antes de comenzar: ¿Qué es la inferencia causal?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02-python-para-econometria.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python para hacer Econometría</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cometi-dos-errores-grandes-con-ese-negocio">Cometí dos errores grandes con ese negocio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usar-datos-en-los-negocios-significa-tener-la-humildad-de-aceptar-que-no-lo-sabemos-todo">Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#este-libro-esta-disenado-para-un-mundo-donde-la-inteligencia-artificial-puede-hacer-analisis-de-datos">Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-necesitas-saber-antes-de-comenzar">¿Qué necesitas saber antes de comenzar?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen">Resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

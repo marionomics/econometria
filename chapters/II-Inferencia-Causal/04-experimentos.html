@@ -1,0 +1,646 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Experimentos y Pruebas A/B &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/II-Inferencia-Causal/04-experimentos';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Una guía para entender y hacer modelos de Regresión Lineal" href="../III-Modelos/05-regresion.html" />
+    <link rel="prev" title="El modelo de resultados potenciales" href="03-resultados-potenciales.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducción</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/00-que-es-inferencia-causal.html">Antes de comenzar: ¿Qué es la inferencia causal?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/01-los-negocios-son-matematicas.html">Los negocios son matemáticas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../I-Introduccion/02-python-para-econometria.html">Python para hacer Econometría</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Inferencia Causal</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03-resultados-potenciales.html">El modelo de resultados potenciales</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Experimentos y Pruebas A/B</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/05-regresion.html">Una guía para entender y hacer modelos de Regresión Lineal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/06-series-de-tiempo.html">Series de Tiempo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/07-efectos-fijos.html">Efectos Fijos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../III-Modelos/08-diff-in-diff.html">Diferencias en Diferencias</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Negocios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/09-iteracion.html">La única forma de crear valor es iterando a partir de los datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IV-Negocios/10-investigacion-mercados-ia.html">Cómo hacer Investigación de mercados con inteligencia artificial</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/II-Inferencia-Causal/04-experimentos.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/II-Inferencia-Causal/04-experimentos.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Experimentos y Pruebas A/B</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-experimentos-son-el-gold-standard-de-la-ciencia">Los experimentos son el <em>gold standard</em> de la ciencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-se-usan-experimentos-para-hacer-inferencia-causal-en-los-negocios">¿Por qué se usan experimentos para hacer inferencia causal en los negocios?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-pasa-cuando-no-se-puede-hacer-un-experimento">¿Qué pasa cuando no se puede hacer un experimento?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aunque-no-lo-creas-hay-preguntas-que-no-se-pueden-resolver-ni-aun-con-un-experimento">Aunque no lo creas, hay preguntas que no se pueden resolver ni aún con un experimento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-el-efecto-de-las-busquedas-pagadas-en-las-ventas">Ejemplo: El efecto de las búsquedas pagadas en las ventas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-disena-el-experimento-ideal">Prompt: Diseña el experimento ideal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capítulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="experimentos-y-pruebas-a-b">
+<h1>Experimentos y Pruebas A/B<a class="headerlink" href="#experimentos-y-pruebas-a-b" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p><em>Outsized returns often come from betting against conventional wisdom, and you can’t know whether you’re right until you try. Big winners pay for so many experiments.</em></p>
+<ul class="simple">
+<li><p>Jeff Bezos</p></li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><p><em>If your experiment needs statistics, you ought to have done a better experiment.</em></p>
+<ul class="simple">
+<li><p>Ernest Rutherford</p></li>
+</ul>
+</div></blockquote>
+<p>En mayo de 2024 mi esposa abrió un negocio de extensiones de pestañas en Mazatlán. Como cualquier negocio nuevo, necesitaba clientes. Y como cualquier negocio nuevo en 2024, la forma más rápida de conseguirlos era con publicidad en Instagram.</p>
+<p>Pero había un problema: no sabíamos qué tipo de anuncio funcionaría mejor. ¿Debería el anuncio mostrar una foto de antes y después? ¿O una foto del resultado final? ¿Debería incluir el precio o no? ¿Debería mencionar una promoción de apertura o no?</p>
+<p>En lugar de debatir, decidimos hacer un experimento. Creamos <span class="math notranslate nohighlight">\(2^3 = 8\)</span> variantes de anuncios combinando tres variables: tipo de foto (antes/después vs. resultado final), si se incluía el precio o no, y si se mencionaba la promoción de apertura o no. Cada variante se publicó como un anuncio independiente en Instagram con el mismo presupuesto.</p>
+<figure class="align-default" id="fig-anuncios">
+<a class="reference internal image-reference" href="../../_images/anuncios.png"><img alt="../../_images/anuncios.png" src="../../_images/anuncios.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Las 8 variantes de anuncios de Instagram que probamos para el negocio de pestañas. Cada anuncio combinaba tres variables binarias: tipo de foto, precio visible y mención de promoción.</span><a class="headerlink" href="#fig-anuncios" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Los resultados fueron sorprendentes. El mejor anuncio costaba alrededor de 40 pesos mexicanos por cada cliente potencial (lead), mientras que el peor costaba más de 200 pesos por lead. Es decir, el peor anuncio era <strong>cinco veces más caro</strong> que el mejor. Sin el experimento, habríamos elegido un anuncio al azar –y probablemente no habría sido el mejor.</p>
+<p>Este es el poder de los experimentos: en lugar de adivinar, <strong>medimos</strong>.</p>
+<section id="los-experimentos-son-el-gold-standard-de-la-ciencia">
+<h2>Los experimentos son el <em>gold standard</em> de la ciencia<a class="headerlink" href="#los-experimentos-son-el-gold-standard-de-la-ciencia" title="Permalink to this heading">#</a></h2>
+<p>Si has usado las plataformas de publicidad de Meta, Google o TikTok, ya has hecho pruebas A/B aunque no lo sepas. Estas plataformas están diseñadas para experimentar. Pero los experimentos no se limitan a la publicidad. Empresas como Stripe, Netflix, Amazon y <a class="reference external" href="http://Booking.com">Booking.com</a> corren miles de experimentos al año para optimizar desde el color de un botón hasta la estructura de precios de sus productos.</p>
+<p>La idea es simple: si quieres saber si un cambio tiene un efecto, divide a tu audiencia en dos grupos al azar. A un grupo le muestras la versión A (el control) y al otro la versión B (el tratamiento). Después comparas los resultados. Si la diferencia es lo suficientemente grande, puedes concluir que el cambio tuvo un efecto causal.</p>
+<p>La barrera más grande para experimentar no es técnica, sino de <strong>tiempo</strong>. Diseñar un buen experimento, esperar a que se recolecten suficientes datos y analizar los resultados toma tiempo. Y en un entorno de negocios donde todo es urgente, el tiempo es el recurso más escaso.</p>
+<p>Además, no todo se puede probar con un experimento. No puedes asignar aleatoriamente a las personas a ser fumadoras o no fumadoras para estudiar el efecto del tabaco en la salud. No puedes asignar aleatoriamente a los países a tener democracia o dictadura para estudiar el efecto del sistema político en el crecimiento económico. Hay preguntas donde los experimentos simplemente no son éticos o factibles.</p>
+<p>Pero cuando sí puedes experimentar, <strong>deberías hacerlo</strong>. Los experimentos son la herramienta más poderosa que tenemos para establecer causalidad.</p>
+</section>
+<section id="por-que-se-usan-experimentos-para-hacer-inferencia-causal-en-los-negocios">
+<h2>¿Por qué se usan experimentos para hacer inferencia causal en los negocios?<a class="headerlink" href="#por-que-se-usan-experimentos-para-hacer-inferencia-causal-en-los-negocios" title="Permalink to this heading">#</a></h2>
+<p>Imagina esta escena: estás en una junta con tu equipo de marketing. Llevan 45 minutos debatiendo si el título de la página de inicio debería decir “La mejor solución para tu negocio” o “Haz crecer tu negocio hoy”. El director de marketing cree que la primera opción es mejor porque suena más profesional. El diseñador prefiere la segunda porque es más directa. El CEO quiere una tercera opción que nadie más apoya.</p>
+<p>¿La solución? Dejen de debatir y hagan un experimento. Muestren la versión A a la mitad de los visitantes y la versión B a la otra mitad. Después de una semana, vean cuál genera más conversiones. Listo.</p>
+<p>Los experimentos se usan en los negocios por al menos cuatro razones:</p>
+<ol class="arabic simple">
+<li><p><strong>Eliminan la duda sobre la causalidad.</strong> Si asignaste aleatoriamente a los usuarios a ver una versión u otra, cualquier diferencia en los resultados se debe al cambio que hiciste, no a otros factores. No hay variables confusoras de las cuales preocuparse.</p></li>
+<li><p><strong>La matemática es simple.</strong> Para analizar un experimento bien diseñado, en muchos casos solo necesitas comparar promedios. ¿El grupo B compró más que el grupo A? Si la diferencia es estadísticamente significativa, tienes tu respuesta. No necesitas modelos complicados ni supuestos heroicos.</p></li>
+<li><p><strong>Los resultados son más interpretables.</strong> Cuando le dices a un directivo “el nuevo diseño aumentó las ventas un 12%”, esa persona entiende exactamente lo que significa. Compara eso con explicarle los coeficientes de una regresión con variables instrumentales.</p></li>
+<li><p><strong>Pueden ser más baratos que las juntas interminables.</strong> El costo de un experimento en una plataforma de publicidad digital es relativamente bajo. El costo de oportunidad de que cinco personas pasen una hora debatiendo sin datos es mucho mayor.</p></li>
+</ol>
+</section>
+<section id="que-pasa-cuando-no-se-puede-hacer-un-experimento">
+<h2>¿Qué pasa cuando no se puede hacer un experimento?<a class="headerlink" href="#que-pasa-cuando-no-se-puede-hacer-un-experimento" title="Permalink to this heading">#</a></h2>
+<p>Siempre es útil empezar pensando en el <strong>experimento ideal</strong>, incluso cuando sabemos que no lo podemos ejecutar. Joshua Angrist y Jörn-Steffen Pischke, dos de los econometristas más influyentes de nuestra era, sugieren en su libro <em>Mostly Harmless Econometrics</em> (2009) que siempre comiences cualquier estudio preguntándote: “¿Cuál sería el experimento ideal para responder esta pregunta?”</p>
+<p>La razón es que al pensar en el experimento ideal, identificas con claridad cuáles son los supuestos necesarios para que tu análisis sea válido. Si no puedes hacer el experimento, al menos sabes qué estás asumiendo cuando usas métodos observacionales.</p>
+<p>Es como tener un mapa del tesoro. Tal vez no puedas tomar el camino directo porque hay un río de por medio, pero al menos sabes dónde está el tesoro y puedes buscar rutas alternativas. Sin el mapa, estás caminando a ciegas.</p>
+<p>En el resto de este libro veremos varias de esas “rutas alternativas”: diferencias en diferencias, variables instrumentales, regresión discontinua y matching. Cada una de estas técnicas intenta imitar lo que haría un experimento aleatorio, pero usando datos observacionales. Y cada una tiene sus propios supuestos y limitaciones.</p>
+</section>
+<section id="aunque-no-lo-creas-hay-preguntas-que-no-se-pueden-resolver-ni-aun-con-un-experimento">
+<h2>Aunque no lo creas, hay preguntas que no se pueden resolver ni aún con un experimento<a class="headerlink" href="#aunque-no-lo-creas-hay-preguntas-que-no-se-pueden-resolver-ni-aun-con-un-experimento" title="Permalink to this heading">#</a></h2>
+<p>Hay preguntas que parecen simples pero que son imposibles de responder con un experimento, no por razones éticas o prácticas, sino por razones lógicas.</p>
+<p>Considera esta pregunta: ¿cuál es la mejor edad para emprender?</p>
+<p>Pierre Azoulay y sus coautores publicaron en 2020 un estudio fascinante que encontró que la edad promedio de los fundadores de startups exitosas en Estados Unidos es de 42 años. Pero, ¿significa esto que ser mayor te hace mejor emprendedor?</p>
+<p>No necesariamente. El problema es que la edad viene acompañada de muchas otras cosas: experiencia laboral, red de contactos, capital acumulado, conocimiento del mercado, madurez emocional. No puedes asignar aleatoriamente la edad a las personas. Y aunque pudieras, no podrías separar la edad de todas las variables que vienen con ella.</p>
+<p>Esto es lo que los estadísticos llaman un problema de <strong>identificación</strong>. La edad no es una variable que puedas manipular independientemente de todo lo demás. Es inseparable de la experiencia, el capital y muchas otras cosas.</p>
+<p>Reconocer los límites de lo que podemos saber es tan importante como saber responder preguntas. Un buen analista no solo encuentra respuestas; también sabe cuándo una pregunta no tiene respuesta con los datos disponibles.</p>
+</section>
+<section id="ejemplo-el-efecto-de-las-busquedas-pagadas-en-las-ventas">
+<h2>Ejemplo: El efecto de las búsquedas pagadas en las ventas<a class="headerlink" href="#ejemplo-el-efecto-de-las-busquedas-pagadas-en-las-ventas" title="Permalink to this heading">#</a></h2>
+<p>Uno de los modelos de negocio más exitosos de la historia es el de Google. La empresa gana la mayor parte de sus ingresos subastando espacios publicitarios en sus resultados de búsqueda. Cuando buscas “zapatos deportivos” en Google, los primeros resultados que ves son anuncios pagados por empresas que quieren que compres sus zapatos. Estas empresas pagan cada vez que alguien hace clic en su anuncio.</p>
+<p>Pero, ¿realmente funciona? ¿Las búsquedas pagadas generan ventas adicionales, o simplemente capturan clics que de todas formas habrían llegado a la empresa a través de los resultados orgánicos (no pagados)?</p>
+<p>Esta es una pregunta de miles de millones de dólares, y por mucho tiempo nadie la había respondido de forma rigurosa. Hasta que Thomas Blake, Chris Nosko y Steven Tadelis publicaron en 2015 su estudio sobre eBay.</p>
+<p>eBay es una empresa tan conocida que cuando alguien busca “eBay” en Google, el resultado orgánico (no pagado) aparece como el primer resultado. A pesar de esto, eBay pagaba millones de dólares por aparecer también como anuncio pagado en las búsquedas de su propia marca.</p>
+<p>Los investigadores convencieron a eBay de hacer un experimento. Durante un periodo, eBay dejó de pagar por publicidad en búsquedas de su propia marca en ciertos mercados, mientras que en otros mercados siguió pagando como de costumbre. Esto creó un grupo de tratamiento (sin publicidad pagada) y un grupo de control (con publicidad pagada).</p>
+<p>Los resultados fueron reveladores: cuando eBay dejó de pagar por anuncios en búsquedas de su propia marca, los clics se sustituyeron <strong>casi en su totalidad</strong> por clics en los resultados orgánicos. Es decir, las personas que buscaban “eBay” en Google iban a llegar a eBay de todas formas, con o sin el anuncio pagado. eBay estaba literalmente tirando dinero a la basura.</p>
+<p>Pero la historia tiene un matiz importante. Los investigadores también encontraron que la publicidad pagada sí tenía efecto en dos casos:</p>
+<ol class="arabic simple">
+<li><p><strong>Usuarios nuevos.</strong> Las personas que no conocían eBay sí eran influenciadas por los anuncios. Para ellos, el anuncio pagado era la diferencia entre descubrir eBay o no.</p></li>
+<li><p><strong>Marcas más pequeñas.</strong> Para empresas que no son tan conocidas como eBay, la publicidad pagada sí puede generar ventas adicionales, porque sus resultados orgánicos no necesariamente aparecen en las primeras posiciones.</p></li>
+</ol>
+<p>La lección de Blake et al. (2015) es doble. Primero, los experimentos pueden ahorrar mucho dinero al revelar que algo que parecía funcionar no estaba funcionando. Segundo, los resultados de un experimento no siempre son blanco o negro; los efectos pueden variar según el contexto.</p>
+</section>
+<section id="prompt-disena-el-experimento-ideal">
+<h2>Prompt: Diseña el experimento ideal<a class="headerlink" href="#prompt-disena-el-experimento-ideal" title="Permalink to this heading">#</a></h2>
+<p>Una herramienta útil para pensar en causalidad es pedirle a un modelo de lenguaje que te ayude a diseñar el experimento ideal para tu pregunta de investigación. Aquí hay un prompt que puedes usar:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Eres un experto en inferencia causal y diseño experimental. Tu tarea es ayudarme
+a diseñar el experimento ideal para responder una pregunta causal.
+
+Mi pregunta es: [ESCRIBE TU PREGUNTA AQUÍ]
+
+Por favor, diseña el experimento ideal siguiendo estos pasos:
+1. Define claramente la variable de tratamiento y la variable de resultado.
+2. Describe cómo asignarías aleatoriamente el tratamiento.
+3. Identifica el grupo de control y el grupo de tratamiento.
+4. Explica qué datos recolectarías y cómo los analizarías.
+5. Enumera las posibles amenazas a la validez del experimento.
+6. Discute si este experimento es factible en la práctica. Si no lo es, sugiere
+   la mejor alternativa observacional.
+
+Sé específico y práctico. Da ejemplos concretos.
+</pre></div>
+</div>
+<p>Este prompt es útil incluso cuando no puedes hacer el experimento. El simple ejercicio de pensar en el diseño ideal te ayuda a clarificar qué estás tratando de medir y cuáles son los supuestos que necesitas hacer.</p>
+</section>
+<section id="resumen-del-capitulo">
+<h2>Resumen del capítulo<a class="headerlink" href="#resumen-del-capitulo" title="Permalink to this heading">#</a></h2>
+<p>En este capítulo exploramos el poder de los experimentos y las pruebas A/B como la herramienta más confiable para establecer relaciones causales.</p>
+<p>Comenzamos con un ejemplo real: el experimento de publicidad en Instagram para un negocio de pestañas en Mazatlán, donde probamos 8 variantes de anuncios y descubrimos que el mejor era cinco veces más eficiente que el peor. Este ejemplo ilustra cómo los experimentos eliminan el debate y lo reemplazan con evidencia.</p>
+<p>Vimos que los experimentos son el <em>gold standard</em> de la ciencia porque, al asignar aleatoriamente a los participantes, eliminan las variables confusoras y nos permiten atribuir las diferencias en los resultados directamente al tratamiento. En los negocios, los experimentos son especialmente valiosos porque eliminan la duda, simplifican el análisis, producen resultados interpretables y pueden ser más baratos que las alternativas.</p>
+<p>También discutimos qué hacer cuando no se puede experimentar. La recomendación de Angrist y Pischke es siempre empezar pensando en el experimento ideal, porque esto nos ayuda a identificar los supuestos necesarios para cualquier análisis alternativo.</p>
+<p>Reconocimos que hay preguntas que ni siquiera un experimento puede responder, como el efecto de la edad en el emprendimiento, porque ciertas variables son inseparables de otras.</p>
+<p>Finalmente, el estudio de Blake et al. (2015) sobre eBay nos mostró cómo un experimento reveló que millones de dólares en publicidad pagada no estaban generando ventas adicionales, con la importante excepción de usuarios nuevos y marcas menos conocidas.</p>
+</section>
+<section id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>El experimento de las pestañas (Conceptual).</strong> En el ejemplo del negocio de pestañas, usamos <span class="math notranslate nohighlight">\(2^3 = 8\)</span> variantes de anuncios. Si quisiéramos añadir una cuarta variable (por ejemplo, el color de fondo del anuncio: claro u oscuro), ¿cuántas variantes tendríamos que probar? ¿Por qué el número de variantes crece tan rápido y qué implicaciones tiene esto para el presupuesto del experimento?</p></li>
+<li><p><strong>Validez interna vs. externa (Conceptual).</strong> El experimento de eBay demostró que la publicidad pagada no generaba ventas adicionales para eBay. ¿Significa esto que la publicidad pagada en Google no funciona para ninguna empresa? Explica la diferencia entre la validez interna (¿el resultado es correcto para eBay?) y la validez externa (¿el resultado aplica a otras empresas?) del estudio de Blake et al. (2015).</p></li>
+<li><p><strong>Diseña tu propio experimento (Práctica).</strong> Piensa en una pregunta de negocios que te interese (puede ser de tu trabajo, de un negocio que te gustaría tener, o de una empresa que admires). Usa el prompt del capítulo para diseñar el experimento ideal. Describe: (a) la pregunta, (b) la variable de tratamiento, (c) la variable de resultado, (d) cómo asignarías el tratamiento aleatoriamente, y (e) una posible amenaza a la validez del experimento.</p></li>
+<li><p><strong>El costo de no experimentar (Reflexión).</strong> El capítulo menciona que el costo de oportunidad de debatir sin datos puede ser mayor que el costo de un experimento. Describe una situación (real o hipotética) en la que una empresa tomó una decisión importante basándose en opiniones en lugar de datos. ¿Cómo habría cambiado la situación si hubieran hecho un experimento?</p></li>
+<li><p><strong>Preguntas sin respuesta (Conceptual).</strong> El capítulo discute cómo la edad es inseparable de la experiencia, el capital y otros factores. Piensa en otra variable que sea igualmente difícil de aislar. Describe por qué un experimento no podría responder la pregunta causal asociada y qué alternativas tendrías para al menos aproximar una respuesta.</p></li>
+<li><p><strong>eBay y los usuarios nuevos (Análisis).</strong> Blake et al. (2015) encontraron que la publicidad pagada sí funcionaba para usuarios nuevos de eBay. ¿Por qué crees que este grupo responde de forma diferente? ¿Qué nos dice esto sobre la importancia de analizar los resultados de un experimento por subgrupos en lugar de solo mirar el efecto promedio?</p></li>
+<li><p><strong>El mapa del tesoro (Conceptual).</strong> El capítulo usa la metáfora de un mapa del tesoro para explicar por qué es útil pensar en el experimento ideal incluso cuando no lo puedes ejecutar. Toma una de las siguientes preguntas y describe cuál sería el experimento ideal y por qué no se puede llevar a cabo: (a) ¿El salario mínimo reduce el empleo? (b) ¿Tener un título universitario aumenta los ingresos? (c) ¿Las redes sociales causan depresión en adolescentes?</p></li>
+<li><p><strong>Ética en los experimentos (Reflexión).</strong> Facebook (ahora Meta) fue criticado en 2014 por un experimento en el que manipuló el <em>news feed</em> de algunos usuarios para mostrarles más contenido negativo y estudiar el efecto en sus emociones. ¿Dónde crees que está la línea entre un experimento de negocios legítimo (como una prueba A/B de un botón) y un experimento éticamente cuestionable? ¿Qué criterios usarías para decidir si un experimento es aceptable?</p></li>
+<li><p><strong>De la teoría a la práctica (Aplicación).</strong> Encuentra un ejemplo real de una prueba A/B publicada por una empresa (muchas empresas de tecnología publican sus resultados en blogs de ingeniería). Describe: (a) qué probaron, (b) cómo midieron el resultado, (c) qué encontraron, y (d) si crees que el diseño del experimento fue adecuado. Si no encuentras un ejemplo, puedes usar el caso del botón de “Comprar” de Amazon o cualquier caso conocido.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/II-Inferencia-Causal"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03-resultados-potenciales.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">El modelo de resultados potenciales</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../III-Modelos/05-regresion.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Una guía para entender y hacer modelos de Regresión Lineal</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-experimentos-son-el-gold-standard-de-la-ciencia">Los experimentos son el <em>gold standard</em> de la ciencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-se-usan-experimentos-para-hacer-inferencia-causal-en-los-negocios">¿Por qué se usan experimentos para hacer inferencia causal en los negocios?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-pasa-cuando-no-se-puede-hacer-un-experimento">¿Qué pasa cuando no se puede hacer un experimento?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aunque-no-lo-creas-hay-preguntas-que-no-se-pueden-resolver-ni-aun-con-un-experimento">Aunque no lo creas, hay preguntas que no se pueden resolver ni aún con un experimento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-el-efecto-de-las-busquedas-pagadas-en-las-ventas">Ejemplo: El efecto de las búsquedas pagadas en las ventas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-disena-el-experimento-ideal">Prompt: Diseña el experimento ideal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-capitulo">Resumen del capítulo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

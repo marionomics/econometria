@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Python para Econometría &#8212; Econometría e Inferencia Causal con ejemplos en Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/I-Introduccion/01-python-para-econometria';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Modelo de resultados potenciales" href="02-resultados-potenciales.html" />
+    <link rel="prev" title="Econometría e Inferencia Causal con ejemplos en python" href="../../intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Metrics4Blogo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/Metrics4Blogo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Econometría e Inferencia Causal con ejemplos en python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">I Introducción</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Python para Econometría</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-resultados-potenciales.html">Modelo de resultados potenciales</a></li>
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/marionomics/econometria/issues/new?title=Issue%20on%20page%20%2Fchapters/I-Introduccion/01-python-para-econometria.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/I-Introduccion/01-python-para-econometria.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Python para Econometría</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#florence-y-la-maquina">Florence y la Máquina</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-primer-paso-para-hacer-econometria-con-python">El primer paso para hacer econometría con python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#familiarizate-con-python">Familiarízate con Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modulos-de-python-para-hacer-econometria">Módulos de Python para hacer econometría</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-juego-de-loteria-con-python">Un juego de lotería con python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#con-esta-lista-ya-podemos-repartir-las-tablas">Con esta lista ya podemos repartir las tablas.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cantar-las-cartas">Cantar las cartas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marcando-las-cartas"><strong>Marcando las Cartas</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verificando-el-ganador"><strong>Verificando el Ganador</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas-frecuentes-en-las-primeras-sesiones-de-python">Preguntas frecuentes en las primeras sesiones de python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ya-sabes-usar-python-ahora-aprendamos-econometria">Ya sabes usar Python, ahora aprendamos econometría</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="python-para-econometria">
+<h1>Python para Econometría<a class="headerlink" href="#python-para-econometria" title="Permalink to this heading">#</a></h1>
+<p>Si no sabes con qué lenguaje comenzar a aprender econometría, tu mejor opción es Python.</p>
+<p>En las escuelas enseñan con Eviews o con Stata. R también es un genial para la estadística: es el que he usado por años. Pero si tuviera que empezar de cero hoy a aprender econometría lo haría con Python.</p>
+<p>La razón de esto es la inteligencia artificial.</p>
+<ul class="simple">
+<li><p>Python es un lenguaje de programación general, no es sólo para estadística.</p></li>
+<li><p>Esto quiere decir que puedes integrarlo con diferentes soluciones y hacer productos con tus datos.</p></li>
+<li><p>Estamos en una nueva era donde la inteligencia artificial (IA) es la que se encarga de crear y modificar el código y tú eres el encargado de pensar.</p></li>
+</ul>
+<p>Hace un par de años programar en Python era una barrera gigante, hoy es trivial.</p>
+<p>Lo que importa es entender los modelos de la econometría, cómo funcionan y cómo usarlos. Esto requiere que nos adentremos a la filosofía sobre cómo entendemos causas y efecto sobre. Pero también necesitamos conocer bien las herramientas a nuestra disposición.</p>
+<p>Y nadie lo entendió mejor que una enfermera Rockstar del Siglo XIX.</p>
+<section id="florence-y-la-maquina">
+<h2>Florence y la Máquina<a class="headerlink" href="#florence-y-la-maquina" title="Permalink to this heading">#</a></h2>
+<p>Florence Nightingale fundó la enfermería moderna, pero salvó aún más vidas gracias a su genialidad estadística.</p>
+<p>La conocían como la dama de la linterna. Se le veía por las noches rondando en ayuda de los soldados durante la guerra de Crimea (<a class="reference external" href="https://archive.org/details/medicalwomenvict00swen_0/page/n7/mode/1up">Swenson, 1966</a>).  Se ofreció como voluntaria junto a un equipo de 38 enfermeras para atender a los heridos en combate.</p>
+<p>Ahí fue donde hizo la contribución más grande a la estadística, que la hizo famosa.
+<img alt="Florence_Nightingale" src="../../_images/florence.jpeg" /></p>
+<p>No es sino hasta que se registran datos de forma meticulosa que los patrones comienzan a emerger.</p>
+<p>Cuando llegó con su equipo a la guerra, se dio cuenta de que los malos cuidados médicos cobraban más vidas que las balas del enemigo. Había pocas medicinas, se ponía poca atención a la higiene y las infecciones eran comunes. Nightingale comenzó a hacer registros cuidadosos de todo y lo comunicó al gobierno británico.</p>
+<p>Impulsó cambios importantes que <strong>redujeron las muertes</strong> de 42 a 2% en el hospital.</p>
+<p>Convenció al gobierno británico de estos cambios gracias a gráficas innovadoras como ésta:
+<img alt="rose_diagram" src="../../_images/rose_diagram.jpeg" />
+El gráfico de arriba se llama diagrama de rosa. El área azul representa las muertes por enfermedades infecciosas prevenibles, el área roja son las muertes por heridas en batalla y el área negra son otras causas. El poder de este gráfico es que se vuelve evidente de inmediato lo importante que es la higiene para prevenir muertes en el hospital.</p>
+<p>En la época, hacer este tipo de gráficos requería muchas horas de trabajo. Hoy puedes hacerlo en minutos gracias a Python.</p>
+</section>
+<section id="el-primer-paso-para-hacer-econometria-con-python">
+<h2>El primer paso para hacer econometría con python<a class="headerlink" href="#el-primer-paso-para-hacer-econometria-con-python" title="Permalink to this heading">#</a></h2>
+<p>No necesitas instalar nada para empezar a hacer econometría.</p>
+<p>Python es un lenguaje de programación general que puedes instalar en tu computadora. Sólo necesitas <a class="reference external" href="https://www.python.org/">descargarlo</a>, instalarlo y descargar los módulos apropiados. Hacerlo de esta forma requiere un poco de experiencia y que sepas usar la terminal, entre otras cosas.</p>
+<p>Pero hay una forma más fácil.</p>
+<ul class="simple">
+<li><p>Entra a Google Colab.</p></li>
+<li><p>Si no tienes cuenta en Google, tiene que crearla.</p></li>
+<li><p>Da click en Nueva Notebook y comienza a trabajar.</p></li>
+<li><p>Para ejecutar un bloque de código, sólo necesitas picar el botón con el símbolo de play ▶️ o usa ctrl + Enter (cmnd + Enter en Mac)</p></li>
+</ul>
+<p>Los notebook de Google Colab son la mejor forma de hacer ciencia de datos con Python porque trabajar con datos requiere mucha prueba y error. Repetir pequeños bloques de código una y otra vez sin alterar el resto del programa. Si nunca has usado Python, las notebook te ayudarán a comenzar sin preocuparte por los detalles de instalación. Si eres un experto en Python te será evidente los dolores de cabeza que estás evitando al trabajar así.</p>
+</section>
+<section id="familiarizate-con-python">
+<h2>Familiarízate con Python<a class="headerlink" href="#familiarizate-con-python" title="Permalink to this heading">#</a></h2>
+<p>La mejor forma de aprender cualquier lenguaje de programación es jugar con él.</p>
+<p>Observa las siguientes operaciones. Ejecuta y modifica los ejemplos a tu gusto. Intenta predecir lo que vas a obtener de resultado antes de ejecutar.</p>
+<ul class="simple">
+<li><p>Sumas y restas (<code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">-</span> <span class="pre">3</span></code>)</p></li>
+<li><p>Multiplicaciones y divisiones (<code class="docutils literal notranslate"><span class="pre">7*2</span></code>, <code class="docutils literal notranslate"><span class="pre">9/3</span></code>)</p></li>
+<li><p>Potencias y raíces cuadradas (<code class="docutils literal notranslate"><span class="pre">3**2</span></code>, <code class="docutils literal notranslate"><span class="pre">16**(1/2)</span></code>)</p></li>
+<li><p>Concatenación de cadenas de texto (<code class="docutils literal notranslate"><span class="pre">&quot;Hola</span> <span class="pre">&quot;</span> <span class="pre">+</span> <span class="pre">&quot;mundo&quot;</span></code>)</p></li>
+<li><p>Comparaciones (<code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">&gt;</span> <span class="pre">3</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;hola&quot;</span> <span class="pre">==</span> <span class="pre">&quot;adiós&quot;</span></code>)</p></li>
+</ul>
+<p>Pero este libro no se trata de aprender a programar.</p>
+<p>Si quieres ser un maestro de la econometría, tienes que usar el código que hicieron otras personas.</p>
+<p>El código de los expertos.</p>
+</section>
+<section id="modulos-de-python-para-hacer-econometria">
+<h2>Módulos de Python para hacer econometría<a class="headerlink" href="#modulos-de-python-para-hacer-econometria" title="Permalink to this heading">#</a></h2>
+<p>Un módulo es un paquete con funciones que hizo alguien más para solucionar un problema.</p>
+<p>A diferencia de los programas estadísticos tradicionales como Stata o Eviews, Python requiere de paquetes especiales para hacer econometría. Cada paquete contiene funciones particulares para lo que deseas. La diferencia es que esos paquetes con funciones se descargan aparte y es necesario llamarlos cuando los quieres usar.</p>
+<p>Aquí hay algunos módulos de Python que son útiles para hacer econometría:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Statsmodels</span></code>: Modelos estadísticos y herramientas para realizar análisis de datos.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pandas</span></code>: Estructuras de datos flexibles y eficientes para manipular y analizar datos. Útil para trabajar con datos en formato tabular.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Numpy</span></code>: Biblioteca para el cálculo numérico en Python. Proporciona funciones y herramientas para trabajar con arreglos numéricos.</p></li>
+</ul>
+<p>En capítulos posteriores veremos ejemplos de <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> y <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, porque son los módulos que se usan para hacer modelos estadísticos y manipulación avanzada de datos.</p>
+<p>Aquí aprenderemos a usar <code class="docutils literal notranslate"><span class="pre">pandas</span></code> para manejar datos de manera visual y tabular.</p>
+</section>
+<section id="un-juego-de-loteria-con-python">
+<h2>Un juego de lotería con python<a class="headerlink" href="#un-juego-de-loteria-con-python" title="Permalink to this heading">#</a></h2>
+<p>La Lotería es un juego tradicional mexicano parecido al juego de Bingo.</p>
+<p>En este juego, en lugar de números se sacan tarjetas con diferentes personajes u objetos como una campana, la muerte o un borracho.</p>
+<p>Al inicio del juego se reparten cartas con pictogramas distribuidos de manera aleatoria. El jugador debe marcar lo que aparece en su carta. Gana el jugador que marca su carta completa.
+<img alt="loteria" src="../../_images/loteria.png" /></p>
+<p>Algunos conceptos importantes:</p>
+<ul class="simple">
+<li><p><strong>Mazo</strong>. Es el conjunto de todas las cartas individuales.</p></li>
+<li><p><strong>Carta</strong>. Cada carta tiene una imagen y su nombre. Por ejemplo: El valiente.</p></li>
+<li><p><strong>Tabla</strong>. Cada jugador tiene una tabla con 16 cartas aleatorias que debe de llenar conforme el gritón las menciona.</p></li>
+<li><p><strong>El gritón.</strong> Es la persona encargada de dar a conocer la siguiente carta a todos los jugadores.</p></li>
+</ul>
+<p>Para comenzar, invocamos los módulos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Con <code class="docutils literal notranslate"><span class="pre">pandas</span></code> ahora tienes el poder de crear y manipular bases de datos.</p>
+<p>Con <code class="docutils literal notranslate"><span class="pre">pandas</span></code> puedes cargar datos desde archivos <code class="docutils literal notranslate"><span class="pre">csv</span></code> o Excel, visualizarlo, quitar filas, cambiar columnas y hacer lo que sea con tus datos. Como nuestro proyecto es una lotería, vamos a necesitar números aleatorios, que son la especialidad del módulo <code class="docutils literal notranslate"><span class="pre">random</span></code>.</p>
+<p>Comencemos a incluir las cartas en una lista.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cartas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;La maceta&quot;</span><span class="p">,</span> <span class="s2">&quot;El borracho&quot;</span><span class="p">,</span> <span class="s2">&quot;La campana&quot;</span><span class="p">,</span> <span class="s2">&quot;El catrin&quot;</span><span class="p">,</span> <span class="s2">&quot;El violoncello&quot;</span><span class="p">,</span><span class="s2">&quot;La sandia&quot;</span><span class="p">,</span> <span class="s2">&quot;La chalupa&quot;</span><span class="p">,</span> <span class="s2">&quot;El gorrito&quot;</span><span class="p">,</span> <span class="s2">&quot;El arpa&quot;</span><span class="p">,</span> <span class="s2">&quot;El camaron&quot;</span><span class="p">,</span> <span class="s2">&quot;El barril&quot;</span><span class="p">,</span> <span class="s2">&quot;La dama&quot;</span><span class="p">,</span> <span class="s2">&quot;La bota&quot;</span><span class="p">,</span> <span class="s2">&quot;El pajaro&quot;</span><span class="p">,</span> <span class="s2">&quot;El melon&quot;</span><span class="p">,</span> <span class="s2">&quot;El cotorro&quot;</span><span class="p">,</span> <span class="s2">&quot;La palma&quot;</span><span class="p">,</span> <span class="s2">&quot;El mundo&quot;</span><span class="p">,</span> <span class="s2">&quot;El apache&quot;</span><span class="p">,</span> <span class="s2">&quot;El pescado&quot;</span><span class="p">,</span> <span class="s2">&quot;La muerte&quot;</span><span class="p">,</span> <span class="s2">&quot;El alacran&quot;</span><span class="p">,</span> <span class="s2">&quot;El gallo&quot;</span><span class="p">,</span> <span class="s2">&quot;La calavera&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Los conocedores de la lotería se podrán dar cuenta de que me faltó poner algunas cartas.</p>
+<p>No es problema. Podemos incluír las cartas que nos faltan más adelante. Usemos la función <code class="docutils literal notranslate"><span class="pre">append()</span></code> para agregar la carte de “El diablito” a nuestro mazo de cartas. También podemos usar <code class="docutils literal notranslate"><span class="pre">extend()</span></code> para agregar más elementos al mazo desde otra lista.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Con append podemos agregar un elemento adicional que nos faltaba</span>
+<span class="n">cartas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;El diablito&quot;</span><span class="p">)</span>
+<span class="c1"># Con extend podemos agregar los elementos de una lista a otra</span>
+<span class="n">cartas</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;El valiente&quot;</span><span class="p">,</span> <span class="s2">&quot;La corona&quot;</span><span class="p">,</span> <span class="s2">&quot;El barril&quot;</span><span class="p">])</span>
+<span class="c1"># Con print() mostramos </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cartas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;La maceta&#39;, &#39;El borracho&#39;, &#39;La campana&#39;, &#39;El catrin&#39;, &#39;El violoncello&#39;, &#39;La sandia&#39;, &#39;La chalupa&#39;, &#39;El gorrito&#39;, &#39;El arpa&#39;, &#39;El camaron&#39;, &#39;El barril&#39;, &#39;La dama&#39;, &#39;La bota&#39;, &#39;El pajaro&#39;, &#39;El melon&#39;, &#39;El cotorro&#39;, &#39;La palma&#39;, &#39;El mundo&#39;, &#39;El apache&#39;, &#39;El pescado&#39;, &#39;La muerte&#39;, &#39;El alacran&#39;, &#39;El gallo&#39;, &#39;La calavera&#39;, &#39;El diablito&#39;, &#39;El valiente&#39;, &#39;La corona&#39;, &#39;El barril&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="con-esta-lista-ya-podemos-repartir-las-tablas">
+<h3>Con esta lista ya podemos repartir las tablas.<a class="headerlink" href="#con-esta-lista-ya-podemos-repartir-las-tablas" title="Permalink to this heading">#</a></h3>
+<p>Una tabla de lotería tiene 16 cartas: cuatro a lo ancho y cuatro a lo largo. Usa <code class="docutils literal notranslate"><span class="pre">pandas</span></code> para crear un DataFrame para la tabla de cada jugador. Este DataFrame tendrá 16 cartas únicas del mazo y una columna adicional para marcar las cartas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">deck_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cartas</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Carta&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">crear_tabla</span><span class="p">(</span><span class="n">deck_df</span><span class="p">):</span>
+    <span class="n">tabla</span> <span class="o">=</span> <span class="n">deck_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tabla</span><span class="p">[</span><span class="s1">&#39;Marcada&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Add a new column for marking the cards</span>
+    <span class="k">return</span> <span class="n">tabla</span>
+
+<span class="c1"># Example of creating a table for a player</span>
+<span class="n">tabla_jugador</span> <span class="o">=</span> <span class="n">crear_tabla</span><span class="p">(</span><span class="n">deck_df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tabla del Jugador:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabla_jugador</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tabla del Jugador:
+             Carta  Marcada
+0         La palma    False
+1      La calavera    False
+2         El mundo    False
+3         El melon    False
+4         El gallo    False
+5        La muerte    False
+6        La sandia    False
+7          La dama    False
+8       La chalupa    False
+9   El violoncello    False
+10      El alacran    False
+11     El borracho    False
+12      El gorrito    False
+13       El apache    False
+14     El diablito    False
+15       La corona    False
+</pre></div>
+</div>
+</div>
+</div>
+<p>Esta función <strong><code class="docutils literal notranslate"><span class="pre">crear_tabla</span></code></strong> toma la lista de cartas y utiliza <strong><code class="docutils literal notranslate"><span class="pre">random.sample</span></code></strong> para seleccionar 16 cartas únicas de esa lista. <strong><code class="docutils literal notranslate"><span class="pre">random.sample</span></code></strong> es útil porque automáticamente se asegura de que no haya duplicados en la selección.</p>
+</section>
+<section id="cantar-las-cartas">
+<h3>Cantar las cartas<a class="headerlink" href="#cantar-las-cartas" title="Permalink to this heading">#</a></h3>
+<p>Ahora que tenemos las tablas, necesitamos una forma de “cantar” las cartas y que los jugadores revisen sus tablas.</p>
+<p>Podemos hacer esto con otra función muy sencilla. Hemos creado <code class="docutils literal notranslate"><span class="pre">canta_carta()</span></code>,  que selecciona una carta del mazo de forma aleatoria.</p>
+<p>Este código tiene un error. Normalmente cuando el “gritón” canta las cartas de lotería, ya no las reemplaza en el mazo y no volverán a salir. Para solucionar esto tendríamos que hacer que se elimine el elemento de la carta, pero dejaremos esto como ejercicio al lector.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cantar_carta</span><span class="p">(</span><span class="n">deck_df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">deck_df</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Carta&#39;</span><span class="p">]</span>
+
+<span class="c1"># Example of drawing a card</span>
+<span class="n">carta_cantada</span> <span class="o">=</span> <span class="n">cantar_carta</span><span class="p">(</span><span class="n">deck_df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Carta Cantada:&quot;</span><span class="p">,</span> <span class="n">carta_cantada</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Carta Cantada: La dama
+</pre></div>
+</div>
+</div>
+</div>
+<p>Esta función selecciona una carta al azar de la lista de cartas. Cada vez que se llama a la función, simula al “gritón” cantando una nueva carta.</p>
+</section>
+<section id="marcando-las-cartas">
+<h3><strong>Marcando las Cartas</strong><a class="headerlink" href="#marcando-las-cartas" title="Permalink to this heading">#</a></h3>
+<p>El Data Frame <code class="docutils literal notranslate"><span class="pre">tabla_jugador</span></code> tiene dos columnas. La primera tiene nuestras cartas y la segunda nos ayuda a marcar si el gritón ya dijo nuestra carta. Es nuestra columna de frijolitos.</p>
+<p>En la siguiente función primero se verifica si la carta cantada está en nuestra tabla. Lo hacemos con la palabra clave <code class="docutils literal notranslate"><span class="pre">if</span></code> , que cambia el elemento de la segunda columna a <code class="docutils literal notranslate"><span class="pre">True</span></code> si la tenemos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">marcar_carta</span><span class="p">(</span><span class="n">tabla</span><span class="p">,</span> <span class="n">carta_cantada</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">carta_cantada</span> <span class="ow">in</span> <span class="n">tabla</span><span class="p">[</span><span class="s1">&#39;Carta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="n">tabla</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tabla</span><span class="p">[</span><span class="s1">&#39;Carta&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">carta_cantada</span><span class="p">,</span> <span class="s1">&#39;Marcada&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;¡Carta marcada!&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Esta carta no está en tu tabla.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Example of marking a card</span>
+<span class="n">marcar_carta</span><span class="p">(</span><span class="n">tabla_jugador</span><span class="p">,</span> <span class="n">carta_cantada</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabla_jugador</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>¡Carta marcada!
+             Carta  Marcada
+0         La palma    False
+1      La calavera    False
+2         El mundo    False
+3         El melon    False
+4         El gallo    False
+5        La muerte    False
+6        La sandia    False
+7          La dama     True
+8       La chalupa    False
+9   El violoncello    False
+10      El alacran    False
+11     El borracho    False
+12      El gorrito    False
+13       El apache    False
+14     El diablito    False
+15       La corona    False
+</pre></div>
+</div>
+</div>
+</div>
+<p>De lo contrario, el sistema simplemente nos dirá que la carta no está en nuestra tabla y podemos volver a pedir al gritón que cante.</p>
+</section>
+<section id="verificando-el-ganador">
+<h3><strong>Verificando el Ganador</strong><a class="headerlink" href="#verificando-el-ganador" title="Permalink to this heading">#</a></h3>
+<p>La función <code class="docutils literal notranslate"><span class="pre">all()</span></code> verifica si todos los valores en la columna “Marcada” tiene valor verdadero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">verificar_ganador</span><span class="p">(</span><span class="n">tabla</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">tabla</span><span class="p">[</span><span class="s1">&#39;Marcada&#39;</span><span class="p">])</span>
+
+<span class="c1"># Example of checking for a winner</span>
+<span class="k">if</span> <span class="n">verificar_ganador</span><span class="p">(</span><span class="n">tabla_jugador</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;¡Felicidades, has ganado!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sigue jugando.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sigue jugando.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Cuando tu tabla tiene todas las cartas marcadas, haz ganado.</p>
+</section>
+<section id="preguntas-frecuentes-en-las-primeras-sesiones-de-python">
+<h3>Preguntas frecuentes en las primeras sesiones de python<a class="headerlink" href="#preguntas-frecuentes-en-las-primeras-sesiones-de-python" title="Permalink to this heading">#</a></h3>
+<p>Tengo ya bastante experiencia enseñando a programar por primera vez para reconocer los problemas más comunes al inicio. Regresa a esta lista si te encuentras en problemas, tal vez encuentres tu problema aquí.</p>
+<ul class="simple">
+<li><p><strong>Me apareció error.</strong> En los lenguajes de programación no hay errores genéricos. Siempre tienes que revisar con detalle</p></li>
+<li><p><strong>No puedo cargar el módulo</strong>. Asegúrate que estés utilizando el entorno correcto donde el módulo está instalado. Si estás usando Google Colab, los módulos más comunes como <strong><code class="docutils literal notranslate"><span class="pre">pandas</span></code></strong> y <strong><code class="docutils literal notranslate"><span class="pre">numpy</span></code></strong> ya están preinstalados. Si estás en tu propia máquina, quizás necesites instalar el módulo usando pip, por ejemplo, <strong><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pandas</span></code></strong>.</p></li>
+<li><p><strong>Mi código no hace lo que espero.</strong> Revisa cada línea cuidadosamente. Asegúrate de entender qué hace cada parte del código. A veces, un pequeño error como una letra mal escrita o una indentación incorrecta puede causar problemas.</p></li>
+<li><p><strong>No entiendo el error que me muestra Python.</strong> Los mensajes de error pueden ser confusos al principio. Lee el mensaje completo; a menudo, la última línea te da una pista sobre lo que está mal. Si no entiendes el mensaje, intenta buscarlo en internet. Es muy probable que alguien más haya tenido el mismo problema.</p></li>
+<li><p><strong>El código se ejecuta, pero no pasa nada.</strong> Verifica que estés llamando a las funciones correctamente y que estés pasando los argumentos correctos. También asegúrate de que cualquier cambio que esperes ver se esté mostrando o guardando adecuadamente.</p></li>
+<li><p><strong>¿Cómo instalo un módulo de Python?</strong> Generalmente, puedes instalar módulos de Python usando pip. Por ejemplo, para instalar <strong><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></strong>, usarías <strong><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">matplotlib</span></code></strong> en tu terminal o línea de comandos.</p></li>
+<li><p><strong>¿Cómo sé qué módulo usar para una tarea específica?</strong> La experiencia te ayudará a conocer qué módulos son mejores para diferentes tareas. Mientras tanto, busca recomendaciones en línea o en libros de texto sobre Python. La comunidad de Python es muy activa y hay muchos recursos disponibles.</p></li>
+<li><p><strong>¿Cómo puedo mejorar en Python?</strong> La práctica es clave. Trabaja en pequeños proyectos, resuelve problemas y trata de leer y entender el código de otras personas. También, participar en comunidades en línea y foros puede ser muy útil.</p></li>
+</ul>
+</section>
+</section>
+<section id="ya-sabes-usar-python-ahora-aprendamos-econometria">
+<h2>Ya sabes usar Python, ahora aprendamos econometría<a class="headerlink" href="#ya-sabes-usar-python-ahora-aprendamos-econometria" title="Permalink to this heading">#</a></h2>
+<p>Lo más importante es practicar.</p>
+<p>No hay libro que te de la suficiente experiencia antes de comenzar a construir tus propios modelos. Necesitas empezar hoy mismo a modelar, a obtener datos y a jugar con ellos. Es a prueba y error que tu mente te hará un experto en econometría.</p>
+<p>Es momento de comenzar con las matemáticas.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/I-Introduccion"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Econometría e Inferencia Causal con ejemplos en python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02-resultados-potenciales.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Modelo de resultados potenciales</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#florence-y-la-maquina">Florence y la Máquina</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-primer-paso-para-hacer-econometria-con-python">El primer paso para hacer econometría con python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#familiarizate-con-python">Familiarízate con Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modulos-de-python-para-hacer-econometria">Módulos de Python para hacer econometría</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-juego-de-loteria-con-python">Un juego de lotería con python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#con-esta-lista-ya-podemos-repartir-las-tablas">Con esta lista ya podemos repartir las tablas.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cantar-las-cartas">Cantar las cartas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marcando-las-cartas"><strong>Marcando las Cartas</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verificando-el-ganador"><strong>Verificando el Ganador</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas-frecuentes-en-las-primeras-sesiones-de-python">Preguntas frecuentes en las primeras sesiones de python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ya-sabes-usar-python-ahora-aprendamos-econometria">Ya sabes usar Python, ahora aprendamos econometría</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mario Alberto García Meza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
