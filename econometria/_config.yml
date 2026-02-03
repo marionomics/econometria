@@ -1,9 +1,9 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: Econometría e Inferencia Causal con ejemplos en Python
+title: "Inferencia Causal: un manual práctico de econometría en Python con ejemplos de negocios"
 author: Mario Alberto García Meza
-logo: Metrics4Blogo.png
+logo: banner.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html

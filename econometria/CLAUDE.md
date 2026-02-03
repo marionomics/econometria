@@ -2,7 +2,7 @@
 
 ## Project overview
 
-This is a Jupyter Book project for an online econometrics textbook: "Econometría e Inferencia Causal con ejemplos en Python" by Mario Alberto García Meza. The book is written in Spanish and published via GitHub Pages.
+This is a Jupyter Book project for an online econometrics textbook: "Inferencia Causal: un manual práctico de econometría en Python con ejemplos de negocios" by Mario Alberto García Meza. The book is written in Spanish and published via GitHub Pages.
 
 ## Repository structure
 
@@ -16,7 +16,10 @@ This is a Jupyter Book project for an online econometrics textbook: "Econometrí
   - `III-Modelos/` — Chapters 05-08 (regression, time series, fixed effects, diff-in-diff)
   - `IV-Negocios/` — Chapters 09-10 (iteration, market research with AI)
 - `figures/` — Images and diagrams used in chapters
+- `referencias.md` — Bibliography page (renders all entries from references.bib)
+- `banner.png` — Book logo/banner
 - `_build/` — Generated output (not committed)
+- `../Inferencia/` — Original LaTeX source files for the book
 
 ## Build commands
 
