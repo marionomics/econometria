@@ -1,0 +1,26 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:                 Sales   R\PYGZhy{}squared:                       0.903
+Model:                            OLS   Adj. R\PYGZhy{}squared:                  0.901
+Method:                 Least Squares   F\PYGZhy{}statistic:                     605.4
+Date:                Wed, 07 Feb 2024   Prob (F\PYGZhy{}statistic):           8.13e\PYGZhy{}99
+Time:                        10:42:10   Log\PYGZhy{}Likelihood:                \PYGZhy{}383.34
+No. Observations:                 200   AIC:                             774.7
+Df Residuals:                     196   BIC:                             787.9
+Df Model:                           3
+Covariance Type:            nonrobust
+==============================================================================
+                 coef    std err          t      P\PYGZgt{}|t|      [0.025      0.975]
+\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}
+const          4.6251      0.308     15.041      0.000       4.019       5.232
+TV             0.0544      0.001     39.592      0.000       0.052       0.057
+Radio          0.1070      0.008     12.604      0.000       0.090       0.124
+Newspaper      0.0003      0.006      0.058      0.954      \PYGZhy{}0.011       0.012
+==============================================================================
+Omnibus:                       16.081   Durbin\PYGZhy{}Watson:                   2.251
+Prob(Omnibus):                  0.000   Jarque\PYGZhy{}Bera (JB):               27.655
+Skew:                          \PYGZhy{}0.431   Prob(JB):                     9.88e\PYGZhy{}07
+Kurtosis:                       4.605   Cond. No.                         454
+==============================================================================
+\end{MintedVerbatim}

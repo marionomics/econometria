@@ -1,0 +1,711 @@
+% ---------------- GLOSARIO CAUSAL ----------------
+\newglossaryentry{inferencia-causal}{
+  name={inferencia causal},
+  sort=inferenciacausal,
+  description={Disciplina que estudia cómo identificar y cuantificar relaciones de causa–efecto 
+               a partir de datos observacionales o experimentales, combinando teoría estadística
+               y supuestos sobre el proceso generador de datos}
+}
+
+\newglossaryentry{experimento-natural}{
+  name={experimento natural},
+  sort=experimentonatural,
+  description={Situación del mundo real en la que eventos, políticas o cambios institucionales 
+               generan una asignación \textit{casi} aleatoria de un tratamiento, lo que permite 
+               estimar efectos causales sin un ensayo controlado tradicional}
+}
+
+\newglossaryentry{exceso-de-muertes}{
+  name={exceso de muertes},
+  sort=excesodemuertes,
+  description={Diferencia entre el número observado de fallecimientos en un periodo y el número 
+               esperado según patrones históricos; indicador para evaluar el efecto causal de 
+               crisis sanitarias, desastres o políticas públicas}
+}
+% --------------------------------------------------
+
+% --- GLOSARIO | Cap. “Los negocios son matemáticas” ------------------
+
+\newglossaryentry{regresionlineal}{
+  name={regresión lineal},
+  sort=regresionlineal,
+  description={Modelo estadístico que relaciona una variable dependiente
+               con una o más variables independientes mediante una función
+               lineal; punto de partida clásico para estimar efectos causales
+               cuando se cumplen sus supuestos}
+}
+
+\newglossaryentry{diferenciasendiferencias}{
+  name={diferencias en diferencias},
+  sort=diferenciasendiferencias,
+  description={Diseño cuasi-experimental que estima un efecto causal al
+               comparar la evolución temporal de un grupo tratado y uno de
+               control, bajo el supuesto de tendencias paralelas}
+}
+
+\newglossaryentry{grupodecontrol}{
+  name={grupo de control},
+  sort=grupodecontrol,
+  description={Conjunto de unidades que no recibe el tratamiento en un
+               experimento o cuasi-experimento; permite aproximar el resultado
+               contrafactual y aislar el efecto causal}
+}
+
+\newglossaryentry{correlacioncausalidad}{
+  name={correlación vs.\ causalidad},
+  sort=correlacioncausalidad,
+  description={Distinción fundamental entre asociaciones estadísticas
+               (correlación) y relaciones de causa–efecto (causalidad); 
+               confundirlas conduce a inferencias erróneas}
+}
+
+\newglossaryentry{pruebasdehipotesis}{
+  name={pruebas de hipótesis},
+  sort=pruebasdehipotesis,
+  description={Procedimientos estadísticos que contrastan afirmaciones sobre
+               parámetros mediante un estadístico y una regla de decisión; en
+               inferencia causal se usan para evaluar la significancia de los
+               efectos estimados}
+}
+
+\newglossaryentry{variablealeatoria}{
+  name={variable aleatoria},
+  sort=variablealeatoria,
+  description={Función que asigna valores numéricos a los resultados de un
+               experimento aleatorio; concepto base para describir
+               distribuciones y estimadores en econometría causal}
+}
+% --------------------------------------------------------------------
+
+% --- GLOSARIO | Cap. “Python para hacer Econometría” -----------------
+
+\newglossaryentry{python}{
+  name={Python},
+  sort=python,
+  description={Lenguaje de programación de propósito general, 
+               ampliamente usado en ciencia de datos y econometría
+               gracias a su sintaxis sencilla y a un ecosistema extenso
+               de bibliotecas estadísticas}
+}
+
+\newglossaryentry{googlecolab}{
+  name={Google Colab},
+  sort=googlecolab,
+  description={Servicio gratuito en la nube que ofrece cuadernos 
+               Jupyter con GPU/CPU preconfiguradas y librerías
+               de ciencia de datos; permite ejecutar código Python
+               sin instalar nada en local}
+}
+
+\newglossaryentry{notebook}{
+  name={notebook (cuaderno Jupyter)},
+  sort=notebook,
+  description={Documento interactivo que combina texto, código
+               ejecutable y resultados; facilita el análisis
+               econométrico iterativo y reproducible}
+}
+
+\newglossaryentry{pandas}{
+  name={\texttt{pandas}},
+  sort=pandas,
+  description={Biblioteca de Python que provee estructuras de datos
+               como \textit{Series} y \textit{DataFrame}; pilar para
+               la limpieza, transformación y exploración de datos
+               tabulares en econometría}
+}
+
+\newglossaryentry{dataframe}{
+  name={DataFrame},
+  sort=dataframe,
+  description={Estructura tabular de \texttt{pandas} con índice y
+               columnas etiquetadas; análoga a una hoja de cálculo
+               pero optimizada para operaciones vectorizadas}
+}
+
+\newglossaryentry{numpy}{
+  name={\texttt{NumPy}},
+  sort=numpy,
+  description={Paquete fundamental para computación numérica en
+               Python; ofrece arrays multidimensionales y rutinas
+               de álgebra lineal que subyacen a la mayoría de los
+               modelos econométricos}
+}
+
+\newglossaryentry{statsmodels}{
+  name={\texttt{statsmodels}},
+  sort=statsmodels,
+  description={Biblioteca de Python orientada a econometría y
+               estadística; incluye regresiones lineales, modelos
+               de series de tiempo y pruebas de hipótesis}
+}
+
+% --- Más entradas útiles --------------------------------------------
+
+\newglossaryentry{stata}{
+  name={Stata},
+  sort=stata,
+  description={Paquete estadístico propietario muy popular en econometría
+               aplicada; destaca por su sintaxis compacta y amplia
+               colección de comandos para modelos lineales, paneles
+               y series de tiempo}
+}
+
+\newglossaryentry{eviews}{
+  name={Eviews},
+  sort=eviews,
+  description={Software comercial orientado a análisis econométrico y
+               pronóstico; integra interfaz gráfica para estimar modelos,
+               ejecutar scripts y generar reportes de series de tiempo}
+}
+
+\newglossaryentry{rlang}{
+  name={R},
+  sort=r,
+  description={Lenguaje de programación y entorno especializado en
+               estadística y visualización de datos; base de muchos
+               paquetes econométricos (p.\,ej.\ \textit{plm}, \textit{fixest})
+               y punto de referencia para análisis reproducible}
+}
+
+
+\newglossaryentry{inteligenciaartificial}{
+  name={inteligencia artificial (IA)},
+  sort=inteligenciaartificial,
+  description={Campo de la informática que desarrolla sistemas capaces
+               de realizar tareas que normalmente requieren inteligencia
+               humana; en ciencia de datos incluye aprendizaje automático
+               y modelos generativos que hoy asisten la programación y
+               el análisis econométrico}
+}
+
+% --------------------------------------------------------------------
+
+% --- GLOSARIO | Cap. “Modelos de Regresión Lineal” ------------------
+
+\newglossaryentry{ols}{
+  name={mínimos cuadrados ordinarios (OLS)},
+  sort=minimoscuadradosordinarios,
+  description={Método que estima los coeficientes de la regresión
+               lineal minimizando la suma de los residuos al cuadrado}
+}
+
+\newglossaryentry{blue}{
+  name={BLUE},
+  sort=blue,
+  description={Siglas de \textit{Best Linear Unbiased Estimator};
+               afirma que, bajo los supuestos de Gauss-Márkov, OLS es el
+               estimador lineal insesgado con menor varianza}
+}
+
+\newglossaryentry{gauss-markov}{
+  name={teorema de Gauss–Márkov},
+  sort=gaussmarkov,
+  description={Resultado que demuestra que, si se cumplen cinco
+               supuestos (linealidad, muestreo aleatorio, ausencia de
+               colinealidad perfecta, exogeneidad y homoscedasticidad),
+               OLS es BLUE}
+}
+
+\newglossaryentry{multicolinealidad}{
+  name={multicolinealidad},
+  sort=multicolinealidad,
+  description={Situación en la que dos o más regresores están altamente
+               correlacionados, provocando estimaciones inestables y
+               errores estándar inflados}
+}
+
+\newglossaryentry{homoscedasticidad}{
+  name={homoscedasticidad},
+  sort=homoscedasticidad,
+  description={Propiedad según la cual la varianza de los errores es
+               constante para todos los valores de los regresores}
+}
+
+\newglossaryentry{heteroscedasticidad}{
+  name={heteroscedasticidad},
+  sort=heteroscedasticidad,
+  description={Caso opuesto a la homoscedasticidad; la varianza del
+               error cambia con el nivel de los regresores, violando un
+               supuesto clave de OLS}
+}
+
+\newglossaryentry{vif}{
+  name={factor de inflación de la varianza (VIF)},
+  sort=vif,
+  description={Índice que cuantifica cuánto aumenta la varianza del
+               coeficiente de un regresor debido a la multicolinealidad;
+               valores superiores a 5–10 indican posible problema}
+}
+
+\newglossaryentry{r-cuadrado}{
+  name={$R^{2}$},
+  sort=rcuadrado,
+  description={Medida de ajuste que indica la proporción de la
+               variación de la variable dependiente explicada por el
+               modelo; varía entre 0 y 1}
+}
+
+\newglossaryentry{estadistico-f}{
+  name={estadístico $F$},
+  sort=estadisticof,
+  description={Contrasta la hipótesis nula de que todos los
+               coeficientes (excepto la constante) son cero contra la
+               alternativa de que al menos uno es distinto de cero}
+}
+
+\newglossaryentry{p-value}{
+  name={\emph{p-value}},
+  sort=pvalue,
+  description={Probabilidad de obtener un estadístico tan extremo como
+               el observado si la hipótesis nula fuera cierta; valores
+               pequeños sugieren rechazar $H_{0}$}
+}
+
+\newglossaryentry{intervalo-confianza}{
+  name={intervalo de confianza},
+  sort=intervaloconfianza,
+  description={Rango que, con una probabilidad pre-especificada
+               (p.\,ej.\ 95 \%), contiene el verdadero valor del
+               parámetro poblacional}
+}
+
+\newglossaryentry{error-estandar}{
+  name={error estándar},
+  sort=errorestandar,
+  description={Estimación de la desviación típica de la distribución
+               muestral de un coeficiente; mide la precisión de la
+               estimación}
+}
+
+\newglossaryentry{residuales}{
+  name={residuales},
+  sort=residuales,
+  description={Diferencias entre los valores observados y los
+               predichos por el modelo; se emplean para diagnosticar los
+               supuestos de la regresión}
+}
+
+\newglossaryentry{endogeneidad}{
+  name={endogeneidad},
+  sort=endogeneidad,
+  description={Situación en la que un regresor está correlacionado con
+               el término de error, violando el supuesto de exogeneidad
+               y sesgando las estimaciones}
+}
+
+\newglossaryentry{media-condicional-cero}{
+  name={media condicional cero},
+  sort=mediacondicionalcero,
+  description={Supuesto clave que exige que el valor esperado del error
+               sea cero condicional a los regresores
+               ($E[\varepsilon|X]=0$); garantiza exogeneidad}
+}
+
+% --- GLOSARIO | Cap. “Experimentos y Pruebas A/B” --------------------
+
+\newglossaryentry{abtesting}{
+  name={prueba A/B},
+  sort=abtesting,
+  description={Experimento controlado en el que se comparan dos variantes
+               (A y B) que difieren en un solo elemento; la asignación
+               aleatoria de usuarios permite estimar el efecto causal de
+               la variante sobre un KPI (p.\,ej., tasa de conversión)}
+}
+
+\newglossaryentry{goldstandard}{
+  name={gold standard experimental},
+  sort=goldstandard,
+  description={Expresión que alude al ensayo controlado aleatorio como
+               referencia máxima para identificar efectos causales,
+               pues elimina sesgos mediante aleatorización y control}
+}
+
+\newglossaryentry{aleatorizacion}{
+  name={aleatorización},
+  sort=aleatorizacion,
+  description={Proceso de asignar unidades a tratamiento o control
+               usando un mecanismo de azar; garantiza balance de
+               variables observadas y no observadas, fundamento de la
+               inferencia causal en experimentos}
+}
+
+\newglossaryentry{grupodetratamiento}{
+  name={grupo de tratamiento},
+  sort=grupodetratamiento,
+  description={Conjunto de unidades que recibe la intervención o
+               variante bajo estudio; se compara con el grupo de control
+               para calcular el efecto causal}
+}
+
+\newglossaryentry{experimentoideal}{
+  name={experimento ideal},
+  sort=experimentoideal,
+  description={Diseño hipotético sin restricciones prácticas ni éticas
+               que ayuda a clarificar el mecanismo causal y la estrategia
+               de identificación cuando un ensayo real no es factible}
+}
+
+% --- GLOSARIO | Cap. “El modelo de resultados potenciales” ----------
+
+\newglossaryentry{resultados-potenciales}{
+  name={resultados potenciales},
+  sort=resultadospotenciales,
+  description={Marco teórico que asocia a cada unidad dos posibles
+               resultados: el que observaría si recibe el tratamiento
+               ($Y_{1}$) y el que observaría si no lo recibe ($Y_{0}$).
+               Sólo uno se observa en la práctica}
+}
+
+\newglossaryentry{contrafactual}{
+  name={contrafactual},
+  sort=contrafactual,
+  description={Resultado potencial que \emph{no} se observa en la
+               realidad; describe lo que habría ocurrido bajo un estado
+               alternativo del mundo}
+}
+
+\newglossaryentry{variable-dummy}{
+  name={variable indicadora (\textit{dummy})},
+  sort=variabledummy,
+  description={Variable binaria que toma valor 1 cuando la unidad
+               pertenece a un grupo (p.\,ej.\ tratamiento) y 0 en caso
+               contrario; útil para codificar categorías en modelos
+               econométricos}
+}
+
+\newglossaryentry{grupo-tratamiento}{
+  name={grupo de tratamiento},
+  sort=grupotratamiento,
+  description={Conjunto de unidades que reciben la intervención o
+               condición cuyo efecto causal se desea estimar}
+}
+
+
+\newglossaryentry{sesgo-seleccion}{
+  name={sesgo de selección},
+  sort=sesgoseleccion,
+  description={Distorsión que surge cuando la asignación al tratamiento
+               no es aleatoria y está correlacionada con los resultados
+               potenciales, de modo que la comparación directa entre
+               grupos produce estimaciones sesgadas}
+}
+
+\newglossaryentry{att}{
+  name={ATT},
+  sort=att,
+  description={\textit{Average Treatment on the Treated} (tratamiento
+               promedio en los tratados): $E[Y_{1}-Y_{0}\mid D=1]$, el
+               efecto causal medio para las unidades que efectivamente
+               recibieron el tratamiento}
+}
+
+\newglossaryentry{rct}{
+  name={ensayo controlado aleatorizado (RCT)},
+  sort=rct,
+  description={Diseño experimental en el que las unidades se asignan al
+               tratamiento o al control mediante un procedimiento
+               aleatorio, eliminando el sesgo de selección y
+               permitiendo estimar efectos causales de manera creíble}
+}
+
+
+% --- GLOSARIO | Cap. “Series de tiempo” ------------------------------
+
+\newglossaryentry{serie-tiempo}{
+  name={serie de tiempo},
+  sort=serietiempo,
+  description={Secuencia ordenada $\{X_t\}$ de observaciones de una
+               variable aleatoria a lo largo del tiempo}
+}
+
+\newglossaryentry{estacionariedad}{
+  name={estacionariedad},
+  sort=estacionariedad,
+  description={Propiedad de un proceso estocástico cuyas
+               características estadísticas (media, varianza y
+               autocovarianza) permanecen constantes en el tiempo}
+}
+
+\newglossaryentry{caminata-aleatoria}{
+  name={caminata aleatoria},
+  sort=caminataaleatoria,
+  description={Proceso $X_t=X_{t-1}+\varepsilon_t$ donde $\varepsilon_t$
+               es ruido blanco; ejemplo clásico de serie no
+               estacionaria}
+}
+
+\newglossaryentry{ruido-blanco}{
+  name={ruido blanco},
+  sort=ruidoblanco,
+  description={Secuencia de innovaciones $\{\varepsilon_t\}$ con media
+               cero, varianza constante finita y nula correlación serial}
+}
+
+\newglossaryentry{raiz-unitaria}{
+  name={raíz unitaria},
+  sort=raizunitaria,
+  description={Raíz del polinomio autoregresivo igual a 1; su presencia
+               indica no-estacionariedad}
+}
+
+\newglossaryentry{dickey-fuller}{
+  name={prueba Dickey–Fuller (ADF)},
+  sort=dickeyfuller,
+  description={Contrastación estadística para la hipótesis de raíz
+               unitaria; rechazar la hipótesis nula implica
+               estacionariedad}
+}
+
+\newglossaryentry{diferencia}{
+  name={diferencia de la serie},
+  sort=diferencia,
+  description={Transformación $\Delta X_t = X_t - X_{t-1}$ (o de orden
+               superior) usada para inducir estacionariedad}
+}
+
+\newglossaryentry{acf}{
+  name={ACF},
+  sort=acf,
+  description={\textit{Autocorrelation Function}: gráfico de las
+               autocorrelaciones muestrales en distintos rezagos}
+}
+
+\newglossaryentry{pacf}{
+  name={PACF},
+  sort=pacf,
+  description={\textit{Partial Autocorrelation Function}: muestra las
+               autocorrelaciones \emph{condicionales}; útil para fijar
+               el orden $p$ de un modelo AR}
+}
+
+\newglossaryentry{modelo-ar}{
+  name={modelo autorregresivo AR($p$)},
+  sort=modeloar,
+  description={Modelo lineal que explica $Y_t$ a partir de sus $p$
+               rezagos: $Y_t=\sum_{i=1}^{p}\phi_i Y_{t-i}+\varepsilon_t$}
+}
+
+\newglossaryentry{modelo-ma}{
+  name={modelo de medias móviles MA($q$)},
+  sort=modeloma,
+  description={Modelo que expresa $Y_t$ como combinación lineal de los
+               rezagos del error: $Y_t=\sum_{j=1}^{q}\theta_j
+               \varepsilon_{t-j}+\varepsilon_t$}
+}
+
+\newglossaryentry{modelo-arma}{
+  name={modelo ARMA($p,q$)},
+  sort=modeloarma,
+  description={Combina componentes AR($p$) y MA($q$) en un solo
+               esquema: $Y_t=\sum_{i=1}^p\phi_i Y_{t-i}
+               +\sum_{j=1}^q\theta_j\varepsilon_{t-j}+\varepsilon_t$}
+}
+
+\newglossaryentry{modelo-arima}{
+  name={modelo ARIMA($p,d,q$)},
+  sort=modeloarima,
+  description={Extensión del ARMA a series no estacionarias mediante
+               $d$ diferencias (Integración)}
+}
+
+\newglossaryentry{orden-rezago}{
+  name={orden de rezago},
+  sort=ordenrezago,
+  description={Número de retardos ($p$ en AR, $q$ en MA) incorporados
+               al modelo}
+}
+
+\newglossaryentry{aic}{
+  name={AIC},
+  sort=aic,
+  description={\textit{Akaike Information Criterion}: medida de
+               selección de modelos que penaliza la complejidad;
+               menor AIC $\Rightarrow$ mejor ajuste/parcimonia}
+}
+
+\newglossaryentry{bic}{
+  name={BIC},
+  sort=bic,
+  description={\textit{Bayesian Information Criterion}: versión más
+               restrictiva que el AIC para comparar modelos}
+}
+
+
+% --- GLOSARIO | Cap. “Efectos fijos” ---------------------------------
+
+\newglossaryentry{datos-panel}{
+  name={datos en panel},
+  sort=datospanel,
+  description={Conjunto de observaciones $\{Y_{it}\}$ que combina
+               dimensión transversal ($i$) y temporal ($t$) para los
+               mismos individuos o unidades}
+}
+
+\newglossaryentry{efectos-fijos}{
+  name={efectos fijos},
+  sort=efectosfijos,
+  description={Método de estimación que controla inobservables constantes
+               dentro de cada unidad (o periodo) añadiendo una constante
+               específica; se basa en la variación \textit{within}}
+}
+
+\newglossaryentry{within}{
+  name={transformación within},
+  sort=within,
+  description={Centrado de cada variable respecto a su media por
+               individuo: $\ddot X_{it}=X_{it}-\bar X_i$; elimina el
+               término constante $U_i$ de los efectos fijos}
+}
+
+\newglossaryentry{efectos-fijos-dos-vias}{
+  name={efectos fijos de dos vías},
+  sort=efectosfijosdosvias,
+  description={Modelo que introduce efectos fijos
+               \emph{por entidad} ($U_i$) y
+               \emph{por tiempo} ($U_t$) simultáneamente}
+}
+
+\newglossaryentry{poolabilidad}{
+  name={prueba de poolabilidad},
+  sort=poolabilidad,
+  description={Contrastación (F-test) para decidir si un modelo
+               agrupado sin efectos fijos es apropiado frente a un
+               modelo con efectos fijos}
+}
+
+% --- GLOSARIO | Cap. “Diferencias-en-diferencias” ---------------------
+
+\newglossaryentry{did}{
+  name={diferencias en diferencias},
+  text={DiD},
+  sort=diferenciasendiferencias,
+  description={Estrategia cuasi-experimental que identifica un efecto
+               causal comparando la variación temporal de un grupo
+               tratado con la de un grupo de control}
+}
+
+
+\newglossaryentry{sutva}{
+  name={SUTVA},
+  sort=sutva,
+  description={\textit{Stable Unit Treatment Value Assumption}:
+               no-interferencia entre unidades y único valor de
+               tratamiento}
+}
+
+\newglossaryentry{no-anticipacion}{
+  name={supuesto de no anticipación},
+  sort=noanticipacion,
+  description={Los resultados potenciales previos al tratamiento no
+               se ven afectados por la futura asignación de éste}
+}
+
+\newglossaryentry{superposicion-fuerte}{
+  name={superposición fuerte},
+  sort=superposicionfuerte,
+  description={Para cada estrato de covariables existe probabilidad
+               positiva de pertenecer a cualquier grupo de tratamiento}
+}
+
+\newglossaryentry{tendencias-paralelas}{
+  name={tendencias paralelas},
+  sort=tendenciasparalelas,
+  description={Supuesto clave de DiD: en ausencia de tratamiento, la
+               evolución promedio del resultado sería igual en ambos
+               grupos}
+}
+
+\newglossaryentry{interaccion}{
+  name={término de interacción},
+  sort=interaccion,
+  description={Producto de dos variables (p.\,ej.\ $D_i\times T_t$)
+               que captura un efecto conjunto; en DiD su coeficiente es
+               el estimador causal}
+}
+
+% --- GLOSARIO | Cap. “Investigación de mercados e IA” ---------------
+
+\newglossaryentry{investigacion-mercados}{
+  name={investigación de mercado},
+  sort=investigacionmercado,
+  description={Proceso sistemático de obtención, organización y análisis
+               de información relevante sobre consumidores, competidores
+               y entorno, para apoyar la toma de decisiones de negocio}
+}
+
+\newglossaryentry{focus-group}{
+  name={grupo de enfoque},
+  text={focus-group},
+  sort=focusgroup,
+  description={Técnica cualitativa que reúne a varias personas bajo la
+               guía de un moderador para explorar actitudes, opiniones y
+               motivaciones acerca de un producto o idea}
+}
+
+\newglossaryentry{mom-test}{
+  name={\textit{Mom Test}},
+  sort=momtest,
+  description={Metodología de Rob Fitzpatrick para formular preguntas
+               que obliguen al entrevistado (incluso tu madre) a dar
+               retroalimentación honesta basada en hechos y no en
+               halagos}
+}
+
+\newglossaryentry{escala-likert}{
+  name={escala de Likert},
+  sort=likert,
+  description={Formato de pregunta cerrado en el que el encuestado
+               indica su nivel de acuerdo con una afirmación en una
+               gradación ordinal (p.\,ej.\ 1 – 5 o 1 – 7)}
+}
+
+% --- GLOSARIO | Cap. “Iterar para crear valor” -----------------------
+
+\newglossaryentry{mvp}{
+  name={MVP},
+  description={Sigla de \emph{mínimo producto viable}. Versión más
+               sencilla de un producto o servicio que permite poner a
+               prueba la propuesta de valor con el mínimo tiempo y
+               coste posibles, obteniendo retroalimentación temprana
+               del mercado},
+  text={MVP},
+  sort=mvp
+}
+
+\newglossaryentry{lean-startup}{
+  name={\textit{Lean Startup}},
+  sort=leanstartup,
+  description={Metodología de creación de negocios de Eric Ries
+               basada en ciclos rápidos “construir–medir–aprender”,
+               experimentación continua y aprendizaje validado para
+               reducir riesgo e inversión}
+}
+
+\newglossaryentry{vanity-metric}{
+  name={métrica de vanidad},
+  sort=vanitymetric,
+  description={Indicador que “luce” bien (p.\,ej.\ followers, likes) pero
+               no orienta la toma de decisiones porque no refleja
+               directamente la salud o el crecimiento económico del
+               negocio}
+}
+
+\newglossaryentry{cac}{
+  name={CAC},
+  description={\emph{Customer Acquisition Cost}. Costo total de captar
+               un nuevo cliente, calculado dividiendo la inversión en
+               marketing y ventas entre el número de clientes
+               adquiridos en un periodo},
+  text={CAC},
+  sort=cac
+}
+
+\newglossaryentry{hipotesis-mercados-eficientes}{
+  name={hipótesis de los mercados eficientes},
+  sort=mercadoseficientes,
+  description={Proposición de que toda la información relevante se
+               incorpora instantáneamente a los precios de mercado; de
+               ser cierta, las oportunidades de ganancia “fáciles” se
+               eliminan de forma inmediata}
+}
+

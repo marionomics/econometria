@@ -1,0 +1,33 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Importamos las librerías necesarias}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{pandas}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{pd}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{statsmodels}\PYG{n+nn}{.}\PYG{n+nn}{api}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{sm}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{statsmodels}\PYG{n+nn}{.}\PYG{n+nn}{formula}\PYG{n+nn}{.}\PYG{n+nn}{api}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{smf}
+
+\PYG{c+c1}{\PYGZsh{} Cargamos el dataset}
+\PYG{n}{file\PYGZus{}path} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{public\PYGZus{}use\PYGZus{}weighted\PYGZus{}prices2.csv}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{file\PYGZus{}path}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Agrupamos por año, mes, ubicación e impuesto, calculando el precio promedio}
+\PYG{n}{df\PYGZus{}grouped} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{groupby}\PYG{p}{(}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{year}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{month}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{location}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{tax}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{price}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reset\PYGZus{}index}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Convertimos \PYGZsq{}year\PYGZsq{} y \PYGZsq{}month\PYGZsq{} en un formato de fecha para el análisis}
+\PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{fecha}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{to\PYGZus{}datetime}\PYG{p}{(}\PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{year}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{month}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{]}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n+nb}{str}\PYG{p}{)}\PYG{o}{.}\PYG{n}{agg}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZhy{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n+nb}{format}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZpc{}}\PYG{l+s+s1}{Y\PYGZhy{}}\PYG{l+s+s1}{\PYGZpc{}}\PYG{l+s+s1}{m}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Definimos la fecha de implementación del impuesto (enero de 2015)}
+\PYG{n}{tax\PYGZus{}implementation\PYGZus{}date} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{to\PYGZus{}datetime}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{2015\PYGZhy{}01\PYGZhy{}01}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Creamos las variables de tratamiento:}
+\PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{T\PYGZus{}t}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{fecha}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{\PYGZgt{}}\PYG{o}{=} \PYG{n}{tax\PYGZus{}implementation\PYGZus{}date}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} 1 si es después del impuesto, 0 antes}
+\PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Berkeley}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{location}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Berkeley}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} 1 si la ubicación es Berkeley, 0 en otros lugares}
+
+\PYG{c+c1}{\PYGZsh{} Creamos la variable de interacción entre Berkeley y el tiempo después del impuesto}
+\PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Berkeley\PYGZus{}T\PYGZus{}t}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Berkeley}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{*} \PYG{n}{df\PYGZus{}grouped}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{T\PYGZus{}t}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Estimamos el modelo TWFE con efectos fijos por ubicación y por tiempo}
+\PYG{n}{formula} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{price \PYGZti{} Berkeley + T\PYGZus{}t + Berkeley\PYGZus{}T\PYGZus{}t + C(location) + C(fecha)}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{n}{twfe\PYGZus{}berkeley\PYGZus{}model} \PYG{o}{=} \PYG{n}{smf}\PYG{o}{.}\PYG{n}{ols}\PYG{p}{(}\PYG{n}{formula}\PYG{p}{,} \PYG{n}{data}\PYG{o}{=}\PYG{n}{df\PYGZus{}grouped}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Mostramos los resultados de la regresión}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{twfe\PYGZus{}berkeley\PYGZus{}model}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\end{MintedVerbatim}

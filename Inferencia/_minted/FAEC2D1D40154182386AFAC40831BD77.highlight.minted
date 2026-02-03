@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{statsmodels}\PYG{n+nn}{.}\PYG{n+nn}{tsa}\PYG{n+nn}{.}\PYG{n+nn}{ar\PYGZus{}model}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{AutoReg}
+
+\PYG{c+c1}{\PYGZsh{} Ajustando un modelo AR(3)}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{AutoReg}\PYG{p}{(}\PYG{n}{y\PYGZus{}series}\PYG{p}{,} \PYG{n}{lags}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{)}
+\PYG{n}{model\PYGZus{}fitted} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Mostrando los resultados}
+\PYG{n}{model\PYGZus{}results} \PYG{o}{=} \PYG{n}{model\PYGZus{}fitted}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{n}{model\PYGZus{}results}
+\end{MintedVerbatim}

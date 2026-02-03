@@ -1,0 +1,222 @@
+\chapter{Experimentos y Pruebas A/B}
+
+\begin{quote}
+\textit{Outsized returns often come from betting against conventional wisdom, and conventional wisdom is usually right.}\\
+
+\textit{Given a 10 percent chance of a 100 times payoff, you should take that bet every time. But you're still going to be wrong nine times out of ten...}\\
+
+\textit{We all know that if you swing for the fences, you're going to strike out a lot, but you're also going to hit some home runs.}\\
+
+\textit{The difference between baseball and business, however, is that baseball has a truncated outcome distribution. When you swing, no matter how well you connect with the ball, the most runs you can get is four. In business, every once in a while, when you step up to the plate, you can score 1,000 runs.}\\
+
+\textit{This long-tailed distribution of returns is why it's important to be bold.}\\
+
+\textit{Big winners pay for so many experiments.}\\
+
+    - Jeff Bezos.
+\end{quote}
+
+\begin{quote}
+    \textit{If your experiment needs statistics, you ought to have done a better experiment}\\
+    - Ernest Rutherford
+\end{quote}
+
+\newthought{En Mayo de 2024}, mi esposa decidió que abriríamos una \href{https://www.xn--mariapestaasrusas-oxb.com}{sucursal de la tienda} en Mazatlán\sidenote{Un poco de historia. Mi esposa llegó de Rusia en 2016 conmigo, donde nos conocimos. Ella estudió antropología social en San Petersburgo, pero se decidió a convertirse en \textit{lashista}. Comenzó a poner pestañas en nuestro departamento en Durango y de ahí el negocio creció. Hoy es una empresa donde da cursos y provee material para \textit{lashistas}. Conoce más en \href{https://xn--mariapestaasrusas-oxb.com}{mariapestañasrusas.com}}.
+
+La ciudad nos queda a 3 horas y media y pensamos que sería una buena oportunidad para expander el negocio y aprender a operarlo. En una semana nos instalamos en un local, pusimos cámaras y un sistema de inventarios y echamos a andar la aventura.
+
+Ahora sólo queda encontrar clientes que quieran ir a la tienda.
+
+Una de las estrategias que intentamos fue hacer publicidad usando Instagram. El problema: ninguno de los dos tenemos experiencia en \textit{pautar}\sidenote{es la palabra \textit{fancy} que usan para decir ``poner publicidad''}.
+
+Así que hice lo que si sabía hacer: un experimento.
+
+Dividí el anuncio en tres elementos e hice tres versiones diferentes de cada uno. En total fueron $2^3=8$ diferentes anuncios. Cada anuncio tenía una diferente combinación de llamado de atención, de oferta de valor y de llamado a la acción.
+\begin{figure}
+    \includegraphics[width=0.6\linewidth]{imagenes/anuncios.png}
+\end{figure}
+
+Lanzamos los anuncios, con un miedo inmenso de que tal vez estamos echando dinero a la hoguera\sidenote{La hogera en este caso se conoce como Meta.}.
+
+Cuando se acabó la campaña, encontramos una diferencia enorme entre anuncios. El anuncio más efectivo costaba \textbf{40 pesos (MXN) por \textit{lead}\sidenote{Prospecto.}, a diferencia del menos efectivo que costaba más de 200}. El objetivo era encontrar el mensaje correcto\sidenote{Hacer esto transforma el problema de encontrar un anuncio efectivo a encontrar aquellos anuncios con costo de adquisición del cliente menor a su \textit{lifetime value}.}.
+
+Y lo logramos. Por una fracción del presupuesto que habríamos puesto en contratar a un ``experto'' en mercadotecnia.
+
+\section{Los experimentos son el \gls{goldstandard} de la ciencia}
+
+Hoy en día, las plataformas para hacer publicidad en línea tienen incluida la creación de pruebas A/B. Una \gls{abtesting} es un experimento en el que se ponen dos versiones diferentes de un anuncio y la plataforma optimiza para encontrar rápido y en automático cuál es la versión más efectiva. Hay otros servicios que hacen algo similar: stripe te permite hacer pruebas A/B en los formularios de pago para que hagas pruebas con detalles del diseño o el \textit{copy} y puedas elegir siempre la más efectiva.
+
+En realidad la oportunidad de hacer experimentos en los negocios es ilimitada.
+
+La mayor barrera de los experimentos en los negocios es el tiempo. El punto de un experimento es aislar todas las variables que podrían afectar los resultados. Si queremos conocer el efecto que tiene una campaña publicitaria en las ventas, tenemos que poner en contexto la época del año en que se hizo, el medio en el que se ejecuta, la segmentación que se aplicó y hasta si estaba mercurio retrógrado\sidenote{¡Es broma!}.
+
+Simplemente no hay tiempo de poner a prueba todos y cada uno de los detalles\sidenote{Como en muchos casos, la excepción a la regla es el caso más notorio: las \textit{startup} de tecnología son famosas por hacer pruebas A/B de millones de pequeños detalles. Desde el tamaño de la letra, hasta 20 diferentes tonos de azul para probar cuál es el que genera más clicks. La razón es que ellos pueden automatizar y tienen volúmenes gigantescos. Para el resto de nosotros, simplemente no vale la pena.}.
+
+\section{¿Por qué se usan experimentos para hacer inferencia causal en los negocios?}
+Imagina esta situación: hay una discusión en tu compañía sobre el encabezado en tu \textit{landing page}.
+
+Acabas de contratar a un economista en el área de marketing que viene con nuevas ideas y quiere cambiar el encabezado que han tenido en los últimos 5 años. El nuevo encabezado estaría más centrado en el cliente y no es una descripción de la empresa. De acuerdo a él, esto aumentaría la tasa de conversión de la página, pero su jefe no está de acuerdo y quiere dejar el copy actual.
+
+La solución del 99\% de las empresas: organizar reuniones para debatir y encontrar la respuesta.
+
+El problema con este enfoque es que hacer una reunión puede llegar a ser muy costoso y existe el riesgo a que no se llegue a ningún acuerdo. Si llamas a una reunión a 10 empleados y cada uno de ellos está ganando \textbf{50 dólares la hora, entonces se trata de una reunión de 500 dólares}. 
+
+Lo peor es que lo más probable es que ninguno de los asistentes a la reunión pueda dar con los argumentos suficientes para decidir el uso de algún copy. En el mejor de los casos, se tomará una decisión que no está basada en datos. En el peor de los casos, la decisión será más un reflejo de las dinámicas de poder en la empresa que de la efectividad del \textit{copy}.
+
+¿De qué forma sí podrías encontrar la respuesta correcta, libre de controversias? usando un experimento
+
+Éstas son las razones para usar experimentos en los negocios:
+
+\begin{itemize}
+    \item \textbf{Razón \#1: los experimentos quitan cualquier fuente de duda razonable en la causalidad entre variables}. Cuando se hace un experimento, puedes afirmar con seguridad que la relación que encuentras es causal. Si haces un análisis de la información que no viene de experimentos, siempre habrá quien niegue tus resultados diciendo que ``correlación no implica causalidad''\sidenote{Y tendrían razón.}.
+    \item \textbf{Razón \#2: el resultado de los experimentos se hacen con matemáticas simples y con poca estadística}. Cuando haces un experimento bien, lo único que necesitas es una diferencia de medias y algunas pruebas estadísticas sencillas y fáciles de interpretar. El resultado es muy claro e intuitivo y no necesita matemáticas complejas.
+    \item \textbf{Razón \#3: los resultados son más entendibles e interpretables}. A diferencia de lo que muchos creen sobre la ciencia, los científicos siempre buscamos la claridad. Con pocas matemáticas y estadística, es más fácil comunicar los resultados de manera creíble.
+    \item \textbf{Razón \#4: puede ser mas barato de implementar que hacer reuniones para tomar una decisión}. Sobre todo cuando una empresa es pequeña, es más importante basar nuestras decisiones en evidencia. ¿De verdad es importante tener a todos los jefes de área para decidir el copy de tu página? Eso es algo que debes dejar que decidan tus clientes.
+\end{itemize}
+\section{¿Qué pasa cuando no se puede hacer un experimento?}
+La regla es que siempre debemos comenzar con un experimento, o mejor dicho con un \gls{experimentoideal}.
+
+La realidad es que en la mayoría de los casos, un experimento no es posible, no es ético, o está fuera de nuestro presupuesto. Nada de eso impide que \textit{imaginemos} cuál sería el \textbf{experimento ideal} que nos ayudaría a identificar los efectos que buscamos. Angrist y Pischke (2005) \cite{Angrist2009} sugieren que hagamos ese ejercicio imaginándonos como investigadores sin restricciones de presupuesto ni comité de ética que tenga que revisar lo que hacemos.
+
+Como si fueras un científico loco de una película de ficción..
+
+La razón \#1 para comenzar con un experimento ideal es que si no puedes imaginar una forma de identificar causas y efectos cuando no tienes ninguna restricción, entonces será difícil que logres identificar los efectos en situaciones normales con las restricciones naturales que da la vida. Por otro lado, el ejercicio de imaginar el experimento te ayuda a entender la relación causal de una forma más precisa. Con esto puedes identificar las variables que se involucran y cómo funcionan.
+
+\section{Aunque no lo creas, hay preguntas que no se pueden resolver ni aún con un experimento.}
+¿Cuál es el impacto de la experiencia laboral antes de fundar una empresa?
+
+En un estudio con casi tres millones de emprendedores se encontró que la edad en la que los emprendedores tienen más probabilidad de tener éxito en los negocios es de \href{https://www.marionomics.com/la-mejor-edad-para-emprender/}{42 años}\cite{azoulay2020age}. Aparentemente, la experiencia laboral es un factor clave que da las condiciones ideales para hacer que los negocios tengan un mejor desempeño. ¿Podríamos hacer un experimento para comprobarlo?
+
+El problema es que las personas con más experiencia laboral, también tienen más años de vida.
+
+Con más edad viene más experiencia, pero también podría tratarse de una mayor madurez emocional o una red de contactos más grande. ¿Cómo controlamos estas variables en nuestro experimento? Podríamos imaginar que separamos a dos grupos de emprendedores de manera aleatoria y nos aseguramos que el grupo A emprenda en sus 20 y el grupo B emprenda llegando a los 40 y medimos la diferencia. Pero hay miles de características inseparables de la edad que hacen que los dos grupos sean fundamentalmente distintos y por lo tanto, no sean comparables.
+
+Y por lo tanto, nuestro experimento no puede tener resultados que podamos interpretar correctamente.
+
+Es importante saber distinguir cuándo una pregunta es fundamentalmente imposible de contestar. Aún dentro de un experimento hipotético sin límite de recursos. De esta manera no perdemos el tiempo tratando de hacer comparaciones sin sentido con datos de menor calidad que los que vienen de un experimento.
+
+Esto no quiere decir que el estudio de Azoulay (2020) esté mal: simplemente que no podemos inferir que la relación entre estas variables sea causal.
+
+\section{Ejemplo: El efecto de las búsquedas pagadas en las ventas}
+
+El modelo de negocios de Google es uno de los más extraños e ingeniosos que te vas a topar.
+
+Cada vez que haces una búsqueda en Google, se lanza una subasta tras bambalinas. Si alguna vez has intentado poner un anuncio en Google, te darás cuenta de que estás haciendo pujas por términos de búsqueda. Si tienes una tienda de productos para hacer escalada, te interesa aparecer en los primeros términos cuando alguien pone ``zapatos para escalar'' en el buscador.
+
+Tienes dos formas de lograrlo: haciendo contenido relevante en tu página y esperar a que aparezca, o pagando a Google para que te ponga en los primeros lugares.
+
+El contenido puede venir en forma de un blog. De hecho, antes de las redes sociales, esa era la única manera de hacer que el buscador te suba en los lugares de búsqueda de manera orgánica. Puedes escribir sobre cómo usar correctamente el calzado, sobre accesorios para escalar o sobre técnicas de escalada.
+
+Si haces bien tu contenido, apareces en los primeros lugares aunque no estés pagando a Google.
+
+Por eso el negocio de google es tan peculiar. Si eres la marca más relevante de una categoría, pagar porque te ponga en los primeros lugares no parece tener mucho sentido, pues ya debes de aparecer al inicio. Es difícil saber cuando las búsquedas pagadas realmente están surtiendo efecto o son sólo un gasto innecesario.
+
+Se necesita hacer un experimento para averiguarlo.
+
+Blake, et al. (2015)\cite{Blake2015} hicieron una serie de experimentos con diferentes productos publicados en la plataforma eBay. El experimento consistía en “apagar” las búsquedas pagadas para diferentes productos elegidos al azar y comparar las ventas en los grupos de tratamiento y de control. Lo que encontraron fue que los clicks que venían de la publicidad pagada fueron sustituidos casi en su totalidad por clicks que venían de los resultados de búsqueda.
+
+Las búsquedas pagadas no tenían ningún efecto.
+
+Pero como siempre, los detalles son importantes. Los autores se acercaron a eBay con sus resultados para hacer un experimento a mayor escala con casi el 30\% de los productos de la tienda. El estudio lo hicieron con diferentes mercados e identificando a diferentes tipos de usuarios. Encontraron que sí hay un efecto positivo para los clientes que tienen poco tiempo como usuarios en la tienda y realmente necesitan ayuda para encontrar lo que necesitan. También las marcas más pequeñas dentro de la tienda mejoraron sus ventas gracias a la publicidad, a pesar de que las marcas grandes recibían clicks de búsquedas pagadas y orgánicas por igual.
+
+\section{Prompt: Diseña el experimento ideal}
+
+El primer paso para encontrar la estrategia correcta para nuestro estudio es diseñar el experimento ideal.
+
+Un experimento ideal ignora las limitaciones del mundo real. En un experimento ideal no importa el presupuesto ni las leyes de la física. Podemos usar a las personas como los biólogos usan las bacterias en sus cajas de petri, aislando las condiciones para hacer comparaciones completas y apropiadas.
+
+Por ejemplo, para estudiar el efecto de la educación en los ingresos, podríamos imaginar un experimento en el que compramos dos islas y las poblamos con personas con características comparables (misma cultura, mismo idioma, etc.) y a un grupo les proporcionamos más educación que al otro y medimos la diferencia.
+
+Te dejo este prompt que te permitirá pedirle a la \gls{inteligenciaartificial} que te de ideas sobre cómo hacer un experimento que te interesa. Copia y pega esto en la ventana del chat de la inteligencia artificial. Después de su primera respuesta dile tu idea de lo que quieres estudiar\sidenote{Dos detalles de los prompts que uso. Primero, son prompts largos y llenos de detalle. En el momento en el que escribo esto, los modelos de lenguaje grandes como chatGPT requieren de contexto para mejorar sus resultados. Con el tiempo han mejorado. Mi pronóstico es que en el futuro, estos modelos usarán las conversaciones previas que has tenido con el modelo para refinar los resultados y adaptarse a tu lenguaje, lo que dará laa ilusión de tener mejores resultados sin necesidad de contexto. El segundo punto es el uso de ejemplos, que dan más claridad sobre el tipo de resultado que quieres obtener. Estas dos son las variables que puedes modificar en el \textit{prompt} para mejorarlo.}:
+
+ \begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+ \ttfamily
+    Te voy a enseñar a hacer un experimento ideal para inferencia causal.
+    
+    Un experimento ideal es un diseño en el que se estudian los efectos causales sin limitaciones de presupuesto, de tiempo o de ética. Por ejemplo, para averiguar los efectos que tiene la educación en los ingresos de las personas podríamos ofrecer un incentivo económico a un \gls{grupodetratamiento} para que terminen sus estudios y revisar sus resultados en el tiempo.
+    
+    Tampoco hay limitaciones en las leyes de la física. Si nos interesa conocer el efecto que tienen las instituciones en el desarrollo económico de una nación, podríamos volver en el tiempo y asignar diferentes estructuras gubernamentales a diferentes estados de México para hacer un análisis ceteris paribus de sus resultados económicos.
+    No te limites a los ejemplos que estoy dando. Puedes ser creativo. 
+
+    Por ejemplo, para estudiar el efecto de la educación en los ingresos, podríamos imaginar un experimento en el que compramos dos islas y las poblamos con personas con características comparables (misma cultura, mismo idioma, etc.) y a un grupo les proporcionamos más educación que al otro y medimos la diferencia.
+    
+    Se trata de experimentos hipotéticos que nos permiten identificar la estrategia de identificación causal. Te daré un tema que me interesa estudiar y tu me darás una idea de experimentos ideales. ¿Estás listo?
+ \end{tcolorbox}
+
+Pasa la información de lo que quieres averiguar. Trata de darle tantos detalles como puedas para que tenga bien el contexto de lo que deseas. Aquí te dejo como ejemplo el texto de arriba sobre Google. El resultado de darle esto la mayoría de las veces es un experimento muy bien diseñado que se asemeja bastante a lo que hicieron Blake, et al. (2015).
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\ttfamily
+    El modelo de negocios de Google es uno de los más extraños e ingeniosos que te vas a topar.
+    
+    Cada vez que haces una búsqueda en Google, se lanza una subasta tras bambalinas. Si alguna vez has intentado poner un anuncio en Google, te darás cuenta de que estás haciendo pujas por términos de búsqueda. Si tienes una tienda de productos para hacer escalada, te interesa aparecer en los primeros términos cuando alguien pone “calzado de escalada” en el buscador.
+    
+    Tienes dos formas de lograrlo: haciendo contenido relevante y pagando a Google para que te ponga en los primeros lugares.
+    
+    El contenido puede venir en forma de un blog. De hecho antes de las redes sociales esa era la única manera de hacer que el buscador te suba en los lugares de búsqueda de manera orgánica. Puedes escribir sobre cómo usar correctamente el calzado, sobre accesorios para escalar o sobre técnicas de escalada.
+    
+    Si haces bien tu contenido, apareces en los primeros lugares aunque no estés pagando a Google.
+    
+    Por eso el negocio de google es tan peculiar. Si eres la marca más relevante de una categoría, pagar porque te ponga en los primeros lugares no parece tener mucho sentido, pues ya debes de aparecer al inicio. Es difícil saber las búsquedas pagadas realmente están surtiendo efecto o son sólo un gasto innecesario.
+    
+    Se necesita hacer un experimento para averiguarlo.
+\end{tcolorbox}
+\end{fullwidth}
+
+Al final, van a pasar una de dos cosas:
+\begin{enumerate}
+    \item Vas a encontrar una forma de implementar el experimento.
+    \item O vas a diseñar tus modelos para que los resultados se asemejen lo más posible a los experimentos.
+\end{enumerate}
+
+En cualquiera de esos casos, el diseño de tu estudio será mucho mejor de lo que habría sido si únicamente hubieras salido al mundo a diseñar encuestas sin pensar en el diseño de tu estudio. Hacer esto mejorará la calidad de los datos que obtienes.
+
+Y cuando se trata de datos, la calidad es órdenes de magnitud más importante que la cantidad.
+
+% --- INICIO DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---
+
+\begin{fullwidth}
+\section*{Resumen del capítulo}
+
+En este capítulo vimos que los experimentos no son solo para científicos en laboratorios. Son una herramienta brutalmente efectiva para tomar mejores decisiones en los negocios. Son el \gls{goldstandard} para encontrar la verdad.
+
+Lo que hicimos fue bajar la idea del ``experimento'' de su pedestal académico y ponerla a trabajar en el mundo real, desde una campaña de anuncios en Instagram hasta el debate sobre el encabezado de tu página web. Un experimento, o su primo cercano la \gls{abtesting}, es simplemente una forma estructurada de preguntarles a tus clientes qué es lo que prefieren, en lugar de discutirlo en una junta.
+
+Esto es importante porque un experimento bien diseñado es la única forma de callar para siempre el molesto argumento de ``correlación no implica causalidad''. Cuando aleatorizas, eliminas el \gls{sesgo-seleccion} y aíslas el efecto verdadero. El resultado deja de ser una opinión y se convierte en evidencia. Como dice Jeff Bezos, los grandes ganadores pagan por muchísimos experimentos.
+
+¿Cómo te ayuda esto? De ahora en adelante, tu respuesta por defecto ante una discusión de negocio debería ser: ``¿Podemos probarlo?''. Este capítulo te da el marco para convertir debates costosos en experimentos baratos. Te enseña a pensar en el \gls{experimentoideal} no como un ejercicio teórico, sino como el primer paso práctico para diseñar un estudio que te dé respuestas claras. Te da el poder de retar la ``sabiduría convencional'' con datos, no con opiniones.
+
+\section*{Afilando la navaja experimental: ejercicios prácticos}
+
+Es hora de pensar como un experimentador. Estos ejercicios te ayudarán a aplicar los conceptos del capítulo a situaciones del mundo real.
+
+\begin{enumerate}
+    \item \textbf{De la junta al experimento:} En el capítulo se habla del debate sobre cambiar el encabezado de una \textit{landing page}. Diseña una prueba A/B simple para resolver esta discusión. Define: a) El grupo de control (A), b) El grupo de tratamiento (B), c) La métrica clave que usarías para decidir un ganador (la variable de resultado), y d) ¿Por qué es crucial mostrar las dos versiones al mismo tiempo a usuarios aleatorios?
+    
+    \item \textbf{Interpretando resultados:} Imagina que corriste el experimento anterior y obtuviste estos datos:
+    \begin{itemize}
+        \item Encabezado A (Control): Se mostró a 5,000 visitantes y 400 hicieron clic en el botón ``Comprar''.
+        \item Encabezado B (Tratamiento): Se mostró a 5,000 visitantes y 450 hicieron clic en el botón ``Comprar''.
+    \end{itemize}
+    Calcula la tasa de conversión para cada versión y el ``lift'' (la mejora porcentual) que generó el encabezado B. ¿Parece un cambio que valga la pena implementar?
+
+    \item \textbf{Identificando un experimento fallido:} Una tienda de ropa quiere saber si poner música en vivo los fines de semana aumenta las ventas. El primer fin de semana del mes no ponen música y registran las ventas. El último fin de semana del mes, que es quincena y día de pago para la mayoría de la gente, contratan a un guitarrista y registran las ventas. Las ventas del último fin de semana son 50\% más altas. El dueño concluye que la música fue un éxito rotundo. ¿Por qué esta conclusión es, probablemente, incorrecta? ¿Qué supuesto fundamental de los experimentos se está violando?
+    
+    \item \textbf{Una pregunta in-experimentable:} Eres el gerente de producto de una aplicación de citas. Quieres saber el efecto causal de que una persona ponga ``busco algo serio'' en su perfil sobre la probabilidad de que consiga una pareja estable en un año. ¿Por qué sería casi imposible diseñar un \gls{rct} limpio para responder esta pregunta? (Pista: Piensa en el \gls{sesgo-seleccion} y en variables inseparables de la decisión).
+
+    \item \textbf{Diseñando el experimento ideal:} Una app de \textit{delivery} de comida quiere saber si ofrecer envío gratis en el primer pedido realmente convierte a los usuarios nuevos en clientes recurrentes. Describe el \gls{experimentoideal} para medir este efecto. ¿Cómo seleccionarías a los participantes y cómo los asignarías a los grupos de tratamiento y control? ¿Qué medirías y por cuánto tiempo?
+
+    \item \textbf{Buscando la letra pequeña (Efectos Heterogéneos):} El estudio de eBay sobre los anuncios pagados encontró que, aunque el efecto general era casi nulo, sí funcionaban para usuarios nuevos. Imagina que tu experimento de envío gratis (del ejercicio anterior) muestra un efecto general muy pequeño. ¿Qué subgrupos de usuarios investigarías por separado para ver si el envío gratis es muy efectivo para algún nicho en particular?
+
+    \item \textbf{¿Vale la pena experimentar?:} Una \textit{startup} debate sobre el color de su botón de compra. El diseñador prefiere azul y el CEO prefiere verde. Una junta para discutirlo de 1 hora con 5 personas clave cuesta \$400 en salarios. Una herramienta de software para hacer la prueba A/B cuesta \$50. Explica por qué pagar los \$50 es casi siempre una mejor inversión, incluso si el resultado de la prueba es que ambos colores funcionan igual.
+
+    \item \textbf{La ética del A/B testing:} Una plataforma de videojuegos quiere saber si aumentar la dificultad de un nivel de forma inesperada causa que los jugadores pasen más tiempo en el juego (por frustración y repetición) o que lo abandonen. Describen un experimento donde a un grupo aleatorio de jugadores se les sube la dificultad sin avisar. ¿Por qué este experimento, aunque metodológicamente podría ser correcto, es éticamente cuestionable?
+
+    \item \textbf{Poniendo a prueba a la IA:} Usa el \textit{prompt} para diseñar el experimento ideal que viene en este capítulo. Pídele a ChatGPT que diseñe el experimento para resolver el problema de la tienda de ropa con música en vivo (ejercicio 3). ¿La solución que te da la IA corrige los errores que identificaste en el diseño original del dueño de la tienda? Explica por qué sí o por qué no.
+
+\end{enumerate}
+\end{fullwidth}
+
+% --- FIN DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---
+

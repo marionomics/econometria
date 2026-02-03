@@ -1,0 +1,15 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{linearmodels}\PYG{n+nn}{.}\PYG{n+nn}{panel}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{PanelOLS}
+
+\PYG{c+c1}{\PYGZsh{} Preparing the data: Setting \PYGZsq{}Medio\PYGZsq{} and \PYGZsq{}Año\PYGZsq{} as index}
+\PYG{n}{df\PYGZus{}panel} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{set\PYGZus{}index}\PYG{p}{(}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Medio}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Año}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Specifying and fitting the model with entity effects (fixed effects)}
+\PYG{n}{panel\PYGZus{}model} \PYG{o}{=} \PYG{n}{PanelOLS}\PYG{o}{.}\PYG{n}{from\PYGZus{}formula}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Sales \PYGZti{} Q(}\PYG{l+s+s1}{\PYGZdq{}}\PYG{l+s+s1}{Ad cost}\PYG{l+s+s1}{\PYGZdq{}}\PYG{l+s+s1}{) + EntityEffects}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{data}\PYG{o}{=}\PYG{n}{df\PYGZus{}panel}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Fitting the model}
+\PYG{n}{panel\PYGZus{}results} \PYG{o}{=} \PYG{n}{panel\PYGZus{}model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Displaying the results}
+\PYG{n}{panel\PYGZus{}results}\PYG{o}{.}\PYG{n}{summary}
+\end{MintedVerbatim}

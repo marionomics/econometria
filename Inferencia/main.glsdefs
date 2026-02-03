@@ -1,0 +1,2324 @@
+\glsdefs@newdocentry{inferencia-causal}%
+{%
+name={inferencia causal},%
+sort={inferenciacausal},%
+type={main},%
+first={inferencia causal},%
+firstplural={inferencia causals},%
+text={inferencia causal},%
+plural={inferencia causals},%
+description={Disciplina que estudia cómo identificar y cuantificar relaciones de causa–efecto a partir de datos observacionales o experimentales, combinando teoría estadística y supuestos sobre el proceso generador de datos},%
+descriptionplural={Disciplina que estudia cómo identificar y cuantificar relaciones de causa–efecto a partir de datos observacionales o experimentales, combinando teoría estadística y supuestos sobre el proceso generador de datos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{experimento-natural}%
+{%
+name={experimento natural},%
+sort={experimentonatural},%
+type={main},%
+first={experimento natural},%
+firstplural={experimento naturals},%
+text={experimento natural},%
+plural={experimento naturals},%
+description={Situación del mundo real en la que eventos, políticas o cambios institucionales generan una asignación \textit {casi} aleatoria de un tratamiento, lo que permite estimar efectos causales sin un ensayo controlado tradicional},%
+descriptionplural={Situación del mundo real en la que eventos, políticas o cambios institucionales generan una asignación \textit {casi} aleatoria de un tratamiento, lo que permite estimar efectos causales sin un ensayo controlado tradicional},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{exceso-de-muertes}%
+{%
+name={exceso de muertes},%
+sort={excesodemuertes},%
+type={main},%
+first={exceso de muertes},%
+firstplural={exceso de muertess},%
+text={exceso de muertes},%
+plural={exceso de muertess},%
+description={Diferencia entre el número observado de fallecimientos en un periodo y el número esperado según patrones históricos; indicador para evaluar el efecto causal de crisis sanitarias, desastres o políticas públicas},%
+descriptionplural={Diferencia entre el número observado de fallecimientos en un periodo y el número esperado según patrones históricos; indicador para evaluar el efecto causal de crisis sanitarias, desastres o políticas públicas},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{regresionlineal}%
+{%
+name={regresión lineal},%
+sort={regresionlineal},%
+type={main},%
+first={regresión lineal},%
+firstplural={regresión lineals},%
+text={regresión lineal},%
+plural={regresión lineals},%
+description={Modelo estadístico que relaciona una variable dependiente con una o más variables independientes mediante una función lineal; punto de partida clásico para estimar efectos causales cuando se cumplen sus supuestos},%
+descriptionplural={Modelo estadístico que relaciona una variable dependiente con una o más variables independientes mediante una función lineal; punto de partida clásico para estimar efectos causales cuando se cumplen sus supuestos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{diferenciasendiferencias}%
+{%
+name={diferencias en diferencias},%
+sort={diferenciasendiferencias},%
+type={main},%
+first={diferencias en diferencias},%
+firstplural={diferencias en diferenciass},%
+text={diferencias en diferencias},%
+plural={diferencias en diferenciass},%
+description={Diseño cuasi-experimental que estima un efecto causal al comparar la evolución temporal de un grupo tratado y uno de control, bajo el supuesto de tendencias paralelas},%
+descriptionplural={Diseño cuasi-experimental que estima un efecto causal al comparar la evolución temporal de un grupo tratado y uno de control, bajo el supuesto de tendencias paralelas},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{grupodecontrol}%
+{%
+name={grupo de control},%
+sort={grupodecontrol},%
+type={main},%
+first={grupo de control},%
+firstplural={grupo de controls},%
+text={grupo de control},%
+plural={grupo de controls},%
+description={Conjunto de unidades que no recibe el tratamiento en un experimento o cuasi-experimento; permite aproximar el resultado contrafactual y aislar el efecto causal},%
+descriptionplural={Conjunto de unidades que no recibe el tratamiento en un experimento o cuasi-experimento; permite aproximar el resultado contrafactual y aislar el efecto causal},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{correlacioncausalidad}%
+{%
+name={correlación vs.\ causalidad},%
+sort={correlacioncausalidad},%
+type={main},%
+first={correlación vs.\ causalidad},%
+firstplural={correlación vs.\ causalidads},%
+text={correlación vs.\ causalidad},%
+plural={correlación vs.\ causalidads},%
+description={Distinción fundamental entre asociaciones estadísticas (correlación) y relaciones de causa–efecto (causalidad); confundirlas conduce a inferencias erróneas},%
+descriptionplural={Distinción fundamental entre asociaciones estadísticas (correlación) y relaciones de causa–efecto (causalidad); confundirlas conduce a inferencias erróneas},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{pruebasdehipotesis}%
+{%
+name={pruebas de hipótesis},%
+sort={pruebasdehipotesis},%
+type={main},%
+first={pruebas de hipótesis},%
+firstplural={pruebas de hipótesiss},%
+text={pruebas de hipótesis},%
+plural={pruebas de hipótesiss},%
+description={Procedimientos estadísticos que contrastan afirmaciones sobre parámetros mediante un estadístico y una regla de decisión; en inferencia causal se usan para evaluar la significancia de los efectos estimados},%
+descriptionplural={Procedimientos estadísticos que contrastan afirmaciones sobre parámetros mediante un estadístico y una regla de decisión; en inferencia causal se usan para evaluar la significancia de los efectos estimados},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{variablealeatoria}%
+{%
+name={variable aleatoria},%
+sort={variablealeatoria},%
+type={main},%
+first={variable aleatoria},%
+firstplural={variable aleatorias},%
+text={variable aleatoria},%
+plural={variable aleatorias},%
+description={Función que asigna valores numéricos a los resultados de un experimento aleatorio; concepto base para describir distribuciones y estimadores en econometría causal},%
+descriptionplural={Función que asigna valores numéricos a los resultados de un experimento aleatorio; concepto base para describir distribuciones y estimadores en econometría causal},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{python}%
+{%
+name={Python},%
+sort={python},%
+type={main},%
+first={Python},%
+firstplural={Pythons},%
+text={Python},%
+plural={Pythons},%
+description={Lenguaje de programación de propósito general, ampliamente usado en ciencia de datos y econometría gracias a su sintaxis sencilla y a un ecosistema extenso de bibliotecas estadísticas},%
+descriptionplural={Lenguaje de programación de propósito general, ampliamente usado en ciencia de datos y econometría gracias a su sintaxis sencilla y a un ecosistema extenso de bibliotecas estadísticas},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{googlecolab}%
+{%
+name={Google Colab},%
+sort={googlecolab},%
+type={main},%
+first={Google Colab},%
+firstplural={Google Colabs},%
+text={Google Colab},%
+plural={Google Colabs},%
+description={Servicio gratuito en la nube que ofrece cuadernos Jupyter con GPU/CPU preconfiguradas y librerías de ciencia de datos; permite ejecutar código Python sin instalar nada en local},%
+descriptionplural={Servicio gratuito en la nube que ofrece cuadernos Jupyter con GPU/CPU preconfiguradas y librerías de ciencia de datos; permite ejecutar código Python sin instalar nada en local},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{notebook}%
+{%
+name={notebook (cuaderno Jupyter)},%
+sort={notebook},%
+type={main},%
+first={notebook (cuaderno Jupyter)},%
+firstplural={notebook (cuaderno Jupyter)s},%
+text={notebook (cuaderno Jupyter)},%
+plural={notebook (cuaderno Jupyter)s},%
+description={Documento interactivo que combina texto, código ejecutable y resultados; facilita el análisis econométrico iterativo y reproducible},%
+descriptionplural={Documento interactivo que combina texto, código ejecutable y resultados; facilita el análisis econométrico iterativo y reproducible},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{pandas}%
+{%
+name={\texttt {pandas}},%
+sort={pandas},%
+type={main},%
+first={\protect \texttt  {pandas}},%
+firstplural={\protect \texttt  {pandas}s},%
+text={\protect \texttt  {pandas}},%
+plural={\protect \texttt  {pandas}s},%
+description={Biblioteca de Python que provee estructuras de datos como \textit {Series} y \textit {DataFrame}; pilar para la limpieza, transformación y exploración de datos tabulares en econometría},%
+descriptionplural={Biblioteca de Python que provee estructuras de datos como \textit {Series} y \textit {DataFrame}; pilar para la limpieza, transformación y exploración de datos tabulares en econometría},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dataframe}%
+{%
+name={DataFrame},%
+sort={dataframe},%
+type={main},%
+first={DataFrame},%
+firstplural={DataFrames},%
+text={DataFrame},%
+plural={DataFrames},%
+description={Estructura tabular de \texttt {pandas} con índice y columnas etiquetadas; análoga a una hoja de cálculo pero optimizada para operaciones vectorizadas},%
+descriptionplural={Estructura tabular de \texttt {pandas} con índice y columnas etiquetadas; análoga a una hoja de cálculo pero optimizada para operaciones vectorizadas},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{numpy}%
+{%
+name={\texttt {NumPy}},%
+sort={numpy},%
+type={main},%
+first={\protect \texttt  {NumPy}},%
+firstplural={\protect \texttt  {NumPy}s},%
+text={\protect \texttt  {NumPy}},%
+plural={\protect \texttt  {NumPy}s},%
+description={Paquete fundamental para computación numérica en Python; ofrece arrays multidimensionales y rutinas de álgebra lineal que subyacen a la mayoría de los modelos econométricos},%
+descriptionplural={Paquete fundamental para computación numérica en Python; ofrece arrays multidimensionales y rutinas de álgebra lineal que subyacen a la mayoría de los modelos econométricos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{statsmodels}%
+{%
+name={\texttt {statsmodels}},%
+sort={statsmodels},%
+type={main},%
+first={\protect \texttt  {statsmodels}},%
+firstplural={\protect \texttt  {statsmodels}s},%
+text={\protect \texttt  {statsmodels}},%
+plural={\protect \texttt  {statsmodels}s},%
+description={Biblioteca de Python orientada a econometría y estadística; incluye regresiones lineales, modelos de series de tiempo y pruebas de hipótesis},%
+descriptionplural={Biblioteca de Python orientada a econometría y estadística; incluye regresiones lineales, modelos de series de tiempo y pruebas de hipótesis},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{stata}%
+{%
+name={Stata},%
+sort={stata},%
+type={main},%
+first={Stata},%
+firstplural={Statas},%
+text={Stata},%
+plural={Statas},%
+description={Paquete estadístico propietario muy popular en econometría aplicada; destaca por su sintaxis compacta y amplia colección de comandos para modelos lineales, paneles y series de tiempo},%
+descriptionplural={Paquete estadístico propietario muy popular en econometría aplicada; destaca por su sintaxis compacta y amplia colección de comandos para modelos lineales, paneles y series de tiempo},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{eviews}%
+{%
+name={Eviews},%
+sort={eviews},%
+type={main},%
+first={Eviews},%
+firstplural={Eviewss},%
+text={Eviews},%
+plural={Eviewss},%
+description={Software comercial orientado a análisis econométrico y pronóstico; integra interfaz gráfica para estimar modelos, ejecutar scripts y generar reportes de series de tiempo},%
+descriptionplural={Software comercial orientado a análisis econométrico y pronóstico; integra interfaz gráfica para estimar modelos, ejecutar scripts y generar reportes de series de tiempo},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{rlang}%
+{%
+name={R},%
+sort={r},%
+type={main},%
+first={R},%
+firstplural={Rs},%
+text={R},%
+plural={Rs},%
+description={Lenguaje de programación y entorno especializado en estadística y visualización de datos; base de muchos paquetes econométricos (p.\,ej.\ \textit {plm}, \textit {fixest}) y punto de referencia para análisis reproducible},%
+descriptionplural={Lenguaje de programación y entorno especializado en estadística y visualización de datos; base de muchos paquetes econométricos (p.\,ej.\ \textit {plm}, \textit {fixest}) y punto de referencia para análisis reproducible},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{inteligenciaartificial}%
+{%
+name={inteligencia artificial (IA)},%
+sort={inteligenciaartificial},%
+type={main},%
+first={inteligencia artificial (IA)},%
+firstplural={inteligencia artificial (IA)s},%
+text={inteligencia artificial (IA)},%
+plural={inteligencia artificial (IA)s},%
+description={Campo de la informática que desarrolla sistemas capaces de realizar tareas que normalmente requieren inteligencia humana; en ciencia de datos incluye aprendizaje automático y modelos generativos que hoy asisten la programación y el análisis econométrico},%
+descriptionplural={Campo de la informática que desarrolla sistemas capaces de realizar tareas que normalmente requieren inteligencia humana; en ciencia de datos incluye aprendizaje automático y modelos generativos que hoy asisten la programación y el análisis econométrico},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ols}%
+{%
+name={mínimos cuadrados ordinarios (OLS)},%
+sort={minimoscuadradosordinarios},%
+type={main},%
+first={mínimos cuadrados ordinarios (OLS)},%
+firstplural={mínimos cuadrados ordinarios (OLS)s},%
+text={mínimos cuadrados ordinarios (OLS)},%
+plural={mínimos cuadrados ordinarios (OLS)s},%
+description={Método que estima los coeficientes de la regresión lineal minimizando la suma de los residuos al cuadrado},%
+descriptionplural={Método que estima los coeficientes de la regresión lineal minimizando la suma de los residuos al cuadrado},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{blue}%
+{%
+name={BLUE},%
+sort={blue},%
+type={main},%
+first={BLUE},%
+firstplural={BLUEs},%
+text={BLUE},%
+plural={BLUEs},%
+description={Siglas de \textit {Best Linear Unbiased Estimator}; afirma que, bajo los supuestos de Gauss-Márkov, OLS es el estimador lineal insesgado con menor varianza},%
+descriptionplural={Siglas de \textit {Best Linear Unbiased Estimator}; afirma que, bajo los supuestos de Gauss-Márkov, OLS es el estimador lineal insesgado con menor varianza},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{gauss-markov}%
+{%
+name={teorema de Gauss–Márkov},%
+sort={gaussmarkov},%
+type={main},%
+first={teorema de Gauss–Márkov},%
+firstplural={teorema de Gauss–Márkovs},%
+text={teorema de Gauss–Márkov},%
+plural={teorema de Gauss–Márkovs},%
+description={Resultado que demuestra que, si se cumplen cinco supuestos (linealidad, muestreo aleatorio, ausencia de colinealidad perfecta, exogeneidad y homoscedasticidad), OLS es BLUE},%
+descriptionplural={Resultado que demuestra que, si se cumplen cinco supuestos (linealidad, muestreo aleatorio, ausencia de colinealidad perfecta, exogeneidad y homoscedasticidad), OLS es BLUE},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{multicolinealidad}%
+{%
+name={multicolinealidad},%
+sort={multicolinealidad},%
+type={main},%
+first={multicolinealidad},%
+firstplural={multicolinealidads},%
+text={multicolinealidad},%
+plural={multicolinealidads},%
+description={Situación en la que dos o más regresores están altamente correlacionados, provocando estimaciones inestables y errores estándar inflados},%
+descriptionplural={Situación en la que dos o más regresores están altamente correlacionados, provocando estimaciones inestables y errores estándar inflados},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{homoscedasticidad}%
+{%
+name={homoscedasticidad},%
+sort={homoscedasticidad},%
+type={main},%
+first={homoscedasticidad},%
+firstplural={homoscedasticidads},%
+text={homoscedasticidad},%
+plural={homoscedasticidads},%
+description={Propiedad según la cual la varianza de los errores es constante para todos los valores de los regresores},%
+descriptionplural={Propiedad según la cual la varianza de los errores es constante para todos los valores de los regresores},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{heteroscedasticidad}%
+{%
+name={heteroscedasticidad},%
+sort={heteroscedasticidad},%
+type={main},%
+first={heteroscedasticidad},%
+firstplural={heteroscedasticidads},%
+text={heteroscedasticidad},%
+plural={heteroscedasticidads},%
+description={Caso opuesto a la homoscedasticidad; la varianza del error cambia con el nivel de los regresores, violando un supuesto clave de OLS},%
+descriptionplural={Caso opuesto a la homoscedasticidad; la varianza del error cambia con el nivel de los regresores, violando un supuesto clave de OLS},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{vif}%
+{%
+name={factor de inflación de la varianza (VIF)},%
+sort={vif},%
+type={main},%
+first={factor de inflación de la varianza (VIF)},%
+firstplural={factor de inflación de la varianza (VIF)s},%
+text={factor de inflación de la varianza (VIF)},%
+plural={factor de inflación de la varianza (VIF)s},%
+description={Índice que cuantifica cuánto aumenta la varianza del coeficiente de un regresor debido a la multicolinealidad; valores superiores a 5–10 indican posible problema},%
+descriptionplural={Índice que cuantifica cuánto aumenta la varianza del coeficiente de un regresor debido a la multicolinealidad; valores superiores a 5–10 indican posible problema},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{r-cuadrado}%
+{%
+name={$R^{2}$},%
+sort={rcuadrado},%
+type={main},%
+first={$R^{2}$},%
+firstplural={$R^{2}$s},%
+text={$R^{2}$},%
+plural={$R^{2}$s},%
+description={Medida de ajuste que indica la proporción de la variación de la variable dependiente explicada por el modelo; varía entre 0 y 1},%
+descriptionplural={Medida de ajuste que indica la proporción de la variación de la variable dependiente explicada por el modelo; varía entre 0 y 1},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{estadistico-f}%
+{%
+name={estadístico $F$},%
+sort={estadisticof},%
+type={main},%
+first={estadístico $F$},%
+firstplural={estadístico $F$s},%
+text={estadístico $F$},%
+plural={estadístico $F$s},%
+description={Contrasta la hipótesis nula de que todos los coeficientes (excepto la constante) son cero contra la alternativa de que al menos uno es distinto de cero},%
+descriptionplural={Contrasta la hipótesis nula de que todos los coeficientes (excepto la constante) son cero contra la alternativa de que al menos uno es distinto de cero},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{p-value}%
+{%
+name={\emph {p-value}},%
+sort={pvalue},%
+type={main},%
+first={\protect \emph  {p-value}},%
+firstplural={\protect \emph  {p-value}s},%
+text={\protect \emph  {p-value}},%
+plural={\protect \emph  {p-value}s},%
+description={Probabilidad de obtener un estadístico tan extremo como el observado si la hipótesis nula fuera cierta; valores pequeños sugieren rechazar $H_{0}$},%
+descriptionplural={Probabilidad de obtener un estadístico tan extremo como el observado si la hipótesis nula fuera cierta; valores pequeños sugieren rechazar $H_{0}$},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{intervalo-confianza}%
+{%
+name={intervalo de confianza},%
+sort={intervaloconfianza},%
+type={main},%
+first={intervalo de confianza},%
+firstplural={intervalo de confianzas},%
+text={intervalo de confianza},%
+plural={intervalo de confianzas},%
+description={Rango que, con una probabilidad pre-especificada (p.\,ej.\ 95 \%), contiene el verdadero valor del parámetro poblacional},%
+descriptionplural={Rango que, con una probabilidad pre-especificada (p.\,ej.\ 95 \%), contiene el verdadero valor del parámetro poblacional},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{error-estandar}%
+{%
+name={error estándar},%
+sort={errorestandar},%
+type={main},%
+first={error estándar},%
+firstplural={error estándars},%
+text={error estándar},%
+plural={error estándars},%
+description={Estimación de la desviación típica de la distribución muestral de un coeficiente; mide la precisión de la estimación},%
+descriptionplural={Estimación de la desviación típica de la distribución muestral de un coeficiente; mide la precisión de la estimación},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{residuales}%
+{%
+name={residuales},%
+sort={residuales},%
+type={main},%
+first={residuales},%
+firstplural={residualess},%
+text={residuales},%
+plural={residualess},%
+description={Diferencias entre los valores observados y los predichos por el modelo; se emplean para diagnosticar los supuestos de la regresión},%
+descriptionplural={Diferencias entre los valores observados y los predichos por el modelo; se emplean para diagnosticar los supuestos de la regresión},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{endogeneidad}%
+{%
+name={endogeneidad},%
+sort={endogeneidad},%
+type={main},%
+first={endogeneidad},%
+firstplural={endogeneidads},%
+text={endogeneidad},%
+plural={endogeneidads},%
+description={Situación en la que un regresor está correlacionado con el término de error, violando el supuesto de exogeneidad y sesgando las estimaciones},%
+descriptionplural={Situación en la que un regresor está correlacionado con el término de error, violando el supuesto de exogeneidad y sesgando las estimaciones},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{media-condicional-cero}%
+{%
+name={media condicional cero},%
+sort={mediacondicionalcero},%
+type={main},%
+first={media condicional cero},%
+firstplural={media condicional ceros},%
+text={media condicional cero},%
+plural={media condicional ceros},%
+description={Supuesto clave que exige que el valor esperado del error sea cero condicional a los regresores ($E[\varepsilon |X]=0$); garantiza exogeneidad},%
+descriptionplural={Supuesto clave que exige que el valor esperado del error sea cero condicional a los regresores ($E[\varepsilon |X]=0$); garantiza exogeneidad},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{abtesting}%
+{%
+name={prueba A/B},%
+sort={abtesting},%
+type={main},%
+first={prueba A/B},%
+firstplural={prueba A/Bs},%
+text={prueba A/B},%
+plural={prueba A/Bs},%
+description={Experimento controlado en el que se comparan dos variantes (A y B) que difieren en un solo elemento; la asignación aleatoria de usuarios permite estimar el efecto causal de la variante sobre un KPI (p.\,ej., tasa de conversión)},%
+descriptionplural={Experimento controlado en el que se comparan dos variantes (A y B) que difieren en un solo elemento; la asignación aleatoria de usuarios permite estimar el efecto causal de la variante sobre un KPI (p.\,ej., tasa de conversión)},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{goldstandard}%
+{%
+name={gold standard experimental},%
+sort={goldstandard},%
+type={main},%
+first={gold standard experimental},%
+firstplural={gold standard experimentals},%
+text={gold standard experimental},%
+plural={gold standard experimentals},%
+description={Expresión que alude al ensayo controlado aleatorio como referencia máxima para identificar efectos causales, pues elimina sesgos mediante aleatorización y control},%
+descriptionplural={Expresión que alude al ensayo controlado aleatorio como referencia máxima para identificar efectos causales, pues elimina sesgos mediante aleatorización y control},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{aleatorizacion}%
+{%
+name={aleatorización},%
+sort={aleatorizacion},%
+type={main},%
+first={aleatorización},%
+firstplural={aleatorizacións},%
+text={aleatorización},%
+plural={aleatorizacións},%
+description={Proceso de asignar unidades a tratamiento o control usando un mecanismo de azar; garantiza balance de variables observadas y no observadas, fundamento de la inferencia causal en experimentos},%
+descriptionplural={Proceso de asignar unidades a tratamiento o control usando un mecanismo de azar; garantiza balance de variables observadas y no observadas, fundamento de la inferencia causal en experimentos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{grupodetratamiento}%
+{%
+name={grupo de tratamiento},%
+sort={grupodetratamiento},%
+type={main},%
+first={grupo de tratamiento},%
+firstplural={grupo de tratamientos},%
+text={grupo de tratamiento},%
+plural={grupo de tratamientos},%
+description={Conjunto de unidades que recibe la intervención o variante bajo estudio; se compara con el grupo de control para calcular el efecto causal},%
+descriptionplural={Conjunto de unidades que recibe la intervención o variante bajo estudio; se compara con el grupo de control para calcular el efecto causal},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{experimentoideal}%
+{%
+name={experimento ideal},%
+sort={experimentoideal},%
+type={main},%
+first={experimento ideal},%
+firstplural={experimento ideals},%
+text={experimento ideal},%
+plural={experimento ideals},%
+description={Diseño hipotético sin restricciones prácticas ni éticas que ayuda a clarificar el mecanismo causal y la estrategia de identificación cuando un ensayo real no es factible},%
+descriptionplural={Diseño hipotético sin restricciones prácticas ni éticas que ayuda a clarificar el mecanismo causal y la estrategia de identificación cuando un ensayo real no es factible},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{resultados-potenciales}%
+{%
+name={resultados potenciales},%
+sort={resultadospotenciales},%
+type={main},%
+first={resultados potenciales},%
+firstplural={resultados potencialess},%
+text={resultados potenciales},%
+plural={resultados potencialess},%
+description={Marco teórico que asocia a cada unidad dos posibles resultados: el que observaría si recibe el tratamiento ($Y_{1}$) y el que observaría si no lo recibe ($Y_{0}$). Sólo uno se observa en la práctica},%
+descriptionplural={Marco teórico que asocia a cada unidad dos posibles resultados: el que observaría si recibe el tratamiento ($Y_{1}$) y el que observaría si no lo recibe ($Y_{0}$). Sólo uno se observa en la práctica},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{contrafactual}%
+{%
+name={contrafactual},%
+sort={contrafactual},%
+type={main},%
+first={contrafactual},%
+firstplural={contrafactuals},%
+text={contrafactual},%
+plural={contrafactuals},%
+description={Resultado potencial que \emph {no} se observa en la realidad; describe lo que habría ocurrido bajo un estado alternativo del mundo},%
+descriptionplural={Resultado potencial que \emph {no} se observa en la realidad; describe lo que habría ocurrido bajo un estado alternativo del mundo},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{variable-dummy}%
+{%
+name={variable indicadora (\textit {dummy})},%
+sort={variabledummy},%
+type={main},%
+first={variable indicadora (\protect \textit  {dummy})},%
+firstplural={variable indicadora (\protect \textit  {dummy})s},%
+text={variable indicadora (\protect \textit  {dummy})},%
+plural={variable indicadora (\protect \textit  {dummy})s},%
+description={Variable binaria que toma valor 1 cuando la unidad pertenece a un grupo (p.\,ej.\ tratamiento) y 0 en caso contrario; útil para codificar categorías en modelos econométricos},%
+descriptionplural={Variable binaria que toma valor 1 cuando la unidad pertenece a un grupo (p.\,ej.\ tratamiento) y 0 en caso contrario; útil para codificar categorías en modelos econométricos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{grupo-tratamiento}%
+{%
+name={grupo de tratamiento},%
+sort={grupotratamiento},%
+type={main},%
+first={grupo de tratamiento},%
+firstplural={grupo de tratamientos},%
+text={grupo de tratamiento},%
+plural={grupo de tratamientos},%
+description={Conjunto de unidades que reciben la intervención o condición cuyo efecto causal se desea estimar},%
+descriptionplural={Conjunto de unidades que reciben la intervención o condición cuyo efecto causal se desea estimar},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{sesgo-seleccion}%
+{%
+name={sesgo de selección},%
+sort={sesgoseleccion},%
+type={main},%
+first={sesgo de selección},%
+firstplural={sesgo de seleccións},%
+text={sesgo de selección},%
+plural={sesgo de seleccións},%
+description={Distorsión que surge cuando la asignación al tratamiento no es aleatoria y está correlacionada con los resultados potenciales, de modo que la comparación directa entre grupos produce estimaciones sesgadas},%
+descriptionplural={Distorsión que surge cuando la asignación al tratamiento no es aleatoria y está correlacionada con los resultados potenciales, de modo que la comparación directa entre grupos produce estimaciones sesgadas},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{att}%
+{%
+name={ATT},%
+sort={att},%
+type={main},%
+first={ATT},%
+firstplural={ATTs},%
+text={ATT},%
+plural={ATTs},%
+description={\textit {Average Treatment on the Treated} (tratamiento promedio en los tratados): $E[Y_{1}-Y_{0}\mid D=1]$, el efecto causal medio para las unidades que efectivamente recibieron el tratamiento},%
+descriptionplural={\textit {Average Treatment on the Treated} (tratamiento promedio en los tratados): $E[Y_{1}-Y_{0}\mid D=1]$, el efecto causal medio para las unidades que efectivamente recibieron el tratamiento},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{rct}%
+{%
+name={ensayo controlado aleatorizado (RCT)},%
+sort={rct},%
+type={main},%
+first={ensayo controlado aleatorizado (RCT)},%
+firstplural={ensayo controlado aleatorizado (RCT)s},%
+text={ensayo controlado aleatorizado (RCT)},%
+plural={ensayo controlado aleatorizado (RCT)s},%
+description={Diseño experimental en el que las unidades se asignan al tratamiento o al control mediante un procedimiento aleatorio, eliminando el sesgo de selección y permitiendo estimar efectos causales de manera creíble},%
+descriptionplural={Diseño experimental en el que las unidades se asignan al tratamiento o al control mediante un procedimiento aleatorio, eliminando el sesgo de selección y permitiendo estimar efectos causales de manera creíble},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{serie-tiempo}%
+{%
+name={serie de tiempo},%
+sort={serietiempo},%
+type={main},%
+first={serie de tiempo},%
+firstplural={serie de tiempos},%
+text={serie de tiempo},%
+plural={serie de tiempos},%
+description={Secuencia ordenada $\{X_t\}$ de observaciones de una variable aleatoria a lo largo del tiempo},%
+descriptionplural={Secuencia ordenada $\{X_t\}$ de observaciones de una variable aleatoria a lo largo del tiempo},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{estacionariedad}%
+{%
+name={estacionariedad},%
+sort={estacionariedad},%
+type={main},%
+first={estacionariedad},%
+firstplural={estacionariedads},%
+text={estacionariedad},%
+plural={estacionariedads},%
+description={Propiedad de un proceso estocástico cuyas características estadísticas (media, varianza y autocovarianza) permanecen constantes en el tiempo},%
+descriptionplural={Propiedad de un proceso estocástico cuyas características estadísticas (media, varianza y autocovarianza) permanecen constantes en el tiempo},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{caminata-aleatoria}%
+{%
+name={caminata aleatoria},%
+sort={caminataaleatoria},%
+type={main},%
+first={caminata aleatoria},%
+firstplural={caminata aleatorias},%
+text={caminata aleatoria},%
+plural={caminata aleatorias},%
+description={Proceso $X_t=X_{t-1}+\varepsilon _t$ donde $\varepsilon _t$ es ruido blanco; ejemplo clásico de serie no estacionaria},%
+descriptionplural={Proceso $X_t=X_{t-1}+\varepsilon _t$ donde $\varepsilon _t$ es ruido blanco; ejemplo clásico de serie no estacionaria},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{ruido-blanco}%
+{%
+name={ruido blanco},%
+sort={ruidoblanco},%
+type={main},%
+first={ruido blanco},%
+firstplural={ruido blancos},%
+text={ruido blanco},%
+plural={ruido blancos},%
+description={Secuencia de innovaciones $\{\varepsilon _t\}$ con media cero, varianza constante finita y nula correlación serial},%
+descriptionplural={Secuencia de innovaciones $\{\varepsilon _t\}$ con media cero, varianza constante finita y nula correlación serial},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{raiz-unitaria}%
+{%
+name={raíz unitaria},%
+sort={raizunitaria},%
+type={main},%
+first={raíz unitaria},%
+firstplural={raíz unitarias},%
+text={raíz unitaria},%
+plural={raíz unitarias},%
+description={Raíz del polinomio autoregresivo igual a 1; su presencia indica no-estacionariedad},%
+descriptionplural={Raíz del polinomio autoregresivo igual a 1; su presencia indica no-estacionariedad},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{dickey-fuller}%
+{%
+name={prueba Dickey–Fuller (ADF)},%
+sort={dickeyfuller},%
+type={main},%
+first={prueba Dickey–Fuller (ADF)},%
+firstplural={prueba Dickey–Fuller (ADF)s},%
+text={prueba Dickey–Fuller (ADF)},%
+plural={prueba Dickey–Fuller (ADF)s},%
+description={Contrastación estadística para la hipótesis de raíz unitaria; rechazar la hipótesis nula implica estacionariedad},%
+descriptionplural={Contrastación estadística para la hipótesis de raíz unitaria; rechazar la hipótesis nula implica estacionariedad},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{diferencia}%
+{%
+name={diferencia de la serie},%
+sort={diferencia},%
+type={main},%
+first={diferencia de la serie},%
+firstplural={diferencia de la series},%
+text={diferencia de la serie},%
+plural={diferencia de la series},%
+description={Transformación $\Delta X_t = X_t - X_{t-1}$ (o de orden superior) usada para inducir estacionariedad},%
+descriptionplural={Transformación $\Delta X_t = X_t - X_{t-1}$ (o de orden superior) usada para inducir estacionariedad},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{acf}%
+{%
+name={ACF},%
+sort={acf},%
+type={main},%
+first={ACF},%
+firstplural={ACFs},%
+text={ACF},%
+plural={ACFs},%
+description={\textit {Autocorrelation Function}: gráfico de las autocorrelaciones muestrales en distintos rezagos},%
+descriptionplural={\textit {Autocorrelation Function}: gráfico de las autocorrelaciones muestrales en distintos rezagos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{pacf}%
+{%
+name={PACF},%
+sort={pacf},%
+type={main},%
+first={PACF},%
+firstplural={PACFs},%
+text={PACF},%
+plural={PACFs},%
+description={\textit {Partial Autocorrelation Function}: muestra las autocorrelaciones \emph {condicionales}; útil para fijar el orden $p$ de un modelo AR},%
+descriptionplural={\textit {Partial Autocorrelation Function}: muestra las autocorrelaciones \emph {condicionales}; útil para fijar el orden $p$ de un modelo AR},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{modelo-ar}%
+{%
+name={modelo autorregresivo AR($p$)},%
+sort={modeloar},%
+type={main},%
+first={modelo autorregresivo AR($p$)},%
+firstplural={modelo autorregresivo AR($p$)s},%
+text={modelo autorregresivo AR($p$)},%
+plural={modelo autorregresivo AR($p$)s},%
+description={Modelo lineal que explica $Y_t$ a partir de sus $p$ rezagos: $Y_t=\sum _{i=1}^{p}\phi _i Y_{t-i}+\varepsilon _t$},%
+descriptionplural={Modelo lineal que explica $Y_t$ a partir de sus $p$ rezagos: $Y_t=\sum _{i=1}^{p}\phi _i Y_{t-i}+\varepsilon _t$},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{modelo-ma}%
+{%
+name={modelo de medias móviles MA($q$)},%
+sort={modeloma},%
+type={main},%
+first={modelo de medias móviles MA($q$)},%
+firstplural={modelo de medias móviles MA($q$)s},%
+text={modelo de medias móviles MA($q$)},%
+plural={modelo de medias móviles MA($q$)s},%
+description={Modelo que expresa $Y_t$ como combinación lineal de los rezagos del error: $Y_t=\sum _{j=1}^{q}\theta _j \varepsilon _{t-j}+\varepsilon _t$},%
+descriptionplural={Modelo que expresa $Y_t$ como combinación lineal de los rezagos del error: $Y_t=\sum _{j=1}^{q}\theta _j \varepsilon _{t-j}+\varepsilon _t$},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{modelo-arma}%
+{%
+name={modelo ARMA($p,q$)},%
+sort={modeloarma},%
+type={main},%
+first={modelo ARMA($p,q$)},%
+firstplural={modelo ARMA($p,q$)s},%
+text={modelo ARMA($p,q$)},%
+plural={modelo ARMA($p,q$)s},%
+description={Combina componentes AR($p$) y MA($q$) en un solo esquema: $Y_t=\sum _{i=1}^p\phi _i Y_{t-i} +\sum _{j=1}^q\theta _j\varepsilon _{t-j}+\varepsilon _t$},%
+descriptionplural={Combina componentes AR($p$) y MA($q$) en un solo esquema: $Y_t=\sum _{i=1}^p\phi _i Y_{t-i} +\sum _{j=1}^q\theta _j\varepsilon _{t-j}+\varepsilon _t$},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{modelo-arima}%
+{%
+name={modelo ARIMA($p,d,q$)},%
+sort={modeloarima},%
+type={main},%
+first={modelo ARIMA($p,d,q$)},%
+firstplural={modelo ARIMA($p,d,q$)s},%
+text={modelo ARIMA($p,d,q$)},%
+plural={modelo ARIMA($p,d,q$)s},%
+description={Extensión del ARMA a series no estacionarias mediante $d$ diferencias (Integración)},%
+descriptionplural={Extensión del ARMA a series no estacionarias mediante $d$ diferencias (Integración)},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{orden-rezago}%
+{%
+name={orden de rezago},%
+sort={ordenrezago},%
+type={main},%
+first={orden de rezago},%
+firstplural={orden de rezagos},%
+text={orden de rezago},%
+plural={orden de rezagos},%
+description={Número de retardos ($p$ en AR, $q$ en MA) incorporados al modelo},%
+descriptionplural={Número de retardos ($p$ en AR, $q$ en MA) incorporados al modelo},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{aic}%
+{%
+name={AIC},%
+sort={aic},%
+type={main},%
+first={AIC},%
+firstplural={AICs},%
+text={AIC},%
+plural={AICs},%
+description={\textit {Akaike Information Criterion}: medida de selección de modelos que penaliza la complejidad; menor AIC $\Rightarrow $ mejor ajuste/parcimonia},%
+descriptionplural={\textit {Akaike Information Criterion}: medida de selección de modelos que penaliza la complejidad; menor AIC $\Rightarrow $ mejor ajuste/parcimonia},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{bic}%
+{%
+name={BIC},%
+sort={bic},%
+type={main},%
+first={BIC},%
+firstplural={BICs},%
+text={BIC},%
+plural={BICs},%
+description={\textit {Bayesian Information Criterion}: versión más restrictiva que el AIC para comparar modelos},%
+descriptionplural={\textit {Bayesian Information Criterion}: versión más restrictiva que el AIC para comparar modelos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{datos-panel}%
+{%
+name={datos en panel},%
+sort={datospanel},%
+type={main},%
+first={datos en panel},%
+firstplural={datos en panels},%
+text={datos en panel},%
+plural={datos en panels},%
+description={Conjunto de observaciones $\{Y_{it}\}$ que combina dimensión transversal ($i$) y temporal ($t$) para los mismos individuos o unidades},%
+descriptionplural={Conjunto de observaciones $\{Y_{it}\}$ que combina dimensión transversal ($i$) y temporal ($t$) para los mismos individuos o unidades},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{efectos-fijos}%
+{%
+name={efectos fijos},%
+sort={efectosfijos},%
+type={main},%
+first={efectos fijos},%
+firstplural={efectos fijoss},%
+text={efectos fijos},%
+plural={efectos fijoss},%
+description={Método de estimación que controla inobservables constantes dentro de cada unidad (o periodo) añadiendo una constante específica; se basa en la variación \textit {within}},%
+descriptionplural={Método de estimación que controla inobservables constantes dentro de cada unidad (o periodo) añadiendo una constante específica; se basa en la variación \textit {within}},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{within}%
+{%
+name={transformación within},%
+sort={within},%
+type={main},%
+first={transformación within},%
+firstplural={transformación withins},%
+text={transformación within},%
+plural={transformación withins},%
+description={Centrado de cada variable respecto a su media por individuo: $\ddot X_{it}=X_{it}-\bar X_i$; elimina el término constante $U_i$ de los efectos fijos},%
+descriptionplural={Centrado de cada variable respecto a su media por individuo: $\ddot X_{it}=X_{it}-\bar X_i$; elimina el término constante $U_i$ de los efectos fijos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{efectos-fijos-dos-vias}%
+{%
+name={efectos fijos de dos vías},%
+sort={efectosfijosdosvias},%
+type={main},%
+first={efectos fijos de dos vías},%
+firstplural={efectos fijos de dos víass},%
+text={efectos fijos de dos vías},%
+plural={efectos fijos de dos víass},%
+description={Modelo que introduce efectos fijos \emph {por entidad} ($U_i$) y \emph {por tiempo} ($U_t$) simultáneamente},%
+descriptionplural={Modelo que introduce efectos fijos \emph {por entidad} ($U_i$) y \emph {por tiempo} ($U_t$) simultáneamente},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{poolabilidad}%
+{%
+name={prueba de poolabilidad},%
+sort={poolabilidad},%
+type={main},%
+first={prueba de poolabilidad},%
+firstplural={prueba de poolabilidads},%
+text={prueba de poolabilidad},%
+plural={prueba de poolabilidads},%
+description={Contrastación (F-test) para decidir si un modelo agrupado sin efectos fijos es apropiado frente a un modelo con efectos fijos},%
+descriptionplural={Contrastación (F-test) para decidir si un modelo agrupado sin efectos fijos es apropiado frente a un modelo con efectos fijos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{did}%
+{%
+name={diferencias en diferencias},%
+sort={diferenciasendiferencias},%
+type={main},%
+first={DiD},%
+firstplural={DiDs},%
+text={DiD},%
+plural={DiDs},%
+description={Estrategia cuasi-experimental que identifica un efecto causal comparando la variación temporal de un grupo tratado con la de un grupo de control},%
+descriptionplural={Estrategia cuasi-experimental que identifica un efecto causal comparando la variación temporal de un grupo tratado con la de un grupo de control},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{sutva}%
+{%
+name={SUTVA},%
+sort={sutva},%
+type={main},%
+first={SUTVA},%
+firstplural={SUTVAs},%
+text={SUTVA},%
+plural={SUTVAs},%
+description={\textit {Stable Unit Treatment Value Assumption}: no-interferencia entre unidades y único valor de tratamiento},%
+descriptionplural={\textit {Stable Unit Treatment Value Assumption}: no-interferencia entre unidades y único valor de tratamiento},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{no-anticipacion}%
+{%
+name={supuesto de no anticipación},%
+sort={noanticipacion},%
+type={main},%
+first={supuesto de no anticipación},%
+firstplural={supuesto de no anticipacións},%
+text={supuesto de no anticipación},%
+plural={supuesto de no anticipacións},%
+description={Los resultados potenciales previos al tratamiento no se ven afectados por la futura asignación de éste},%
+descriptionplural={Los resultados potenciales previos al tratamiento no se ven afectados por la futura asignación de éste},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{superposicion-fuerte}%
+{%
+name={superposición fuerte},%
+sort={superposicionfuerte},%
+type={main},%
+first={superposición fuerte},%
+firstplural={superposición fuertes},%
+text={superposición fuerte},%
+plural={superposición fuertes},%
+description={Para cada estrato de covariables existe probabilidad positiva de pertenecer a cualquier grupo de tratamiento},%
+descriptionplural={Para cada estrato de covariables existe probabilidad positiva de pertenecer a cualquier grupo de tratamiento},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{tendencias-paralelas}%
+{%
+name={tendencias paralelas},%
+sort={tendenciasparalelas},%
+type={main},%
+first={tendencias paralelas},%
+firstplural={tendencias paralelass},%
+text={tendencias paralelas},%
+plural={tendencias paralelass},%
+description={Supuesto clave de DiD: en ausencia de tratamiento, la evolución promedio del resultado sería igual en ambos grupos},%
+descriptionplural={Supuesto clave de DiD: en ausencia de tratamiento, la evolución promedio del resultado sería igual en ambos grupos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{interaccion}%
+{%
+name={término de interacción},%
+sort={interaccion},%
+type={main},%
+first={término de interacción},%
+firstplural={término de interaccións},%
+text={término de interacción},%
+plural={término de interaccións},%
+description={Producto de dos variables (p.\,ej.\ $D_i\times T_t$) que captura un efecto conjunto; en DiD su coeficiente es el estimador causal},%
+descriptionplural={Producto de dos variables (p.\,ej.\ $D_i\times T_t$) que captura un efecto conjunto; en DiD su coeficiente es el estimador causal},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{investigacion-mercados}%
+{%
+name={investigación de mercado},%
+sort={investigacionmercado},%
+type={main},%
+first={investigación de mercado},%
+firstplural={investigación de mercados},%
+text={investigación de mercado},%
+plural={investigación de mercados},%
+description={Proceso sistemático de obtención, organización y análisis de información relevante sobre consumidores, competidores y entorno, para apoyar la toma de decisiones de negocio},%
+descriptionplural={Proceso sistemático de obtención, organización y análisis de información relevante sobre consumidores, competidores y entorno, para apoyar la toma de decisiones de negocio},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{focus-group}%
+{%
+name={grupo de enfoque},%
+sort={focusgroup},%
+type={main},%
+first={focus-group},%
+firstplural={focus-groups},%
+text={focus-group},%
+plural={focus-groups},%
+description={Técnica cualitativa que reúne a varias personas bajo la guía de un moderador para explorar actitudes, opiniones y motivaciones acerca de un producto o idea},%
+descriptionplural={Técnica cualitativa que reúne a varias personas bajo la guía de un moderador para explorar actitudes, opiniones y motivaciones acerca de un producto o idea},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{mom-test}%
+{%
+name={\textit {Mom Test}},%
+sort={momtest},%
+type={main},%
+first={\protect \textit  {Mom Test}},%
+firstplural={\protect \textit  {Mom Test}s},%
+text={\protect \textit  {Mom Test}},%
+plural={\protect \textit  {Mom Test}s},%
+description={Metodología de Rob Fitzpatrick para formular preguntas que obliguen al entrevistado (incluso tu madre) a dar retroalimentación honesta basada en hechos y no en halagos},%
+descriptionplural={Metodología de Rob Fitzpatrick para formular preguntas que obliguen al entrevistado (incluso tu madre) a dar retroalimentación honesta basada en hechos y no en halagos},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{escala-likert}%
+{%
+name={escala de Likert},%
+sort={likert},%
+type={main},%
+first={escala de Likert},%
+firstplural={escala de Likerts},%
+text={escala de Likert},%
+plural={escala de Likerts},%
+description={Formato de pregunta cerrado en el que el encuestado indica su nivel de acuerdo con una afirmación en una gradación ordinal (p.\,ej.\ 1 – 5 o 1 – 7)},%
+descriptionplural={Formato de pregunta cerrado en el que el encuestado indica su nivel de acuerdo con una afirmación en una gradación ordinal (p.\,ej.\ 1 – 5 o 1 – 7)},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{mvp}%
+{%
+name={MVP},%
+sort={mvp},%
+type={main},%
+first={MVP},%
+firstplural={MVPs},%
+text={MVP},%
+plural={MVPs},%
+description={Sigla de \emph {mínimo producto viable}. Versión más sencilla de un producto o servicio que permite poner a prueba la propuesta de valor con el mínimo tiempo y coste posibles, obteniendo retroalimentación temprana del mercado},%
+descriptionplural={Sigla de \emph {mínimo producto viable}. Versión más sencilla de un producto o servicio que permite poner a prueba la propuesta de valor con el mínimo tiempo y coste posibles, obteniendo retroalimentación temprana del mercado},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{lean-startup}%
+{%
+name={\textit {Lean Startup}},%
+sort={leanstartup},%
+type={main},%
+first={\protect \textit  {Lean Startup}},%
+firstplural={\protect \textit  {Lean Startup}s},%
+text={\protect \textit  {Lean Startup}},%
+plural={\protect \textit  {Lean Startup}s},%
+description={Metodología de creación de negocios de Eric Ries basada en ciclos rápidos “construir–medir–aprender”, experimentación continua y aprendizaje validado para reducir riesgo e inversión},%
+descriptionplural={Metodología de creación de negocios de Eric Ries basada en ciclos rápidos “construir–medir–aprender”, experimentación continua y aprendizaje validado para reducir riesgo e inversión},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{vanity-metric}%
+{%
+name={métrica de vanidad},%
+sort={vanitymetric},%
+type={main},%
+first={métrica de vanidad},%
+firstplural={métrica de vanidads},%
+text={métrica de vanidad},%
+plural={métrica de vanidads},%
+description={Indicador que “luce” bien (p.\,ej.\ followers, likes) pero no orienta la toma de decisiones porque no refleja directamente la salud o el crecimiento económico del negocio},%
+descriptionplural={Indicador que “luce” bien (p.\,ej.\ followers, likes) pero no orienta la toma de decisiones porque no refleja directamente la salud o el crecimiento económico del negocio},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{cac}%
+{%
+name={CAC},%
+sort={cac},%
+type={main},%
+first={CAC},%
+firstplural={CACs},%
+text={CAC},%
+plural={CACs},%
+description={\emph {Customer Acquisition Cost}. Costo total de captar un nuevo cliente, calculado dividiendo la inversión en marketing y ventas entre el número de clientes adquiridos en un periodo},%
+descriptionplural={\emph {Customer Acquisition Cost}. Costo total de captar un nuevo cliente, calculado dividiendo la inversión en marketing y ventas entre el número de clientes adquiridos en un periodo},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{hipotesis-mercados-eficientes}%
+{%
+name={hipótesis de los mercados eficientes},%
+sort={mercadoseficientes},%
+type={main},%
+first={hipótesis de los mercados eficientes},%
+firstplural={hipótesis de los mercados eficientess},%
+text={hipótesis de los mercados eficientes},%
+plural={hipótesis de los mercados eficientess},%
+description={Proposición de que toda la información relevante se incorpora instantáneamente a los precios de mercado; de ser cierta, las oportunidades de ganancia “fáciles” se eliminan de forma inmediata},%
+descriptionplural={Proposición de que toda la información relevante se incorpora instantáneamente a los precios de mercado; de ser cierta, las oportunidades de ganancia “fáciles” se eliminan de forma inmediata},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+

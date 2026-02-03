@@ -1,0 +1,1177 @@
+\chapter{Una guía para entender y hacer modelos de Regresión Lineal}
+
+\begin{quote}
+\textit{I know I’m stereotypical barbie and therefore don’t form conjectures concerning causality of adjacent unfolding events. But some things have been happening that might be related} \\
+ - Barbie (2023)
+\end{quote}
+
+
+\newthought{La regresión es la base de los modelos de inferencia causal.}
+
+Hay una razón por la que todos los libros de econometría y de ciencia de datos lo cubren. Se trata del modelo por el que debes comenzar \textbf{antes de explorar} modelos más complejos.
+
+No hay nada de malo en usar redes neuronales o modelos de random forest en tu proyecto\sidenote{Actualmente está de moda hacer transición de economista a Data Scientist. Una de las razones principales es que alguien que estudia econometría ya lleva un buen avance en los modelos \textit{supervisados} (todos los que vemos en este libro son de ese tipo). Los modelos \textit{no supervisados} llaman mucho la atención por ser los que están detrás de la Inteligencia Artificial, pero siempre la regresión es el punto de inicio también en los libros de Data Science.}, pero si usas \gls{regresionlineal}, tus modelos tendrán los siguientes beneficios.
+\begin{itemize}
+    \item Mayor parsimonia. Entre más simple es el modelo, menos problemas te va a causar.
+    \item Serán más fáciles de interpretar. Si necesitas comunicar tus resultados a un jefe o un cliente, necesitas poder decir claramente lo que tus datos significan y las limitaciones.
+    \item Pruebas de robustez. Cuando un modelo pasa pruebas y demuestra que es robusto, podrás tener más confianza de usarlo en tus predicciones.
+\end{itemize}
+No es magia. Hay teoremas muy sólidos que ayudan a que entendamos lo que funciona y cuándo funciona.
+
+Este capítulo se trata de sentar esas bases sólidas.
+
+\section{El modelo de mínimos cuadrados ordinarios con dos variables}
+Comencemos con el modelo básico. Tienes una variable $X$ y deseas conocer el efecto que tiene sobre $Y$. La variable $X$ podría ser el gasto en una campaña publicitaria por Televisión, mientras que $Y$ son las ventas de nuestro producto.
+
+Si tienes suficientes combinaciones de las dos variables, puedes plantear un modelo sobre su comportamiento. Usaremos la base de datos de publicidad, disponible libremente en \href{http://kaggle.com/}{kaggle.com}. El siguiente código carga la base de datos directamente del repositorio y muestra un diagrama de dispersión entre los gastos en publicidad por TV y las ventas en millones de unidades.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Cargar los datos
+data = pd.read_csv('advertising.csv')
+
+# Crear un diagrama de dispersión
+plt.figure(figsize=(10, 6))
+plt.scatter(data['TV'], data['Sales'], alpha=0.5)
+plt.title('Diagrama de Dispersión de Gastos en TV vs Ventas')
+plt.xlabel('Gastos en TV ($)')
+plt.ylabel('Ventas (Miles de unidades)')
+plt.grid(True)
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+%Incluir Diagrama de Dispersión de Gastos en TV vs Ventas
+\begin{figure}
+    \centering
+    \caption{Diagrama de dispersión generado a partir del bloque de código de Python. Fuente: Elaboración propia.}
+    \includegraphics[width=0.9\linewidth]{imagenes/scatter1.png}
+\end{figure}
+
+Este es un ejemplo muy claro donde la regresión lineal es el modelo ideal para nosotros: los puntos siguen un patrón muy claro visualmente.
+
+Lo que nos dice la regresión lineal es que existe una línea que se ajusta a los datos. No necesitamos que el ajuste sea perfecto\sidenote{Si tuviéramos un ajuste perfecto no necesitaríamos de modelos estadísticos.}. Es normal pensar que hay muchos factores que afectan las ventas además del gasto publicitario, desde el clima hasta el día del mes pueden generar variaciones. Todos reaccionamos diferente a la publicidad.
+
+Así se ve nuestra línea de regresión.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# En esta ocasión usaremos seaborn porque nos ayudará a añadir la recta de ajuste automáticamente
+import seaborn as sns
+
+# Crear un diagrama de dispersión con una línea de regresión
+plt.figure(figsize=(10, 6))
+sns.regplot(x='TV', y='Sales', data=data, scatter_kws={'alpha':0.5})
+plt.title('Diagrama de Dispersión de Gastos en TV vs Ventas con Línea de Regresión')
+plt.xlabel('Gastos en TV ($)')
+plt.ylabel('Ventas (Miles de unidades)')
+plt.grid(True)
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{figure}
+    \centering
+    \caption{Diagrama de dispersión con línea de regresión.}
+    \includegraphics[width=0.9\linewidth]{imagenes/scatter2.png}
+\end{figure}
+
+Este tipo de línea se genera con un modelo lineal, donde cada punto es producto de una función de tipo
+$$Y_{i}=\beta_{0}+\beta_{1}X_{i}+\varepsilon_{i}$$
+El punto $i$ se ubica en la coordenada $(X_{i}, Y_{i})$. El término $\varepsilon_{i}$ es el \textbf{error}, la diferencia entre el punto y la línea. Los términos $\beta_{0}$ y $\beta_{1}$ (\textit{se lee beta-cero y beta-uno}) son los parámetros de una función lineal. Usamos letras griegas por convención, y el subíndice cero y uno son una forma práctica de preparar nuestro modelo en caso de que tengamos que usar más parámetros.
+
+El siguiente es un \textbf{diagrama de dispersión}.
+
+Nota que en algunos puntos, la línea de regresión “se equivoca” hacia arriba y en otros puntos hacia abajo. Cada punto que compone la línea de regresión es una predicción del valor de $Y_{i}$ dado $X_{i}$, donde $\varepsilon_{i}$ es la diferencia, a la que llamamos el \textbf{residual}.
+
+\begin{figure}
+     \centering
+     \caption{Le llamamos ``error'' a la diferencia entre una observación y la línea de regresión que ``predice'' dónde debería estar $Y_i$ dado $X_i$. Fuente: Elaboración propia con Python.}
+     \includegraphics[width=\linewidth]{imagenes/error.png}
+\end{figure}
+
+
+El modelo lineal tiene la ventaja de que sólo con dos parámetros podemos definir toda la línea.
+
+Si $\beta_{0}=6.97$ y $\beta_{1}=0.0554$, entonces un valor de $X_{i}=\$150$ en gasto de publicidad por TV implica ventas por $15.29$. De hecho, puedes crear una calculadora sencilla en Python para que te muestre el valor de las ventas que corresponde a cualquier gasto en TV\sidenote{No es común ni necesario hacer este tipo de calculadoras. Si deseas obtener el valor de las predicciones en un modelo llamado \codebox{model}, basta llamar la función de predicción usando, por ejemplo, \codebox{model.predict()}.}.
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Crear la función
+def sales(tv):
+	b0 = 6.97
+	b1 = 0.0555
+	return b0 + b1 * tv
+
+# Comprobar el resultado con 150
+sales(150)
+\end{minted}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+15.294999999999998
+\end{minted}
+\end{tcolorbox}
+Podríamos hacer una predicción de Y para cada punto X. Si tu regresión es correcta y la muestra es buena, puedes usar la función para valores de X que no están en tu base de datos. Por ejemplo, este modelo predice que un gasto de publicidad en TV de \$450 traerá ventas por 31.945 miles de unidades.
+
+\section{El método de Mínimos cuadrados ordinarios}
+Ya conoces el modelo de regresión lineal, ahora te presento el mejor modelo para resolverlo\sidenote{Hay muchas formas de solucionar el modelo además de la que veremos aquí. El modelo OLS generalmente se selecciona porque tiene propiedades deseables, como lo veremos más adelante.}.
+
+El método de \gls{ols} es el método más popular para resolver el modelo de regresión lineal. Se prefiere porque es simple y muy eficiente.
+
+Bajo ciertas condiciones, OLS se considera el mejor estimador lineal insesgado. El acrónimo en inglés es BLUE (Best Linear Unbiased Estimator):
+\begin{itemize}
+    \item Best (Mejor): Significa que tiene la menor varianza de las estimaciones.
+    \item Linear (Lineal): El estimador es una función lineal de los valores observados.
+    \item Unbiased (Insesgados): El estimador le \textit{atina} al verdadero valor del parámetro \textbf{en promedio}.
+    \item Estimator (Estimador): Es la regla o fórmula que indica cómo estimar los parámetros del modelo.
+\end{itemize}
+OLS es una de muchas técnicas que se pueden utilizar para resolver el modelo. Tiene el objetivo de encontrar los valores de $\beta_{0}$ y $\beta_{1}$ que minimizan la suma de los errores al cuadrado. La siguiente imagen muestra cómo se extiende el área de los errores al cuadrado.
+
+\begin{figure}
+     \centering
+     \caption{El objetivo del método de mínimos cuadrados es encontrar la línea que minimice la suma de los errores al cuadrado. Fuente: Elaboración propia con Python.}
+     \includegraphics[width=\linewidth]{imagenes/errores2.png}
+\end{figure}
+
+La imagen solo muestra el cuadrado de dos puntos. Si pudiéramos mover con libertad los valores de $\beta_{0}$ y $\beta_{1}$, podríamos ver cómo esos cuadros se hacen más grandes y más chicos, de acuerdo a la distancia con los puntos.
+
+¿Cómo encontramos los valores de $\beta_{0}$ y $\beta_{1}$ que hacen mínima la suma de los residuales al cuadrado?
+
+\section{Obteniendo los estimadores de OLS}
+Pasemos la ecuación a notación vectorial, de esta forma nuestra solución aplicará para modelos con más de 2 parámetros, denotando el número de parámetros con $k$.\sidenote{Esta sección muestra una solución general de la regresión por mínimos cuadrados. La versión \textit{sin covariables} con sólo una variable independiente $x$ y una dependiente $y$ nos lleva a coeficientes de estimación $\hat\beta_1 = \frac{\text{Cov}(x,y)}{\text{Var}(x)}$ y $\hat{\beta}_0 = \bar y - \hat\beta_1\bar x$. Este resultado viene de resolver un problema de minimización que se obtiene de manera sencilla con cálculo, pero el tamaño de los polinomios que aparecen con dimensiones superiores hacen que valga la pena mejor no intentar resolverlos por ese método y recurrir al álgebra lineal.}.
+\begin{itemize}
+    \item Sea $\mathbf{Y}$ el vector de observaciones de tamaño $n\times1$ de la variable dependiente (las ventas, en nuestro ejemplo).
+    \item Sea $\mathbf{X}$ una matriz de tamaño $n\times k$ con las observaciones de $k$ variables independientes con $n$ observaciones cada una. Como por lo general nuestro modelo contiene un término constante, incluimos una columna de unos.
+    \item Sea $\boldsymbol{\beta}$ un vector de tamaño $k+1\times1$. Es el vector de los parámetros que deseamos estimar.
+    \item Sea $\boldsymbol{\varepsilon}$ un vector de tamaño $n\times1$. Es el vector de errores.
+\end{itemize}
+Nuestro modelo se vería entonces de la siguiente manera:
+\begin{equation}
+\begin{bmatrix}
+Y_1 \\
+Y_2 \\
+\vdots 
+\\Y_n
+\end{bmatrix}_{n \times 1}=
+\begin{bmatrix}
+1 & X_{11} & X_{21} & \cdots & X_{k1} \\
+1 & X_{12} & X_{22} & \cdots & X_{k2} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & X_{1n} & X_{2n} & \cdots & X_{kn}
+\end{bmatrix}_{n \times k}
+\begin{bmatrix}
+\beta_0 \\
+\beta_2 \\
+\vdots \\
+\beta_{k+1}
+\end{bmatrix}_{k+1 \times 1}+
+\begin{bmatrix}
+\varepsilon_1 \\
+\varepsilon_2 \\
+\vdots \\
+\varepsilon_n
+\end{bmatrix}_{n \times 1}
+\end{equation}
+
+
+El modelo de arriba se puede representar de forma compacta como $\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}$. Es una forma de representar los datos poblacionales. Sin embargo, lo más común es que tengamos a nuestra disposición los datos de una \textbf{muestra}.
+
+Lo que en la práctica significa es que probablemente nunca podremos observar los datos que componen al vector $\boldsymbol{\beta}$, pero si podemos trabajar con una estimación obtenida a través de una muestra\sidenote{La forma de la obtención de una muestra está fuera del enfoque de este libro. Normalmente si estás trabajando con datos oficiales el trabajo de muestreo ya fue hecho, pero si tú estás obteniendo datos por tu cuenta propia, si tendrás que asegurarte de que esté bien hecha y cumpla con algunos supuestos.}.
+
+\begin{itemize}
+    \item Sea $\hat{\boldsymbol\beta}$ el vector de estimaciones de los parámetros de la población, bajo el supuesto de que $E[\hat{\beta}] = \beta$.
+    \item Sea $\mathbf{e}$ el vector de residuales. Nuestro objetivo en el método de OLS es minimizar $\sum\epsilon_{i}^{2}$.
+\end{itemize}
+La suma de los residuales al cuadrado (RSS = Residual Sum of Squares) la expresamos en notación vectorial como $\mathbf{e}'\mathbf{e}$\sidenote{En el apéndice explico por qué.}.
+
+Podemos expresar la RSS como
+\begin{align*}
+\mathbf{e}'\mathbf{e}=&(\mathbf{y}-\mathbf{X}\hat{\boldsymbol\beta})'(\mathbf{y}-\mathbf{X}\hat{\boldsymbol\beta})\\
+=&\mathbf{y}'\mathbf{y}-\hat{\boldsymbol\beta}'\mathbf{X}'\mathbf{y}-\mathbf{y}'\mathbf{X}\hat{\boldsymbol\beta}+\hat{\boldsymbol\beta}'\mathbf{X}'\mathbf{X}\hat{\boldsymbol\beta}
+\end{align*}
+
+
+Si usamos que $\mathbf{y}'\mathbf{X}\hat{\boldsymbol\beta}=(\mathbf{y}'\mathbf{X} \hat{\boldsymbol\beta})'=\hat{\boldsymbol\beta}'\mathbf{X}'\mathbf{y}$, entonces nuestra RSS se verá así
+$$\mathbf{e}'\mathbf{e} = \mathbf{y}'\mathbf{y} - 2\hat{\boldsymbol\beta}'\mathbf{X}'\mathbf{y} + \hat{\boldsymbol\beta}'\mathbf{X}'\mathbf{X} \hat{\boldsymbol\beta}$$
+Al igual que haríamos con la versión de dos dimensiones, requerimos obtener las condiciones de primer orden de la ecuación para encontrar el mínimo. Esto lo hacemos con la primera derivada con respecto a $\hat{\beta}$. El truco está en igualar esta derivada a cero.
+$$\frac{\partial \mathbf{e'e}}{\partial \hat{\boldsymbol\beta}}=-2\mathbf{X}'\mathbf{y}+2\mathbf{X}'\mathbf{X}\hat{\boldsymbol\beta}=0$$
+Al despejar esta ecuación podemos obtener los valores de $\hat{\boldsymbol\beta}$ que minimizan el valor de los residuales.
+
+Para comprobar que se trata de un mínimo, notamos que la segunda derivada ($2\mathbf{X}'\mathbf{X}$) es una matriz positiva definida (análoga en álgebra lineal a los números positivos)\sidenote{Incluí algunas notas en el apéndice que te podrán ayudar a entender esto mejor.}.
+
+De la ecuación anterior podemos obtener las llamadas “ecuaciones normales”.
+$$(\mathbf{X}'\mathbf{X})\hat{\boldsymbol\beta}=\mathbf{X}'\mathbf{y}$$
+Nota que la matriz $\mathbf{X}'\mathbf{X}$ siempre será cuadrada y simétrica con tamaño $k\times k$ . Si la inversa de esta matriz existe\sidenote{ver el apéndice.}, la podemos aplicar a ambos lados de la ecuación para despejar $\hat{\boldsymbol\beta}$:
+$$(\mathbf{X}'\mathbf{X})^{-1}(\mathbf{X}'\mathbf{X})\hat{\boldsymbol\beta}=(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}$$
+y por lo tanto
+$$\hat{\boldsymbol\beta}=(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}$$
+Esto es lo que tu computadora calcula cuando le pides que haga una regresión lineal con tus datos. Nota que no es necesario tener ningún supuesto en este punto, pues tus estimaciones sólo dependen de tu matriz de datos observados.
+
+Hagamos un ejercicio en Python con los datos de publicidad. El siguiente código presenta los datos en forma de matrices y vectores y los aplica para calcular el vector de $\hat{\boldsymbol\beta}$\sidenote{El módulo de \codebox{numpy} tiene funciones para hacer operaciones de álgebra lineal que nos ayudarán a comprobar el resultado que acabamos de obtener para encontrar los estimadores de mínimos cuadrados. Revisa la documentación para las funciones de algebra lineal en \href{https://numpy.org/doc/stable/reference/routines.linalg.html}{https://numpy.org}}:
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import numpy as np
+import pandas as pd
+
+# Cargar el conjunto de datos
+ruta_archivo = 'advertising.csv'
+datos = pd.read_csv(ruta_archivo)
+
+# Seleccionar solo las columnas TV y Sales
+tv = datos['TV'].values
+ventas = datos['Sales'].values
+
+# Añadir una columna de unos para el término de intercepto
+X = np.column_stack((np.ones(tv.shape[0]), tv))
+
+# Aplicar la fórmula de regresión lineal
+# Calcular (X'X)^-1
+XX_inv = np.linalg.inv(X.T @ X)
+
+# Calcular (X'X)^-1 X'y
+beta_hat = XX_inv @ X.T @ ventas
+
+# Coeficientes: Intercepto y Pendiente
+intercepto, pendiente = beta_hat
+
+# Mostrar los resultados
+print("Intercepto:", intercepto)
+print("Pendiente para TV:", pendiente)
+\end{minted}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Intercepto: 6.974821488229908
+Pendiente para TV: 0.05546477046955883
+\end{minted}
+\end{tcolorbox}
+Lo mejor de este resultado es que es relativamente fácil hacerlo escalar para $k$ variables. Queda como ejercicio para el lector modificar el código anterior. Incluye la publicidad por radio y periódicos a la matriz $\mathbf{X}$ y vuelve a calcular los coeficientes.
+
+\section{Propiedades de los estimadores de Mínimos Cuadrados}
+La propiedad principal de los estimadores es que minimizan la suma de los residuales al cuadrado. Pero hay más propiedades que podemos deducir con ligeras modificaciones. Por ejemplo, podemos sustituir el valor de $\mathbf{y}=\mathbf{X}\hat{\boldsymbol\beta}+\mathbf{e}$ dentro de la ecuación normal para obtener:
+
+\begin{align*}  
+(\mathbf{X}'\mathbf{X})\hat{\boldsymbol\beta}=&\mathbf{X}'(\mathbf{X}\hat{\boldsymbol\beta}+\mathbf{e})\\
+(\mathbf{X}'\mathbf{X})\hat{\boldsymbol\beta}=&(\mathbf{X}'\mathbf{X})\hat{\boldsymbol\beta}+\mathbf{X}'\mathbf{e}\\
+\mathbf{X}'\mathbf{e} =& 0
+\end{align*}
+Podemos deducir a partir de este resultado algunas propiedades:
+\begin{itemize}
+    \item \textbf{Los valores observados de $\mathbf{X}$ no están correlacionados con los residuales.}
+    
+    Que $\mathbf{X}'\mathbf{e}=0$  implica que cada columna de la matriz $\mathbf{X}$ tiene correlación muestral de cero con los residuales. Esto sigue siendo verdad aún cuando nuestra regresión incluye una constante.
+
+    El siguiente código muestra en Python las predicciones, los residuales y el cálculo de la correlación entre ambos. Nota que las predicciones se calculan con el producto de la matriz $\mathbf{X}$ con $\hat{\boldsymbol\beta}$, esto es:
+    $$\hat{Y} = X \hat{\boldsymbol\beta} =
+    \begin{bmatrix}
+    1 & x_1 \\
+    1 & x_2 \\
+    \vdots & \vdots \\
+    1 & x_n
+    \end{bmatrix}
+    \begin{bmatrix}
+    \hat{\beta}_0 \\
+    \hat{\beta}_1
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    \hat{\beta}_0 + \hat{\beta}_1 x_1 \\
+    \hat{\beta}_0 + \hat{\beta}_1 x_2 \\
+    \vdots \\
+    \hat{\beta}_0 + \hat{\beta}_1 x_n
+    \end{bmatrix}$$
+    Los residuales son simplemente $\mathbf{Y}-\mathbf{\hat{Y}}$.
+
+    \begin{fullwidth}
+    \begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+    \begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+    # Calcular los valores predichos y los residuales
+    predicciones = X @ beta_hat
+    residuales = ventas - predicciones
+    
+    # Calcular la correlación entre los valores observados de TV y los residuales
+    correlacion = np.corrcoef(tv, residuales)[0, 1]
+    
+    # Mostrar la correlación
+    print("Correlación entre los valores observados de TV y los residuales:", correlacion)
+    \end{minted}
+    \end{tcolorbox}
+    \end{fullwidth}
+
+    \begin{fullwidth}
+    \begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+    \begin{minted}[framesep=2mm, fontsize=\small]{python}
+    Correlación entre los valores observados de TV y los residuales: 7.864091211939043e-16
+    \end{minted}
+    \end{tcolorbox}
+    \end{fullwidth}
+
+
+    Nota que el coeficiente de correlación es prácticamente cero. Esto comprueba la propiedad\sidenote{Un truco para sacar el mayor provecho a este libro: no copies y pegues este código. Cópialo de manera consciente en tu editor. Ejecuta los bloques uno a uno. Si algo te causa dudas, hazlo por partes.}.
+
+
+    \item \textbf{La suma de los residuales es igual a cero.}
+    
+    Usemos el cálculo que hicimos de los residuales en la propiedad anterior.
+    \begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+    \begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+    # Calcular la suma de los residuales
+    suma_residuales = np.sum(residuales)
+    
+    # Mostrar la suma de los residuales
+    print("Suma de los residuales:", suma_residuales)
+    \end{minted}
+    \end{tcolorbox}
+    \begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+    \begin{minted}[framesep=2mm, fontsize=\small]{python}
+    Suma de los residuales: -2.632560835991171e-12
+    \end{minted}
+    \end{tcolorbox}
+    La suma de los residuales en el modelo de regresión lineal es aproximadamente cero. El modelo “ajusta” los datos promediando los errores en ambas direcciones.
+
+    \item \textbf{La media muestral de los residuales es cero.}
+    
+    Nuevamente, podemos usar los residuales que calculamos antes para obtener este valor promedio\sidenote{Cuando un número viene con una \codebox{e} y un número negativo pequeño es un número muy cercano a cero.}.
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Calcular la media de los residuales
+media_residuales = np.mean(residuales)
+
+# Mostrar la media de los residuales
+print("Media de los residuales:", media_residuales)
+\end{minted}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Media de los residuales: -1.3162804179955856e-14
+\end{minted}
+\end{tcolorbox}
+    \item \textbf{El hiperplano de la regresión pasa a través de las medias de los valores observados $(\mathbf{\overline{X}} \text{ y } \mathbf{\overline{Y}})$}
+    
+    No te intimides por la palabra ``hiperplano''. En una regresión con una sola variable, nos referimos a la línea de regresión. En más dimensiones es el equivalente de esta línea\sidenote{Por ejemplo, en tres dimensiones, se vería como una hoja de papel extendida.}.
+
+    Este paso requiere el cálculo de variables adicionales. En primer lugar, calculamos los valores promedio de las ventas y del gasto en campañas de televisión.
+
+    Luego calculamos la predicción de ventas promedio, que debería ser igual al promedio que calculamos a partir de los datos.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Calcular los promedios de TV y Ventas
+promedio_tv = np.mean(tv)
+promedio_ventas = np.mean(ventas)
+
+# Calcular el valor predicho de Ventas cuando TV es igual a su promedio
+ventas_predichas_en_promedio_tv = beta_hat[0] + beta_hat[1] * promedio_tv
+
+# Mostrar los resultados
+print("Promedio de TV:", promedio_tv)
+print("Promedio de Ventas:", promedio_ventas)
+print("Ventas predichas cuando TV es igual a su promedio:", ventas_predichas_en_promedio_tv)
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Promedio de TV: 147.0425
+Promedio de Ventas: 15.130500000000001
+Ventas predichas cuando TV es igual a su promedio: 15.130500000000012
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+
+    \item \textbf{Los valores de predicción de $\mathbf{Y}$ no están correlacionados con los residuales.}
+    
+    Este es un cálculo sencillo hecho con los datos que calculamos al inicio. Debemos de obtener como resultado cero.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Calcular la correlación entre los valores predichos y los residuales 
+correlacion_predichos_residuales = np.corrcoef(predicciones, residuales)[0, 1]
+
+# Mostrar la correlación
+print("Correlación entre los valores predichos de Ventas y los residuales:", correlacion_predichos_residuales)
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Correlación entre los valores predichos de Ventas y los residuales: 7.818042265014361e-16
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+    \item \textbf{La media de las predicciones de $\mathbf{Y}$ para la muestra será igual que la media de los $\mathbf{Y}$ observados.}
+
+   El modelo de regresión lineal se ajusta para minimizar la suma de los cuadrados de los residuales.
+
+    Esto resulta en una distribución equilibrada de los residuales alrededor de la línea de regresión.
+
+\begin{fullwidth} 
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Calcular la media de los valores predichos
+media_predicciones = np.mean(predicciones)
+
+# Mostrar la media de los valores predichos y la media de los valores observados
+print("Media de los valores predichos:", media_predicciones)
+print("Media de los valores observados (Ventas):", promedio_ventas)   
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Media de los valores predichos: 15.130500000000014
+Media de los valores observados (Ventas): 15.130500000000001
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+    Listo. Hemos comprobado con nuestros datos que las propiedades de la regresión lineal.
+
+    Ahora toca poner atención a los supuestos que hacen que un modelo de mínimos cuadrados tenga sentido.
+\end{itemize}
+
+\section{El teorema de Gauss-Márkov y sus supuestos}
+
+\begin{quote}
+\textit{I’m BLUE, da-ba-dee-da-ba-day}\\
+- Eiffel 65 feat. Gabry Ponte
+\end{quote}
+
+El teorema de Gauss-Márkov\sidenote{Nota que le puse un acento a Márkov. En ruso, el acento va en la a. De otra forma, el default de los hispanohablantes sería decirle Markóv, que suena cómicamente a ``zanahoria'' en ruso.} establece que si tu modelo de regresión lineal satisface cinco supuestos básicos, entonces la regresión por mínimos cuadrados producirá \textbf{estimaciones insesgadas} con la varianza mas pequeña de \textbf{todos} los estimadores lineales posibles.
+
+
+En otras palabras, el modelo será \gls{blue}.%\sidenote{En páginas anteriores hicimos una definición de por qué el estimador de mínimos cuadrados era el mejor estimador lineal insesgado: BLUE.}.
+
+\section{Estos son los supuestos del \gls{gauss-markov}}
+\begin{marginfigure}
+        \centering
+        \caption{Andrei Márkov (izquierda) y Carl Friedrich Gauss (derecha) jugando ajedrez. Fuente: imaginado por mi y hecho con chatGPT.}
+        \includegraphics[width=1\linewidth]{imagenes/gauss-markov.png}
+    \end{marginfigure}
+\begin{itemize}
+    \item \textbf{Supuesto \# 1: Los parámetros deben ser lineales.}
+    
+    Si lo pensamos detenidamente, se trata de un supuesto fuerte.
+
+    Si hiciéramos un diagrama de dispersión, deberíamos ver algo parecido a lo que mostró el diagrama de dispersión del gasto en TV contra las ventas.
+
+    Pero a veces nos encontramos con conjuntos de datos que se ven como la imagen \ref{2dim}, en la que no se ve una relación clara entre variables.
+
+    \begin{figure}\label{2dim}
+        \centering
+        \caption{Un diagrama de dispersión nos muestra que $X$ y $Y$ son variables que no parecen tener ninguna relación entre sí.}
+        \includegraphics[width=\linewidth]{imagenes/linear-reg-2dim1.png}
+    \end{figure}
+    
+    Aquí la relación entre las variables no parece ser tan lineal. La línea de regresión parece no estar muy cómoda ahí.
+    
+    Sin embargo, no debemos dejarnos engañar. La regresión lineal la podemos hacer con múltiples dimensiones (variables). En ocasiones, las variables adicionales de nuestro modelo hacen que la linealidad tenga sentido.
+    
+    En la imagen del ejemplo, una simple clasificación de las variables revela el patrón oculto.
+    \begin{figure}
+        \centering
+        \caption{No es sino hasta que agregamos una tercera variable que podemos revelar la verdadera relación que hay entre las variables.}
+        \includegraphics[width=\linewidth]{imagenes/linear-reg-2dim2.png}
+    \end{figure}
+    
+    Son los mismos puntos del diagrama de dispersión, pero separarlos por color revela dos relaciones lineales diferentes.
+    
+    \item \textbf{Supuesto \#2: Los datos deben ser tomados de un muestreo aleatorio de la población.}
+    
+    %Matemáticamente, la matriz $\mathbf{X}$ podría ser fija o aleatoria, pero el mecanismo que no esté relacionado con $\epsilon$. Este es un supuesto del modelo, pero nosotros debemos de asegurarlo en la metodología.
+
+    Este es un supuesto básico: nuestra muestra debe ser aleatoria.
+
+    Si no lo hacemos de esta manera, nos estamos arriesgando a encontrar sesgos en nuestras bases de datos. ¿Cómo nos aseguramos de que nuestra muestra es aleatoria? Si los datos los estamos recabando nosotros, tenemos que tomar las precauciones al momento de diseñar nuestra muestra de que no estamos generando ningún sesgo por la forma en la que estamos recabando los datos.
+
+    Por ejemplo: los datos que se obtienen por teléfono generalmente son considerados de menor calidad que las encuestas realizadas en los hogares. ¿Por qué? porque las personas con teléfono podrían tener diferencias clave con las personas que no cuentan con él. Hacer un muestreo apropiado es mucho más que sólo entrar a un recurso en línea a sacar el número del tamaño de muestra (Algunos recursos para aprender sobre muestreo son los libros de Pérez López\cite{perez2005muestreo} y el de Wasserman\cite{wasserman})
+    
+    \item \textbf{Supuesto \#3: No hay colinealidad: los regresores no están correlacionados perfectamente entre sí.}
+
+    En nuestro modelo de álgebra lineal, esto se determina cuando $\mathbf{X}$ es una matriz $n\times k$ de rango completo\sidenote{Si $\mathbf{X}$ no tiene rango completo, no se puede calcular la matriz $(\mathbf{X}^\top \mathbf{X})^{-1}$, que es necesaria para obtener los estimadores de mínimos cuadrados. El rango de una matriz es el número de filas o columnas linealmente independientes. Una matriz de rango completo es una en la que ninguna columna de $\mathbf{X}$ se puede escribir como la combinación lineal de otras.}.
+
+    Usemos Python para verificar si esto es verdad en los datos de publicidad.
+    
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import numpy as np
+import pandas as pd
+
+# Cargar el conjunto de datos
+ruta_archivo = 'advertising.csv'
+datos = pd.read_csv(ruta_archivo)
+
+# Seleccionar las columnas de interés: TV, Radio, Newspaper y Sales
+tv = datos['TV'].values
+radio = datos['Radio'].values
+newspaper = datos['Newspaper'].values
+ventas = datos['Sales'].values
+
+# Añadir una columna de unos para el término de intercepto
+X = np.column_stack((np.ones(tv.shape[0]), tv, radio, newspaper))
+
+# Calcular el rango de la matriz X para verificar la multicolinealidad
+rango_X = np.linalg.matrix_rank(X)
+
+# Mostrar el rango de la matriz X
+print("Rango de la matriz X:", rango_X)
+
+# Verificar si la matriz X es de rango completo
+num_columnas = X.shape[1]
+es_rango_completo = rango_X == num_columnas
+print("¿Es la matriz X de rango completo (sin multicolinealidad)?", es_rango_completo)
+\end{minted}
+\end{tcolorbox}
+
+    Y este es el resultado al ejecutar el código:
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Rango de la matriz X: 4
+¿Es la matriz X de rango completo (sin multicolinealidad)? True
+\end{minted}
+\end{tcolorbox}
+    
+    En el código anterior comprobamos que la matriz tiene rango completo y por lo tanto, no presenta colinealidad.
+
+    Esta no es la forma tradicional de verificar este supuesto. La forma tradicional es revisar las correlaciones entre las variables. El siguiente bloque de código genera una matriz de correlación.
+
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+ # Calcular la matriz de correlación para las variables predictoras matriz_correlacion = datos[['TV', 'Radio', 'Newspaper']].corr()
+
+# Mostrar la matriz de correlación
+print("Matriz de correlación:\n", matriz_correlacion)
+\end{minted}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Matriz de correlación:
+              TV     Radio  Newspaper
+TV         1.000000  0.054809   0.056648
+Radio      0.054809  1.000000   0.354104
+Newspaper  0.056648  0.354104   1.000000
+\end{minted}
+\end{tcolorbox}
+    
+    La forma de usar la matriz de correlación es con una inspección visual.
+
+    Aparte de la diagonal de 1s, podemos ver que la correlación más alta es entre el gasto en periódico y el de radio, con un 35\%. Si encontráramos que dos o más variables tienen un coeficiente de correlación demasiado cercano a 1, entonces podríamos sospechar autocorrelación\sidenote{Esta técnica no es muy objetiva por si misma. Por lo general se establecen parámetros como ``arriba de 0.8'' que se consideran demasiado altos. Entre 0.7 y 0.8 se consideran en el borde y abajo de 0.7 se piensa que no debería haber problema.}.
+
+    En ese caso tendríamos que usar una técnica adicional. 
+
+    Calcularemos el factor de inflación de la varianza (VIF, por sus siglas en inglés). Esta técnica sirve en los casos en los que inspeccionar la matriz de correlación no da un resultado determinante.
+
+    La \gls{multicolinealidad} se puede ocultar: una variable podría ser una combinación lineal de múltiples columnas. Esto es algo que no se vería en la matriz de correlación, pero que si se puede mostrar con este indicador:
+
+    \begin{equation}\label{vif}
+    \text{VIF}_j = \frac{1}{1 - R^2_j}
+    \end{equation}
+
+    donde $R^2_j$ se hace con la regresión de la variable $x_j$ con todos los demás predictores. El siguiente código hace la prueba en nuestra base de datos:
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+# Función para calcular el VIF para cada variable
+def calcular_vif(X):
+    vif = pd.DataFrame()
+    vif["variables"] = X.columns
+    vif["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+    return vif
+
+# Calcular VIF para las variables predictoras
+vif_df = calcular_vif(datos[['TV', 'Radio', 'Newspaper']])
+
+# Mostrar el VIF para cada variable
+print("VIF para cada variable:\n", vif_df)
+\end{minted}
+\end{tcolorbox}
+
+Que genera el siguiente resultado
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+VIF para cada variable:
+variables       VIF
+0         TV  2.486772
+1      Radio  3.285462
+2  Newspaper  3.055245
+\end{minted}
+\end{tcolorbox}
+    Todos los factores están por debajo de 5, por lo que \textbf{no hay problemas de multicolinealidad} en nuestros datos\sidenote{En el apéndice te he dejado una guía para interpretar el VIF}.
+
+    En ocasiones, la matriz de correlaciones será suficiente para encontrar la presencia (o ausencia) de multicolinealidad, pero el VIF es un método que incluye una regla de oro mas fácil de interpretar.
+    \item \textbf{Supuesto \#4: Exogeneidad. los regresores no están correlacionados con el término de error.}
+
+    También se le conoce como el supuesto de media condicional cero, y es probablemente el supuesto más crítico para la inferencia causal.
+
+    Se expresa así:
+
+    $$E(\epsilon|\mathbf{X})=0$$
+
+
+    En palabras, no hay observación dentro de las variables independientes que contengan información sobre el valor esperado del error.
+
+    La manera mas práctica de comprobar esta propiedad es con un gráfico de las predicciones con los residuales. Una inspección visual suele ser suficiente para identificar si existe (o no) un patrón en los datos.
+
+    \begin{figure}\label{residuals}
+        \centering
+        \caption{Los residuales y los valores de predicción no muestran estar correlacionados. La gráfica muestra una linea de regresión cercana a cero.}
+        \includegraphics[width=0.9\linewidth]{imagenes/Residuals vs. Predicted Sales.png}
+    \end{figure}
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import pandas as pd
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+
+# Cargamos la base de datos
+file_path = 'advertising.csv'  # Reemplazamos la ruta 
+data = pd.read_csv(file_path)
+
+# Definir la variable independiente (X) y la dependiente (y)
+X = data[['TV', 'Radio', 'Newspaper']]
+y = data['Sales']
+
+# Agregar una constante al modelo (para el intercepto)
+X = sm.add_constant(X)
+
+# Ajustar un modelo de regresión lineal
+model = sm.OLS(y, X).fit()
+# Obtener las predicciones y residuales del modelo
+predictions = model.predict(X)
+residuals = model.resid
+
+# Hagamos un gráfico de los residuales vs. los valores de predicción
+plt.figure(figsize=(10, 6))
+plt.scatter(predictions, residuals, color='black')
+plt.axhline(y=0, color='black', linestyle='--')
+plt.xlabel('Predicted Sales')
+plt.ylabel('Residuals')
+plt.title('Residuales vs. Predicción de ventas')
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+    
+    Este gráfico muestra que no hay un patrón definido.
+
+    Hay otros métodos para comprobarlo, como pruebas de correlación o la prueba de Durbin-Watson, pero por lo general la inspección debería ser suficiente para estos casos.
+
+    \item \textbf{Supuesto \#5: Homoscedasticidad. la varianza del error es constante para todos los valores de los regresores.}
+
+    El gráfico anterior es útil también para la comprobación de la \gls{homoscedasticidad}. Podríamos hacer una inspección visual que compruebe que esa varianza es constante. 
+
+    Pero aquí haremos un gráfico adicional con el siguiente código:
+
+    %\begin{figure}
+    %    \centering
+    %    \caption{Residuales vs. valores ajustados}
+    %    \includegraphics[scale=0.1]{imagenes/fittedvalues.png}
+    %\end{figure}
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+# Cargar la base de datos
+data = pd.read_csv('advertising.csv')
+
+# Ejecutar la regresión lineal
+X = data[['TV', 'Radio', 'Newspaper']]  # Variables independientes
+y = data['Sales']                       # Variable dependiente
+
+# Agregar constante al modelo
+X = sm.add_constant(X)
+
+# Ajustar el modelo de regresión
+model = sm.OLS(y, X).fit()
+
+# Obtener los residuales y los valores ajustadoss
+residuals = model.resid
+fitted = model.fittedvalues
+
+# Gráfico de los residuales vs valores ajustados
+plt.figure(figsize=(10, 6))
+sns.residplot(x=fitted, y=residuals, color='black', lowess=True)
+plt.xlabel('Fitted values')
+plt.ylabel('Residuals')
+plt.title('Residuals vs. Fitted Values')
+plt.axhline(y=0, color='black', linestyle='--')
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+    
+    Este código crea una línea horizontal en el cero, y la línea gruesa muestra la relación entre los residuales y los valores ajustados. De nuevo, el gráfico no muestra una tendencia clara (esto es bueno!). En general, una inspección visual del diagrama de dispersión nos ayuda a entender lo que está pasando.
+    
+    Es difícil capturar de manera visual si hay homoscedasticidad o no. La figura \ref{nohomo} compara residuales y predicciones, pero no podemos dar nuestro veredicto sólo con ver la imagen.\sidenote{El problema con la inspección visual es que me hace parecer como alguien que está leyendo hojas de té.}. El siguiente código genera el diagrama de dispersión de nuestros datos.
+%Aquí la imagen a la que se hace referencia
+   % \begin{figure}
+    %    \centering
+     %   \includegraphics[width=0.8\linewidth]{}
+      %  \caption{Caption}
+       % \label{fig:enter-label}
+    %\end{figure}
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Correcting the Residuals vs Predictors plots
+fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+# Plotting for each predictor
+for i, col in enumerate(['TV', 'Radio', 'Newspaper']):
+    sns.scatterplot(x=data[col], y=residuals, color='black', ax=axes[i])
+    axes[i].set_title(f'Residuals vs {col}')
+    axes[i].set_xlabel(col)
+    axes[i].set_ylabel('Residuals')
+    axes[i].axhline(y=0, color='black', linestyle='--')
+
+plt.tight_layout()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{figure}
+    \centering
+    \label{nohomo}
+    \caption{Gráfico que compara residuales vs cada uno de los predictores en un diagrama de dispersión. No se ve un patrón específico.}
+    \includegraphics[width=\linewidth]{imagenes/Comparativa residuals.png}
+\end{figure}
+    
+    Decir ``una diferencia significativa'' es subjetivo. La diferencia que unos ven pequeña otros la ven muy grande. Por eso, lo más seguro es usar una prueba estadística. El siguiente código usa la prueba Breusch-Pagan del módulo \codebox{statsmodels} para comprobar nuevamente que no hay \gls{heteroscedasticidad}. La prueba de Breusch-Pagan se obtiene con la regresión de los residuos al cuadrado contra las variables independientes usando una ecuación auxiliar con la forma $\hat{\varepsilon}^2 = \gamma_0 + \gamma_1 x + v$, donde $\hat{\varepsilon}$ denota los residuales\sidenote{Nota que el error $\varepsilon$ es diferente que el residual $\hat{\varepsilon}$. Los errores vienen del proceso de generación de la información, mientras que los residuales es lo que queda después de haber estimado el modelo.}, y $v$ es el error de una regresión entre $x$ y $\hat{\varepsilon}$. La hipótesis nula es que los errores del modelo tienen varianza constante.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+from statsmodels.stats.diagnostic import het_breuschpagan
+
+# Aplicar una prueba de Breusch-Pagan
+bp_test = het_breuschpagan(residuals, model.model.exog)
+
+# Extraer los resultados
+bp_test_statistic, bp_test_pvalue = bp_test[:2]
+
+bp_test_statistic, bp_test_pvalue
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+(3.9785268214219682, 0.26379220043199536)
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+    Como el p-value es mayor a 0.05, no podemos rechazar la hipótesis nula de homoscedasticidad. En otras palabras, no hay evidencia de heteroscedasticidad en los residuales del modelo.
+    \end{itemize}
+
+\section{Cómo interpretar el reporte de regresión: La guía del economista principiante para que acepten su primer artículo}
+
+
+Hay dos usos para un modelo de regresión: predicción o inferencia.
+
+En la inferencia, estamos tratando de saber \textbf{por qué} una variable se comporta de cierta manera. Estos son los métodos más tradicionales y que se acercan más a lo que hacemos en inferencia causal. En predicción, estamos intentando construir un modelo que reconstruya un resultado con información dada\cite{ISLR}.
+
+La \textbf{inferencia causal} es diferente a estas dos. Por ejemplo, si aumentamos el precio de nuestro producto un 10\% y observamos que la demanda cae, queremos saber cuánta de esa caída en la demanda se atribuye a los precios y cuánto viene de otros factores externos.
+
+En la sección pasada pasamos por todas las pruebas de hipótesis \textbf{antes de ver los resultados de la regresión}. Lo hicimos de esta manera porque una vez cumplimos con los supuestos, podemos enfocarnos en las estimaciones de los parámetros en el modelo.
+
+Hagamos entonces la regresión lineal de un modelo por mínimos cuadrados:
+
+\begin{equation}
+Y=\beta_{0}+\beta_{1}X_{1}+\beta_{2}X_{2}+\beta_{3}X_{3}+\varepsilon
+\end{equation}
+
+Donde $y$ son las ventas y $x_1, x_2$ y $x_3$ representan los diferentes medios de publicidad. Este modelo ya tiene suficientes dimensiones (variables) para que no sea posible mostrarlo en un gráfico de dispersión. Pero el principio es exactamente el mismo y nosotros no le tenemos miedo a las dimensiones superiores.
+
+Usa este código en Python para hacer tu primera regresión por mínimos cuadrados. Verás un reporte de regresión como el siguiente.
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+    \begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import statsmodels.api as sm
+
+# Definir las variables independientes (X) y la variable dependiente (y)
+X = data[['TV', 'Radio', 'Newspaper']]  # Variables independientes
+y = data['Sales']                       # Variable dependiente
+
+# Añadir una constante al modelo (intercepción)
+X = sm.add_constant(X)
+
+# Realizar la regresión OLS
+model = sm.OLS(y, X).fit()
+
+# Mostrar el informe completo de la regresión
+model.summary()
+\end{minted}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[fontsize=\footnotesize]{text}
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                 Sales   R-squared:                       0.903
+Model:                            OLS   Adj. R-squared:                  0.901
+Method:                 Least Squares   F-statistic:                     605.4
+Date:                Wed, 07 Feb 2024   Prob (F-statistic):           8.13e-99
+Time:                        10:42:10   Log-Likelihood:                -383.34
+No. Observations:                 200   AIC:                             774.7
+Df Residuals:                     196   BIC:                             787.9
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          4.6251      0.308     15.041      0.000       4.019       5.232
+TV             0.0544      0.001     39.592      0.000       0.052       0.057
+Radio          0.1070      0.008     12.604      0.000       0.090       0.124
+Newspaper      0.0003      0.006      0.058      0.954      -0.011       0.012
+==============================================================================
+Omnibus:                       16.081   Durbin-Watson:                   2.251
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               27.655
+Skew:                          -0.431   Prob(JB):                     9.88e-07
+Kurtosis:                       4.605   Cond. No.                         454
+==============================================================================
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+
+
+Vamos a interpretar este resultado parte por parte.
+
+La primera sección es un reporte general de cómo fue la regresión, el número de observaciones y el tipo de modelo. También hay algunos estadísticos a los que debemos de poner atención:
+
+\begin{itemize}
+    \item \textbf{R cuadrada y R cuadrada ajustada.} Indican el ajuste de los datos a la linea de regresión. El ajuste indica que tan cercanos están los datos a la línea de regresión. Ten cuidado con este indicador y ponlo en contexto, pues en ocasiones el ajuste no significa por sí mismo que sea un mejor modelo. Y al contrario, un mal ajuste no significa necesariamente que sea un modelo que debamos descartar.
+
+    Una $\mathbf{R^{2}}$ de 0.903 significa que un 90.3\% de la variación en las ventas se explica por el modelo. Nada mal.
+
+    El $\mathbf{R^2}$ es un número que va del 0 al 1. Números cercanos al 0 significan que no hay ajuste y números cercanos al 1 indican mucho ajuste. El $\mathbf{R^2}$ ajustado toma en consideración el número de predictores en el modelo. Es una visión más precisa.
+    \item \textbf{El estadístico $\mathbf{F}$ y Prob(\gls{estadistico-f})} El estadístico F prueba la hipótesis nula de que todos los coeficientes de regresión son igual a cero. Un estadístico $\mathbf{F}$ grande (605.4) indica que esta hipótesis nula es falsa.
+
+    No existe una regla clara sobre cuando el valor de $\mathbf{F}$ sea inequívocamente grande. Depende mucho del modelo. Por su parte, la probabilidad \codebox{Prob(F-statistic)} es un número muy pequeño, cercano a cero. Como podrás intuir, si es una probabilidad, debe estar entre cero y uno. Indica la probabilidad de observar un valor del estadístico de $\mathbf{F}$ tan extremo (o más) que el que observamos, asumiendo que la hipótesis nula sea verdadera. Es decir: si todos los coeficientes fueran cero, ¿podría $\mathbf{F}$ hacer esto?
+    \item \textbf{Grados de libertad.} \codebox{Df} y \codebox{Df residual} quieren decir “degrees of freedom” o grados de libertad. Se refiere al número de observaciones menos el número de parámetros estimados. En este modelo no es algo que nos pueda causar problema, porque sólo usamos 3 parámetros, pero en modelos más complejos puede ayudarnos a identificar problemas de sobreajuste.
+    \item \textbf{AIC y BIC.} Significan respectivamente: “criterio de información de akaike” y “criterio de información bayesiano”. Estos son criterios que se usan para la selección de modelos, no para comprobar su significancia. Usaremos estos cuando tengamos que hacer una comparación entre modelos. Incluí una explicación en el apéndice para explicar esto a más detalle.
+\end{itemize}
+La segunda sección del reporte muestra los coeficientes de la regresión y
+
+\textbf{Esta es la sección del reporte de regresión a la que debes poner atención para interpretar los resultados y determinar si son significativos.}
+
+Veamos cada elemento paso a paso en un modelo lineal sencillo que determina el valor de las ventas (y) en función del gasto en publicidad en medios como TV, Radio o Periódicos (antes de las redes sociales).
+
+\textbf{Columna \#1: coeficientes. }Esta es la que determina el valor de tus betas en el modelo de regresión. const = 4.6251 significa que beta cero es igual a 4.62.
+
+En un modelo lineal significa que si el gasto en publicidad fuera cero, aún tendríamos ventas de cuatro mil seiscientas unidades aproximadamente.
+
+El resto de los coeficientes indican la contribución marginal que tiene cada medio a las ventas. De aquí podemos ver que la TV es la que contribuye más a las ventas. Cada 20 dólares gastados en publicidad en TV contribuye a aproximadamente 1.1 (mil) unidades adicionales vendidas.
+
+\textbf{Columna \#2: Errores estándar.} Es el ruido de nuestros datos en el modelo. Entre más grande sea el \gls{error-estandar}, menos significativo sera el modelo.
+
+Para determinar si un error estándar es grande o pequeño, es necesario compararlo con los coeficientes. Un coeficiente de 0.0544 hace que un error estándar de 0.001 sea pequeño en comparación. Pero si el coeficiente fuera también de 0.001, entonces esos datos muy seguramente no serán significativos.
+
+Si esta comparación aún te parece subjetiva, para eso está la t en la siguiente columna.
+
+\textbf{Columna \#3: Estadístico t.} Algunas veces lo verás como $t$ de Student. Es una razón entre la \textit{señal} y el \textit{ruido}. La señal en una regresión es el coeficiente, y el ruido es el error estándar\sidenote{Student era el seudónimo que usaba William S. Gosset cuando trabajaba en la cervecería Guiness. La prueba $t$ permitió a la cervecería hacer crecer la producción sin perder la calidad del producto.}.
+
+Un tamaño de muestra más grande hace que la señal sea más poderosa. El estadístico t es un número positivo o negativo. Entre más grande sea su valor absoluto, más probable es que los resultados sean significativos.
+
+Esto lo verificamos con el \gls{p-value} en la siguiente columna.
+
+\textbf{Columna \#4: p-value.} Es una medida de probabilidad que se obtiene a partir del estadístico t. Indica la probabilidad de obtener un resultado al menos tan extremo como el que observamos, bajo el supuesto de que la hipótesis nula ($\beta_i = 0$) sea verdad.
+
+Hay una convención de que un p-value menor a 0.05 implica que los resultados son significativos.
+
+Mi consejo es que lo consideres, lo apliques, pero no te cases con esta idea. Después de todo, no hay razón científica que diga que a partir de 0.05 el resultado es significativo por completo.
+
+Cuando adquieres más experiencia en estadística, tomas en contexto el p-value con los intervalos de confianza.
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{imagenes/significant.png}
+    \caption{El 5\% del p-value es lo mismo que uno en veinte. Con ese parámetro, no es necesario recurrir al p-\emph{hacking} para obtener resultados ``significativos''.\\ Fuente: \href{https://xkcd.com/882/}{xkcd}}
+    \label{fig:significant}
+\end{marginfigure}
+
+\textbf{Columnas \#5 y \#6: Intervalos de confianza.} Son el rango en el que se encuentra el verdadero valor del parámetro beta.
+
+Recuerda que los coeficientes son estimaciones que obtenemos a partir de una muestra. El \gls{intervalo-confianza} te muestra un rango.
+
+Nota que la columna \#5 muestra un número más bajo que el coeficiente y la columna \#6 uno más alto. Entre más amplio sea el intervalo, más incertidumbre hay respecto al valor del coeficiente.
+
+Al contrario, un intervalo más angosto significa más certidumbre.
+
+En otras palabras, tenemos un 95\% de certidumbre de que el efecto de los anuncios por TV tienen un efecto en las ventas que va de 0.052 a 0.057 (miles de unidades/dólar).
+
+\section{¿Qué pasa si mi regresión no cumple con los supuestos?}
+
+Mi ejemplo de datos se ve muy bonito. Todo funcionó muy bien\sidenote{En los libros nos enfocamos en los datos que funcionan bien, pero cuando tomamos datos de la realidad es cuando surgen los miles de problemas y errores, sin nadie a quién acudir para resolverlos. Hace no mucho, tenía que resolverlo buscando algún problema similar en StackOverflow, pero ahora toda esa información se quedó en los modelos de lenguaje grandes como chatGPT. Vale la pena aprender a pedir ayuda a la IA sobre nuestros problemas con datos.}.
+
+Pero tú y yo sabemos que eso no es lo que pasará cuando lo intentes hacerlo por tu cuenta y con tus propios datos. ¡El problema no eres tú! yo mismo no apostaría a que mi próxima regresión saldrá sin problemas. Son solo gajes del oficio.
+
+La verdad es que es algo muy común. La estrategia que debes tomar depende mucho del problema al que te estás enfrentando.
+
+Resolver este tipo de problemas es algo que podrás aprender a hacer con la práctica. Lo más importante es que conozcas la teoría que vimos en este capítulo a profundidad y que desarrolles una correcta intuición de lo que está pasando al momento de hacer este tipo de regresiones. El resto lo puede hacer la computadora.
+
+Estas son algunas acciones que puedes tomar si tu regresión no cumple con los supuestos que revisamos con anterioridad.
+
+\begin{itemize}
+    \item Revisa la especificación del modelo.
+    \item Transforma los datos.
+    \item Usa técnicas robustas.
+    \item Incorpora variables adicionales o interacciones.
+    \item Considera métodos no paramétricos u otro tipo de técnicas.
+\end{itemize}
+
+Finalmente, la calidad de los datos es mucho más importante que los modelos. 
+
+El modelo de regresión es relativamente simple en comparación a modelos como árboles de regresión o redes neuronales, pero en muchos casos es preferible precisamente por su simplicidad y facilidad de interpretación. Pero lo que más hace la diferencia en tu trabajo no es la complejidad del modelo: es la calidad de los datos.
+
+Si los datos están recabados de una muestra bien diseñada, sin sesgos, con preguntas bien planteadas y congruente con nuestros objetivos, hasta una diferencia de medias bien hecha es mejor que una red neuronal hecha con malos datos.
+    
+\section{Apéndice: Algunas preguntas que te pudieron haber quedado, explicadas con más detalle}
+
+\subsection{¿Por qué $\mathbf{e}'\mathbf{e}$
+ es la suma de residuos al cuadrado?}
+En primer lugar, no se debe confundir con $\mathbf{e}\mathbf{e}'$, que es la matriz de varianza-covarianza de los \gls{residuales}. Si ponemos $\mathbf{e}'\mathbf{e}$ como vectores, se ve claramente que el resultado es una suma de residuales al cuadrado.
+
+$$\begin{bmatrix}
+e_1 & e_2 & \cdots & e_n
+\end{bmatrix}_{1\times n}
+\begin{bmatrix}
+e_1 \\
+e_2 \\
+\vdots \\
+e_n
+\end{bmatrix}_{n\times1}=\begin{bmatrix}
+e_1 \times e_1 + e_2 \times e_2 + \cdots + e_n \times e_n
+\end{bmatrix}_{1 \times 1}$$
+
+\subsection{Guía breve de diferenciación con matrices}
+Sean $a$ y $b$ vectores de tamaño $k \times 1$.
+$$\frac{\partial a'b}{\partial b} = \frac{\partial b'a}{\partial b} = a$$
+Sea $A$ una matriz simétrica.
+$$\frac{\partial b'A b}{\partial b} = 2Ab = 2b'A$$
+
+Por lo tanto,
+$$\frac{\partial 2\boldsymbol\beta' \mathbf{X}'\mathbf{y}}{\partial b} = \frac{\partial 2\boldsymbol\beta'(\mathbf{X}'\mathbf{y})}{\partial b} = 2\mathbf{X}'\mathbf{y}$$
+y
+$$\frac{\partial \boldsymbol\beta'\mathbf{X}'\mathbf{X} \boldsymbol\beta}{\partial b} = \frac{\partial \boldsymbol\beta'A \boldsymbol\beta}{\partial b} = 2A\beta = 2\mathbf{X}'\mathbf{X} \boldsymbol\beta$$
+donde $\mathbf{X}'\mathbf{X}$ es una matriz de $k\times k$.
+
+\subsection{¿Cómo que la inversa de $\mathbf{X}'\mathbf{X}$ podría no existir?}
+La inversa de una matriz X’X (donde X’ es la transposición de la matriz X y X’X es el producto matricial de X’ con X) podría no existir si la matriz no es invertible.
+
+Aquí hay algunas razones por las cuales X’X podría no ser invertible:
+\begin{enumerate}
+    \item \textbf{Columnas linealmente dependientes:} Si la matriz X tiene columnas que son combinaciones lineales de otras columnas (es decir, multicolinealidad perfecta), entonces X’X no será de rango completo y por lo tanto no tendrá una inversa.
+    \item \textbf{Insuficientes observaciones:} Si hay menos observaciones que variables (es decir, la matriz X tiene más columnas que filas), entonces X’X será de rango deficiente y no invertible.
+    \item \textbf{Datos duplicados o insuficientemente variados:}
+    Si las filas de X son todas iguales o hay una falta de variabilidad suficiente en los datos, esto también puede conducir a una matriz X’X que no sea invertible.
+\end{enumerate}
+Para asegurar la invertibilidad de X’X en un análisis de regresión, a menudo se requiere que la matriz X tenga rango completo, lo que significa que todas las columnas de X deben ser linealmente independientes y debe haber un número suficiente de observaciones no duplicadas.
+
+\subsection{¿Cómo funciona el coeficiente de correlación?}
+El coeficiente de correlación lineal es un número que va de -1 a 1\sidenote{Sólo en el caso de distribuciones elípticas, como lo es la normal multivariada. Véase \cite{embrechts2002correlation}} y ayuda a entender qué tan relacionada está una variable con la otra.
+
+Aquí algunas reglas generales.
+
+\begin{itemize}
+    \item El signo indica la dirección de la correlación. Un coeficiente positivo indica que cuando una variable aumenta, la otra también lo hace. Lo contrario pasa con una correlación negativa. Por ejemplo, podríamos encontrar una correlación positiva entre el calor y las ventas de helado. Por el contrario, podríamos encontrar una correlación negativa entre la cantidad de ejercicio y el nivel de estrés: a mayor ejercicio, menor estrés.
+
+    \item El valor absoluto del coeficiente indica la fuerza de la relación. Un valor cercano a 1 (ya sea positivo o negativo) indica una relación fuerte, mientras que un valor cercano a 0 indica una relación débil o inexistente.
+
+    \item Una correlación de $0$ indica que no hay una relación lineal entre las variables. Sin embargo, esto no significa que no haya ningún tipo de relación; podría haber una relación no lineal que este coeficiente no detecta.
+
+    \item Es importante recordar que la correlación no implica causalidad. Dos variables pueden estar correlacionadas sin que una cause a la otra. Por ejemplo, puede haber una correlación entre el consumo de chocolate y el número de premios Nobel por país, pero eso no significa que comer chocolate cause ganar premios Nobel\cite{Chocolate}.\begin{marginfigure}
+        \centering
+        \caption{Hay una correlación entre el número de premios Nobel que gana un país y su consumo de chocolate. Naturalmente, esa correlación no implica causalidad. Fuente: Leo Prinz, 2020 (actualizado con datos hasta 2024)}
+        \includegraphics[scale=0.1]{imagenes/nobel.png}
+    \end{marginfigure}
+\end{itemize}
+
+
+\subsection{¿Cómo funciona el VIF?}
+El \gls{vif} evalúa cuánto se incrementa la varianza de un coeficiente de regresión debido a la multicolinealidad. Se calcula para cada variable predictora y se basa en el nivel en el que esa variable predictora está correlacionada con las otras variables predictoras en el modelo.
+
+El VIF de una variable se calcula de la siguiente manera:
+\begin{enumerate}
+    \item Se realiza una regresión lineal donde la variable en cuestión es tratada como la variable dependiente y todas las demás variables predictoras como las independientes.
+    \item Se calcula el coeficiente de determinación (\gls{r-cuadrado}) de esta regresión.
+    \item El VIF se calcula como $VIF=\frac{1}{1-R^2}$.
+\end{enumerate}
+
+\subsection{Interpretación del VIF}
+\begin{itemize}
+    \item Un VIF de 1 indica que no hay correlación entre la variable predictora en cuestión y las demás.
+    \item Un VIF entre 1 y 5 sugiere una correlación moderada, pero generalmente no es lo suficientemente severa como para requerir atención.
+    \item Un VIF mayor a 5 puede indicar una correlación problemática y podría necesitar atención, dependiendo del contexto y del nivel de precisión necesario en el análisis.
+    \item Un VIF mayor a 10 es comúnmente considerado un indicador claro de multicolinealidad severa.
+\end{itemize}
+
+\subsection{Importancia del VIF}
+El \gls{vif} es una herramienta útil para detectar multicolinealidad en los modelos de regresión lineal. Al identificar las variables con VIFs altos, los analistas pueden considerar eliminar estas variables, combinarlas con otras, o utilizar técnicas estadísticas para manejar la multicolinealidad y así mejorar la calidad y la interpretación del modelo de regresión.
+
+\section{¿Por qué es importante identificar la multicolinealidad?}
+La multicolinealidad en los modelos de regresión lineal es problemática por varias razones:
+\begin{enumerate}
+    \item \textbf{Estimaciones Inestables de los Coeficientes}: Cuando las variables predictoras están altamente correlacionadas, pequeñas variaciones en los datos pueden llevar a grandes cambios en los coeficientes de las variables. Esto hace que los coeficientes sean poco fiables y difíciles de interpretar.
+    \item \textbf{Confianza Reducida en la Significancia de las Variables}: La multicolinealidad puede inflar las varianzas de los coeficientes de las variables predictoras. Esto significa que incluso si una variable es importante en la predicción de la variable dependiente, es posible que no aparezca como significativa en la regresión debido a la alta varianza de su coeficiente.
+    \item \textbf{Interpretaciones Difíciles}: Cuando las variables predictoras están altamente correlacionadas, se vuelve complicado discernir el efecto individual de cada variable sobre la variable dependiente. Esto es porque los efectos de las variables correlacionadas se superponen y se confunden entre sí.
+    \item \textbf{Modelos Sobreajustados}: La multicolinealidad puede llevar a modelos sobreajustados, especialmente si hay un número excesivo de variables predictoras correlacionadas. Un modelo sobreajustado funciona bien con los datos de entrenamiento pero tiende a tener un rendimiento pobre con nuevos datos no vistos.
+    \item \textbf{Dificultad en la Selección de Modelos}: En la presencia de multicolinealidad, es difícil determinar cuál variable debe ser incluida o excluida del modelo. Los criterios de selección de modelos, como el criterio de información Akaike (AIC) o el criterio de información bayesiano (BIC), pueden verse afectados por la multicolinealidad.
+\end{enumerate}
+Por estas razones, es importante detectar y abordar la multicolinealidad en la fase de análisis de datos para asegurar que el modelo de regresión sea confiable, interpretable y útil para la toma de decisiones.
+
+\subsection{El supuesto de media condicional cero}
+Este es el supuesto más crítico de la regresión lineal.
+
+Se le llama el supuesto de \gls{media-condicional-cero}. Establece que los regresores no deben estar correlacionados con el término de error.
+
+En otras palabras: no hay \gls{endogeneidad}\sidenote{La endogeneidad es un problema muy profundo que en ocasiones no se puede diagnosticar usando simples pruebas. Todos sabemos que correlación no implica causalidad, pero ¿podría haber causalidad cuando no hay correlación? Imagina un banco central que sube las tasas de interés para evitar los aumentos en la inflación. Si la variable de inflación permanece inmóvil ante los movimientos de la tasa de interés es difícil establecer una relación entre esas variables. Si tuviéramos el contrafactual de la inflación que hubiéramos observado sin los aumentos de la tasa de interés, la relación entre las variables sería clara.}.
+
+En la práctica, implica es que no debe existir ningún patrón en los residuales. No se debe ver que generen patrones lineales o cuadráticos de ningún tipo.
+
+¿Cómo se soluciona la endogeneidad en caso de existir?
+
+Imaginemos que al graficar los residuales vs las predicciones encontramos una relación lineal. Eso implica que en los residuales hay escondida una variable.
+
+Si conocemos lo suficiente sobre nuestras variables podemos encontrar la variable (o una buena proxy) que nos ayude a explicar mejor el comportamiento de nuestra variable de interés.
+
+El truco es entonces:
+\begin{enumerate}
+    \item Regresar a la teoría y encontrar la variable que falta.
+    \item Incluir la variable o una proxy apropiada al modelo de regresión.
+    \item Volver a hacer las pruebas.
+\end{enumerate}
+Si en la nueva prueba ya no hay Endogeneidad, se ha solucionado el problema y podemos usar los resultados.
+
+\section{Un poco extra sobre Gauss}
+Gauss es uno de los matemáticos más famosos con justa razón. Se le conoce como “el príncipe de las matemáticas”, por sus grandes contribuciones al álgebra, al análisis, la astronomía y la física.
+
+Hay historias increíbles sobre Gauss. Se dice que a los tres años ya le corregía las matemáticas a su papá y que logró descifrar la fecha exacta de su nacimiento años después de que su madre lo olvidó.
+
+Pero la historia más conocida sobre la infancia de Gauss es la de aquella vez que un maestro les dejó la agobiante tarea de \href{https://www.americanscientist.org/article/gausss-day-of-reckoning}{sumar todos los números del 1 al 100}\cite{hayes2006gauss}.
+
+La intención del maestro era mantener quietos a los niños por media hora. Gauss llegó casi al instante con la respuesta.
+
+Para llegar al cálculo notó que sumar $100 + 1 $ daba el mismo resultado que sumar $99 + 2: 101$. Este mismo resultado se generaba en todos los 50 pares que se forman en la suma. Por lo tanto el resultado era $101\times50 = 5050$.
+
+Es un resultado brillante que además se puede generalizar para cualquier número. La suma consecutiva de los números de 1 a $n$ por lo tanto sería:
+
+$$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$$
+
+\subsection{Pruebas de hipótesis}
+Las pruebas de hipótesis son un componente fundamental en la estadística y la investigación científica. Aquí está una explicación detallada de su concepto y uso:
+
+\textbf{¿Qué son las Pruebas de Hipótesis?}
+
+Las pruebas de hipótesis son procedimientos estadísticos que se utilizan para determinar si hay suficiente evidencia en una muestra de datos para inferir que una condición particular es verdadera para toda la población. Estas pruebas se basan en dos hipótesis: la hipótesis nula ($H_0$) y la hipótesis alternativa ($H_1$ o $H_a$). La hipótesis nula generalmente representa una afirmación de no efecto o de estado normal, mientras que la hipótesis alternativa representa lo que el investigador busca probar.
+
+\textbf{Por qué son importantes las Pruebas de Hipótesis}
+\begin{enumerate}
+    \item \textbf{Validación de Resultados}: Permiten validar si un resultado observado en los datos es debido a una variación aleatoria o a un efecto real.
+    \item \textbf{Control de Errores}: Las pruebas de hipótesis controlan las probabilidades de cometer errores de tipo I (falsos positivos) y tipo II (falsos negativos).
+\end{enumerate}
+
+\textbf{Uso en el Modelo de Regresión Lineal por Mínimos Cuadrados}
+
+En un modelo de regresión lineal, las pruebas de hipótesis se utilizan para probar supuestos clave:
+
+\begin{enumerate}
+    \item \textbf{Linealidad}: La relación entre las variables independientes y la variable dependiente es lineal. Esto se puede probar visualmente o mediante pruebas estadísticas.
+    \item \textbf{Independencia de los Residuos}: Los residuos (diferencias entre los valores observados y los predichos) deben ser independientes. Esto a menudo se verifica con la prueba de Durbin-Watson.
+    \item \textbf{Homocedasticidad}: Los residuos deben tener varianzas constantes. Esto se puede verificar con pruebas como la de Breusch-Pagan.
+    \item \textbf{Normalidad de los Residuos}: En muchos casos, se asume que los residuos siguen una distribución normal, especialmente importante para pequeñas muestras. Se pueden usar pruebas como la de Shapiro-Wilk para verificar esto.
+    \item \textbf{Ausencia de Multicolinealidad}: Se debe asegurar que las variables independientes no estén altamente correlacionadas entre sí. Esto se puede probar con el factor de inflación de la varianza (VIF).
+\end{enumerate}
+
+% --- INICIO DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---
+
+\begin{fullwidth}
+\section*{Resumen del capítulo}
+
+En este capítulo construimos, pieza por pieza, la herramienta más importante de la econometría: la \gls{regresionlineal}.
+
+Lo que hicimos fue empezar con una idea simple: trazar una línea recta que resuma la relación entre dos variables, como el gasto en publicidad y las ventas. Después, nos metimos a la sala de máquinas para ver cómo funciona por dentro. Vimos que el método de \gls{ols} encuentra la mejor línea posible minimizando los errores al cuadrado, y hasta nos atrevimos a deducir la fórmula matemática usando álgebra de matrices. Lo más importante: aprendimos los cinco supuestos del Teorema de Gauss-Márkov, que son las reglas del juego que garantizan que nuestras estimaciones sean las mejores posibles (o sea, \gls{blue}). Finalmente, aprendimos a descifrar la tabla de resultados que nos da Python, para convertirla de un jeroglífico arcano a una historia clara sobre nuestros datos.
+
+Esto es importante porque la regresión lineal es el lenguaje universal del análisis de datos. Es el punto de partida de casi todos los modelos más complejos que existen. Entender sus fundamentos —en especial los supuestos— es lo que diferencia a alguien que simplemente ``corre modelos'' de alguien que realmente \textit{entiende} lo que está haciendo. Es tu detector de mentiras integrado. Sin él, es fácil engañarse a uno mismo y a los demás con resultados que parecen correctos pero que están fundamentalmente rotos.
+
+¿Cómo te ayuda esto? Ahora tienes un flujo de trabajo completo. Puedes tomar un conjunto de datos, plantear una hipótesis, correr un modelo de regresión, y lo más crucial, diagnosticar si puedes confiar en sus resultados.
+
+Ya puedes interpretar un coeficiente y decir con confianza: ``manteniendo todo lo demás constante (el famoso \emph{ceteris paribus} en la vida real), un aumento de X unidades en esta variable se asocia con un cambio de $\beta$ unidades en el resultado''. 
+
+Este capítulo te da las herramientas para empezar a tener conversaciones serias y basadas en evidencia, y para hacer preguntas inteligentes cuando otros te presenten sus análisis.
+
+\section*{Poniendo a prueba la regresión: manos al código y a la mente}
+
+Es hora de aplicar lo aprendido. Estos ejercicios combinan la interpretación conceptual con la práctica de escribir código. ¡Abre tu notebook de Colab!
+
+\begin{enumerate}
+    \item \textbf{Interpretando coeficientes:} Viendo la tabla final de resultados de \codebox{statsmodels} en el capítulo:
+    \begin{itemize}
+        \item Explica en una sola frase, como si hablaras con un colega de marketing, qué significa el coeficiente de \codebox{Radio} (0.1070).
+        \item El coeficiente de \codebox{Newspaper} es casi cero y su \gls{p-value} es altísimo (0.954). ¿Qué conclusión práctica sacarías sobre invertir en publicidad en periódicos, basándote \textit{únicamente} en este modelo?
+        \item El intercepto (\codebox{const}) es 4.6251. ¿Qué significaría este número en el mundo real del problema de la publicidad? ¿Tiene sentido práctico?
+    \end{itemize}
+
+    \item \textbf{OLS desde las entrañas (Código):} El capítulo te retó a expandir el cálculo manual de $\hat{\beta}$ para incluir todas las variables. Acepta el reto: usando solo \codebox{numpy}, construye la matriz $\mathbf{X}$ (con una columna de unos, 'TV', 'Radio' y 'Newspaper') y el vector $\mathbf{y}$ ('Sales'). Calcula el vector de coeficientes $\hat{\beta}$ usando la fórmula $(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}$. Verifica que los coeficientes que obtuviste son idénticos a los de la tabla de \codebox{statsmodels}.
+
+    \item \textbf{Creando multicolinealidad (Conceptual y Código):} Imagina que en el dataset de publicidad, además de la columna \codebox{Newspaper} (gasto en dólares), creas una nueva columna llamada \codebox{Newspaper\_cents} que es simplemente el gasto en periódicos multiplicado por 100. ¿Qué crees que pasaría con el supuesto de "No multicolinealidad" si intentas correr una regresión con ambas variables? ¿Por qué la matriz $(\mathbf{X}'\mathbf{X})$ no tendría inversa?
+
+    \item \textbf{El diagnóstico visual:} Uno de los gráficos más útiles para un primer diagnóstico es el de los residuales contra los valores predichos.
+    \begin{itemize}
+        \item ¿Qué dos supuestos de Gauss-Markov puedes empezar a evaluar con este gráfico?
+        \item ¿Cómo se vería un gráfico "saludable" (que cumple los supuestos)? ¿Y cómo se vería uno "enfermo" (que los viola)?
+        \item Genera este gráfico para el modelo final del capítulo.
+    \end{itemize}
+    
+    \item \textbf{Corriendo un modelo alternativo (Código):} Carga el dataset \codebox{advertising.csv}. Corre una nueva regresión para predecir las ventas (\codebox{Sales}) pero esta vez usando \textit{únicamente} \codebox{Radio} y \codebox{Newspaper} como variables independientes. Muestra la tabla de resultados completa de \codebox{statsmodels}.
+    
+    \item \textbf{Comparando modelos:} Observa la tabla de resultados que generaste en el ejercicio anterior y compárala con la del modelo original del capítulo (que incluía 'TV').
+    \begin{itemize}
+        \item ¿Qué modelo es mejor para explicar las ventas? Fíjate en la \codebox{Adj. R-squared}.
+        \item ¿Qué pasó con el coeficiente y el p-value de \codebox{Newspaper}? ¿Cambió tu interpretación sobre su efectividad? ¿Por qué crees que pasó esto? (Pista: Piensa en la correlación entre las variables).
+    \end{itemize}
+
+    \item \textbf{El supuesto más importante (Conceptual):} En el capítulo insisto en que la exogeneidad ($E(\epsilon|\mathbf{X})=0$) es ``el supuesto más crítico para la inferencia causal''. Conecta esta idea con lo que aprendiste en el capítulo de Resultados Potenciales. ¿Qué problema fundamental causa una variable omitida que está correlacionada tanto con tu $X$ como con tu $Y$?
+
+    \item \textbf{Leyendo los intervalos de confianza:} En la tabla de resultados, el intervalo de confianza del 95\% para \codebox{TV} es [0.052, 0.057]. Explica qué significa este rango como si se lo estuvieras presentando a tu jefe, quien no sabe de estadística pero sí de negocios. ¿Por qué es más informativo que solo darle el coeficiente puntual de 0.0544?
+
+    \item \textbf{Un VIF problemático (Código):} En el DataFrame de publicidad, crea una nueva variable llamada \codebox{Radio\_y\_Diario} que sea la suma de \codebox{Radio} y \codebox{Newspaper}. Ahora, calcula el VIF para un modelo que intenta predecir las ventas usando \codebox{Radio}, \codebox{Newspaper} y tu nueva variable \codebox{Radio\_y\_Diario}. ¿Qué le pasó a los VIFs? Explica por qué.
+    
+    \item \textbf{Reto - ¿Relación no lineal?:} 
+    
+    Usando el dataset de publicidad, crea una nueva variable que sea \codebox{TV\_cuadrado = data['TV']**2}. Corre una nueva regresión para predecir las ventas usando \codebox{TV} y \codebox{TV\_cuadrado}. Observa los coeficientes y sus p-values. ¿Qué te sugiere esto sobre la relación entre el gasto en TV y las ventas? ¿Es estrictamente lineal?
+\end{enumerate}
+\end{fullwidth}
+
+% --- FIN DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---

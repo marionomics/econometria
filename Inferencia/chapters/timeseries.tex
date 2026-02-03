@@ -1,0 +1,907 @@
+\chapter{Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa}
+
+\begin{quote}
+\textit{People assume that time is a strict progression of cause to effect, but actually, from a non-linear, non-subjective viewpoint, it's more like a big ball of wibbly-wobbly, timey-wimey... stuff}\\
+    -- The Doctor
+\end{quote}
+
+\begin{quote}
+\textit{It's tough to make predictions, especially about the future.}\\
+    -- Yogi Berra
+\end{quote}
+
+\section{Introducción}
+Si lo que buscas es una herramienta para predecir el comportamiento de una variable en el tiempo, esto es lo más cercano que encontrarás.
+
+La frase ``series de tiempo'' significa dos cosas:
+\begin{enumerate}
+    \item Modelos que analizan la naturaleza de fluctuaciones temporales de una variable (o varias).
+    \item Registros regulares de datos de una variable en el tiempo (p. ej. registros mensuales del Producto Interno Bruto).
+\end{enumerate}
+
+El supuesto clave de las series de tiempo es que podemos extraer información sobre el comportamiento de nuestros datos sólo con el registro de su comportamiento en el tiempo. Más aún, los errores que \textit{no son parte de nuestros datos} también tienen patrones que se pueden capturar y aprovechar para hacer inferencia e incluso predicciones.
+
+
+\subsection{Para qué se usan las series de tiempo}
+Los modelos de \gls{serie-tiempo} son muy populares en economía, pero también te las puedes encontrar en la biología, la física e incluso para detectar brotes de Dengue\cite{Cummings2004,huang2005hilbert}.
+
+Pero uno de los usos más populares de las series de tiempo son los negocios.
+
+Los usos en negocios de las series de tiempo incluyen:
+\begin{itemize}
+    \item Proyección de ventas.
+    \item Predicción de demanda.
+    \item Finanzas.
+    \item Energía.
+    \item Mercados financieros.
+    \item Optimización de inventarios.
+\end{itemize}
+
+Lo que tienen en común estos usos es que conocer los valores en el futuro es crítico.
+
+En este capítulo veremos los modelos más relevantes para el análisis de series de tiempo. Veremos también cómo comprobar su capacidad de predecir causalidad. Finalmente, veremos aplicaciones específicas de los negocios.
+
+\section{Un ejemplo de una Serie de Tiempo}
+Definimos una serie de tiempo como una secuencia $\{X_{t}\}$ de observaciones de una variable aleatoria en el tiempo.
+
+Las observaciones $X_t$ tienen a $t$ como subíndice, que indica el momento en el tiempo de la observación. Esto nos permite crear modelos sobre el comportamiento de la variable en el tiempo. Un ejemplo de una serie de tiempo es una \gls{caminata-aleatoria}:
+$$X_t=X_{t-1}+\varepsilon_t,$$
+donde $\varepsilon_t$ es un \gls{ruido-blanco}.
+
+El siguiente código nos muestra cómo hacer una simulación de una caminata aleatoria en Python y un gráfico para mostrarlo\sidenote{``Plantamos'' una semilla para que sean los mismos números aleatorios y obtengas el mismo resultado que yo exactamente.}.
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Fijar la semilla del generador de números aleatorios para reproducibilidad
+np.random.seed(42)
+
+# Parámetros
+N = 100  # Número de pasos en el tiempo
+sigma = 1  # Desviación estándar del ruido
+X_0 = 0  # Valor inicial
+
+# Inicializar el arreglo para X_t
+X_t = np.zeros(N)
+X_t[0] = X_0
+
+# Generar el proceso: es una secuencia de números aleatorios
+for t in range(1, N):
+    epsilon = np.random.normal(0, sigma)  # Generar el ruido
+    X_t[t] = X_t[t-1] + epsilon  # Actualizar el valor de X_t
+
+# Graficar el proceso
+plt.figure(figsize=(10, 6))
+plt.plot(X_t, label='$X_t$')
+plt.xlabel('Paso del tiempo')
+plt.ylabel('Valor')
+plt.title('Simulación de $X_t = X_{t-1} + \\varepsilon$')
+plt.legend()
+plt.grid(True)
+plt.show()
+\end{minted}
+\end{tcolorbox}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{imagenes/random_walk.png}
+    \caption{Caminata aleatoria. Cualquier parecido con una serie de tiempo real, es mera coincidencia.}
+\end{figure}
+
+Veamos ahora una de las propiedades más importantes de las series de tiempo: \gls{estacionariedad}.
+
+\subsection{Estacionariedad}
+En un sentido intuitivo, una serie de tiempo es estacionaria cuando las propiedades estadísticas del \textbf{proceso que genera la serie} no cambian en el tiempo.
+
+Hay mucha filosofía detrás de esa definición. Para empezar, tenemos el supuesto de que existe un proceso que genera el comportamiento de la serie de tiempo. Luego hay que notar que esta definición no implica la ausencia de cambios en los valores de la serie, sólo que la forma en que los datos cambian permanece constante.
+
+Por eso es un concepto clave: sin estacionariedad, los modelos no funcionan.
+
+En el apéndice de este capítulo te dejo las definiciones formales de estacionariedad y sus ideas clave. En resumen:
+\begin{itemize}
+    \item Podemos detectar si un modelo es estacionario usando la prueba Dickey-Fuller: si el p-value de nuestra prueba es inferior a 0.05, entonces nuestra serie es estacionaria\sidenote{En realidad, la prueba Dickey-Fuller está diseñada para detectar la presencia de \textbf{raíces unitarias}, que es la causa fundamental de la no-estacionariedad \textbf{estocástica} (aleatoria). La tendencia lineal o los cambios estructurales también son casos de no-estacionariedad, pero esta prueba no los detecta.}.
+    \item Si nuestra serie no es estacionaria, podemos diferenciarla. La serie se diferencia restando a cada elemento su rezago $X_t-X_{t-1}$. Una \gls{diferencia} es suficiente para recobrar estacionariedad en una serie de tiempo.
+\end{itemize}
+El siguiente código hace una simulación de la serie de tiempo $y_t=\beta_0+\beta_1t+\phi y_{t-1}+\epsilon_t$, así como su diferencia. Se muestran los gráficos correspondientes y los resultados de la prueba Dickey-Fuller, hecha con la paquetería \codebox{statsmodels}.
+
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+
+# Parámetros del modelo
+np.random.seed(42) # Para reproducibilidad
+n = 100 # Número de observaciones
+beta0 = 0.5 # Intercepto
+beta1 = 0.01 # Tendencia
+phi = 0.8 # Coeficiente autoregresivo
+epsilon = np.random.normal(0, 1, n) # Términos de error
+
+# Generar la serie de tiempo
+t = np.arange(n) # Tiempo
+y = np.empty(n)
+y[0] = beta0 + beta1 + epsilon[0] # Inicializar la primera observación
+
+for i in range(1, n):
+    y[i] = beta0 + beta1 * t[i] + phi * y[i-1] + epsilon[i]
+
+# Diferenciar la serie para conseguir estacionariedad
+y_diff = np.diff(y)
+
+# Prueba de Dickey-Fuller para la serie original y diferenciada
+adf_result_original = adfuller(y)
+adf_result_diff = adfuller(y_diff)
+
+# Crear los gráficos
+fig, axs = plt.subplots(1, 2, figsize=(14, 6))
+
+# Serie original
+axs[0].plot(t, y, label='Serie Original')
+axs[0].set_title('Serie de Tiempo No Estacionaria', fontsize=14)
+axs[0].set_xlabel('Tiempo', fontsize=12)
+axs[0].set_ylabel('Valor', fontsize=12)
+axs[0].legend()
+
+# Serie diferenciada
+axs[1].plot(t[1:], y_diff, label='Serie Diferenciada', color='orange')
+axs[1].set_title('Serie de Tiempo Diferenciada', fontsize=14)
+axs[1].set_xlabel('Tiempo', fontsize=12)
+axs[1].set_ylabel('Valor', fontsize=12)
+axs[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+(adf_result_original[0], adf_result_original[1], adf_result_diff[0], adf_result_diff[1])
+\end{minted}
+\end{tcolorbox}
+
+\begin{figure*}
+    \centering
+    \caption{Diferencia visual entre una serie no-estacionaria y la misma serie con una diferencia aplicada. Nota que la serie se vuelve estacionaria.}
+    \includegraphics[width=1\linewidth]{imagenes/diff.png}
+\end{figure*}
+\end{fullwidth} 
+
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+(-2.297082991922703,
+ 0.1729104907141269,
+ -6.61625846070549,
+ 6.19646154282778e-09)
+\end{minted}
+\end{tcolorbox}
+
+Algunos puntos relevantes.
+\begin{itemize}
+    \item Normalmente cuando observas una serie con una tendencia como la que se muestra en el primer modelo, podemos esperar que la serie no sea estacionaria.
+    \item Por lo general una diferencia debería ser suficiente para lograr estacionariedad. Es posible hacer dos o más diferencias al modelo, pero hay que ser cautelosos, pues podrías hacer la serie extremadamente volátil e introducir patrones artificiales en los datos.
+    \item Si con una o dos diferencias no logras generar estacionariedad en la serie de tiempo, vale la pena revisar si no existen otros aspectos como cambios estructurales o estacionalidad en la serie. Estos aspectos se ven más adelante con modelos específicos.
+\end{itemize}
+
+El modelo ARIMA es un ejemplo de un modelo que funciona cuando la serie es estacionaria. Es también un modelo popular por su flexibilidad de uso y lo poderoso de sus resultados.
+
+Veamos más a fondo.
+
+
+\section{El modelo ARIMA}
+El modelo ARIMA es como tener una bola de cristal que proyecta el futuro con base en el comportamiento en el pasado y nada más.
+
+Una idea muy intuitiva es que cuando vemos un gráfico de líneas, podemos simplemente seguir dibujando a donde pensamos que seguirá la tendencia. Después de todo, tiene más sentido pensar que la línea seguirá una misma tendencia a que el siguiente número será totalmente aleatorio. Esa es la idea básica detrás del modelo ARIMA.
+
+El modelo ARIMA asume una relación \textbf{lineal} entre las variables y sus rezagos.
+
+Observa el siguiente modelo:
+
+\begin{equation}
+y_t=\phi_0+\phi_1y_{t-1}+\epsilon_t
+\end{equation}
+
+Nota que es básicamente un modelo de \gls{regresionlineal}, con la única diferencia de que la variable independiente y la dependiente son la misma, pero en diferentes observaciones en el tiempo. La historia que este modelo cuenta es que el valor de $X$ en el periodo $t$ depende de su valor en el periodo $t-1$, con una ligera variación aleatoria\sidenote{Naturalmente, hay muchas excepciones. Los \textit{shocks} económicos y las situaciones extraordinarias suelen ser difíciles de predecir con este tipo de modelos. Y tiene sentido: si alguien pudiera predecir cuándo es el siguiente \textit{shock} en el mercado financiero, ese alguien podría hacer mucho dinero con ese conocimiento. Pero el mismo comportamiento que genera una oportunidad de arbitraje, tiende a eliminar la posibilidad de explotarla.}.
+
+Este es un modelo AR(1).
+\subsection{Modelos AR(p)}
+El predictor más lógico del valor de una variable en el tiempo son sus rezagos.
+
+Dicho de otra manera: la mejor manera de saber cuáles son las ventas del próximo año es observando las ventas de este año. Es un modelo sencillo, pero muy poderoso. El modelo AR($p$) asume que el valor de
+$y_t$ depende \textbf{linealmente} de los primeros $p$ rezagos de la serie.
+
+Observa la siguiente simulación de un modelo AR(3).
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Establecer la semilla para reproducibilidad
+np.random.seed(42)
+
+# Número de observaciones
+n = 1000
+
+# Coeficientes del proceso AR(3)
+phi = np.array([0.5, -0.2, 0.1])
+
+# Término de ruido
+sigma = 1
+epsilon = np.random.normal(loc=0, scale=sigma, size=n)
+
+# Inicializando la serie temporal
+y = np.zeros(n)
+
+# Generando el proceso AR(3)
+for t in range(3, n):
+    y[t] = phi[0] * y[t-1] + phi[1] * y[t-2] + phi[2] * y[t-3] + epsilon[t]
+
+# Creando un índice de series temporales
+dates = pd.date_range(start='2024-01-01', periods=n)
+
+# Convirtiendo a una serie de pandas para graficar
+y_series = pd.Series(y, index=dates)
+
+# Graficando
+plt.figure(figsize=(14, 6))
+plt.plot(y_series)
+plt.title('Proceso Simulado AR(3)')
+plt.xlabel('Tiempo')
+plt.ylabel('Valor')
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\begin{figure*}[h!]
+    \centering
+    \caption{Simulación de un proceso AR(3).}
+    \includegraphics[width=1\linewidth]{imagenes/ar3.png}
+\end{figure*}
+\end{fullwidth}
+
+Estamos haciendo trampa.
+
+Estoy creando una simulación de un modelo donde
+$$y_t=\phi_1y_{t-1}+\phi_2y_{t-2}+\phi_3y_{t-3}+\epsilon_t$$
+La ventaja es que sabemos que $\phi_1=0.5$, $\phi_2=-0.2$ y $\phi_3=0.1$, y podemos hacer pruebas con Python para aprender a hacer modelos AR.
+
+Estos son los pasos:
+
+\textbf{Paso \#1:} Verifica si tu serie de tiempo es estacionaria.
+La estacionariedad es lo que permite que los modelos sean consistentes. Este es el código para hacer la comprobación haciendo una prueba de Dickey-Fuller\cite{dickey1979distribution}:
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+from statsmodels.tsa.stattools import adfuller
+
+# Realizando el test ADF
+adf_result = adfuller(y_series)
+
+# Extraemos cada componente del resultado
+test_statistic = adf_result[0]
+p_value = adf_result[1]
+used_lag = adf_result[2]
+n_obs = adf_result[3]
+critical_values = adf_result[4]
+ic_best = adf_result[5]
+
+# Mostrar los resultados de forma legible
+print("===== Prueba de Dickey-Fuller Aumentada =====")
+print(f"Estadístico de prueba: {test_statistic:.4f}")
+print(f"Valor p: {p_value:.4e}")
+print(f"Número de retardos usados: {used_lag}")
+print(f"Número de observaciones: {n_obs}")
+print("Valores críticos:")
+for key, value in critical_values.items():
+    print(f"  {key}: {value:.4f}")
+print(f"Información de criterio (AIC/BIC): {ic_best:.2f}")   
+\end{minted}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+===== Prueba de Dickey-Fuller Aumentada =====
+Estadístico de prueba: -15.3109
+Valor p: 4.1877e-28
+Número de retardos usados: 2
+Número de observaciones: 997
+Valores críticos:
+  1%: -3.4369
+  5%: -2.8644
+  10%: -2.5683
+Información de criterio (AIC/BIC): 2739.69
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+
+Aprendamos a interpretar esta prueba:
+\begin{itemize}
+    \item La prueba se llama Dickey-Fuller Aumentada (ADF). Se usa para identificar la presencia de una \gls{raiz-unitaria}. Identificar estacionariedad directamente requeriría que supiéramos el proceso que genera la serie de tiempo. En nuestro caso lo sabemos porque nosotros lo generamos, pero en la vida real eso es justo lo que queremos estimar\sidenote{Este módulo no genera por su cuenta un reporte organizado y entendible, como el que vimos en la regresión. Pero eso no es un problema. Simplemente agregamos algunas funciones \codebox{print} para mostrar los resultados en pantalla.}.
+    \item Una serie de tiempo tiene raíces unitarias si se puede representar por el proceso donde las raíces de la ecuación característica son iguales a uno (o están en el círculo unitario de un espacio complejo.
+    \item Especificación del modelo. La prueba ADF se basa en la estimación del modelo siguiente:
+    $$\Delta Y_t=\alpha+\beta t+\gamma Y_{t-1}+\delta_1\Delta Y_{t-1}+\delta_2\Delta Y_{t-2}+\cdots+\delta_{p-1}\Delta Y_{t}-p+1+\varepsilon_t$$
+    donde $\Delta Y_t = Y_t - Y_{t-1}$. Es un modelo lineal, igual a los que hemos visto desde el capítulo sobre regresión. Este modelo sirve para identificar si existen o no raíces unitarias. Cada $\delta_i\Delta Y_{t-i}$ representa rezagos de las primeras diferencias en la serie. Estamos también incluyendo una deriva del tiempo $\beta t$ y el término clave para determinar las raíces unitarias: $\gamma Y_{t-1}$.
+    \item La hipótesis nula de la prueba ADF es que la serie de tiempo tiene raíz unitaria ($\gamma=0$), lo que significa que no es estacionaria. La hipótesis alternativa es que la serie de tiempo no es estacionaria ($\gamma<0$).
+\end{itemize}
+En otras palabras, como el p-value es muy pequeño ($p<0.01$), podemos interpretar que nuestra serie no es estacionaria.
+
+\textbf{Paso \#2:} Si la serie no es estacionaria, considera transformarla para hacerla estacionaria.
+
+Hay transformaciones que resultan naturales a una serie de tiempo. Por ejemplo, el indicador general de la actividad Económica es evidentemente No-estacionario.
+
+El siguiente código extrae directamente los datos del segundo trimestre desde INEGI y los transforma en un data-frame que se puede usar para evaluarse como serie de tiempo.
+
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Importar las librerías necesarias
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+
+# --------------------
+# Cargar datos desde INEGI
+# --------------------
+url = 'https://www.inegi.org.mx/contenidos/programas/igae/2018/tabulados/ori/IGAE_2.xlsx'
+igae_data = pd.read_excel(url, skiprows=5)
+
+# --------------------
+# Limpiar datos
+# --------------------
+# Eliminar la primera fila que contiene encabezados no útiles
+igae_data_cleaned = igae_data.drop(igae_data.index[0])
+igae_data_cleaned.reset_index(drop=True, inplace=True)
+
+# Obtener la fila correspondiente a "Total" (ya es la primera después de limpiar), ignorando la primera columna
+total_series = igae_data_cleaned.iloc[0, 1:].transpose()
+
+# Convertir a valores numéricos y eliminar NaNs
+total_series = pd.to_numeric(total_series, errors='coerce').dropna()
+
+# --------------------
+# Crear índice de tiempo
+# --------------------
+# Crear fechas mensuales a partir de enero de 1993
+dates = pd.date_range(start='1993-01-01', periods=len(total_series), freq='MS')
+
+# Crear DataFrame con índice de fechas
+df = pd.DataFrame({'Valor IGAE': total_series.values}, index=dates)
+
+# Convertir explícitamente a tipo float
+df['Valor IGAE'] = df['Valor IGAE'].astype(float)
+
+# Confirmar dimensiones (opcional)
+print(len(df), len(total_series), len(dates))
+
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+Sabrás que este código se ejecutó correctamente porque te mostrará las primeras filas de tu base de datos de la IGAE.
+
+Usa este código para mostrarlo en un gráfica.
+
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# --------------------
+# Graficar serie original
+# --------------------
+plt.figure(figsize=(10, 6))
+plt.plot(df.index, df['Valor IGAE'])
+plt.title('Serie de Tiempo IGAE')
+plt.xlabel('Fecha')
+plt.ylabel('Valor IGAE')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+
+\begin{fullwidth}
+\begin{figure}
+    \centering
+    \caption{Índice Global de la Actividad Económica (IGAE). El gráfico lo muestra como un gráfico de líneas. En una serie estacionaria, no se debe observar una tendencia clara. Este indicador a simple vista se puede observar que no es estacionario. Fuente: INEGI.}
+    \includegraphics[width=1\linewidth]{imagenes/igae.png}
+\end{figure}
+\end{fullwidth}
+
+Con algo de experiencia vas a aprender a notar cuando una serie no es estacionaria (como es este caso) sólo al ver el gráfico. Pero siempre debes de corroborar tus sospechas haciendo una prueba estadística.
+
+\textbf{Paso \#3: Identifica el orden del rezago $p$}. La siguiente pregunta que tenemos es ¿cuántos rezagos debo usar en mi modelo?
+
+Para resolver este problema usamos la función de autocorrelación (AFC) y la función de autocorrelación parcial (PAFC). Este es el gráfico que generan\sidenote{Existe una función de \codebox{auto\_arima} en el módulo \codebox{pmdarima}, que encuentra de manera automática el \gls{orden-rezago} de manera automática. Dado que es una tarea muy orientada a reglas estructuradas, generalmente está bien hacerlo de esta manera. Lo que estamos viendo en esta sección está más orientado a que tengas un entendimiento general de lo que implica el rezago, por eso lo hacemos con este método visual.}.
+
+Primero hagamos el gráfico de la serie original, para visualizar la diferencia cuando la serie es estacionaria.
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# --------------------
+# Paso 3: ACF y PACF de la serie original
+# --------------------
+y_series = df['Valor IGAE']
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
+plot_acf(y_series, ax=ax1, lags=40)
+ax1.set_title('Función de Autocorrelación (ACF) - Serie Original')
+plot_pacf(y_series, ax=ax2, lags=40)
+ax2.set_title('Función de Autocorrelación Parcial (PACF) - Serie Original')
+plt.tight_layout()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+
+\begin{figure}[h!]
+    \centering
+    \caption{Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de la serie original (sin diferenciación).}
+    \includegraphics[width=1\linewidth]{imagenes/afc_pafc_original.png}
+\end{figure}
+
+El truco para identificar el orden del rezago en un modelo AR($p$) es mirar el PAFC. El punto en el que la autocorrelación cae por debajo del nivel de significancia (no está cubierto por el color en el gráfico), es el nivel de rezago que debemos usar.
+
+En este caso el gráfico nos muestra una caída después del tercer rezago, que es lo que esperamos con el modelo que hemos diseñado.
+
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# --------------------
+# Paso 6: Serie diferenciada (opcional para verificar estacionariedad)
+# --------------------
+df_diff = df.diff().dropna()
+y_diff = df_diff['Valor IGAE']
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
+plot_acf(y_diff, ax=ax1, lags=40)
+ax1.set_title('ACF - Serie Diferenciada')
+plot_pacf(y_diff, ax=ax2, lags=40)
+ax2.set_title('PACF - Serie Diferenciada')
+plt.tight_layout()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+
+\begin{figure}[h!]
+    \centering
+    \caption{Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de la serie diferenciada. Nota que en la serie diferenciada, el orden de rezago a elegir es menor al de la serie original.}
+    \includegraphics[width=1\linewidth]{imagenes/afc_pafc_diff.png}
+\end{figure}
+
+\textbf{Paso \#4:} Ejecutar el modelo y mostrar los resultados
+
+Finalmente estamos listos para ejecutar nuestro modelo AR(3). Usa este código:
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+from statsmodels.tsa.ar_model import AutoReg
+
+# Ajustando un modelo AR(3)
+model = AutoReg(y_series, lags=3)
+model_fitted = model.fit()
+
+# Mostrando los resultados
+model_results = model_fitted.summary()
+
+model_results
+\end{minted}
+\end{tcolorbox}
+
+Esta es la tabla con los resultados de la regresión de un \gls{modelo-ar} con $p=3$ en estimación por máxima verosimilitud.
+
+\begin{fullwidth}
+\begin{table}[ht]
+\centering
+\label{tab:ar3_modelo}
+\begin{tabular}{lccc}
+\toprule
+ & Coeficiente & Error estándar & IC 95\% \\
+\midrule
+Intercepto              & 0.019  & 0.031 & [-0.042, 0.080] \\
+$y_{t-1}$ (retardo 1)   & 0.488*** & 0.032 & [0.426, 0.550] \\
+$y_{t-2}$ (retardo 2)   & -0.184*** & 0.035 & [-0.252, -0.116] \\
+$y_{t-3}$ (retardo 3)   & 0.085** & 0.032 & [0.023, 0.147] \\
+\midrule
+N (observaciones)       & \multicolumn{3}{l}{1000} \\
+Log-verosimilitud       & \multicolumn{3}{l}{-1394.23} \\
+AIC                     & \multicolumn{3}{l}{2798.46} \\
+BIC                     & \multicolumn{3}{l}{2822.98} \\
+Desv. estándar (innovaciones) & \multicolumn{3}{l}{0.980} \\
+\bottomrule
+\end{tabular}
+
+\vspace{1mm}
+\begin{flushleft}
+\footnotesize
+\textit{Notas:} Estimaciones mediante máxima verosimilitud condicional.\\
+\textit{Niveles de significancia:} * $p<0.1$, ** $p<0.05$, *** $p<0.01$ \\
+El modelo es estable, ya que todas las raíces del polinomio autoregresivo están fuera del círculo unitario:\\
+Raíces: $2.10$, $2.37 \pm 2.37i$ (módulos $> 1$).
+\end{flushleft}
+\end{table}
+
+\end{fullwidth}
+
+
+Lo que podemos observar en los resultados de este modelo:
+\begin{itemize}
+    \item Los coeficientes son efectivamente cercanos a los que hicimos en la simulación, con un valor significativo (p < 0.05)
+    \item La sección donde dice Real e Imaginario nos ayudan a confirmar que nuestro modelo es estable (i.e. todas las unidades de la ecuación característica están fuera del círculo unitario).
+\end{itemize}
+
+\textbf{Paso \#5:} Comparar AIC y BIC para encontrar el mejor modelo
+
+El criterio de Información de Akaike (\gls{aic}) y el Criterio de información Bayesiano (\gls{bic}) son medidas que nos ayudan a identificar el ``mejor modelo'' en términos de la información que podemos obtener.
+
+La idea es esta: cuando incluimos más variables a nuestro modelo, podemos tener mayor precisión, pero nos arriesgamos a un sobre-ajuste. Veamos que sucede si comparamos AR(3) con los modelos AR(2) y AR(4).
+
+La regla de oro es el que el modelo con AIC y BIC más bajo, gana.
+
+Veamos una comparativa con modelos AR(2) y AR(4)
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Ajustando modelos AR(2) y AR(4) y comparando AIC y BIC
+model_ar2 = AutoReg(y_series, lags=2).fit()
+model_ar4 = AutoReg(y_series, lags=4).fit()
+
+# Extrayendo AIC y BIC para cada modelo
+aic_bic_comparison = pd.DataFrame({
+    'Model': ['AR(2)', 'AR(3)', 'AR(4)'],
+    'AIC': [model_ar2.aic, model_fitted.aic, model_ar4.aic],
+    'BIC': [model_ar2.bic, model_fitted.bic, model_ar4.bic]
+})
+
+aic_bic_comparison
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+\begin{tabular}{cccc}
+    \toprule
+     & \textbf{Model} & \textbf{AIC} &\textbf{BIC}  \\
+     \midrule
+    \textbf{0} & AR(2) & 2805.485454 & 2825.108467 \\
+    \textbf{1} & AR(3)	& 2798.455225 &	2822.978979 \\
+    \textbf{2}	& AR(4)	& 2794.998432 & 2824.420916 \\
+    \bottomrule
+\end{tabular}
+
+
+Curioso.
+
+El modelo AR(4) tiene un nivel menor de AIC, con un BIC ligeramente mayor. Eso quiere decir que, si no supiéramos el modelo real, bien podríamos considerar el modelo AR(4) como viable.
+
+Generalmente, el AIC se enfoca más en la calidad del ajuste, mientras que el BIC añade una penalización más fuerte por la cantidad de parámetros, favoreciendo modelos más simples.
+
+\textbf{Paso \#6:}  Generar proyecciones
+
+Finalmente, podemos crear proyecciones a partir de nuestros modelos. En el siguiente código, dividimos la base de datos en datos de entrenamiento (\codebox{train}) y de prueba (\codebox{test}). La idea es comprobar que nuestras proyecciones ayudan a predecir el valor que estamos buscando.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+from sklearn.metrics import mean_absolute_error
+
+# Dividiendo los datos en entrenamiento y prueba
+train_data = y_series[:int(0.9 * len(y_series))]
+test_data = y_series[int(0.9 * len(y_series)):]
+
+# Ajustando el modelo AR(3) al conjunto de entrenamiento
+model_train = AutoReg(train_data, lags=3).fit()
+
+# Haciendo predicciones en el conjunto de prueba
+predictions = model_train.predict(start=len(train_data), end=len(train_data) + len(test_data) - 1, dynamic=False)
+
+# Calculando el Error Absoluto Medio (MAE)
+mae = mean_absolute_error(test_data, predictions)
+
+mae
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+Un gráfico nos puede ayudar a tener mayor claridad. Nota que la proyección en este caso es sólo una línea horizontal en el valor medio de los datos. Lo que esto nos indica es que el modelo predice el siguiente valor de nuestro indicador igual al último dato.
+
+En otras palabras, con la información que tenemos y esta especificación del modelo, es tan probable que suba a que baje\sidenote{Estoy consciente de que esto puede parecer poco alentador. Pero lo que estamos viendo son sólo las bases, y esta es la versión más sencilla. Lo interesante de este modelo es que se puede incluir mucha más información y refinar el modelo, pero los principios de aplicación seguirán siendo los mismos. Por eso vale mucho la pena pasar tiempo trabajando lo básico.}.
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Creando un gráfico para comparar los valores reales y las predicciones
+plt.figure(figsize=(14, 7))
+plt.plot(train_data, label='Training Data')
+plt.plot(test_data, label='Actual Value')
+plt.plot(predictions, label='Forecast', linestyle='--')
+plt.title('AR(3) Forecast vs Actuals')
+plt.xlabel('Date')
+plt.ylabel('Value')
+plt.legend()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+
+\begin{fullwidth}
+\begin{figure*}[h!]
+    \centering
+    \caption{Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de la serie diferenciada. Nota que en la serie diferenciada, el orden de rezago a elegir es menor al de la serie original.}
+    \includegraphics[width=1\linewidth]{imagenes/forecast.png}
+\end{figure*}
+\end{fullwidth}
+
+
+
+\section{Medias Móviles: La MA de ARIMA}
+El procedimiento que vimos antes se puede aplicar igual con un modelo más complejo.
+
+En ocasiones, nos enfrentamos a dos problemas, que a primera vista parecen no estar relacionados entre sí:
+
+\begin{itemize}
+    \item Los rezagos de la variable no son suficientes para explicar su comportamiento.
+    \item Los rezagos de los errores muestran una tendencia.
+\end{itemize}
+
+Lo curioso es que ambos problemas los podemos solucionar incluyendo dichos rezagos al modelo. Considera el siguiente modelos ARMA($p$, $q$), que contiene un rezago ($p=1$) y tres rezagos del error ($q=3$).
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
+
+# Estableciendo la semilla para reproducibilidad
+np.random.seed(42)
+
+# Número de observaciones
+n = 1000
+
+# Generando un término de ruido
+epsilon = np.random.normal(loc=0, scale=1, size=n)
+
+# Inicializando la serie temporal
+y = np.zeros(n)
+
+# Parámetros para el proceso ARMA(1,3)
+phi = 0.5  # Coeficiente AR
+theta = [0.1, -0.2, 0.3]  # Coeficientes MA
+
+# Generando el proceso ARMA(1,3)
+for t in range(4, n):
+    y[t] = phi * y[t-1] + epsilon[t] + theta[0] * epsilon[t-1] + theta[1] * epsilon[t-2] + theta[2] * epsilon[t-3]
+
+# Creando un índice de series temporales
+dates = pd.date_range(start='2024-01-01', periods=n)
+
+# Convirtiendo a una serie de pandas para graficar y modelar
+y_series_arma = pd.Series(y, index=dates)
+
+# Ajustando un modelo ARMA(1,3)
+arma_model = ARIMA(y_series_arma, order=(1, 0, 3))
+arma_result = arma_model.fit()
+
+# Creando predicciones con el modelo ARMA(1,3) para los últimos 100 puntos de datos
+arma_predictions = arma_result.predict(start=n-100, end=n-1)
+
+# Creando un gráfico para comparar los valores reales y las predicciones de ARMA(1,3)
+plt.figure(figsize=(14, 7))
+plt.plot(y_series_arma[n-100:], label='Actual Values')
+plt.plot(arma_predictions, label='ARMA(1,3) Predictions', linestyle='--')
+plt.title('ARMA(1,3) Simulation')
+plt.xlabel('Date')
+plt.ylabel('Value')
+plt.legend()
+plt.show()
+
+arma_result.summary()
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{fullwidth}
+\begin{figure*}[h!]
+    \centering
+    \caption{Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de la serie diferenciada. Nota que en la serie diferenciada, el orden de rezago a elegir es menor al de la serie original.}
+    \includegraphics[width=1\linewidth]{imagenes/arma.png}
+\end{figure*}
+\end{fullwidth}
+
+
+Este modelo se ve más interesante.
+
+De manera formal, escribimos el modelo como 
+
+\begin{equation}\label{arma}
+y_t = \sum_{i}^p\phi_iy_{t-i} + \sum_j^q\theta_j \varepsilon_{t-j}+ \varepsilon_t,
+\end{equation}
+donde $p$ y $q$ son el nivel de rezago para la parte autorregresiva (AR) y las medias móviles (MA), respectivamente\sidenote{En este caso, $p = 1$ y $q = 1$, que transforman la ecuación \eqref{arma} en  $y_t = \phi_1 y_{t-1} + \theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2} + \theta_3 \varepsilon_{t-3} + \varepsilon_t$}. Nota que el \gls{modelo-ma} usa los rezagos del error como posibles predictores de la variable de interés.
+
+Los pasos que seguimos en la sección anterior aplican también aquí. De igual manera, si nos enfrentamos a un \gls{modelo-arma}, debemos verificar que sea estacionario, identificar el orden del proceso y hacer nuestras proyecciones.
+
+Una diferencia clave son las funciones \gls{acf} y \gls{pacf}. Para detectar el orden MA($q$) revisamos dónde la función ACF corta de manera abrupta.
+
+Veamos nuevamente el gráfico
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+
+# Plotting ACF and PACF for the ARMA(1,3) model
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
+
+# ACF
+plot_acf(y_series_arma, ax=ax1, lags=40)
+ax1.set_title('Autocorrelation Function (ACF) for ARMA(1,3)')
+
+# PACF
+plot_pacf(y_series_arma, ax=ax2, lags=40)
+ax2.set_title('Partial Autocorrelation Function (PACF) for ARMA(1,3)')
+
+plt.tight_layout()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+Lo que podemos observar:
+
+\begin{fullwidth}
+\begin{figure*}[h!]
+    \centering
+    \caption{Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de nuestra simulación de un proceso ARMA(1,3).}
+    \includegraphics[width=1\linewidth]{imagenes/arma_afc_pafc.png}
+\end{figure*}
+\end{fullwidth}
+
+En el gráfico ACF parece haber un rechazo significativo en el primer retardo y luego una disminución exponencial o una disminución sinusoidal amortiguada en los retardos subsiguientes. Esto es típico de un proceso AR(1) o un proceso ARMA con un componente AR(1). El hecho de que el gráfico ACF no se corte después de un número determinado de retardos sugiere la presencia de una componente AR.
+
+El gráfico PACF muestra un rechazo significativo en el primer retardo y rechazos significativos en los retardos tercero y cuarto, lo cual es consistente con un proceso MA(3), ya que el PACF de un proceso MA(q) generalmente muestra rechazos significativos para los primeros 
+ retardos y luego se corta.
+
+En la práctica la interpretación del ACF y PACF puede ser más arte que ciencia. Se basa en la identificación de “cortes” y rechazos significativos, por lo que una interpretación plausible de estos gráficos sería que estamos mirando un proceso con una componente autoregresiva de orden 1 (AR(1)) y una componente de media móvil de orden 3 (MA(3)).
+
+\section{¿Y la I del ARIMA?}
+
+Finalmente, la I en la palabra ARIMA nos indica la \textit{integración del modelo}, que quiere decir el número de diferencias que requieren nuestros datos para ser estacionarias. Por ejemplo, un modelo ARMA(2,1) con una diferencia, sería un \gls{modelo-arima} con $p =2$, $d =1$ y $q=1$.
+
+Como vimos, que los datos sean estacionarios es muy importante, pero es un problema que se soluciona de una forma relativamente fácil con una diferencia.
+
+La primera diferencia se suele representar como:
+
+$$
+\Delta X_t = X_t - X_{t-1}
+$$
+
+Pero podemos ir aún más lejos, si es necesario. Podemos aplicar un segundo orden de integración, también conocido como una segunda diferencia.
+
+\begin{align*}
+\Delta^2 X_t &= \Delta(\Delta X_t) = X_t - X_{t-1} - (X_{t-1} - X_{t-2}) \\
+             &= X_t - 2X_{t-1} + X_{t-2}
+\end{align*}
+
+
+Es decir, le aplicamos una diferencia a la serie ya diferenciada. Y podemos ir aún más allá con una tercera diferencia.
+
+\begin{align*}
+\Delta^3 X_t &= \Delta(\Delta^2 X_t) \\
+             &= (X_t - 2X_{t-1} + X_{t-2}) - (X_{t-1} - 2X_{t-2} + X_{t-3}) \\
+             &= X_t - 3X_{t-1} + 3X_{t-2} - X_{t-3}
+\end{align*}
+
+Generalmente, si en dos o tres diferencias el problema no se arregla, tienes problemas más serios con tu serie de tiempo que antender, y una diferencia más no los va a arreglar. Es mejor regresar a las bases.
+
+\section{Apéndice}
+Aquí van los temas que requieren una explicación adicional, pero que hubieran roto el ritmo de la explicación en el capítulo.
+
+\subsection{Proceso Estocástico}
+La palabra \textbf{estocástico} significa lo mismo que aleatorio.
+
+La diferencia principal es que \textit{estocástico} viene del griego, mientras que \textit{aleatorio} viene del latín. Para definir correctamente lo que es un proceso estocástico necesitamos algunas definiciones adicionales que vienen de la teoría de la probabilidad:
+
+Un \textbf{espacio probabilístico} es una tripla $(\Omega, \mathcal{F}, \mathbb{P})$ donde:
+\begin{itemize}
+    \item $\Omega$ es un conjunto no vacío conocido como el \textbf{espacio muestral}.
+    \item $\mathcal{F}$ es una $\sigma-$álgebra  (se lee \textit{sigma}-álgebra) de subconjuntos de $\Omega$. Es decir, es una familia de subconjuntos cerrados con respecto a la unión contable y complementaria con respecto a $\Omega$.
+    \item $\mathbb{P}$ es una medida de probabilidad definida para todos lo miembros de $\mathcal{F}$.
+\end{itemize}
+
+Ahora definamos las variables aleatorias
+
+\textbf{Una variable aletoria} es una función $x:\Omega\rightarrow\mathbb{R}$ tal que la imágen inversa de cualquier intervalo $(-\infty,a]$ pertenece a $\mathcal{F}$, es decir, es una función medible.
+
+
+Con estas definiciones, podemos llegar a nuestra definición de proceso estocástico:
+
+Un \textbf{proceso estocástico real} es una familia de variables aleatorias reales $\mathbf{X} = \{x_t(\omega) \mid t \in T\}$ definidas en el mismo espacio probabilístico $(\Omega, \mathcal{F}, \mathbb{P})$. El conjunto $T$ se le llama el \textbf{espacio índice} de procesos. Si $T \subset \mathbb{Z}$, entonces es un proceso estocástico discreto. Si $T$ es un intervalo de $\mathbb{R}$, entonces es un proceso estocástico continuo.
+
+\subsection{Ruido blanco}
+Un ruido blanco es un proceso estocástico que no tiene correlación serial con media cero y varianza constante finita.
+
+De manera formal, un proceso $\{w_t\}$ es un \textbf{ruido blanco} si:
+\begin{itemize}
+    \item Su primer momento es siempre cero, es decir $E[w_t]=0$.
+    \item Su segundo momento es finito. Es decir, $[E(w_t-\mu)^2]<\infty$.
+    \item El momento cruzado $E[w_sw_t]$ es cero, para $s\not= t$. Es decir, $cov(w_s, w_t)=0$.
+\end{itemize}
+
+%\subsection{Definición formal de estacionariedad}
+%\href{https://towardsdatascience.com/stationarity-in-time-series-analysis-90c94f27322}{Stationarity in time series analysis}
+
+\subsection{Raíces unitarias}
+Consideremos un proceso autorregresivo de orden $p$:
+$$y_t = a_0 + a_1 y_{t-1} + \dots + a_p y_{t-p} + \varepsilon_t$$
+Donde $\epsilon_t$ representa un ruido blanco. Podemos reescribir el mismo proceso como
+$$(1 - a_1 L - \dots - a_p L^p) y_t = a_0 + \varepsilon_t$$
+donde $L^i$ es el operador de rezago. La parte entre paréntesis de la izquierda se conoce como la ecuación característica de la serie de tiempo. Consideremos la raíz de esta ecuación:
+$$m^p - m^{p-1} a_1 - \dots - a_p = 0$$
+Si la raíz de la ecuación es $m=1$, entonces el proceso estocástico tiene \textbf{raíz unitaria}. Esto se suele comprobar con la \gls{dickey-fuller}.
+
+% --- INICIO DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---
+
+\begin{fullwidth}
+\section*{Resumen del capítulo}
+
+En este capítulo aprendimos el arte de predecir el futuro mirando únicamente el pasado. Eso, en esencia, es el análisis de series de tiempo.
+
+Lo que hicimos fue desglosar la herramienta principal para este trabajo, el \gls{modelo-arima}. Vimos que este modelo es como una navaja suiza con tres funciones: la parte Autoregresiva (AR), que asume que el futuro se parece al pasado reciente de la variable; la parte de Medias Móviles (MA), que aprende de los errores de predicción pasados; y la parte Integrada (I), que es el truco de diferenciar los datos para hacerlos estables. Descubrimos que la clave para que todo funcione es la \gls{estacionariedad} y aprendimos el flujo de trabajo completo: diagnosticarla con la prueba Dickey-Fuller, corregirla con diferencias, y usar los gráficos ACF y PACF como mapas para elegir la estructura correcta de nuestro modelo.
+
+Esto es importante porque el tiempo es una dimensión crucial en casi cualquier problema económico o de negocios. Saber construir un pronóstico de ventas, demanda o inventario no es magia, es una habilidad técnica muy valiosa. Entender este proceso te protege de cometer el error garrafal de aplicar modelos a datos ``inestables'' (no estacionarios), lo que produce proyecciones sin sentido. Es la base para cualquier análisis de datos que se desarrolle a lo largo del tiempo.
+
+¿Cómo te ayuda esto? Ahora tienes una metodología paso a paso para tomar una secuencia de datos y construir un pronóstico coherente. Puedes responder preguntas como: ``basado en el comportamiento histórico, ¿dónde esperamos que estén nuestras ventas el próximo trimestre?''. Sabes cómo verificar si tus datos son aptos para ser modelados y cómo ``curarlos'' si no lo son. Puedes construir, comparar (usando AIC y BIC) y generar proyecciones con uno de los modelos de pronóstico más utilizados y respetados en la industria.
+
+\section*{Viajando en el tiempo: ejercicios de proyección}
+
+La teoría es una cosa, pero con las series de tiempo, la intuición se desarrolla con la práctica. Es hora de aplicar el flujo de trabajo que aprendiste.
+
+\begin{enumerate}
+    \item \textbf{Estacionariedad a ojo de buen cubero (Conceptual):} Busca en Google Imágenes los gráficos de las siguientes tres series de tiempo: a) el precio diario de Bitcoin (BTC), b) el número de turistas mensuales que llegan a Cancún, y c) la tasa de desempleo trimestral de tu país. Sin hacer ninguna prueba, solo por inspección visual, ¿cuáles parecen estacionarias y cuáles no? Justifica brevemente por qué. (Pista: busca tendencias claras o patrones que se repiten).
+
+    \item \textbf{El poder de la diferencia (Código):} Usa el DataFrame del IGAE que construimos en el capítulo.
+    \begin{itemize}
+        \item Aplica una primera diferencia a la serie usando \codebox{.diff()}.
+        \item Genera un gráfico de la serie ya diferenciada. ¿Luce más ``estable'' o ``plana'' que la original?
+        \item Corre la prueba de Dickey-Fuller Aumentada (ADF) sobre esta nueva serie diferenciada. ¿Cuál es el p-value? ¿Puedes rechazar ahora la hipótesis nula de que hay una raíz unitaria?
+    \end{itemize}
+
+    \item \textbf{Descifrando el oráculo (Conceptual):} Estás analizando los gráficos ACF y PACF de una serie ya estacionaria para decidir el orden de tu modelo.
+    \begin{itemize}
+        \item \textbf{Caso A:} El gráfico ACF se corta abruptamente después del segundo rezago (lag 2), mientras que el PACF muestra un decaimiento lento. ¿Qué orden (p,q) de modelo ARMA te sugiere esto?
+        \item \textbf{Caso B:} El gráfico PACF se corta abruptamente después del primer rezago (lag 1), mientras que el ACF decae lentamente. ¿Qué orden (p,q) de modelo ARMA te sugiere esto?
+    \end{itemize}
+
+    \item \textbf{Simulando el pasado (Código):} En el capítulo simulamos un proceso AR(3). Ahora te toca a ti. Simula un proceso \textbf{AR(2)} con coeficientes $\phi_1 = 0.6$ y $\phi_2 = 0.2$. Genera 500 observaciones. Después, usa el modelo \codebox{AutoReg} de \codebox{statsmodels} con \codebox{lags=2} sobre tu serie simulada. ¿Los coeficientes que estima el modelo se parecen a los que usaste para crearla?
+
+    \item \textbf{La batalla de los modelos (Código):} Usando la serie del IGAE ya diferenciada (del ejercicio 2), corre tres modelos para ella: un AR(1), un AR(2) y un AR(3). Imprime una tabla o un resumen comparando sus valores de AIC y BIC. Según estos criterios, ¿cuál de los tres modelos parece ser el mejor?
+
+    \item \textbf{Escuchando el silencio (Conceptual):} Explica con tus propias palabras qué es un proceso de ``ruido blanco''. Si los residuales (los errores de predicción) de tu modelo de serie de tiempo se comportan como un ruido blanco, ¿es una buena o una mala señal para tu modelo? ¿Por qué?
+
+    \item \textbf{Lanzando la bola de cristal (Código):} Toma el ``mejor'' modelo que elegiste en el ejercicio 5 para la serie del IGAE.
+    \begin{itemize}
+        \item Divide los datos: usa el 90\% para entrenar y reserva el último 10\% para probar.
+        \item Ajusta tu modelo AR(p) solo con los datos de entrenamiento.
+        \item Genera un pronóstico para el periodo que cubren los datos de prueba.
+        \item Crea un gráfico que muestre los datos de entrenamiento, los datos reales de prueba, y tu pronóstico. ¿Qué tan bien le atinó tu modelo?
+    \end{itemize}
+
+    \item \textbf{El significado de la ``I'' (Conceptual):} Un colega te dice que está usando un modelo ARIMA(1,2,1) para proyectar el inventario. ¿Qué significa el número 2 en la posición de la ``d'' (integración)? ¿Qué tuvo que hacerle a sus datos originales? ¿Es algo común?
+
+    \item \textbf{Pasado vs. Errores Pasados (Conceptual):} ¿Cuál es la diferencia fundamental en la ``historia'' que cuenta la parte Autoregresiva (AR) y la que cuenta la parte de Medias Móviles (MA) de un modelo ARIMA?
+
+    \item \textbf{Reto - Tu propio pronóstico (Código):} Busca en Kaggle o en otra fuente un dataset de series de tiempo que te interese (ej: ``avocado prices'', ``monthly sunspots'', ``shampoo sales''). Carga los datos y realiza el flujo de trabajo completo del capítulo:
+    \begin{itemize}
+        \item Grafica la serie.
+        \item Prueba la estacionariedad y diferencia si es necesario (anota el orden `d`).
+        \item Usa los gráficos ACF y PACF para proponer un orden `p` y `q`.
+        \item Ajusta tu modelo ARIMA(p,d,q) y muestra el resumen.
+        \item Genera un pronóstico para los siguientes 6 periodos.
+    \end{itemize}
+\end{enumerate}
+\end{fullwidth}
+
+% --- FIN DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---

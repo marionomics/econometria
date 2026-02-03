@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{Promedio} \PYG{n}{de} \PYG{n}{TV}\PYG{p}{:} \PYG{l+m+mf}{147.0425}
+\PYG{n}{Promedio} \PYG{n}{de} \PYG{n}{Ventas}\PYG{p}{:} \PYG{l+m+mf}{15.130500000000001}
+\PYG{n}{Ventas} \PYG{n}{predichas} \PYG{n}{cuando} \PYG{n}{TV} \PYG{n}{es} \PYG{n}{igual} \PYG{n}{a} \PYG{n}{su} \PYG{n}{promedio}\PYG{p}{:} \PYG{l+m+mf}{15.130500000000012}
+\end{MintedVerbatim}

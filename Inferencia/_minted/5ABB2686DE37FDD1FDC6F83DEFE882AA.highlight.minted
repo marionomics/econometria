@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{\PYGZsh{} Calcular la suma de los residuales}
+    \PYG{n}{suma\PYGZus{}residuales} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{residuales}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Mostrar la suma de los residuales}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Suma de los residuales:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{suma\PYGZus{}residuales}\PYG{p}{)}
+\end{MintedVerbatim}

@@ -1,0 +1,105 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{Antes de comenzar: ¿Qué es la inferencia causal?}{15}{chapter*.4}%
+\contentsline {section}{En la época, la teoría dominante de la causa del cólera era el \textit {miasma}}{15}{section*.5}%
+\contentsline {section}{La inferencia causal se trata más de sentido común que de la estadística en sí misma}{16}{section*.6}%
+\contentsline {chapter}{Los negocios son matemáticas}{21}{chapter*.7}%
+\contentsline {section}{Cometí dos errores grandes con ese negocio}{22}{section*.8}%
+\contentsline {section}{Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo}{22}{section*.9}%
+\contentsline {section}{Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos}{23}{section*.10}%
+\contentsline {section}{¿Qué necesitas saber antes de comenzar?}{23}{section*.11}%
+\contentsline {chapter}{Python para hacer Econometría}{27}{chapter*.12}%
+\contentsline {section}{Antes de que existiera Python, teníamos a Florence Nightingale}{28}{section*.13}%
+\contentsline {section}{El primer paso para hacer econometría con Python}{28}{section*.14}%
+\contentsline {section}{Familiarízate con Python}{29}{section*.15}%
+\contentsline {section}{Módulos de Python para hacer econometría}{30}{section*.16}%
+\contentsline {section}{Un juego de lotería con Python}{30}{section*.17}%
+\contentsline {section}{Con esta lista ya podemos repartir las tablas}{32}{section*.18}%
+\contentsline {section}{Cantar las cartas}{33}{section*.19}%
+\contentsline {section}{Marcando las Cartas}{33}{section*.20}%
+\contentsline {section}{Verificando el Ganador}{34}{section*.21}%
+\contentsline {section}{Preguntas frecuentes en las primeras sesiones de Python}{35}{section*.22}%
+\contentsline {section}{Ya sabes usar Python, ahora aprendamos econometría}{36}{section*.23}%
+\contentsline {chapter}{El modelo de \gls {resultados-potenciales}}{41}{chapter*.24}%
+\contentsline {section}{¿Cómo sería tu vida si hubieras entrado en Harvard?}{41}{section*.25}%
+\contentsline {subsection}{Para identificar el efecto, debemos ir más allá de la diferencia de medias}{43}{subsection*.26}%
+\contentsline {section}{Sesgo de Selección}{45}{section*.27}%
+\contentsline {section}{El beneficio de entrar a una escuela más selectiva}{46}{section*.28}%
+\contentsline {section}{Descubriendo el sesgo de selección}{47}{section*.29}%
+\contentsline {section}{El experimento aleatorio ideal}{49}{section*.30}%
+\contentsline {section}{Experimento ideal y experimentos naturales}{50}{section*.31}%
+\contentsline {section}{Diseña tu experimento ideal con Inteligencia Artificial}{51}{section*.32}%
+\contentsline {chapter}{Experimentos y Pruebas A/B}{55}{chapter*.33}%
+\contentsline {section}{Los experimentos son el \gls {goldstandard} de la ciencia}{56}{section*.34}%
+\contentsline {section}{¿Por qué se usan experimentos para hacer inferencia causal en los negocios?}{57}{section*.35}%
+\contentsline {section}{¿Qué pasa cuando no se puede hacer un experimento?}{58}{section*.36}%
+\contentsline {section}{Aunque no lo creas, hay preguntas que no se pueden resolver ni aún con un experimento.}{59}{section*.37}%
+\contentsline {section}{Ejemplo: El efecto de las búsquedas pagadas en las ventas}{59}{section*.38}%
+\contentsline {section}{Prompt: Diseña el experimento ideal}{61}{section*.39}%
+\contentsline {chapter}{Una guía para entender y hacer modelos de Regresión Lineal}{65}{chapter*.40}%
+\contentsline {section}{El modelo de mínimos cuadrados ordinarios con dos variables}{66}{section*.41}%
+\contentsline {section}{El método de Mínimos cuadrados ordinarios}{69}{section*.42}%
+\contentsline {section}{Obteniendo los estimadores de OLS}{70}{section*.43}%
+\contentsline {section}{Propiedades de los estimadores de Mínimos Cuadrados}{72}{section*.44}%
+\contentsline {section}{El teorema de Gauss-Márkov y sus supuestos}{76}{section*.45}%
+\contentsline {section}{Estos son los supuestos del \gls {gauss-markov}}{76}{section*.46}%
+\contentsline {section}{Cómo interpretar el reporte de regresión: La guía del economista principiante para que acepten su primer artículo}{84}{section*.47}%
+\contentsline {section}{¿Qué pasa si mi regresión no cumple con los supuestos?}{88}{section*.48}%
+\contentsline {section}{Apéndice: Algunas preguntas que te pudieron haber quedado, explicadas con más detalle}{89}{section*.49}%
+\contentsline {subsection}{¿Por qué $\mathbf {e}'\mathbf {e}$ es la suma de residuos al cuadrado?}{89}{subsection*.50}%
+\contentsline {subsection}{Guía breve de diferenciación con matrices}{89}{subsection*.51}%
+\contentsline {subsection}{¿Cómo que la inversa de $\mathbf {X}'\mathbf {X}$ podría no existir?}{90}{subsection*.52}%
+\contentsline {subsection}{¿Cómo funciona el coeficiente de correlación?}{90}{subsection*.53}%
+\contentsline {subsection}{¿Cómo funciona el VIF?}{91}{subsection*.54}%
+\contentsline {subsection}{Interpretación del VIF}{91}{subsection*.55}%
+\contentsline {subsection}{Importancia del VIF}{92}{subsection*.56}%
+\contentsline {section}{¿Por qué es importante identificar la multicolinealidad?}{92}{section*.57}%
+\contentsline {subsection}{El supuesto de media condicional cero}{93}{subsection*.58}%
+\contentsline {section}{Un poco extra sobre Gauss}{94}{section*.59}%
+\contentsline {subsection}{Pruebas de hipótesis}{94}{subsection*.60}%
+\contentsline {chapter}{Cómo se usan los modelos de series de tiempo para proyectar las ventas en una empresa}{99}{chapter*.61}%
+\contentsline {section}{Introducción}{99}{section*.62}%
+\contentsline {subsection}{Para qué se usan las series de tiempo}{99}{subsection*.63}%
+\contentsline {section}{Un ejemplo de una Serie de Tiempo}{100}{section*.64}%
+\contentsline {subsection}{Estacionariedad}{102}{subsection*.65}%
+\contentsline {section}{El modelo ARIMA}{104}{section*.66}%
+\contentsline {subsection}{Modelos AR(p)}{105}{subsection*.67}%
+\contentsline {section}{Medias Móviles: La MA de ARIMA}{114}{section*.68}%
+\contentsline {section}{¿Y la I del ARIMA?}{119}{section*.69}%
+\contentsline {section}{Apéndice}{119}{section*.70}%
+\contentsline {subsection}{Proceso Estocástico}{120}{subsection*.71}%
+\contentsline {subsection}{Ruido blanco}{120}{subsection*.72}%
+\contentsline {subsection}{Raíces unitarias}{121}{subsection*.73}%
+\contentsline {chapter}{Efectos Fijos}{125}{chapter*.74}%
+\contentsline {section}{Cómo se ven los datos en panel}{125}{section*.75}%
+\contentsline {section}{Los \gls {efectos-fijos} son sólo una aglomeración de variables de control en una sola}{128}{section*.76}%
+\contentsline {section}{Variación dentro del individuo (\textit {within})}{129}{section*.77}%
+\contentsline {section}{El efecto fijo de dos vías}{136}{section*.78}%
+\contentsline {chapter}{Diferencias en Diferencias}{141}{chapter*.79}%
+\contentsline {section}{El modelo básico de DiD de 2x2}{142}{section*.80}%
+\contentsline {subsection}{Resultados potenciales en el modelo DiD 2x2}{143}{subsection*.81}%
+\contentsline {subsection}{Supuesto \#3: superposición fuerte}{144}{subsection*.82}%
+\contentsline {subsection}{Supuesto \#4: tendencias paralelas condicionadas}{145}{subsection*.83}%
+\contentsline {section}{Identificación del modelo 2x2 sin covariables}{146}{section*.84}%
+\contentsline {subsection}{Resultado de la regresión de efectos fijos de dos vías (TWFE)}{149}{subsection*.85}%
+\contentsline {chapter}{La única forma de crear valor es iterando a partir de los datos}{155}{chapter*.86}%
+\contentsline {section}{Las metodologías de negocios basadas en experimentos}{155}{section*.87}%
+\contentsline {section}{Bayes y las bolas de Billar}{156}{section*.88}%
+\contentsline {subsection}{Empieza con un conocimiento previo, pero actualízalo sobre la marcha}{157}{subsection*.89}%
+\contentsline {subsection}{\gls {mvp}: Mínimo Producto Viable}{157}{subsection*.90}%
+\contentsline {section}{Métricas y experimentos}{158}{section*.91}%
+\contentsline {subsection}{Cuidado con las métricas de vanidad}{158}{subsection*.92}%
+\contentsline {section}{Realiza cambios basados en la evidencia}{159}{section*.93}%
+\contentsline {section}{Cómo hacer una empresa basada en datos}{160}{section*.94}%
+\contentsline {chapter}{Cómo hacer Investigación de mercados con inteligencia artificial}{165}{chapter*.95}%
+\contentsline {section}{Cuando una marca de pasteles instantáneos decidió quitarle ingredientes a su producto y ¡vendieron más que nunca}{165}{section*.96}%
+\contentsline {section}{Pero ¿Un estudio de mercado es sólo hacer preguntas?}{166}{section*.97}%
+\contentsline {section}{Usemos a chatGPT para diseñar una encuesta en el estilo del Mom Test}{167}{section*.98}%
+\contentsline {subsection}{Define lo que quieres conocer de tus clientes}{167}{subsection*.99}%
+\contentsline {subsection}{Redacta o elige las preguntas que quieres hacer}{168}{subsection*.100}%
+\contentsline {subsection}{El mom test, explicado}{169}{subsection*.101}%
+\contentsline {section}{Transformando nuestro estudio al estilo del mom test}{170}{section*.102}%
+\contentsline {section}{Cuándo no usar datos cuantitativos}{171}{section*.103}%
+\contentsline {chapter}{Agradecimientos}{175}{chapter*.104}%
+\contentsline {chapter}{Glosario}{177}{section*.105}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{185}{chapter*.107}%
+\contentsfinish 

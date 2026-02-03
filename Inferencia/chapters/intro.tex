@@ -1,0 +1,116 @@
+\chapter{Los negocios son matemáticas}
+
+\begin{quote}
+\textit{Es mejor haber entendido por qué fallaste que ser ignorante de por qué tuviste éxito}
+
+- Robert A. Burgelman
+\end{quote}
+
+\newthought{Cuando salí de la universidad}, tenía un solo objetivo: abrir mi propio negocio. Había emprendido de muchas formas durante la carrera: había vendido promociones para una taquería que comenzamos en mi familia (falló) y había aprendido a crear productos que solucionan problemas y sabía vender. Ya estaba listo para las grandes ligas (según yo).
+
+El año era 2009: justo en medio de la gran recesión.
+
+La gran recesión afectó los ingresos de mi generación de una manera brutal \cite{Rothstein2020, CamposVazquez2023}. Quienes salimos al mundo laboral ese año nos encontramos un escenario post-apocalíptico sin opciones de trabajo y con negocios cerrando por doquier.
+
+Y fue en los negocios que cerraban donde vi oportunidad (no hagas esto en casa).
+
+Mi café favorito estaba en venta. Era un café en el centro histórico, con una clientela establecida y operando al 100\%. Era la oportunidad perfecta para poner en práctica todo lo que había aprendido los últimos cuatro años en la universidad (o eso creía yo).
+
+El único problema era que no tenía dinero.
+
+Decidí juntar 10 amigos, hacerlos socios y comprar el negocio. Venía junto con una renta mensual de 11 mil pesos y un barista muy hábil, aunque un poco antipático. Hice modificaciones mínimas y abrimos al público ese mismo mes. Jamás olvidaré la sensación de abrir un negocio y comenzar a recibir clientes ese mismo día. Pensé que si seguía a ese mismo ritmo, recuperaría mi inversión en menos de un mes y me imaginaba como el próximo Steve Jobs antes de los 30.
+
+Para noviembre de ese mismo año, acabé con una neumonía que casi me mata y el negocio quebrado.
+
+\section{Cometí dos errores grandes con ese negocio}
+
+Si no hubiera cometido estos errores, habría tenido un negocio exitoso en lugar del rotundo fracaso que viví.
+
+\begin{itemize}
+    \item \textbf{El primer error fue no haberme ensuciado las manos lo suficiente.} Pensaba que mis conocimientos de administración eran suficientes para manejar cualquier situación. Si volviera al pasado, habría dedicado más tiempo a aprender a hacer todo en la operación del negocio. ¡Al menos hubiera aprendido a hacerla de barista!
+    \item \textbf{Mi segundo error fue seguir demasiado mi intuición y muy poco a lo que decían los datos.} También fue por arrogancia. Saliendo de la universidad sentía que ya lo sabía todo y que todos los demás estaban equivocados.
+\end{itemize}
+
+Nunca más.
+
+\section{Usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo}
+
+En retrospectiva, veo que no fue una idea absurda. No estaba loco, simplemente no entendí los números.
+
+\begin{marginfigure}
+    \centering
+    \caption{Crecimiento del PIB de México de 1990 a la actualidad. Como millenial, me ha tocado vivir 3 crisis: la crisis del peso mexicano (o efecto tequila, la llamada ``gran recesión'' y la crisis del Covid-19). Fuente: Elaboración propia con datos del Banco Mundial.}
+    \includegraphics[width=1\linewidth]{imagenes/intro/gdp.png}
+\end{marginfigure}
+
+Para convencer a 10 amigos a que invirtieran conmigo usé gráficas del ciclo económico. Les expliqué que probablemente estábamos en el punto más bajo y que la economía no tenía más opción que subir. Los datos históricos me respaldaban, pero esta no era una recesión normal, sino una crisis financiera con raíces estructurales profundas..
+
+Si hubiera sido más cuidadoso al revisar los datos, probablemente no habría tomado un riesgo tan alocado.
+
+\section{Este libro está diseñado para un mundo donde la Inteligencia Artificial puede hacer análisis de datos}
+
+La primera sección se enfoca en el \textit{mindset} de la inferencia causal.
+
+Hoy en día ya es posible subir una base de datos a ChatGPT y pedirle que limpie y prepare los datos para hacer análisis. Luego le puedes pedir que haga una \gls{regresionlineal} y que te dé su interpretación de los resultados. Finalmente, le puedes pedir que haga las \gls{pruebasdehipotesis} más comunes.
+
+Pero incluso con todo eso, hay algo que la IA todavía no puede hacer: distinguir entre \gls{correlacioncausalidad}. Eso sólo lo vas a poder hacer tú. Porque eres tú el que tiene una \textit{ventana de contexto} más completa\sidenote{La ventana de contexto es el número de \textit{tokens} (palabras o frases) que una Inteligencia Artificial usa en su memoria para dar respuestas. Todos los días aumenta más, al grado de que pueden recordar bibliotecas enteras, pero aún así la forma en que los humanos damos contexto y conectamos ideas lo considero más potente.}, tienes ojos y oídos y puedes salir al mundo a ver si tus hipótesis tienen sentido o no.
+
+La segunda sección tiene elementos de negocios indispensables para generar crecimiento basado en datos.
+
+El análisis de datos hoy en día es un elemento integral de los negocios. No se trata de un accesorio adicional: los datos son tu negocio. Cada paso que damos en negocios, lo debemos hacer tomando la evidencia como un elemento central.
+
+En la última sección veremos los modelos más avanzados. Porque al inicio estaremos intentando hacer experimentos, pero cuando no es posible hacer uno, nos apoyaremos en los llamados \textbf{experimentos naturales} para hacer modelos de \gls{diferenciasendiferencias}\sidenote{Este es el modelo que más me interesa y el que siempre me aseguraba de enseñar en mis clases. En palabras simples, se trata de hacer una comparación de antes y después con un grupo similar que sirva como control para poder identificar los efectos. Es uno de los modelos más poderosos y de mayor crecimiento en la econometría.} que nos entreguen resultados con interpretación similar a la que tendríamos si hiciéramos un experimento.
+
+\begin{quote}
+\textit{It’s the economist way.}
+\end{quote}
+
+\section{¿Qué necesitas saber antes de comenzar?}
+
+Lo más importante son tus ánimos de aprender y tu curiosidad.
+
+Procuro a lo largo de este libro mantener las ideas a nivel intuitivo. Sin embargo, hay algunos temas que requieren conocimientos previos:
+
+\begin{itemize}
+    \item En el capítulo de Regresión, cuando paso de la regresión con una variable a múltiples variables, explico el resultado final usando álgebra lineal. Es un segmento que te puedes saltar, pero me pareció indispensable explicarlo de esa manera.
+    \item En general, a lo largo del libro, usamos modelos sencillos, pero es necesario tener una intuición sobre lo que representa una \gls{variablealeatoria} y cómo funciona la probabilidad básica.
+    \item Comenzamos el libro con un repaso de programación en Python. Aunque es muy básico, es suficiente para entender el código en los siguientes capítulos o al menos formar una intuición. Sin embargo, te recomiendo hacer más ejercicios para solidificar tu conocimiento.
+\end{itemize}
+
+% --- INICIO DEL C-ODIGO PARA EL FINAL DEL CAP-ITULO ---
+
+\begin{fullwidth}
+\section*{Resumen del capítulo}
+
+En este capítulo te conté una historia de fracaso: la de mi primer negocio, un café que abrí con toda la arrogancia de un recién graduado y que quebró en meses.
+
+Lo que hicimos fue usar esa experiencia para establecer la filosofía de este libro. Identificamos dos errores fatales: uno operativo, por no ``ensuciarme las manos'', y uno mucho más profundo y analítico: confiar ciegamente en mi intuición en lugar de escuchar humildemente a los datos. Vimos que este libro está diseñado para un mundo con Inteligencia Artificial, donde tu verdadero valor no será correr el código, sino pensar, usar tu contexto único para diferenciar la causa de la casualidad.
+
+Esto es importante porque el fracaso es el mejor maestro, y la lección fundamental que enseña es la humildad. Este capítulo argumenta que el análisis de datos no es una herramienta para genios que lo saben todo, sino todo lo contrario: es un acto de humildad. Es el reconocimiento de que nuestras corazonadas pueden estar equivocadas y que necesitamos evidencia para navegar un mundo complejo. Es la justificación de por qué este libro existe: para darte el `mindset` causal que ninguna IA puede replicar.
+
+¿Cómo te ayuda esto? Este capítulo es el ``porqué'' de todo lo que aprenderás a continuación. Te prepara mentalmente para el viaje, demostrando que el objetivo no es memorizar fórmulas, sino desarrollar un nuevo instinto. Te da permiso para dudar de tu propia intuición y te muestra un camino para tomar decisiones más sólidas. Entender esto te ayudará a ver cada capítulo no como una lección de estadística, sino como un arma más en tu arsenal para tomar mejores decisiones en los negocios y en la vida.
+
+\section*{Lecciones del fracaso: ejercicios de reflexión}
+
+La teoría se entiende mejor cuando se conecta con la experiencia. Estos ejercicios son para que reflexiones sobre las lecciones de este capítulo y las apliques a tu propio mundo.
+
+\begin{enumerate}
+    \item \textbf{Tus dos errores (Reflexión personal):} En el capítulo confieso dos errores: uno operativo (``no ensuciarse las manos'') y uno analítico (``seguir la intuición sobre los datos''). Piensa en un proyecto —personal, académico o profesional— que no salió como esperabas. ¿Puedes identificar un error de ejecución y un error de juicio o análisis que hayas cometido?
+    
+    \item \textbf{La cita inicial (Conceptual):} La cita de Robert Burgelman dice: ``Es mejor haber entendido por qué fallaste que ser ignorante de por qué tuviste éxito''. ¿Cómo se aplica esta frase a la historia del café que quebró? ¿Por qué es tan fundamental para el método de este libro el entender a fondo las causas de un fracaso?
+    
+    \item \textbf{Intuición vs. Datos (Reflexión personal):} El autor admite que, por arrogancia, usó datos históricos del ciclo económico para justificar una corazonada. Piensa en una decisión importante que hayas tomado basándote fuertemente en tu intuición. En retrospectiva, ¿qué datos concretos podrías haber buscado para validar o refutar esa intuición antes de actuar?
+    
+    \item \textbf{Tu valor en la era de la IA (Conceptual):} El capítulo argumenta que la IA puede correr una regresión, pero no diferenciar causa de correlación porque le falta ``contexto''. Da un ejemplo de un conocimiento de contexto que tú tienes sobre tu trabajo, tu industria o tus estudios, que una IA —analizando solo una base de datos— no podría saber.
+    
+    \item \textbf{El mapa del libro (Conceptual):} La estructura del libro es: 1) `Mindset` Causal, 2) Aplicaciones de Negocio, 3) Modelos Avanzados. ¿Por qué crees que es crucial empezar con el `mindset` antes de saltar directamente a las fórmulas y el código de los modelos más complejos?
+
+    \item \textbf{La humildad de los datos (Reflexión):} Se argumenta que ``usar datos en los negocios significa tener la humildad de aceptar que no lo sabemos todo''. ¿Estás de acuerdo? ¿Por qué crees que a muchas personas y empresas les cuesta adoptar esta mentalidad y prefieren confiar en la ``experiencia'' o la jerarquía?
+    
+    \item \textbf{``It’s the economist way'' (Conceptual):} Esta frase se usa para describir el enfoque de usar `experimentos naturales` y modelos como `Diferencias en Diferencias` cuando un experimento real no es posible. Basado en lo que leíste en el capítulo anterior sobre John Snow, ¿qué crees que define ``la forma del economista'' de abordar un problema causal?
+    
+    \item \textbf{Gestionando tus expectativas (Reflexión personal):} El capítulo lista algunos conocimientos previos recomendados (álgebra lineal, probabilidad, Python). ¿Cuál de estas áreas sientes que es tu punto más fuerte y cuál el más débil? ¿Qué acción podrías tomar esta semana para reforzar el área donde te sientes menos seguro?
+\end{enumerate}
+\end{fullwidth}
+
+% --- FIN DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---

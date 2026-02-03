@@ -23,3 +23,6 @@ parts:
     chapters:
     - file: chapters/IV-Negocios/09-iteracion
     - file: chapters/IV-Negocios/10-investigacion-mercados-ia
+  - caption: Referencias
+    chapters:
+    - file: referencias

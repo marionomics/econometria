@@ -1,0 +1,198 @@
+\glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
+\begin{theglossary}\glossaryheader
+\glsgroupheading{A}\relax \glsresetentrylist %
+\glossentry{abtesting}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{44}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{146}}}%
+\glossentry{acf}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{103}}}%
+\glossentry{aic}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{99}}}%
+\glossentry{att}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{37}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{125}}}\glsgroupskip
+\glsgroupheading{B}\relax \glsresetentrylist %
+\glossentry{bic}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{99}}}%
+\glossentry{blue}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{64}}}\glsgroupskip
+\glsgroupheading{C}\relax \glsresetentrylist %
+\glossentry{cac}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{139}}}%
+\glossentry{caminata-aleatoria}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{86}}}%
+\glossentry{contrafactual}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{31}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{37}}}%
+\glossentry{correlacioncausalidad}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{19}}}\glsgroupskip
+\glsgroupheading{D}\relax \glsresetentrylist %
+\glossentry{dataframe}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{26}}}%
+\glossentry{datos-panel}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{109}}}%
+\glossentry{dickey-fuller}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{107}}}%
+\glossentry{diferencia}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{88}}}%
+\glossentry{did}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{125}}}%
+\glossentry{diferenciasendiferencias}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{19}}}\glsgroupskip
+\glsgroupheading{E}\relax \glsresetentrylist %
+\glossentry{efectos-fijos}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{112}}}%
+\glossentry{efectos-fijos-dos-vias}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{120}}}%
+\glossentry{endogeneidad}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{81}}}%
+\glossentry{error-estandar}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{75}}}%
+\glossentry{estacionariedad}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{87}}}%
+\glossentry{estadistico-f}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{74}}}%
+\glossentry{eviews}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{21}}}%
+\glossentry{exceso-de-muertes}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{14}}}%
+\glossentry{experimentoideal}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{40}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{46}}}%
+\glossentry{experimento-natural}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{13}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{126}}}\glsgroupskip
+\glsgroupheading{F}\relax \glsresetentrylist %
+\glossentry{focus-group}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{143}}}\glsgroupskip
+\glsgroupheading{G}\relax \glsresetentrylist %
+\glossentry{gauss-markov}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{64}}}%
+\glossentry{goldstandard}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{44}}}%
+\glossentry{googlecolab}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{23}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{29}}}%
+\glossentry{grupodecontrol}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{39}}}%
+\glossentry{grupodetratamiento}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{49}}}%
+\glossentry{grupo-tratamiento}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{36}}}\glsgroupskip
+\glsgroupheading{H}\relax \glsresetentrylist %
+\glossentry{heteroscedasticidad}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{71}}}%
+\glossentry{homoscedasticidad}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{70}}}\glsgroupskip
+\glsgroupheading{I}\relax \glsresetentrylist %
+\glossentry{inferencia-causal}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{15}}}%
+\glossentry{inteligenciaartificial}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{21}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{49}}}%
+\glossentry{interaccion}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{132}}}%
+\glossentry{intervalo-confianza}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{76}}}%
+\glossentry{investigacion-mercados}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{144}}}\glsgroupskip
+\glsgroupheading{L}\relax \glsresetentrylist %
+\glossentry{lean-startup}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{136}}}%
+\glossentry{escala-likert}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{149}}}\glsgroupskip
+\glsgroupheading{M}\relax \glsresetentrylist %
+\glossentry{media-condicional-cero}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{81}}}%
+\glossentry{hipotesis-mercados-eficientes}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{137}}}%
+\glossentry{ols}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{57}}}%
+\glossentry{modelo-ar}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{98}}}%
+\glossentry{modelo-arima}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{105}}}%
+\glossentry{modelo-arma}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{102}}}%
+\glossentry{modelo-ma}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{102}}}%
+\glossentry{mom-test}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{149}}}%
+\glossentry{multicolinealidad}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{67}}}%
+\glossentry{mvp}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{137}}}\glsgroupskip
+\glsgroupheading{N}\relax \glsresetentrylist %
+\glossentry{no-anticipacion}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{126}}}%
+\glossentry{notebook}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{23}}}%
+\glossentry{numpy}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{24}}}\glsgroupskip
+\glsgroupheading{O}\relax \glsresetentrylist %
+\glossentry{orden-rezago}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{96}}}\glsgroupskip
+\glsgroupheading{P}\relax \glsresetentrylist %
+\glossentry{pacf}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{103}}}%
+\glossentry{pandas}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{24}}}%
+\glossentry{poolabilidad}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{119}}}%
+\glossentry{pruebasdehipotesis}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{19}}}%
+\glossentry{p-value}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{75}}}%
+\glossentry{python}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{21}}}\glsgroupskip
+\glsgroupheading{R}\relax \glsresetentrylist %
+\glossentry{rlang}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{21}}}%
+\glossentry{raiz-unitaria}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{93}}}%
+\glossentry{rct}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{39}}}%
+\glossentry{r-cuadrado}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{79}}}%
+\glossentry{regresionlineal}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{19}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{53}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{91}}}%
+\glossentry{residuales}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{77}}}%
+\glossentry{resultados-potenciales}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{31}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{33}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{35}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{37}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{39}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{41}}}%
+\glossentry{ruido-blanco}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{86}}}\glsgroupskip
+\glsgroupheading{S}\relax \glsresetentrylist %
+\glossentry{serie-tiempo}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{85}}}%
+\glossentry{sesgo-seleccion}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{35}}}%
+\glossentry{stata}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{21}}}%
+\glossentry{statsmodels}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{24}}}%
+\glossentry{sutva}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{125}}}\glsgroupskip
+\glsgroupheading{T}\relax \glsresetentrylist %
+\glossentry{tendencias-paralelas}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{127}}}\glsgroupskip
+\glsgroupheading{V}\relax \glsresetentrylist %
+\glossentry{vanity-metric}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{139}}}%
+\glossentry{variablealeatoria}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{20}}}%
+\glossentry{variable-dummy}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{34}}}%
+\glossentry{vif}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{79\delimN 80}}}\glsgroupskip
+\glsgroupheading{W}\relax \glsresetentrylist %
+\glossentry{within}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{116}}}%
+\end{theglossary}\glossarypostamble

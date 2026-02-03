@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{statsmodels}\PYG{n+nn}{.}\PYG{n+nn}{stats}\PYG{n+nn}{.}\PYG{n+nn}{outliers\PYGZus{}influence}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{variance\PYGZus{}inflation\PYGZus{}factor}
+
+\PYG{c+c1}{\PYGZsh{} Función para calcular el VIF para cada variable}
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{calcular\PYGZus{}vif}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{vif} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{p}{)}
+    \PYG{n}{vif}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{variables}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{X}\PYG{o}{.}\PYG{n}{columns}
+    \PYG{n}{vif}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{VIF}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[}\PYG{n}{variance\PYGZus{}inflation\PYGZus{}factor}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{values}\PYG{p}{,} \PYG{n}{i}\PYG{p}{)} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
+    \PYG{k}{return} \PYG{n}{vif}
+
+\PYG{c+c1}{\PYGZsh{} Calcular VIF para las variables predictoras}
+\PYG{n}{vif\PYGZus{}df} \PYG{o}{=} \PYG{n}{calcular\PYGZus{}vif}\PYG{p}{(}\PYG{n}{datos}\PYG{p}{[}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TV}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Radio}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Newspaper}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{]}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Mostrar el VIF para cada variable}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{VIF para cada variable:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{vif\PYGZus{}df}\PYG{p}{)}
+\end{MintedVerbatim}

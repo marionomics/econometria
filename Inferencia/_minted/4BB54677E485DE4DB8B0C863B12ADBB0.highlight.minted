@@ -1,0 +1,39 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{pandas}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{pd}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{plt}
+
+\PYG{c+c1}{\PYGZsh{} Establecer la semilla para reproducibilidad}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{42}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Número de observaciones}
+\PYG{n}{n} \PYG{o}{=} \PYG{l+m+mi}{1000}
+
+\PYG{c+c1}{\PYGZsh{} Coeficientes del proceso AR(3)}
+\PYG{n}{phi} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{]}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Término de ruido}
+\PYG{n}{sigma} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{epsilon} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{normal}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{scale}\PYG{o}{=}\PYG{n}{sigma}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{n}{n}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Inicializando la serie temporal}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{n}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Generando el proceso AR(3)}
+\PYG{k}{for} \PYG{n}{t} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{n}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{y}\PYG{p}{[}\PYG{n}{t}\PYG{p}{]} \PYG{o}{=} \PYG{n}{phi}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{*} \PYG{n}{y}\PYG{p}{[}\PYG{n}{t}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{n}{phi}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{*} \PYG{n}{y}\PYG{p}{[}\PYG{n}{t}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{+} \PYG{n}{phi}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{*} \PYG{n}{y}\PYG{p}{[}\PYG{n}{t}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{3}\PYG{p}{]} \PYG{o}{+} \PYG{n}{epsilon}\PYG{p}{[}\PYG{n}{t}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Creando un índice de series temporales}
+\PYG{n}{dates} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{date\PYGZus{}range}\PYG{p}{(}\PYG{n}{start}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{2024\PYGZhy{}01\PYGZhy{}01}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{periods}\PYG{o}{=}\PYG{n}{n}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Convirtiendo a una serie de pandas para graficar}
+\PYG{n}{y\PYGZus{}series} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{Series}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{index}\PYG{o}{=}\PYG{n}{dates}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Graficando}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{14}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{y\PYGZus{}series}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Proceso Simulado AR(3)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Tiempo}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Valor}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{(}\PYG{p}{)}
+\end{MintedVerbatim}

@@ -1,0 +1,50 @@
+\babel@toc {spanish}{}\relax 
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1}{\ignorespaces Broad Street en Londres durante el brote de cólera de 1854. John Snow apunta a la bomba de agua como fuente de la enfermedad. Fuente: imaginado por el autor y creado por DALL-E 3.}}{15}{figure.0.1}%
+\contentsline {figure}{\numberline {2}{\ignorespaces El mapa que John Snow trazó para identificar que el origen del cólera no era el \textit {miasma}, sino el agua contaminada. Ubicar geográficamente los brotes en un mapa es algo que no se había hecho antes y ayudó a identificar con facilidad que la fuente era una bomba específica. Cerrar esa bomba de agua logró salvar algunas vidas, pero el modelo de pensamiento de Snow sigue salvando muchas vidas más hasta la fecha.}}{17}{figure.0.2}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3}{\ignorespaces Crecimiento del PIB de México de 1990 a la actualidad. Como millenial, me ha tocado vivir 3 crisis: la crisis del peso mexicano (o efecto tequila, la llamada ``gran recesión'' y la crisis del Covid-19). Fuente: Elaboración propia con datos del Banco Mundial.}}{22}{figure.0.3}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4}{\ignorespaces Florence en su estudio. Fuente: elaborado por el autor con Dall-e}}{28}{figure.0.4}%
+\contentsline {figure}{\numberline {5}{\ignorespaces El Diagrama de la Rosa que Florence Nightingale presentó y que demostró que las muertes venían más por las enfermedades que por la batalla.}}{28}{figure.0.5}%
+\contentsline {figure}{\numberline {6}{\ignorespaces La Lotería es un juego de azar tradicional mexicano. Imagen de Alex Covarrubias, vía Wikipedia (Dominio público)}}{30}{figure.0.6}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7}{\ignorespaces En una conferencia de estadística: "Levanta la mano si estás familiarizado con el sesgo de selección... como pueden ver, es un término que la mayoría de las personas conoce...". \\ Fuente: \href {https://xkcd.com/2618/}{xkcd}}}{45}{figure.0.7}%
+\contentsline {figure}{\numberline {8}{\ignorespaces ``Hemos recibido 500 respuestas y encontramos que a las personas les encanta responder a las encuestas''. \\ Fuente: \href {https://sketchplanations.com/sampling-bias}{Jono Hey, Sketchplanations}}}{48}{figure.0.8}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {9}{\ignorespaces Diagrama de dispersión generado a partir del bloque de código de Python. Fuente: Elaboración propia.}}{66}{figure.0.9}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Diagrama de dispersión con línea de regresión.}}{67}{figure.0.10}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Le llamamos ``error'' a la diferencia entre una observación y la línea de regresión que ``predice'' dónde debería estar $Y_i$ dado $X_i$. Fuente: Elaboración propia con Python.}}{68}{figure.0.11}%
+\contentsline {figure}{\numberline {12}{\ignorespaces El objetivo del método de mínimos cuadrados es encontrar la línea que minimice la suma de los errores al cuadrado. Fuente: Elaboración propia con Python.}}{69}{figure.0.12}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Andrei Márkov (izquierda) y Carl Friedrich Gauss (derecha) jugando ajedrez. Fuente: imaginado por mi y hecho con chatGPT.}}{76}{figure.0.13}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Un diagrama de dispersión nos muestra que $X$ y $Y$ son variables que no parecen tener ninguna relación entre sí.}}{76}{figure.0.14}%
+\contentsline {figure}{\numberline {15}{\ignorespaces No es sino hasta que agregamos una tercera variable que podemos revelar la verdadera relación que hay entre las variables.}}{77}{figure.0.15}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Los residuales y los valores de predicción no muestran estar correlacionados. La gráfica muestra una linea de regresión cercana a cero.}}{81}{figure.0.16}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Gráfico que compara residuales vs cada uno de los predictores en un diagrama de dispersión. No se ve un patrón específico.}}{83}{figure.0.17}%
+\contentsline {figure}{\numberline {18}{\ignorespaces El 5\% del p-value es lo mismo que uno en veinte. Con ese parámetro, no es necesario recurrir al p-\emph {hacking} para obtener resultados ``significativos''.\\ Fuente: \href {https://xkcd.com/882/}{xkcd}}}{88}{figure.0.18}%
+\contentsline {figure}{\numberline {19}{\ignorespaces Hay una correlación entre el número de premios Nobel que gana un país y su consumo de chocolate. Naturalmente, esa correlación no implica causalidad. Fuente: Leo Prinz, 2020 (actualizado con datos hasta 2024)}}{91}{figure.0.19}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {20}{\ignorespaces Caminata aleatoria. Cualquier parecido con una serie de tiempo real, es mera coincidencia.}}{101}{figure.0.20}%
+\contentsline {figure}{\numberline {21}{\ignorespaces Diferencia visual entre una serie no-estacionaria y la misma serie con una diferencia aplicada. Nota que la serie se vuelve estacionaria.}}{104}{figure.0.21}%
+\contentsline {figure}{\numberline {22}{\ignorespaces Simulación de un proceso AR(3).}}{106}{figure.0.22}%
+\contentsline {figure}{\numberline {23}{\ignorespaces Índice Global de la Actividad Económica (IGAE). El gráfico lo muestra como un gráfico de líneas. En una serie estacionaria, no se debe observar una tendencia clara. Este indicador a simple vista se puede observar que no es estacionario. Fuente: INEGI.}}{110}{figure.0.23}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de la serie original (sin diferenciación).}}{111}{figure.0.24}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de la serie diferenciada. Nota que en la serie diferenciada, el orden de rezago a elegir es menor al de la serie original.}}{112}{figure.0.25}%
+\contentsline {figure}{\numberline {26}{\ignorespaces Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de la serie diferenciada. Nota que en la serie diferenciada, el orden de rezago a elegir es menor al de la serie original.}}{115}{figure.0.26}%
+\contentsline {figure}{\numberline {27}{\ignorespaces Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de la serie diferenciada. Nota que en la serie diferenciada, el orden de rezago a elegir es menor al de la serie original.}}{117}{figure.0.27}%
+\contentsline {figure}{\numberline {28}{\ignorespaces Función de Autocorrelación (AFC) y Función de Autocorrelación Parcial (PAFC) de nuestra simulación de un proceso ARMA(1,3).}}{118}{figure.0.28}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {29}{\ignorespaces En una regresión lineal que no distingue los datos entre diferentes medios, no parece haber ningún efecto entre el gasto de publicidad y las ventas.}}{128}{figure.0.29}%
+\contentsline {figure}{\numberline {30}{\ignorespaces Sólo es necesario incluír el medio como variable de control. Hacerlo delata la verdadera relación que hay entre la publicidad y las ventas.}}{129}{figure.0.30}%
+\contentsline {figure}{\numberline {31}{\ignorespaces Cada medio de publicidad tiene un valor promedio de ventas ($\bar Y_i$) y del costo del anuncio ($\bar X_i$). Las líneas en el gráfico muestra donde se cruzan esos valores promedio, con una desviación estándar para determinar el tamaño de la línea. Este es un paso determinante para crear nuestras variables \emph {within}.}}{131}{figure.0.31}%
+\contentsline {figure}{\numberline {32}{\ignorespaces Al absorber los efectos fijos, los datos se conjuntan en un solo punto medio de publicidad y ventas. El resultado es que el coeficiente de una regresión conjunta captura el efecto independiente del medio que se está usando.}}{133}{figure.0.32}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {33}{\ignorespaces Bajo un modelo neoclásico ortodoxo, el establecer un salario mínimo crea un desequilibrio artificial en el mercado que causa desempleo. Este modelo fue la base de muchas políticas de libre mercado. La evidencia que presentaron Card y Krueger no muestran este efecto en la realidad. Fuente: Elaboración propia.}}{141}{figure.0.33}%
+\contentsline {figure}{\numberline {34}{\ignorespaces El supuesto de \gls {tendencias-paralelas} implica que, de no ser por la aplicación del tratamiento, ambos grupos seguirían la misma tendencia. Eso convierte a la diferencia entre tendencias en el efecto causal.}}{145}{figure.0.34}%
+\contentsline {figure}{\numberline {35}{\ignorespaces Precios promedio de bebidas en la zona de Berkeley. Fuente: Elaboración propia con datos de Silver \textit {et al.} (2014)}}{148}{figure.0.35}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsfinish 

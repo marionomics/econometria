@@ -1,0 +1,11 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{statsmodels}\PYG{n+nn}{.}\PYG{n+nn}{stats}\PYG{n+nn}{.}\PYG{n+nn}{diagnostic}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{het\PYGZus{}breuschpagan}
+
+\PYG{c+c1}{\PYGZsh{} Aplicar una prueba de Breusch\PYGZhy{}Pagan}
+\PYG{n}{bp\PYGZus{}test} \PYG{o}{=} \PYG{n}{het\PYGZus{}breuschpagan}\PYG{p}{(}\PYG{n}{residuals}\PYG{p}{,} \PYG{n}{model}\PYG{o}{.}\PYG{n}{model}\PYG{o}{.}\PYG{n}{exog}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Extraer los resultados}
+\PYG{n}{bp\PYGZus{}test\PYGZus{}statistic}\PYG{p}{,} \PYG{n}{bp\PYGZus{}test\PYGZus{}pvalue} \PYG{o}{=} \PYG{n}{bp\PYGZus{}test}\PYG{p}{[}\PYG{p}{:}\PYG{l+m+mi}{2}\PYG{p}{]}
+
+\PYG{n}{bp\PYGZus{}test\PYGZus{}statistic}\PYG{p}{,} \PYG{n}{bp\PYGZus{}test\PYGZus{}pvalue}
+\end{MintedVerbatim}

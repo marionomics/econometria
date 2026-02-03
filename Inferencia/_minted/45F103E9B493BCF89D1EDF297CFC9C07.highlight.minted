@@ -1,0 +1,28 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{pandas}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{pd}
+
+\PYG{c+c1}{\PYGZsh{} Cargar el conjunto de datos}
+\PYG{n}{ruta\PYGZus{}archivo} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{advertising.csv}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{datos} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{ruta\PYGZus{}archivo}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Seleccionar las columnas de interés: TV, Radio, Newspaper y Sales}
+\PYG{n}{tv} \PYG{o}{=} \PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TV}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{radio} \PYG{o}{=} \PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Radio}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{newspaper} \PYG{o}{=} \PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Newspaper}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{ventas} \PYG{o}{=} \PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Sales}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+
+\PYG{c+c1}{\PYGZsh{} Añadir una columna de unos para el término de intercepto}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{column\PYGZus{}stack}\PYG{p}{(}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{tv}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{tv}\PYG{p}{,} \PYG{n}{radio}\PYG{p}{,} \PYG{n}{newspaper}\PYG{p}{)}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Calcular el rango de la matriz X para verificar la multicolinealidad}
+\PYG{n}{rango\PYGZus{}X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{matrix\PYGZus{}rank}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Mostrar el rango de la matriz X}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Rango de la matriz X:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{rango\PYGZus{}X}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Verificar si la matriz X es de rango completo}
+\PYG{n}{num\PYGZus{}columnas} \PYG{o}{=} \PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{es\PYGZus{}rango\PYGZus{}completo} \PYG{o}{=} \PYG{n}{rango\PYGZus{}X} \PYG{o}{==} \PYG{n}{num\PYGZus{}columnas}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{¿Es la matriz X de rango completo (sin multicolinealidad)?}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{es\PYGZus{}rango\PYGZus{}completo}\PYG{p}{)}
+\end{MintedVerbatim}

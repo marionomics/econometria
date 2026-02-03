@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{Matriz} \PYG{n}{de} \PYG{n}{correlación}\PYG{p}{:}
+              \PYG{n}{TV}     \PYG{n}{Radio}  \PYG{n}{Newspaper}
+\PYG{n}{TV}         \PYG{l+m+mf}{1.000000}  \PYG{l+m+mf}{0.054809}   \PYG{l+m+mf}{0.056648}
+\PYG{n}{Radio}      \PYG{l+m+mf}{0.054809}  \PYG{l+m+mf}{1.000000}   \PYG{l+m+mf}{0.354104}
+\PYG{n}{Newspaper}  \PYG{l+m+mf}{0.056648}  \PYG{l+m+mf}{0.354104}   \PYG{l+m+mf}{1.000000}
+\end{MintedVerbatim}

@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{marcar\PYGZus{}carta}\PYG{p}{(}\PYG{n}{tabla}\PYG{p}{,} \PYG{n}{carta\PYGZus{}cantada}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{if} \PYG{n}{carta\PYGZus{}cantada} \PYG{o+ow}{in} \PYG{n}{tabla}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Carta}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}\PYG{p}{:}
+        \PYG{n}{tabla}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{tabla}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Carta}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{==} \PYG{n}{carta\PYGZus{}cantada}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Marcada}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{¡Carta marcada!}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Esta carta no está en tu tabla.}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Ejemplo de uso de la función para marcar la tabla con la tarjeta}
+\PYG{n}{marcar\PYGZus{}carta}\PYG{p}{(}\PYG{n}{tabla\PYGZus{}jugador}\PYG{p}{,} \PYG{n}{carta\PYGZus{}cantada}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{tabla\PYGZus{}jugador}\PYG{p}{)}
+\end{MintedVerbatim}

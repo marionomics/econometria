@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Calcular la media de los valores predichos}
+\PYG{n}{media\PYGZus{}predicciones} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{predicciones}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Mostrar la media de los valores predichos y la media de los valores observados}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Media de los valores predichos:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{media\PYGZus{}predicciones}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Media de los valores observados (Ventas):}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{promedio\PYGZus{}ventas}\PYG{p}{)}
+\end{MintedVerbatim}

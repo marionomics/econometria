@@ -1,0 +1,20 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{err}{¡}\PYG{n}{Carta} \PYG{n}{marcada}\PYG{err}{!}\PYG{o}{.}
+             \PYG{n}{Carta}  \PYG{n}{Marcada}
+\PYG{l+m+mi}{0}      \PYG{n}{El} \PYG{n}{valiente}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{1}   \PYG{n}{El} \PYG{n}{violoncello}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{2}       \PYG{n}{El} \PYG{n}{alacran}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{3}         \PYG{n}{La} \PYG{n}{palma}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{4}         \PYG{n}{El} \PYG{n}{gallo}    \PYG{k+kc}{True}
+\PYG{l+m+mi}{5}       \PYG{n}{El} \PYG{n}{gorrito}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{6}        \PYG{n}{La} \PYG{n}{sandia}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{7}        \PYG{n}{La} \PYG{n}{muerte}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{8}          \PYG{n}{El} \PYG{n}{arpa}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{9}       \PYG{n}{La} \PYG{n}{chalupa}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{10}       \PYG{n}{El} \PYG{n}{catrin}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{11}       \PYG{n}{La} \PYG{n}{maceta}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{12}      \PYG{n}{El} \PYG{n}{cotorro}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{13}         \PYG{n}{La} \PYG{n}{dama}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{14}         \PYG{n}{La} \PYG{n}{bota}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{15}        \PYG{n}{El} \PYG{n}{mundo}    \PYG{k+kc}{False}
+\end{MintedVerbatim}

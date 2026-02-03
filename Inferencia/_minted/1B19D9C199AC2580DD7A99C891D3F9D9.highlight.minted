@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{Tabla} \PYG{k}{del} \PYG{n}{Jugador}\PYG{p}{:}
+             \PYG{n}{Carta}  \PYG{n}{Marcada}
+\PYG{l+m+mi}{0}      \PYG{n}{El} \PYG{n}{valiente}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{1}   \PYG{n}{El} \PYG{n}{violoncello}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{2}       \PYG{n}{El} \PYG{n}{alacran}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{3}         \PYG{n}{La} \PYG{n}{palma}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{4}         \PYG{n}{El} \PYG{n}{gallo}    \PYG{k+kc}{False}
+\PYG{l+m+mi}{5}       \PYG{n}{El} \PYG{n}{gorrito}    \PYG{k+kc}{False}
+\end{MintedVerbatim}

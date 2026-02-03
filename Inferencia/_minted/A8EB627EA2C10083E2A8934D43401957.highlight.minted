@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{o}{==}\PYG{o}{==}\PYG{o}{=} \PYG{n}{Prueba} \PYG{n}{de} \PYG{n}{Dickey}\PYG{o}{\PYGZhy{}}\PYG{n}{Fuller} \PYG{n}{Aumentada} \PYG{o}{==}\PYG{o}{==}\PYG{o}{=}
+\PYG{n}{Estadístico} \PYG{n}{de} \PYG{n}{prueba}\PYG{p}{:} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{15.3109}
+\PYG{n}{Valor} \PYG{n}{p}\PYG{p}{:} \PYG{l+m+mf}{4.1877e\PYGZhy{}28}
+\PYG{n}{Número} \PYG{n}{de} \PYG{n}{retardos} \PYG{n}{usados}\PYG{p}{:} \PYG{l+m+mi}{2}
+\PYG{n}{Número} \PYG{n}{de} \PYG{n}{observaciones}\PYG{p}{:} \PYG{l+m+mi}{997}
+\PYG{n}{Valores} \PYG{n}{críticos}\PYG{p}{:}
+  \PYG{l+m+mi}{1}\PYG{o}{\PYGZpc{}}\PYG{p}{:} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{3.4369}
+  \PYG{l+m+mi}{5}\PYG{o}{\PYGZpc{}}\PYG{p}{:} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.8644}
+  \PYG{l+m+mi}{10}\PYG{o}{\PYGZpc{}}\PYG{p}{:} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{2.5683}
+\PYG{n}{Información} \PYG{n}{de} \PYG{n}{criterio} \PYG{p}{(}\PYG{n}{AIC}\PYG{o}{/}\PYG{n}{BIC}\PYG{p}{)}\PYG{p}{:} \PYG{l+m+mf}{2739.69}
+\end{MintedVerbatim}

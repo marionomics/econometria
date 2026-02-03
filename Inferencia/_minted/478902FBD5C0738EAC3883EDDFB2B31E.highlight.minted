@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+ \PYG{c+c1}{\PYGZsh{} Calcular la matriz de correlación para las variables predictoras matriz\PYGZus{}correlacion = datos[[\PYGZsq{}TV\PYGZsq{}, \PYGZsq{}Radio\PYGZsq{}, \PYGZsq{}Newspaper\PYGZsq{}]].corr()}
+
+\PYG{c+c1}{\PYGZsh{} Mostrar la matriz de correlación}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Matriz de correlación:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{matriz\PYGZus{}correlacion}\PYG{p}{)}
+\end{MintedVerbatim}

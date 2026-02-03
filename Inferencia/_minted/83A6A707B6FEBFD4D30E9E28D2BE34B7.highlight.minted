@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Con append podemos agregar un elemento adicional que nos faltaba}
+\PYG{n}{cartas}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{El diablito}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Con extend podemos agregar los elementos de una lista a otra}
+\PYG{n}{cartas}\PYG{o}{.}\PYG{n}{extend}\PYG{p}{(}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{El valiente}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{La corona}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{El barril}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Con print() mostramos}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{cartas}\PYG{p}{)}
+\end{MintedVerbatim}

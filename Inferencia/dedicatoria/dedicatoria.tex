@@ -1,0 +1,50 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEDICATION PAGE (with author attribution)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% === PACKAGES ===
+% These packages are needed to correctly display the Russian (Cyrillic) text.
+\usepackage[T2A]{fontenc}       % Font encoding for Cyrillic characters
+\usepackage[utf8]{inputenc}     % Allows you to type Russian directly
+\usepackage[russian]{babel}     % Language support for Russian hyphenation & terms
+
+% This package removes the page number.
+\usepackage{nopageno}
+
+\begin{document}
+
+% This command pushes the content down to the vertical center of the page.
+\vspace*{\fill}
+
+\begin{center}
+    % Sets the font to a large size and italic style.
+    \LARGE\itshape
+
+    % Your dedication text starts here.
+    Para María.
+
+    \vspace{2em} % Adds a bit of vertical space after "A María."
+
+    Спасибо за день, спасибо за ночь \\
+    Спасибо за сына и за дочь \\
+    Спасибо за то, что средь боли и зла \\
+    Наш тесный мирок ты сберегла \\
+    Ты мне сберегла
+
+\end{center}
+
+\vspace{2em} % Adds space between the poem and the author's name.
+
+% This environment aligns the author's name to the right.
+\begin{flushright}
+    \LARGE\itshape
+    --- Виктор Салтыков
+\end{flushright}
+
+
+% This second command ensures the entire block remains vertically centered.
+\vspace*{\fill}
+
+\end{document}

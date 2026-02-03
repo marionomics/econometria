@@ -1,0 +1,417 @@
+\chapter{Python para hacer Econometría}
+\label{ch:Python}
+
+
+\begin{quote}
+\textit{Todos en este país deben aprender cómo programar una computadora... porque te enseña cómo pensar.}
+
+    -- Steve Jobs
+\end{quote}
+
+\newthought{Si no sabes con qué lenguaje comenzar a aprender econometría}, tu mejor opción es \gls{python}.
+
+En las escuelas enseñan con \gls{eviews} o con \gls{stata}. \gls{rlang} también es un lenguaje genial para la estadística: es el que he usado por años. Pero si tuviera que empezar de cero hoy a aprender econometría lo haría con Python. 
+
+La razón es que la \gls{inteligenciaartificial} ha cambiado la forma en la que programamos
+
+\begin{itemize}
+    \item Python es un lenguaje de programación que se puede usar para hacer de todo, no sólo para estadística.
+    \item Esto quiere decir que puedes integrarlo con diferentes soluciones y hacer productos con tus datos\sidenote{Por ejemplo, puedes hacer una API completa para comunicarte con estadísticas oficiales y desplegarlos en un \textit{dashboard}.}.
+    \item Estamos en una nueva era donde la inteligencia artificial (IA) es la que se encarga de crear y modificar el código y tú eres el encargado de pensar\cite{liu2023code}.
+\end{itemize}
+
+Hace un par de años programar en Python era una barrera gigante, hoy es relativamente trivial\sidenote{En mis clases de investigación de operaciones, les invito a mis alumnos a que creen y modifiquen código de Python con ayuda de IA. Aún tiene su reto pensar, pero la implicación es que se requiere un conocimiento más general de todo lo que puedes hacer con el lenguaje de programación y no pasando horas tecleando. Dicho esto, saber de algoritmos y entender la sintaxis del lenguaje sigue siendo el atajo para ahorrarse muchos dolores de cabeza.}.
+
+Lo que importa es entender los modelos de la econometría, cómo funcionan y cómo usarlos. Esto requiere que nos adentremos a la filosofía sobre cómo entendemos causas y efectos y a conocer bien las herramientas a nuestra disposición.
+
+Y nadie lo entendió mejor que una enfermera Rockstar del Siglo XIX.
+
+\section{Antes de que existiera Python, teníamos a Florence Nightingale}
+Florence Nightingale fundó la enfermería moderna, pero salvó aún más vidas gracias a su genialidad estadística.
+
+La conocían como la dama de la linterna. Se le veía por las noches rondando en ayuda de los soldados durante la guerra de Crimea\cite{swenson1910medical}. Se ofreció como voluntaria junto a un equipo de 38 enfermeras para atender a los heridos en combate.
+
+Ahí fue donde hizo la contribución más grande a la estadística, que la hizo famosa.
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{imagenes/florence.png}
+    \caption{Florence en su estudio. Fuente: elaborado por el autor con Dall-e}
+    \label{fig:florence}
+\end{marginfigure}
+
+No es sino hasta que se registran datos de forma meticulosa que los patrones comienzan a emerger.
+
+Cuando llegó con su equipo a la guerra, se dio cuenta de que los malos cuidados médicos cobraban más vidas que las balas del enemigo. Había pocas medicinas, se ponía poca atención a la higiene y las infecciones eran comunes. Nightingale comenzó a hacer registros cuidadosos de todo y lo comunicó al gobierno británico.
+
+Impulsó cambios importantes que \textbf{redujeron las muertes} de 42\% a 2\% en el hospital.
+
+Convenció al gobierno británico de estos cambios gracias a gráficas innovadoras como la figura \ref{fig:rose}.
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{imagenes/rose_diagram.jpeg}
+    \caption{El Diagrama de la Rosa que Florence Nightingale presentó y que demostró que las muertes venían más por las enfermedades que por la batalla.}
+    \label{fig:rose}
+\end{marginfigure}
+
+
+El gráfico de arriba se llama diagrama de rosa. El área azul representa las muertes por enfermedades infecciosas prevenibles, el área roja son las muertes por heridas en batalla y el área negra son otras causas. El poder de este gráfico es que se vuelve evidente de inmediato lo importante que es la higiene para prevenir muertes en el hospital.
+
+En la época, hacer este tipo de gráficos requería muchas horas de trabajo. Hoy puedes hacerlo en minutos gracias a Python.
+
+\section{El primer paso para hacer econometría con Python}
+
+No necesitas instalar nada para empezar a hacer econometría.
+
+Python es un lenguaje de programación general que puedes instalar en tu computadora. Sólo necesitas \href{https://www.python.org/}{descargarlo}, instalarlo y descargar los módulos apropiados. Hacerlo de esta forma requiere un poco de experiencia y que sepas usar la terminal, entre otras cosas.
+
+Pero hay una forma más fácil que no requiere descargas ni conocimiento técnico.
+\begin{itemize}
+    \item Entra a \gls{googlecolab}\sidenote{colab.research.google.com}.
+    \item Si no tienes cuenta en Google, tiene que crearla.
+    \item Da click en Nueva \gls{notebook} y comienza a trabajar.
+    \item Para ejecutar un bloque de código, sólo necesitas picar el botón con el símbolo de play {\faPlayCircle} del lado izquierdo del bloque de código o usa \texttt{ctrl + Enter} (\texttt{cmnd + Enter} en Mac)
+\end{itemize}
+
+Los notebook de Google Colab son la mejor forma de hacer ciencia de datos con Python, porque trabajar con datos requiere mucha prueba y error. Repetir pequeños bloques de código una y otra vez sin alterar el resto del programa. Si nunca has usado Python, las notebook te ayudarán a comenzar sin preocuparte por los detalles de instalación\sidenote{En mis clases usamos google Colab. Antes teníamos que perder muchas clases en la instalación y configuración, Colab tiene todo listo para comenzar.}. Si eres un experto en Python te será evidente los dolores de cabeza que estás evitando al trabajar así\sidenote{En particular si estás tratando de trabajar en local. La recomendación para trabajar en local con Python es que cada proyecto tenga su propio ambiente virtual y que cada ambiente cargue sus propios módulos. En si, es una filosofía de trabajo que rompe con la forma en que estamos acostumbrados a trabajar con software como Excel, donde abrir la aplicación implica cargar todo lo que necesitas para trabajar. Este es un punto medio que no requiere que seas un experto en ciencias de la computación, pero tampoco te deja sin la posibilidad de personalizar tu ambiente de trabajo.}.
+
+\section{Familiarízate con Python}
+
+La mejor forma de aprender cualquier lenguaje de programación es jugar con él.
+
+Observa las siguientes operaciones. Ejecuta y modifica los ejemplos a tu gusto. Intenta predecir lo que vas a obtener de resultado antes de ejecutar.
+
+\begin{itemize}
+     \item Sumas y restas (\codebox{2+2}, \codebox{8-3}).
+    \item Multiplicaciones y divisiones (\codebox{7*2}, \codebox{9/3}).
+    \item Potencias y raíces cuadradas (\codebox{3**2}, \codebox{16**(1/2)}).
+    \item Concatenación de cadenas de texto (\codebox{'Hola' + ' ' + 'mundo'}).\sidenote{Nota que Python interpreta el símbolo de suma de manera muy relajada. Las de cadenas de texto (el texto entre comillas) no se pueden sumar, así que de manera automática toma la decisión de concatenar el texto. Por eso, el código incluye un espacio.}
+    \item Comparaciones (\codebox{5 > 3, 'hola' == 'adiós'})
+\end{itemize}
+
+Pero este libro no se trata de aprender a programar.
+
+Si quieres ser un maestro de la econometría, no necesitas reinventar la rueda. Puedes usar el código que hicieron otras personas.
+
+El código de los expertos.
+\section{Módulos de Python para hacer econometría}
+Un módulo es un paquete con funciones que hizo alguien más para solucionar un problema.
+
+A diferencia de los programas estadísticos tradicionales como Stata o Eviews, Python requiere de paquetes especiales para hacer econometría. Cada paquete contiene funciones particulares para lo que deseas. La diferencia es que esos paquetes con funciones se descargan aparte y es necesario llamarlos cuando los quieres usar.
+
+Aquí hay algunos módulos de Python que son útiles para hacer econometría:
+\begin{itemize}
+    \item \codebox{Statsmodels}: Modelos estadísticos y herramientas para realizar análisis de datos.
+    \item \codebox{Pandas}: Estructuras de datos flexibles y eficientes para manipular y analizar datos. Útil para trabajar con datos en formato tabular.
+    \item \gls{numpy}:Biblioteca para el cálculo numérico en Python. Proporciona funciones y herramientas para trabajar con arreglos numéricos.
+\end{itemize}
+
+En capítulos posteriores veremos ejemplos de \gls{statsmodels} y \codebox{numpy}, porque son los módulos que se usan para hacer modelos estadísticos y manipulación avanzada de datos.
+
+Aquí aprenderemos a usar \gls{pandas} para manejar datos de manera visual y tabular.
+\section{Un juego de lotería con Python}
+La Lotería es un juego tradicional mexicano parecido al juego de Bingo.
+
+En este juego, en lugar de números se sacan tarjetas con diferentes personajes u objetos como una campana, la muerte o un borracho.
+
+Al inicio del juego se reparten cartas con pictogramas distribuidos de manera aleatoria. El jugador debe marcar lo que aparece en su carta. Gana el jugador que marca su carta completa.
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{imagenes/Loteria_boards.jpg}
+    \caption{La Lotería es un juego de azar tradicional mexicano. Imagen de Alex Covarrubias, vía Wikipedia (Dominio público)}
+    \label{fig:loteria}
+\end{marginfigure}
+Algunos conceptos importantes:
+\begin{itemize}
+    \item \textbf{Mazo}. Es el conjunto de todas las cartas individuales.
+    \item \textbf{Carta}. Cada carta tiene una imagen y su nombre. Por ejemplo: El valiente.
+    \item \textbf{Tabla}. Cada jugador tiene una tabla con 16 cartas aleatorias que debe de llenar conforme el gritón las menciona.
+    \item \textbf{El gritón}. Es la persona encargada de dar a conocer la siguiente carta a todos los jugadores.
+\end{itemize}
+Para comenzar, invocamos los módulos.
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import pandas as pd
+import random
+\end{minted}
+\end{tcolorbox}
+
+Con \codebox{pandas} ahora tienes el poder de crear y manipular bases de datos.
+
+Con \codebox{pandas} puedes cargar datos desde archivos \codebox{csv} o Excel, visualizarlo, quitar filas, cambiar columnas y hacer lo que sea con tus datos. Como nuestro proyecto es una lotería, vamos a necesitar números aleatorios, que son la especialidad del módulo \codebox{random}.
+
+Comencemos a incluir las cartas en una lista.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+cartas = ["La maceta", "El borracho", "La campana", "El catrin", "El violoncello","La sandia", "La chalupa", "El gorrito", "El arpa", "El camaron", "El barril", "La dama", "La bota", "El pajaro", "El melon", "El cotorro", "La palma", "El mundo", "El apache", "El pescado", "La muerte", "El alacran", "El gallo", "La calavera"]
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+Los conocedores de la lotería se podrán dar cuenta de que me faltó poner algunas cartas.
+
+No es problema. Podemos incluir las cartas que nos faltan más adelante. Usemos la función \codebox{append()} para agregar la carta de “El diablito” a nuestro mazo de cartas. También podemos usar \codebox{extend()} para agregar más elementos al mazo desde otra lista.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Con append podemos agregar un elemento adicional que nos faltaba
+cartas.append("El diablito")
+# Con extend podemos agregar los elementos de una lista a otra
+cartas.extend(["El valiente", "La corona", "El barril"])
+# Con print() mostramos 
+print(cartas)
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\section{Con esta lista ya podemos repartir las tablas}
+
+Una tabla de lotería tiene 16 cartas: cuatro a lo ancho y cuatro a lo largo. Usa \codebox{pandas} para crear un \gls{dataframe} para la tabla de cada jugador. Este DataFrame tendrá 16 cartas únicas del mazo y una columna adicional para marcar las cartas.
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Crear un dataframe con una columna de carta
+deck_df = pd.DataFrame(cartas, columns=['Carta'])
+\end{minted}
+\end{tcolorbox}
+
+Y el siguiente código crea una tabla con 16 cartas asignadas de manera aleatoria. Esta es la tabla que te reparten al inicio del juego. Incluímos una columna para marcar si la carta ya fue cantada o no.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+def crear_tabla(deck_df):
+    # Usamos sample(16) para tomar 16 cartas aleatorias sin repetición
+    # .sample() es un método de pandas, y aquí lo usamos directamente 
+    # desde el DataFrame deck_df. También podrías importar solo sample
+    # desde pandas, pero aquí lo dejamos todo a través del objeto DataFrame.
+    tabla = deck_df.sample(16).reset_index(drop=True)
+    tabla['Marcada'] = False  # Agregar una nueva columna para marcar las cartas
+    return tabla
+
+# Ejemplo de la creación de una tabla para un jugador
+tabla_jugador = crear_tabla(deck_df)
+print("Tabla del Jugador:")
+print(tabla_jugador)
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+
+Como el juego apenas está por comenzar, todas las casillas de la tabla deben de comenzar indicando \codebox{False}.
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[ framesep=2mm, fontsize=\small]{python}
+Tabla del Jugador:
+             Carta  Marcada
+0      El valiente    False
+1   El violoncello    False
+2       El alacran    False
+3         La palma    False
+4         El gallo    False
+5       El gorrito    False
+\end{minted}
+\end{tcolorbox}
+%\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+%\begin{minted}[ framesep=2mm, fontsize=\small]{python}
+%10       El catrin    False
+%11       La maceta    False
+%12      El cotorro    False
+%13         La dama    False
+%14         La bota    False
+%15        El mundo    False
+%\end{minted}
+%\end{tcolorbox}
+
+La función \codebox{crear\_tabla} es una función hecha por nosotros, que toma la lista de cartas y utiliza \codebox{random.sample} para seleccionar 16 cartas únicas de esa lista. \codebox{random.sample} es útil porque automáticamente se asegura de que no haya duplicados en la selección. La columna ``Marcada'' aparece como una lista de `''Falsos" porque es una de esas variables que sólo toma como valores Falso y Verdadero. Al comenzar, todos son falsos porque el gritón aún no ``canta'' ninguna de las cartas.
+
+\section{Cantar las cartas}
+Ahora que tenemos las tablas, necesitamos una forma de ``cantar'' las cartas y que los jugadores revisen sus tablas.
+
+Podemos hacer esto con otra función muy sencilla. Hemos creado \codebox{cantar\_carta()}, que selecciona una carta del mazo de forma aleatoria.
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+def cantar_carta(deck_df):
+    return deck_df.sample().iloc[0]['Carta']
+
+# Ejemplo de cantar una carta
+carta_cantada = cantar_carta(deck_df)
+print("Carta Cantada:", carta_cantada)
+\end{minted}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Carta Cantada: La calavera
+\end{minted}
+\end{tcolorbox}
+
+Este código tiene un error. Normalmente cuando el ``gritón'' canta las cartas de lotería, ya no las reemplaza en el mazo y no volverán a salir. Para solucionar esto tendríamos que hacer que se elimine el elemento de la carta, pero dejaremos esto como ejercicio al lector.
+
+Esta función selecciona una carta al azar de la lista de cartas. Cada vez que se llama a la función, simula al ``gritón'' cantando una nueva carta.
+
+\section{Marcando las Cartas}
+
+El Data Frame \codebox{tabla\_jugador} tiene dos columnas. La primera tiene nuestras cartas y la segunda nos ayuda a marcar si el gritón ya dijo nuestra carta. Es nuestra columna de frijolitos\sidenote{Es común poner un frijol o algún objeto que tengas a la mano en tu tabla, para tener marcadas las cartas que ya te salieron y darte cuenta cuando completes tu lotería.}.
+
+En la siguiente función primero se verifica si la carta cantada está en nuestra tabla. Lo hacemos con la palabra clave \codebox{if} , que cambia el elemento de la segunda columna a \codebox{True} si la tenemos.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+def marcar_carta(tabla, carta_cantada):
+    if carta_cantada in tabla['Carta'].values:
+        tabla.loc[tabla['Carta'] == carta_cantada, 'Marcada'] = True
+        print("¡Carta marcada!")
+    else:
+        print("Esta carta no está en tu tabla.")
+
+# Ejemplo de uso de la función para marcar la tabla con la tarjeta
+marcar_carta(tabla_jugador, carta_cantada)
+print(tabla_jugador)
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+En el ejemplo de arriba, Python sacó la carta ``El gallo'' y la marcó verdadera en nuestra base de datos.
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[ framesep=2mm, fontsize=\small]{python}
+¡Carta marcada!.
+             Carta  Marcada
+0      El valiente    False
+1   El violoncello    False
+2       El alacran    False
+3         La palma    False
+4         El gallo    True
+5       El gorrito    False
+6        La sandia    False
+7        La muerte    False
+8          El arpa    False
+9       La chalupa    False
+10       El catrin    False
+11       La maceta    False
+12      El cotorro    False
+13         La dama    False
+14         La bota    False
+15        El mundo    False
+\end{minted}
+\end{tcolorbox}
+De lo contrario, el sistema simplemente nos dirá que la carta no está en nuestra tabla y podemos volver a pedir al gritón que cante otra carta.
+
+Inténtalo. Es divertido.
+
+\section{Verificando el Ganador}
+
+La función \codebox{all()} verifica si todos los valores en la columna ``Marcada'' tiene valor verdadero. Es una forma rápida de encontrar al ganador.
+
+Puedes seguir cantando y marcando cartas hasta que completes tu tabla de lotería.
+
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+def verificar_ganador(tabla):
+    return all(tabla['Marcada'])
+
+# Ejemplo de verificar si nuestra tabla es ya ganadora
+if verificar_ganador(tabla_jugador):
+    print("¡Felicidades, has ganado!")
+else:
+    print("Sigue jugando.")
+\end{minted}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+Sigue jugando.
+\end{minted}
+\end{tcolorbox}
+Cuando tu tabla tiene todas las cartas marcadas, has ganado\sidenote{Mi recomendación es que hagas todo este código a mano en Colab y ejecutes cada uno de los bloques a la vez hasta que entiendas bien qué hace cada uno. Para cuando llegues al final, si es entretenido ejecutar el código una y otra vez hasta que ganas. Inténtalo por tu cuenta.}.
+
+\section{Preguntas frecuentes en las primeras sesiones de Python}
+
+Tengo ya bastante experiencia enseñando a programar por primera vez para reconocer los problemas más comunes al inicio. Regresa a esta lista si te encuentras en problemas, tal vez encuentres tu problema aquí.
+\begin{itemize}
+    \item \textbf{Me apareció error}. En los lenguajes de programación no hay errores genéricos. Siempre tienes que revisar con detalle.\sidenote{Pro tip: Los errores en Python se leen de abajo para arriba. Lo que sale al final es la descripción del error y de ahí vas subiendo y revisando los detalles.}
+    \item \textbf{No puedo cargar el módulo}. Asegúrate que estés utilizando el entorno correcto donde el módulo está instalado. Si estás usando \gls{googlecolab}, los módulos más comunes como \codebox{pandas} y \codebox{numpy} ya están preinstalados. Si estás en tu propia máquina, quizás necesites instalar el módulo usando pip, por ejemplo, \codebox{pip install pandas}.
+    \item \textbf{Mi código no hace lo que espero}. Revisa cada línea cuidadosamente. Asegúrate de entender qué hace cada parte del código. A veces, un pequeño error como una letra mal escrita o una indentación incorrecta puede causar problemas\sidenote{Python es particularmente especial con la identación (los espacios a la izquierda). La identación sirve para identificar si una parte del código pertenece a una función o a un ciclo \codebox{for}. Pon mucha atención a esos detalles.}.
+    \item \textbf{No entiendo el error que me muestra Python}. Los mensajes de error pueden ser confusos al principio. Lee el mensaje completo. A menudo, la última línea te da una pista sobre lo que está mal. Si no entiendes el mensaje, intenta buscarlo en internet. Es muy probable que alguien más haya tenido el mismo problema.
+    \item \textbf{El código se ejecuta, pero no pasa nada}. Verifica que estés llamando a las funciones correctamente y que estés pasando los argumentos correctos. También asegúrate de que cualquier cambio que esperes ver se esté mostrando o guardando adecuadamente\sidenote{Python puede crear una función sin ejecutarla. Tienes que verificar que estás llamando la función y que tenga algo que mostrar. En el código de arriba, usamos regularmente la función \codebox{print} para mostrar algo en la consola.}.
+    \item \textbf{¿Cómo instalo un módulo de Python?} Generalmente, puedes instalar módulos de Python usando pip. Por ejemplo, para instalar \codebox{matplotlib}, usarías \codebox{pip install matplotlib} en tu terminal o línea de comandos\sidenote{En Colab, este tipo de funciones se llaman usando \codebox{!} antes. Por ejemplo, \codebox{!pip install matplotlib}. Esto es para indicar que el comando es uno que debe de ejecutar la terminal, y no el notebook. Es muy útil saber esto para instalar módulos más allá de los que tiene Colab de manera estándar.}.
+    \item \textbf{¿Cómo sé qué módulo usar para una tarea específica?} La experiencia te ayudará a conocer qué módulos son mejores para diferentes tareas. Mientras tanto, busca recomendaciones en línea o en libros de texto sobre Python. La comunidad de Python es muy activa y hay muchos recursos disponibles.
+    \item \textbf{¿Cómo puedo mejorar en Python?} La práctica es clave. Trabaja en pequeños proyectos, resuelve problemas y trata de leer y entender el código de otras personas. También, participar en comunidades en línea y foros puede ser muy útil.
+\end{itemize}
+
+\section{Ya sabes usar Python, ahora aprendamos econometría}
+Lo más importante es practicar.
+
+No hay libro que te dé la suficiente experiencia antes de comenzar a construir tus propios modelos. Necesitas empezar hoy mismo a modelar, a obtener datos y a jugar con ellos. Es a prueba y error que tu mente te hará un experto en econometría.
+
+Es momento de comenzar con las matemáticas.
+
+
+\begin{fullwidth}
+\section*{Resumen del capítulo}
+
+Python te da superpoderes de econometrista.
+
+No es una exageración. Lo que a Florence Nightingale le tomó semanas de trabajo meticuloso para tabular, calcular y dibujar a mano, tú lo puedes replicar en minutos con unas pocas líneas de código. Si te pidiera que calcularas los coeficientes de una regresión hace 100 años, tendrías que sudar sobre los números por días; hoy lo haces con un comando en segundos. Es lo más cercano a la magia de verdad que conozco.
+
+Pero como en toda historia de superhéroes, hay un truco: los poderes no vienen solos, hay que aprender a usarlos.
+
+Y desgraciadamente, ahora mismo, todavía no sabes usar Python.
+
+El camino para dominar un lenguaje de programación requiere horas frente a la computadora. No se aprende leyendo, se aprende haciendo. Te vas a equivocar, vas a ver mensajes de error rojos y frustrantes, y vas a tener que solucionar problemas por tu cuenta. Cada error que arregles, cada función que logres hacer funcionar, es como subir de nivel. Entre más tiempo le dediques, mejorarán tus habilidades para hacer magia con los datos.
+
+Este libro no te va a hacer un experto de la noche a la mañana, pero te dará el mapa y las herramientas. Los siguientes ejercicios son tu primer entrenamiento. No los saltes. Ábrete un notebook en Google Colab y hazlos uno por uno. Empieza a construir tu poder.
+
+\section*{Manos a la obra: ejercicios de práctica}
+
+Los siguientes ejercicios están diseñados para que los hagas en un notebook de Google Colab. Van de lo más básico a lo más complejo, preparándote para los análisis que haremos en los próximos capítulos.
+
+\begin{enumerate}
+	\item \textbf{Variables y Operaciones Básicas:} Crea dos variables, \codebox{gasto\_tv = 230.1} y \codebox{gasto\_radio = 37.8}. Crea una tercera variable, \codebox{gasto\_total}, que sea la suma de las dos anteriores. Imprime el resultado.
+
+	\item \textbf{Listas en Python:} Crea una lista llamada \codebox{medios} que contenga los strings: \codebox{'TV'}, \codebox{'Radio'} y \codebox{'Newspaper'}. Usa la función \codebox{append()} para añadir \codebox{'Redes Sociales'} a la lista. Imprime la lista final.
+
+	\item \textbf{Tu primera función:} Escribe una función en Python llamada \codebox{a\_miles} que reciba un número (ej. las ventas) y lo divida entre 1000. Llama a la función con el número \codebox{15300} e imprime el resultado.
+
+	\item \textbf{Introducción a NumPy:} Importa la librería NumPy como \codebox{np}. Crea un array de NumPy a partir de la siguiente lista de ventas: \codebox{ventas\_lista = [22.1, 10.4, 9.3, 18.5, 12.9]}. Usa las funciones de NumPy para calcular la media (\codebox{np.mean()}) y la suma total (\codebox{np.sum()}) de las ventas.
+
+	\item \textbf{Introducción a Pandas:} Importa la librería Pandas como \codebox{pd}. Crea un DataFrame a partir del siguiente diccionario: \codebox{datos = \{'Canal': ['TV', 'Radio', 'Periodico'], 'Inversion': [1000, 500, 200]\}}. Imprime el DataFrame.
+
+	\item \textbf{Cargando datos reales:} Busca en internet el archivo \codebox{advertising.csv} que usamos en este libro (está en repositorios como Kaggle o en el GitHub del libro). Sube el archivo a tu entorno de Google Colab y usa pandas para cargarlo en un DataFrame llamado \codebox{datos\_publicidad}.
+
+
+\item \textbf{Selección de datos:} Del DataFrame \codebox{datos\_publicidad}, selecciona únicamente la columna \codebox{'Sales'} y guárdala en una variable llamada \codebox{y}. Luego, selecciona las columnas \codebox{'TV'}, \codebox{'Radio'} y \codebox{'Newspaper'} y guárdalas en un nuevo DataFrame llamado \codebox{X}.
+
+\item \textbf{Visualización simple:} Importa \codebox{matplotlib.pyplot} como \codebox{plt}. Crea un diagrama de dispersión (\codebox{plt.scatter()}) que muestre la relación entre la inversión en \codebox{'TV'} (eje x) y las \codebox{'Sales'} (eje y). Añade etiquetas a los ejes.
+
+\item \textbf{Filtrando datos:} Crea un nuevo DataFrame llamado \codebox{inversion\_alta\_tv} que contenga únicamente las filas de \codebox{datos\_publicidad} donde el gasto en \codebox{'TV'} fue mayor a 250. ¿Cuántas filas tiene este nuevo DataFrame? (Usa \codebox{len()} o \codebox{.shape}).
+
+\item \textbf{Preparando datos para la regresión (Parte 1):} El capítulo de regresión te mostrará que para calcular los coeficientes, necesitamos una matriz $\mathbf{X}$ que incluya una columna de unos para el intercepto. Usando NumPy, convierte la columna \codebox{'TV'} del DataFrame a un array de NumPy. Luego, crea un nuevo array que contenga dos columnas: una de puros unos y la otra con los datos de \codebox{'TV'}. (Pista: investiga la función \codebox{np.column\_stack}).
+
+\item \textbf{Operaciones con matrices en NumPy:} Usando la matriz de 2 columnas que creaste en el ejercicio anterior (llamémosla \codebox{X\_matriz}), calcula $X'X$ (la transpuesta de $X$ multiplicada por $X$). Imprime el resultado y sus dimensiones (\codebox{.shape}). (Pista: la transpuesta se obtiene con \codebox{.T} y la multiplicación de matrices con el operador \codebox{@}).
+
+\item \textbf{Correlación:} Usando el DataFrame original \codebox{datos\_publicidad}, calcula la matriz de correlación entre todas las variables. ¿Qué par de variables (sin contar una variable consigo misma) tiene la correlación más alta? (Pista: usa el método \codebox{.corr()}).
+
+\item \textbf{Aplicando una función a una columna:} Crea una nueva columna en \codebox{datos\_publicidad} llamada \codebox{'Sales\_en\_miles'} aplicando la función \codebox{a\_miles} que creaste en el ejercicio 3 a cada elemento de la columna \codebox{'Sales'}. (Pista: investiga el método \codebox{.apply()}).
+
+\item \textbf{Reto - Simulación simple:} Simula 100 lanzamientos de un dado de 6 caras usando \codebox{np.random.randint(1, 7, 100)}. Guarda los resultados en un array. Calcula cuántas veces salió el número 6.
+\end{enumerate}
+
+\section*{Regalo: Repositorio en Github con  el código completo}
+
+Todo el código yo mismo lo probé. La forma más fácil en que lo puedas comprobar por tu cuenta es abriendo sesión en Google Colab y comenzar a poner el código. Todas las bases de datos las puedes encontrar en el repositorio en línea que está en el siguiente enlace:
+
+\url{https://github.com/marionomics/econometria}
+
+O escanea el código QR:
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imagenes/qrcodes/github-repo.png}
+    \label{fig:github}
+\end{figure}
+
+\end{fullwidth}

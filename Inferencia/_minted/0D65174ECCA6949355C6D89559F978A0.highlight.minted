@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{VIF} \PYG{n}{para} \PYG{n}{cada} \PYG{n}{variable}\PYG{p}{:}
+\PYG{n}{variables}       \PYG{n}{VIF}
+\PYG{l+m+mi}{0}         \PYG{n}{TV}  \PYG{l+m+mf}{2.486772}
+\PYG{l+m+mi}{1}      \PYG{n}{Radio}  \PYG{l+m+mf}{3.285462}
+\PYG{l+m+mi}{2}  \PYG{n}{Newspaper}  \PYG{l+m+mf}{3.055245}
+\end{MintedVerbatim}

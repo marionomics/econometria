@@ -1,0 +1,250 @@
+\begin{thebibliography}{33}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[spi(2021)]{spiderman_no_way_home}
+Spider-man: No way home, 2021.
+
+\bibitem[Angrist and Pischke(2009)]{Angrist2009}
+J.~D. Angrist and J.~S. Pischke.
+\newblock \emph{Mostly Harmless Econometrics: An Empiricist’s Companion}.
+\newblock Princeton University Press, 2009.
+
+\bibitem[Azoulay et~al.(2020)Azoulay, Jones, Kim, and Miranda]{azoulay2020age}
+Pierre Azoulay, Benjamin~F. Jones, J.~Daniel Kim, and Javier Miranda.
+\newblock Age and high-growth entrepreneurship.
+\newblock \emph{American Economic Review: Insights}, 2\penalty0 (1):\penalty0
+  65--82, 2020.
+\newblock \doi{10.1257/aeri.20180582}.
+
+\bibitem[Becker(1962)]{becker1962investment}
+Gary~S. Becker.
+\newblock Investment in human capital: A theoretical analysis.
+\newblock \emph{Journal of Political Economy}, 70\penalty0 (5, Part
+  2):\penalty0 9--49, 1962.
+\newblock \doi{10.1086/258724}.
+\newblock URL \url{https://www.journals.uchicago.edu/doi/10.1086/258724}.
+
+\bibitem[Berg and Krueger(2002)]{BergKrueger2002}
+Dale~S. Berg and Alan~B. Krueger.
+\newblock Estimating the payoff to attending a more selective college: An
+  application of selection on observables and unobservables.
+\newblock \emph{The Quarterly Journal of Economics}, 2002.
+
+\bibitem[Bertrand and Mullainathan(2003)]{BertrandSendhilMullainathan2003a}
+Marianne Bertrand and Sendhil Mullainathan.
+\newblock Are emily and greg more employable than lakisha and jamal? a field
+  experiment on labor market discrimination.
+\newblock \emph{NBER}, 2003.
+\newblock \doi{10.3386/w9873}.
+
+\bibitem[Blake et~al.(2015)Blake, Nosko, and Tadelis]{Blake2015}
+T.~Blake, C.~Nosko, and S.~Tadelis.
+\newblock Consumer heterogeneity and paid search effectiveness: A large-scale
+  field experiment.
+\newblock \emph{Econometrica}, 83\penalty0 (1):\penalty0 155--174, 2015.
+\newblock URL \url{http://www.jstor.org/stable/43616924}.
+
+\bibitem[Busch et~al.(2007)Busch, Heinonen, and Lahti]{Busch2007}
+Paul Busch, Teiko Heinonen, and Pekka Lahti.
+\newblock Heisenberg’s uncertainty principle.
+\newblock \emph{Physics Reports}, 452\penalty0 (6):\penalty0 155--176, 2007.
+\newblock \doi{10.1016/j.physrep.2007.05.006}.
+
+\bibitem[Campos-Vazquez et~al.(2023)Campos-Vazquez, Esquivel, Ghosh, and
+  Medina-Cortina]{CamposVazquez2023}
+Raymundo~M. Campos-Vazquez, Gerardo Esquivel, Parama Ghosh, and Enrique
+  Medina-Cortina.
+\newblock Long-lasting effects of a depressed labor market: Evidence from
+  mexico after the great recession.
+\newblock \emph{Labour Economics}, 81:\penalty0 102332, 2023.
+\newblock \doi{10.1016/j.labeco.2023.102332}.
+\newblock URL \url{https://doi.org/10.1016/j.labeco.2023.102332}.
+
+\bibitem[Card(1990)]{card1990impact}
+David Card.
+\newblock The impact of the mariel boatlift on the miami labor market.
+\newblock \emph{Industrial and Labor Relations Review}, 43\penalty0
+  (2):\penalty0 245--257, 1990.
+
+\bibitem[Card(1999)]{card1999causal}
+David Card.
+\newblock The causal effect of education on earnings.
+\newblock In \emph{Handbook of Labor Economics}, volume~3, pages 1801--1863.
+  Elsevier, 1999.
+
+\bibitem[Card and Krueger(1994)]{card1994minimum}
+David Card and Alan~B. Krueger.
+\newblock Minimum wages and employment: A case study of the fast-food industry
+  in new jersey and pennsylvania.
+\newblock \emph{American Economic Review}, 84\penalty0 (4):\penalty0 772--793,
+  1994.
+
+\bibitem[Colchero et~al.(2017)Colchero, Molina, and
+  Guerrero-López]{colchero2017tax}
+M.~Arantxa Colchero, Mariana Molina, and Carlos~M. Guerrero-López.
+\newblock After mexico implemented a tax, purchases of sugar-sweetened
+  beverages decreased and water increased: Difference by place of residence,
+  household composition, and income level.
+\newblock \emph{Journal of Nutrition}, 147\penalty0 (8):\penalty0 1552--1557,
+  2017.
+\newblock \doi{10.3945/jn.117.251892}.
+
+\bibitem[Cummings et~al.(2004)Cummings, Irizarry, Huang, Endy, Nisalak,
+  Ungchusak, and Burke]{Cummings2004}
+Derek A.~T. Cummings, Rafael~A. Irizarry, Norden~E. Huang, Timothy~P. Endy,
+  Ananda Nisalak, Kumnuan Ungchusak, and Donald~S. Burke.
+\newblock Travelling waves in the occurrence of dengue haemorrhagic fever in
+  thailand.
+\newblock \emph{Nature}, 427\penalty0 (6972):\penalty0 344--347, 2004.
+\newblock \doi{10.1038/nature02225}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/14737166/}.
+
+\bibitem[Dickey and Fuller(1979)]{dickey1979distribution}
+David~A. Dickey and Wayne~A. Fuller.
+\newblock Distribution of the estimators for autoregressive time series with a
+  unit root.
+\newblock \emph{Journal of the American Statistical Association}, 74\penalty0
+  (366a):\penalty0 427--431, 1979.
+
+\bibitem[Embrechts et~al.(2002)Embrechts, McNeil, and
+  Straumann]{embrechts2002correlation}
+Paul Embrechts, Alexander~J. McNeil, and Daniel Straumann.
+\newblock Correlation and dependence in risk management: Properties and
+  pitfalls.
+\newblock In M.~A.~H. Dempster, editor, \emph{Risk Management: Value at Risk
+  and Beyond}, pages 176--223. Cambridge University Press, 2002.
+\newblock \doi{10.1017/CBO9780511615337.008}.
+
+\bibitem[Fitzpatrick(2013)]{momtest}
+Rob Fitzpatrick.
+\newblock \emph{The Mom Test: How to Talk to Customers and Learn If Your
+  Business Is a Good Idea When Everyone Is Lying to You}.
+\newblock CreateSpace Independent Publishing Platform, 2013.
+\newblock ISBN 978-1492180746.
+
+\bibitem[Hayes(2006)]{hayes2006gauss}
+Brian Hayes.
+\newblock Gauss's day of reckoning.
+\newblock \emph{American Scientist}, 94\penalty0 (3):\penalty0 200--204, 2006.
+\newblock \doi{10.1511/2006.59.200}.
+\newblock URL
+  \url{https://www.americanscientist.org/article/gausss-day-of-reckoning}.
+
+\bibitem[Heckman et~al.(2008)Heckman, Lochner, and Todd]{heckman2008returns}
+James~J. Heckman, Lance~J. Lochner, and Petra~E. Todd.
+\newblock Returns to education: The causal effects of education on earnings,
+  health, and smoking.
+\newblock \emph{Journal of Econometrics}, 144\penalty0 (1):\penalty0 306--348,
+  2008.
+
+\bibitem[Huang and Attoh-Okine(2005)]{huang2005hilbert}
+Norden Huang and Nii~O. Attoh-Okine, editors.
+\newblock \emph{The Hilbert-Huang Transform in Engineering}.
+\newblock Taylor \& Francis Group, USA, 2005.
+\newblock ISBN 978-0-8493-3422-1.
+
+\bibitem[James et~al.(2013)James, Witten, Hastie, and Tibshirani]{ISLR}
+Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani.
+\newblock \emph{An Introduction to Statistical Learning: with Applications in
+  R}.
+\newblock Springer Texts in Statistics. Springer, 1 edition, 2013.
+\newblock ISBN 978-1-4614-7137-0.
+\newblock \doi{10.1007/978-1-4614-7138-7}.
+\newblock URL \url{https://www.statlearning.com/}.
+
+\bibitem[Liu et~al.(2023)Liu, Xia, Wang, and Zhang]{liu2023code}
+Jingxuan Liu, Chenshuo Xia, Yihan Wang, and Lingming Zhang.
+\newblock Is your code generated by chatgpt really correct? rigorous evaluation
+  of large language models for code generation.
+\newblock \emph{arXiv preprint arXiv:2305.01210}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2305.01210}.
+
+\bibitem[Lopez-Acevedo(2006)]{lopez2006mexico}
+Gladys Lopez-Acevedo.
+\newblock Mexico: Two decades of the evolution of education and inequality.
+\newblock \emph{World Bank Policy Research Working Paper}, \penalty0 (3919),
+  2006.
+
+\bibitem[Miguel and Kremer(2003)]{MiguelKremer2003}
+Edward Miguel and Michael Kremer.
+\newblock Worms: Identifying impacts on education and health in the presence of
+  treatment externalities.
+\newblock \emph{Econometrica}, 72\penalty0 (1):\penalty0 159--217, 2003.
+\newblock \doi{10.1111/j.1468-0262.2004.00481.x}.
+
+\bibitem[Pigou(1920)]{pigou1920economics}
+A.~C. Pigou.
+\newblock \emph{The Economics of Welfare}.
+\newblock Macmillan and Co., London, 1920.
+\newblock URL \url{https://archive.org/details/dli.bengal.10689.4260}.
+
+\bibitem[Prinz(2020)]{Chocolate}
+Aloys~Leo Prinz.
+\newblock Chocolate consumption and noble laureates.
+\newblock \emph{Social Sciences \& Humanities Open}, 2\penalty0 (1):\penalty0
+  100082, 2020.
+\newblock ISSN 2590-2911.
+\newblock \doi{https://doi.org/10.1016/j.ssaho.2020.100082}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S2590291120300711}.
+
+\bibitem[Pérez~López(2005)]{perez2005muestreo}
+César Pérez~López.
+\newblock \emph{Muestreo estadístico: conceptos y problemas resueltos}.
+\newblock Pearson Education S.A., Madrid, 2005.
+
+\bibitem[Rothstein(2020)]{Rothstein2020}
+Jesse Rothstein.
+\newblock The lost generation? labor market outcomes for post great recession
+  entrants.
+\newblock \emph{NBER Papers}, 2020.
+\newblock \doi{10.3386/w27516}.
+\newblock URL \url{https://www.nber.org/papers/w27516}.
+
+\bibitem[Silver et~al.(2017)Silver, Ng, Ryan-Ibarra, Taillie, Induni, Miles,
+  Poti, and Popkin]{silver2017changes}
+Lynn~D. Silver, Shu~Wen Ng, Suzanne Ryan-Ibarra, Lindsey~Smith Taillie, Marta
+  Induni, Donna~R. Miles, Jennifer~M. Poti, and Barry~M. Popkin.
+\newblock Changes in prices, sales, consumer spending, and beverage consumption
+  one year after a tax on sugar-sweetened beverages in berkeley, california,
+  us: A before-and-after study.
+\newblock \emph{PLOS Medicine}, 14\penalty0 (4):\penalty0 e1002283, 2017.
+\newblock \doi{10.1371/journal.pmed.1002283}.
+
+\bibitem[Snow(1849)]{snow}
+John Snow.
+\newblock \emph{On the Mode of Communication of Cholera}.
+\newblock John Churchill, London, 1849.
+\newblock URL \url{https://archive.org/details/b28985266/page/n3/mode/2up}.
+\newblock Accessed: 2025-04-23.
+
+\bibitem[Swenson(1910)]{swenson1910medical}
+Annie~Gracey Swenson.
+\newblock \emph{Medical Women of America: A Short History of the Pioneer
+  Medical Women of America and a Few of Their Colleagues in England}.
+\newblock Monarch Book Company, Chicago, 1910.
+\newblock URL
+  \url{https://archive.org/details/medicalwomenvict00swen_0/page/n6/mode/1up}.
+
+\bibitem[Wallace et~al.(2023)Wallace, Goldsmith-Pinkham, and
+  Schwartz]{Wallace2023Excess}
+Jacob Wallace, Paul Goldsmith-Pinkham, and Jason~L. Schwartz.
+\newblock Excess death rates for republican and democratic registered voters in
+  florida and ohio during the covid-19 pandemic.
+\newblock \emph{JAMA Internal Medicine}, 183\penalty0 (9):\penalty0 916--923,
+  2023.
+\newblock \doi{10.1001/jamainternmed.2023.1154}.
+\newblock URL
+  \url{https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2807617}.
+
+\bibitem[Wasserman(2004)]{wasserman}
+Larry Wasserman.
+\newblock \emph{All of Statistics: A Concise Course in Statistical Inference}.
+\newblock Springer, New York, corrected 2nd printing edition, 2004.
+\newblock ISBN 978-0387402727.
+
+\end{thebibliography}

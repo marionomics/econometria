@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Crear la función}
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{sales}\PYG{p}{(}\PYG{n}{tv}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{b0} \PYG{o}{=} \PYG{l+m+mf}{6.97}
+	\PYG{n}{b1} \PYG{o}{=} \PYG{l+m+mf}{0.0555}
+	\PYG{k}{return} \PYG{n}{b0} \PYG{o}{+} \PYG{n}{b1} \PYG{o}{*} \PYG{n}{tv}
+
+\PYG{c+c1}{\PYGZsh{} Comprobar el resultado con 150}
+\PYG{n}{sales}\PYG{p}{(}\PYG{l+m+mi}{150}\PYG{p}{)}
+\end{MintedVerbatim}

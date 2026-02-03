@@ -1,0 +1,472 @@
+\chapter{Diferencias en Diferencias}
+
+
+\begin{quote}
+\textit{Let me finish talking with my husband. He needs to know how good my life could have been}
+
+- Evelyn en Everything, Everywhere, All at Once
+\end{quote}
+
+¿Qué pasa cuando no podemos hacer un experimento para identificar causas y efectos?
+
+Si hay una lección que quiero que recuerdes sobre este libro es que en nuestra mente siempre debe de estar el experimento como forma ideal de identificar causalidad. Y cuando el experimento no sea posible de hacer, o sea muy caro, entonces recurrimos a los datos.
+
+En otras palabras, buscamos un \textbf{experimento natural}.
+
+Los economistas llamamos experimento natural a un evento que se parece mucho a un experimento, pero ocurre sin que nadie lo haya planeado. Un ejemplo clásico es el de Card \& Krueger\cite{card1994minimum}, que midieron el efecto de un aumento en el salario mínimo en el empleo. La teoría neoclásica dictaba que el mercado laboral se debía comportar igual a cualquier otro mercado, con curvas de oferta y demanda. Si en lugar de bienes y servicios, el empleado está ofreciendo su trabajo, entonces un aumento en el salario mínimo debería tener como consecuencia una caída en el empleo.
+
+\begin{marginfigure}
+    \centering
+    \caption{Bajo un modelo neoclásico ortodoxo, el establecer un salario mínimo crea un desequilibrio artificial en el mercado que causa desempleo. Este modelo fue la base de muchas políticas de libre mercado. La evidencia que presentaron Card y Krueger no muestran este efecto en la realidad. Fuente: Elaboración propia.}
+    \includegraphics[width=1\linewidth]{imagenes/neoclassical-wage.png}
+\end{marginfigure}
+
+Los datos indican que un aumento en el salario mínimo no tiene efecto alguno en el empleo.
+
+Al enterarse de que habría un aumento en el salario mínimo en Nueva Jersey, los investigadores fueron a los establecimientos de comida rápida a recolectar datos. Registraron el número de empleados, salarios promedio y otros datos en Nueva Jersey y Pennsylvania. Hicieron registros en ambos estados antes y después de la implementación de la medida.
+
+Los resultados se vieron así.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        & \textbf{PA} & \textbf{NJ} \\
+        \midrule
+        Empleo Antes  & 23.33 (1.35)  & 20.44 (0.51)  \\
+        Empleo Después & 21.17 (0.94)  & 21.03 (0.52)  \\
+        Cambio en el Empleo Medio & -2.16 (1.25)  & 0.59 (0.54)  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Resultados del estudio de Card \& Krueger (1994)}
+\end{table}
+
+La diferencia en diferencia sería:
+
+\begin{equation}
+[E(L_{\text{PA}} | t = 1) - E(L_{\text{PA}} | t = 2)] - [E(L_{\text{NJ}} | t = 1) - E(L_{\text{NJ}} | t = 2)]
+\end{equation}
+
+Tomando los datos de la tabla\sidenote{Usamos como notación $L_i$ como el nivel de empleo del estado $i = \{\text{PA},\text{NJ}\}$, y $t$ en este caso es el periodo de tiempo del estudio. Lo dividimos en antes de la implementación del aumento del salario mínimo ($t=1$) y después de la misma ($t=2$).}:
+
+\begin{equation}
+(23.33 - 21.17) - (20.44 - 21.03) = 2.76
+\end{equation}
+
+Es decir, el empleo parece incluso haber aumentado.
+
+Pero con un error estándar de 1.36, no podemos estar seguros de que esos resultados sean causales. O bien, no hay efectos significativos.
+
+Si queremos conocer el efecto real que tuvo el aumento en el salario mínimo, tenemos que tratar a Pennsylvania como un \textbf{contrafactual}. Lo que esto quiere decir es que los empleos en ambas ciudades se deberían comportar igual antes del tratamiento y, por lo tanto, Nueva Jersey hubiera tenido el mismo comportamiento que Pennsylvania \textbf{si no se hubiera implementado el cambio}\sidenote{En realidad, el estudio de Card \& Krueger está lleno de detalles interesantes que son una especie de manual de diseño de estudios cuasi-experimentales. Por ejemplo, el estudio se enfoca en los restaurantes de comida rápida en ambas zonas, focalizado en ciudades aledañas en ambos estados. De esta manera, no es posible atribuir las diferencias a variables difíciles de medir y de incluír en el estudio, como la cultura, o la educación. El trabajo en los restaurantes de comida rápida en ambos estados es igual, por lo que podemos decir que es un trabajo comparable.}.
+
+Cuando tomas la diferencia en el tiempo y entre regiones, lo que te queda es el efecto causal.
+
+\section{El modelo básico de DiD de 2x2}
+
+Vamos a hacer una generalización del modelo que te presenté de Card \& Krueger.
+
+Estas son las características del modelo:
+
+- \textbf{Dos periodos}: $t = 1$ (antes del tratamiento) y $t=2$ (después del tratamiento).
+- \textbf{Dos grupos}: $G_i = 2$ (unidades tratadas en el periodo 2), y $G_i = \infty$ (unidades nunca tratadas).
+- El modelo puede o no incluir covariables $X$.
+- Hay disponible un número grande de observaciones independientes o clusters.
+
+Nota que usamos la palabra \textit{tratamiento}, como en los estudios clínicos. En el estudio de Card \& Krueger, el tratamiento fue la reducción del salario mínimo. En el caso de que se trate de una implementación de una política o de una campaña, es fácil imaginar cómo esta puede ser un tratamiento, pero los casos en que observamos un efecto fortuito fuera de nuestras manos (por ejemplo, la imposición de una ley), requiere un poco de imaginación verlo como un tratamiento.
+
+\subsection{Resultados potenciales en el modelo DiD 2x2}
+
+Definimos $Y_t(g)$ como el resultado potencial en el periodo $t$ si las unidades se exponen al tratamiento por primera vez en el periodo $g$.
+
+El parámetro causal que buscamos es el \textbf{Efecto de Tratamiento Promedio en los Tratados} en el periodo $t=2$ (\emph{Average Treatment Effect among the Treated, \gls{att}}):
+
+\[
+ATT = \underbrace{E[Y_{t=2}(2) \mid G=2]}_{\text{Se estima a partir de los datos}} 
+- 
+\underbrace{E[Y_{t=2}(\infty) \mid G=2]}_{\text{Componente contrafactual}}
+\]
+
+Para validar nuestro modelo de \gls{did} (DiD) consideraremos cuatro supuestos:
+
+\subsection*{Supuesto \#1: No interferencia y valores únicos de tratamiento}
+
+En inglés, este supuesto se conoce como \emph{\gls{sutva} (Stable Unit Treatment Value Assumption)}. Bajo este supuesto de efectos causales, los resultados potenciales de una observación dada responden únicamente a su propio estatus de tratamiento y son invariantes a la asignación de tratamiento en otras unidades.
+
+Esto implica que los resultados observados en el tiempo $t$ se realizan como:
+
+\[
+Y_{i,t} = \sum_{g \in \mathcal{G}} \mathbb{1}\{G_i = g\} \cdot Y_{i,t}(g)
+\]
+
+Es decir, para unidades que son tratadas en el periodo $t=2$, observamos $Y_{i,t}(2)$; y para aquellas que no han recibido tratamiento para $t=2$, observamos $Y_{i,t}(\infty)$.
+
+\subsection*{Supuesto \#2: No anticipación}
+
+Para todas las unidades $i$, se cumple que $Y_{i,t}(g) = Y_{i,t}(\infty)$ para todos los grupos en los periodos previos al tratamiento.
+
+Esto significa que las unidades tratadas no cambian su comportamiento antes de que el tratamiento comience, en anticipación a lo que ocurrirá.
+
+Este supuesto no se suele comprobar mediante pruebas estadísticas, sino observando el contexto del \gls{experimento-natural}. En muchos estudios, se argumenta que el supuesto se cumple porque la implementación fue rápida y sin previo aviso.
+
+Un ejemplo es el estudio de Card \& Krueger\cite{card1994minimum}, donde el aumento del salario mínimo en Nueva Jersey se implementó poco después de su anuncio.
+
+Otro ejemplo aún más drástico también es de David Card. En septiembre de 1980, Fidel Castro anunció que cualquier ciudadano cubano que lo deseara podía abordar un bote en el puerto de Mariel para emigrar a Estados Unidos. Como resultado, cerca de 125,000 migrantes llegaron a Miami en un periodo muy corto, aumentando la fuerza laboral de la ciudad en un 7\% (y en 20\% entre los trabajadores cubanos)\cite{card1990impact}.
+
+Este estudio, al igual que el del salario mínimo, es controversial porque contradice los modelos neoclásicos que comparan el mercado laboral con un mercado de bienes, con curvas de oferta y demanda. La sorpresa fue que no se observó un aumento del desempleo ni una caída de los salarios en Miami.
+
+Una parte clave de la fuerza del argumento es que el experimento natural cumplía con el \gls{no-anticipacion}. Si Castro hubiese hecho el anuncio con 1 o 2 años de anticipación, el mercado podría haberse ajustado
+
+\subsection{Supuesto \#3: superposición fuerte}
+
+Significa que para cada posible valor del tratamiento, existe una probabilidad positiva de recibirlo dentro de cada grupo de covariables.
+
+Formalmente, para algún $\epsilon > 0$, $\mathbb{P}[G = 2|X]<1-\epsilon$ \textit{casi seguramente}.
+
+De manera intuitiva: si me dices $X$, no puedo decir si esa unidad es tratada con 100\% de confianza.
+
+\subsection{Supuesto \#4: tendencias paralelas condicionadas}
+
+El elemento más importante en el modelo de Diferencias en Diferencias es el contrafactual.
+
+En el estudio del salario mínimo, los autores fueron muy cuidadosos al seleccionar las ciudades que iban a comparar. Nueva Jersey y Pennsylvania son estados vecinos. La ciudad de Nueva Jersey y de Philadelphia están separadas únicamente por un puente. Esto permite que podamos asumir con mayor tranquilidad que los efectos que estamos observando no se puedan adjudicar a la cultura o al clima.
+
+De manera visual, se vería algo así:
+
+
+\begin{figure*}[h!]
+    \centering
+    \caption{El supuesto de \gls{tendencias-paralelas} implica que, de no ser por la aplicación del tratamiento, ambos grupos seguirían la misma tendencia. Eso convierte a la diferencia entre tendencias en el efecto causal.}
+    \includegraphics[width=1\linewidth]{imagenes/did/parallel_trends.png}
+\end{figure*}
+
+Continuemos con el ejemplo de una campaña de mercadotecnia.
+
+Para conocer el efecto verdadero de una campaña, necesitamos que exista un \textbf{contrafactual}. En otras palabras, debe haber algo con qué comparar la tendencia de las ventas. Si observamos un alza en las ventas, podría ser parte natural de un ciclo, o podría ser parte de un boom general en la economía.
+
+Incluir un grupo de control nos da certeza de que ese incremento se debe a la campaña y no a otros factores\sidenote{Por ejemplo, una empresa que vende llantas lanza cada año una campaña para anunciar su marca el día del padre y ve que sus ventas crecen. Como sabemos, correlación no implica causalidad: sus ventas habrían aumentado lo mismo sin la campaña, simplemente por el efecto de la fecha y por el reconocimiento que ya tiene la marca. El problema es que hacer un experimento para comprobar esto requiere que en algún año no se haga campaña en alguna sucursal. ¿Vale la pena? Probablemente. Pero mientras llegan los resultados lo que la gerencia va a ver es que el de Marketing no hizo su trabajo.}.
+
+De manera formal:
+
+\begin{align}
+E[Y_{t=2}(\infty)| G=2,X] - E[Y_{t=1}(\infty) | G = 2, X] &= \nonumber \\
+E[Y_{t = 2}(\infty)| G = \infty, X] - E[Y_{t=1}(\infty)| G = \infty, X]
+\end{align}
+
+
+casi seguramente.
+
+Dicho de otra manera, en la ausencia de tratamiento, en cada estrato de covariable, la evolución promedio del resultado $Y$ entre las unidades tratadas en el periodo 2\sidenote{Representada en el lado izquierdo de la ecuación}  es la misma que la evolución promedio del resultado $Y$ entre las unidades que permanecieron sin tratamiento\sidenote{El lado derecho de la ecuación. El $G = \infty$ es nuestro indicador de las unidades que permanecieron sin tratamiento.}.
+
+En otras palabras, las unidades \textbf{no tratadas} las tratamos como ese universo paralelo en el que no se hizo el tratamiento.
+
+\section{Identificación del modelo 2x2 sin covariables}
+
+Sin la existencia de anticipación y con tendencias paralelas, podemos demostrar que el estimador
+
+\begin{align}
+\tau_{ATT} = \underbrace{(E[Y_{i,t=2}| G_i = 2] - E[Y_{i,t=1}| G_i = 2])}_\text{Cambio en el grupo tratado} - \nonumber\\\underbrace{(E[Y_{i,t=2} | G_i = \infty] - E[Y_{i,t=1}| G_i = \infty])}_\text{Cambio en el grupo de comparación}
+\end{align}
+
+ es una ``diferencia en diferencias'' de medias poblacionales.
+
+¿Cómo obtenemos este estimador? Usando efectos fijos de dos vías, por supuesto.
+
+Hagamos un ejemplo.
+
+En el año 2014, el gobierno de Berkeley, California implementó un impuesto a las bebidas azucaradas. Como todo economista sabe, este tipo de impuestos ``al pecado'' tienen intenciones que van más allá de lo recaudatorio: sirven para modificar los incentivos de los consumidores\cite{pigou1920economics}.
+
+%\begin{marginfigure}[2in]
+%    \centering
+%    \caption{Los impuestos pigouvianos desplazan la curva de costo marginal privado. El desplazamiento adopta el tamaño de la externalidad. Fuente: Jon513 (usuario de Wikipedia), bajo licencia de Creative Commons.}
+%    \includegraphics[width=1\linewidth]{imagenes/did/pigouvian_tax.png}
+%\end{marginfigure}
+
+En México también se implementó un impuesto similar en las mismas fechas. De acuerdo a Colchero, Molina \& Guerrero-López\cite{colchero2017tax}, el impuesto se reflejó en una reducción de 6.3\% en las compras de bebidas azucaradas y un incremento de 16.2\% en la compra de agua embotellada en hogares de ingreso bajo y medio. Afortunadamente para el país, esta fue una implementación a nivel federal. La única desventaja de esto es que no permite que hagamos una comparación con un grupo de control para saber si ese efecto que causamos fue causal o se puede deber a otros factores exógenos.
+
+Aquí es donde la experiencia de Berkeley, California resulta en un mejor experimento natural ideal.
+
+Un grupo de investigadores recolectó los datos de puntos de venta en las tiendas en el área de Berkeley y zonas aledañas para revisar los efectos del impuesto en los precios de las bebidas azucaradas\cite{silver2017changes}. El objetivo de este tipo de impuesto es, en primer lugar, hacer crecer los precios del producto, que a su vez deben de causar una reducción del consumo. Hay quienes asumen que los productos azucarados como los refrescos son tan adictivos que un alza en los precios no causaría un gran efecto en la demanda, pero los trabajos en México y en Berkeley han mostrado una diferencia significativa.
+
+Comencemos con una gráfica:
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Carga el conjunto de datos
+file_path = "public_use_weighted_prices2.csv"  # Asegura que el archivo esté en el directorio correcto
+df = pd.read_csv(file_path)
+
+# Agrupa por año, mes, ubicación e impuesto, calculando el precio promedio
+df_grouped = df.groupby(['year', 'month', 'location', 'tax'])['price'].mean().reset_index()
+
+# Convierte año y mes a un formato de fecha para el eje x
+df_grouped['fecha'] = pd.to_datetime(df_grouped[['year', 'month']].astype(int).astype(str).agg('-'.join, axis=1), format='%Y-%m')
+
+# Crea la gráfica de líneas
+plt.figure(figsize=(12, 6))
+
+# Define diferentes estilos de línea para cada categoría
+line_styles = ['-', '--', '-.', ':']
+
+for idx, ((ubicacion, impuesto), grupo) in enumerate(df_grouped.groupby(['location', 'tax'])):
+    plt.plot(grupo['fecha'], grupo['price'], label=f"{ubicacion} - {impuesto}", linestyle=line_styles[idx % len(line_styles)], color='black')
+
+# Agrega líneas verticales para enero y marzo de 2015
+plt.axvline(pd.to_datetime('2015-01-01'), color='gray', linestyle='--', linewidth=1)
+plt.axvline(pd.to_datetime('2015-03-01'), color='gray', linestyle='--', linewidth=1)
+
+# Configura la gráfica
+plt.xlabel('Tiempo')
+plt.ylabel('Precio Promedio')
+plt.title('Tendencias de Precio Promedio por Estado de Impuesto y Ubicación')
+plt.legend()
+plt.xticks(rotation=45)
+plt.grid(True, linestyle=':', linewidth=0.5)
+
+# Muestra la gráfica
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{fullwidth}
+\begin{figure*}[h!]
+    \centering
+    \caption{Precios promedio de bebidas en la zona de Berkeley. Fuente: Elaboración propia con datos de Silver \textit{et al.} (2014)}
+    \includegraphics[width=1\linewidth]{imagenes/did/silver.png}
+\end{figure*}
+\end{fullwidth}
+
+La gráfica muestra cuatro casos diferentes en dos dimensiones: productos con o sin impuestos y ventas realizadas en Berkeley y fuera de la zona de Berkeley. Las líneas verticales muestran el periodo de transición de la implementación del impuesto. La gráfica está mostrando los precios promedio de cada uno de los casos en el tiempo: las dos líneas de la parte alta son productos que son sujetos a recibir el impuesto (refrescos, jugos, tés, bebidas energéticas) y las líneas de abajo son productos que nunca fueron sujetos al impuesto.
+
+De manera visual, la diferencia en diferencias es la diferencia que tiene la separación de las líneas de arriba con las de abajo: nota que después de la aplicación del impuesto las líneas de arriba se separan más. Esto es evidencia de que el aumento de precio de las bebidas azucaradas en Berkeley (la línea más alta) se debe al impuesto y no a factores exógenos.
+
+Ahora hagamos la estimación de estas diferencias en diferencias usando un modelo sencillo de efectos fijos de dos vías:
+
+$$
+P_{it} = \beta_0 + \beta_1 D_{i} + \beta_2 T_t + \beta_3 (D_{i} \times T_t) + \gamma_i + \delta_t + \varepsilon_{it}
+$$
+
+En este modelo, $P_{it}$ representa el precio. Tenemos dos variables \textit{dummy}: Una que indica si se trata de un producto al que se le aplica el impuesto ($D_i$) y otra que indica si estamos en un momento anterior o posterior a la implementación del impuesto.
+
+Los coeficientes $\gamma_i$ y $\delta_t$ son los efectos fijos que estamos aplicando a nuestra regresión de dos vías\sidenote{La parte $D_{i} \times T_t$ se conoce como término \textbf{de interacción}. Es una \textit{dummy} que toma el valor de 1 cuando la unidad de tratamiento $D_i$ y la dummy de tiempo $T_t$ están en de manera conjunta en el tratamiento.}.
+
+\subsection{Resultado de la regresión de efectos fijos de dos vías (TWFE)}
+
+El siguiente código hace la regresión de efectos fijos de dos vías:
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Importamos las librerías necesarias
+import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+# Cargamos el dataset
+file_path = "public_use_weighted_prices2.csv"
+df = pd.read_csv(file_path)
+
+# Agrupamos por año, mes, ubicación e impuesto, calculando el precio promedio
+df_grouped = df.groupby(['year', 'month', 'location', 'tax'])['price'].mean().reset_index()
+
+# Convertimos 'year' y 'month' en un formato de fecha para el análisis
+df_grouped['fecha'] = pd.to_datetime(df_grouped[['year', 'month']].astype(int).astype(str).agg('-'.join, axis=1), format='%Y-%m')
+
+# Definimos la fecha de implementación del impuesto (enero de 2015)
+tax_implementation_date = pd.to_datetime("2015-01-01")
+
+# Creamos las variables necesarias para el modelo
+df_grouped['PostTax'] = (df_grouped['fecha'] >= tax_implementation_date).astype(int)  # 1 después del impuesto, 0 antes
+df_grouped['Taxed'] = (df_grouped['tax'] != "Non-taxed").astype(int)  # 1 si está gravado, 0 si no
+
+# Estimamos el modelo TWFE con efectos fijos por ubicación y por tiempo
+modelo = smf.ols("price ~ Taxed * PostTax + C(location) + C(fecha)", data=df_grouped).fit()
+
+# Mostramos los resultados de la regresión
+print(modelo.summary())
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+La siguiente tabla muestra un resumen de los resultados:
+
+\begin{fullwidth}
+\begin{table}[ht]
+\centering
+%\caption{Efecto del impuesto a bebidas azucaradas sobre el precio (TWFE – DiD)}
+\label{tab:did_tax_price}
+\begin{tabular}{lccc}
+\toprule
+ & Coeficiente & Error estándar & IC 95\% \\
+\midrule
+Zona con impuesto (Taxed)               & 2.753*** & 0.059 & [2.636, 2.871] \\
+Periodo posterior (PostTax)             & 0.535*** & 0.148 & [0.241, 0.828] \\
+Interacción: Taxed × PostTax            & 0.709*** & 0.098 & [0.515, 0.903] \\
+Intercepto                              & 6.035*** & 0.151 & [5.736, 6.333] \\
+\midrule
+$R^2$                                   & \multicolumn{3}{l}{0.978} \\
+$R^2$ ajustado                          & \multicolumn{3}{l}{0.970} \\
+N (observaciones)                       & \multicolumn{3}{l}{152} \\
+Estadístico F                           & \multicolumn{3}{l}{121.0 (p < 0.001)} \\
+Efectos fijos incluidos                 & \multicolumn{3}{l}{Ubicación y tiempo (mensual)} \\
+\bottomrule
+\end{tabular}
+
+\vspace{1mm}
+\begin{flushleft}
+\footnotesize
+\textit{Notas:} Modelo OLS con efectos fijos de dos vías.\\
+La variable de interacción captura el efecto causal del impuesto sobre los precios en Berkeley.\\
+\textit{Niveles de significancia:} * $p<0.1$, ** $p<0.05$, *** $p<0.01$
+\end{flushleft}
+\end{table}
+\end{fullwidth}
+
+
+El coeficiente $\beta_3$ muestra nuestro estimador de diferencias en diferencias (el \gls{interaccion}). Un coeficiente de $\beta_3 = 0.709$ indica que, en promedio, las bebidas azucaradas vieron un incremento adicional de 0.71 en comparación con las bebidas no-azucaradas.
+
+Y es un resultado estadísticamente significativo.
+
+Podemos hacer un modelo idéntico en el que comparamos el efecto dentro y fuera del área de Berkeley. Este sería el modelo:
+
+$$
+P_{it} = \beta_0 + \beta_1 Berkeley_{i} + \beta_2 T_t + \beta_3 (D_{i} \times T_t) + \gamma_i + \delta_t + \varepsilon_{it}
+$$
+
+Este es el resultado.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+# Importamos las librerías necesarias
+import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+# Cargamos el dataset
+file_path = "public_use_weighted_prices2.csv"
+df = pd.read_csv(file_path)
+
+# Agrupamos por año, mes, ubicación e impuesto, calculando el precio promedio
+df_grouped = df.groupby(['year', 'month', 'location', 'tax'])['price'].mean().reset_index()
+
+# Convertimos 'year' y 'month' en un formato de fecha para el análisis
+df_grouped['fecha'] = pd.to_datetime(df_grouped[['year', 'month']].astype(int).astype(str).agg('-'.join, axis=1), format='%Y-%m')
+
+# Definimos la fecha de implementación del impuesto (enero de 2015)
+tax_implementation_date = pd.to_datetime("2015-01-01")
+
+# Creamos las variables de tratamiento:
+df_grouped['T_t'] = (df_grouped['fecha'] >= tax_implementation_date).astype(int)  # 1 si es después del impuesto, 0 antes
+df_grouped['Berkeley'] = (df_grouped['location'] == "Berkeley").astype(int)  # 1 si la ubicación es Berkeley, 0 en otros lugares
+
+# Creamos la variable de interacción entre Berkeley y el tiempo después del impuesto
+df_grouped['Berkeley_T_t'] = df_grouped['Berkeley'] * df_grouped['T_t']
+
+# Estimamos el modelo TWFE con efectos fijos por ubicación y por tiempo
+formula = "price ~ Berkeley + T_t + Berkeley_T_t + C(location) + C(fecha)"
+twfe_berkeley_model = smf.ols(formula, data=df_grouped).fit()
+
+# Mostramos los resultados de la regresión
+print(twfe_berkeley_model.summary())
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{table}[ht]
+\centering
+%\caption{Prueba placebo: estimación DiD alternativa con interacción ficticia}
+\label{tab:did_placebo}
+\begin{tabular}{lccc}
+\toprule
+ & Coeficiente & Error estándar & IC 95\% \\
+\midrule
+Zona Berkeley                          & 2.715*** & 0.349 & [2.023, 3.408] \\
+Periodo alternativo ($T_t$)           & 0.688    & 0.908 & [-1.111, 2.487] \\
+Interacción: Berkeley × $T_t$         & 0.381    & 0.601 & [-0.811, 1.572] \\
+Intercepto                            & 4.626*** & 0.596 & [3.445, 5.807] \\
+\midrule
+$R^2$                                 & \multicolumn{3}{l}{0.149} \\
+$R^2$ ajustado                        & \multicolumn{3}{l}{-0.148} \\
+N (observaciones)                     & \multicolumn{3}{l}{152} \\
+Estadístico F                         & \multicolumn{3}{l}{0.50 (p = 0.992)} \\
+Efectos fijos incluidos               & \multicolumn{3}{l}{Mensuales} \\
+\bottomrule
+\end{tabular}
+
+\vspace{1mm}
+\begin{flushleft}
+\footnotesize
+\textit{Notas:} Modelo OLS con efectos fijos mensuales.\\
+La interacción simulada no presenta efectos significativos, lo cual refuerza la validez del análisis principal.\\
+\textit{Niveles de significancia:} * $p<0.1$, ** $p<0.05$, *** $p<0.01$
+\end{flushleft}
+\end{table}
+
+
+Aquí los resultados no tienen ese efecto significativo del modelo anterior. ¡Pero eso es algo bueno!
+
+Esto parece indicar que el efecto viene más por el producto con impuesto y no tanto por la diferencia que hay dentro y fuera de Berkeley. Esto es esperado si la especificación original estaba capturando un efecto causal real: cuando reemplazamos nuestra variable de tratamiento por una arbitraria, el efecto desaparece.
+
+% --- INICIO DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---
+
+\begin{fullwidth}
+\section*{Resumen del capítulo}
+
+En este capítulo aprendimos a cazar \glspl{experimento-natural}, esos momentos afortunados en los que el mundo real nos regala un grupo de tratamiento y un grupo de control sin que nosotros tengamos que intervenir. La herramienta para analizar estos regalos es una de las más elegantes de la econometría: el modelo de \gls{did}.
+
+Lo que hicimos fue entender su lógica simple pero poderosa. Tomamos un grupo afectado por un evento (el ``tratamiento'') y uno que no lo fue (el ``control''), y medimos un resultado antes y después. La primera diferencia calcula el cambio en el tiempo para cada grupo. La segunda diferencia —la diferencia entre estos dos cambios— es nuestro efecto causal. Este truco mágico nos permite descontar cualquier tendencia que hubiera ocurrido de todas formas, aislando el verdadero impacto del evento. Vimos que este método, que parece una simple resta de promedios, es en realidad un modelo de \gls{efectos-fijos-dos-vias} donde el coeficiente clave es el del término de interacción.
+
+Esto es importante porque nos acerca un paso más a establecer causalidad con datos del mundo real, sin necesidad de un \gls{rct}. El supuesto clave que lo sostiene todo, el de \gls{tendencias-paralelas}, nos obliga a ser rigurosos y a justificar por qué nuestro grupo de control es un buen ``universo paralelo'' del grupo de tratamiento. Dominar el modelo DiD te permite evaluar el impacto de políticas, eventos y decisiones de negocio con un nivel de credibilidad muy alto.
+
+¿Cómo te ayuda esto? Ahora, cuando leas en las noticias que una nueva ley o un evento afectó a una región pero no a otra, tu cerebro inmediatamente pensará: ``¡esto es un problema de Diferencias en Diferencias!''. Tienes una receta clara para estimar su impacto: encuentra un grupo de control creíble, dibuja sus trayectorias para verificar visualmente que eran paralelas antes del evento, y luego corre una regresión con una interacción. Esta es la herramienta que te permitirá medir el verdadero efecto de una campaña de marketing en una ciudad piloto, el impacto de una nueva regulación, o cualquier evento que divida al mundo en ``tratados'' y ``no tratados''.
+
+\section*{Buscando experimentos naturales: ejercicios de DiD}
+
+La mejor forma de entender el modelo DiD es aplicándolo. Estos ejercicios te ayudarán a identificar su estructura, a pensar en sus supuestos y a implementarlo en la práctica.
+
+\begin{enumerate}
+    \item \textbf{Identificando los componentes de DiD (Conceptual):} Para el estudio clásico de Card y Krueger sobre el salario mínimo:
+    \begin{itemize}
+        \item ¿Cuál es el grupo de tratamiento y cuál el de control?
+        \item ¿Cuál es el periodo ``antes'' y ``después''?
+        \item ¿Cuál es la variable de resultado que se está midiendo?
+        \item Usando los números de la tabla, verifica el cálculo del estimador DiD de 2.76.
+    \end{itemize}
+
+    \item \textbf{El supuesto sagrado (Conceptual):} Mirando el gráfico de los precios de las bebidas en Berkeley, enfócate en el periodo \textit{antes} de las líneas verticales que marcan la implementación del impuesto. ¿Dirías que el supuesto de tendencias paralelas se cumple a simple vista entre las bebidas que recibirán el impuesto y las que no? ¿Por qué sí o por qué no?
+
+    \item \textbf{Construyendo la interacción (Código):} Usando el DataFrame \codebox{df\_grouped} del capítulo (el de los precios de las bebidas), crea manualmente la variable de interacción \codebox{Taxed\_x\_PostTax} multiplicando la columna \codebox{Taxed} por la columna \codebox{PostTax}. Luego, corre una regresión simple con \codebox{smf.ols} usando la fórmula \codebox{price ~ Taxed + PostTax + Taxed\_x\_PostTax}. Confirma que el coeficiente de tu variable de interacción es idéntico al que se obtiene con la sintaxis \codebox{Taxed * PostTax}.
+
+    \item \textbf{¿Un buen DiD? (Conceptual):} Una empresa implementa un programa de 4 días laborales en su oficina de Guadalajara (tratamiento) para ver si aumenta la satisfacción, mientras que su oficina de Monterrey (control) sigue con 5 días. Miden la satisfacción en ambas oficinas en marzo (antes) y en mayo (después). ¿Por qué este podría ser un mal diseño de DiD? ¿Qué supuesto fundamental es difícil de justificar entre dos equipos y ciudades tan diferentes?
+
+    \item \textbf{Interpretando la regresión de DiD (Conceptual):} En el modelo de regresión $Y_{it} = \beta_0 + \beta_1 D_{i} + \beta_2 T_t + \beta_3 (D_{i} \times T_t) + \varepsilon_{it}$:
+    \begin{itemize}
+        \item ¿Qué representa el coeficiente $\beta_1$? (La diferencia promedio en $Y$ entre los grupos \textit{antes} del tratamiento).
+        \item ¿Qué representa el coeficiente $\beta_2$? (El cambio promedio en $Y$ para el grupo de \textit{control} a lo largo del tiempo).
+        \item ¿Por qué $\beta_3$ es nuestro efecto causal de interés?
+    \end{itemize}
+
+    \item \textbf{Violando la no anticipación (Conceptual):} El gobierno anuncia hoy que dentro de dos años, se prohibirá la venta de plásticos de un solo uso. Un investigador quiere medir el impacto de esta ley en las ventas de los productores de plástico usando un diseño DiD. ¿Por qué el supuesto de ``no anticipación'' está claramente violado aquí? ¿Cómo podrían las empresas cambiar su comportamiento \textit{antes} de que la ley entre en vigor?
+
+    \item \textbf{Tu propio análisis DiD (Código):} Usando los datos de Berkeley, realiza un análisis ligeramente distinto. Esta vez, el ``tratamiento'' será estar físicamente en Berkeley.
+    \begin{itemize}
+        \item Crea la variable \codebox{PostTax} (1 si es Ene-2015 o después).
+        \item Crea la variable \codebox{Berkeley} (1 si \codebox{location} es ``Berkeley'').
+        \item Corre una regresión de \codebox{price} en función de \codebox{Berkeley}, \codebox{PostTax}, y la interacción \codebox{Berkeley * PostTax}, incluyendo efectos fijos de tiempo (\codebox{+ C(fecha)}).
+        \item Interpreta el coeficiente del término de interacción. ¿Qué te dice sobre el cambio de precios en Berkeley después de la fecha del impuesto, en comparación con las otras áreas?
+    \end{itemize}
+    
+    \item \textbf{La prueba de placebo (Conceptual):} Una forma de ganar confianza en un resultado de DiD es hacer una ``prueba de placebo''. Imagina que en el estudio del impuesto a las bebidas, finges que el impuesto se implementó un año \textit{antes}, en Enero de 2014, cuando en realidad no pasó nada. Corres tu análisis DiD usando esta fecha falsa. Si tu modelo original es robusto, ¿qué resultado esperarías para el coeficiente de interacción en esta prueba de placebo? ¿Un valor grande y significativo, o uno cercano a cero y no significativo? ¿Por qué?
+
+    \item \textbf{DiD y Efectos Fijos (Conceptual):} Explica con tus propias palabras la relación entre un modelo de Diferencias en Diferencias y un modelo de Efectos Fijos de Dos Vías. ¿Son lo mismo? ¿O uno es un caso especial del otro?
+
+    \item \textbf{Reto - Encuentra tu propio experimento natural:} Piensa en un evento reciente (la apertura de una nueva línea de metro en tu ciudad, la legalización de un producto en un estado pero no en el vecino, el lanzamiento de una nueva función en una app que solo un grupo de usuarios recibió al principio). Describe cómo usarías un diseño de DiD para estudiar su impacto. Define claramente tu grupo de tratamiento, tu grupo de control, el periodo antes/después y la variable de resultado que te interesaría medir.
+\end{enumerate}
+\end{fullwidth}
+
+% --- FIN DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---

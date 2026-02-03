@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{statsmodels}\PYG{n+nn}{.}\PYG{n+nn}{api}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{sm}
+
+\PYG{c+c1}{\PYGZsh{} Definir las variables independientes (X) y la variable dependiente (y)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TV}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Radio}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Newspaper}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} Variables independientes}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Sales}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}                       \PYG{c+c1}{\PYGZsh{} Variable dependiente}
+
+\PYG{c+c1}{\PYGZsh{} Añadir una constante al modelo (intercepción)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{add\PYGZus{}constant}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Realizar la regresión OLS}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{OLS}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Mostrar el informe completo de la regresión}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{(}\PYG{p}{)}
+\end{MintedVerbatim}

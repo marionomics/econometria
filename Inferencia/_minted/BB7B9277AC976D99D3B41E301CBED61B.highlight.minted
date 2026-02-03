@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{linearmodels}\PYG{n+nn}{.}\PYG{n+nn}{panel}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{PanelOLS}
+
+\PYG{c+c1}{\PYGZsh{} Efectos fijos de dos vias}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{PanelOLS}\PYG{o}{.}\PYG{n}{from\PYGZus{}formula}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Sales \PYGZti{} Q(}\PYG{l+s+s1}{\PYGZdq{}}\PYG{l+s+s1}{Ad cost}\PYG{l+s+s1}{\PYGZdq{}}\PYG{l+s+s1}{) + EntityEffects + TimeEffects}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{data}\PYG{o}{=}\PYG{n}{df\PYGZus{}panel}\PYG{p}{)}
+\PYG{n}{results} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{results}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{)}
+\end{MintedVerbatim}

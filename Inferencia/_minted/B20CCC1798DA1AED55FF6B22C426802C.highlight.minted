@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{cantar\PYGZus{}carta}\PYG{p}{(}\PYG{n}{deck\PYGZus{}df}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{deck\PYGZus{}df}\PYG{o}{.}\PYG{n}{sample}\PYG{p}{(}\PYG{p}{)}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Carta}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Ejemplo de cantar una carta}
+\PYG{n}{carta\PYGZus{}cantada} \PYG{o}{=} \PYG{n}{cantar\PYGZus{}carta}\PYG{p}{(}\PYG{n}{deck\PYGZus{}df}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Carta Cantada:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{carta\PYGZus{}cantada}\PYG{p}{)}
+\end{MintedVerbatim}

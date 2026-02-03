@@ -1,0 +1,14 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Ajustando modelos AR(2) y AR(4) y comparando AIC y BIC}
+\PYG{n}{model\PYGZus{}ar2} \PYG{o}{=} \PYG{n}{AutoReg}\PYG{p}{(}\PYG{n}{y\PYGZus{}series}\PYG{p}{,} \PYG{n}{lags}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{model\PYGZus{}ar4} \PYG{o}{=} \PYG{n}{AutoReg}\PYG{p}{(}\PYG{n}{y\PYGZus{}series}\PYG{p}{,} \PYG{n}{lags}\PYG{o}{=}\PYG{l+m+mi}{4}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Extrayendo AIC y BIC para cada modelo}
+\PYG{n}{aic\PYGZus{}bic\PYGZus{}comparison} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{p}{\PYGZob{}}
+    \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Model}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{AR(2)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{AR(3)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{AR(4)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{AIC}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{n}{model\PYGZus{}ar2}\PYG{o}{.}\PYG{n}{aic}\PYG{p}{,} \PYG{n}{model\PYGZus{}fitted}\PYG{o}{.}\PYG{n}{aic}\PYG{p}{,} \PYG{n}{model\PYGZus{}ar4}\PYG{o}{.}\PYG{n}{aic}\PYG{p}{]}\PYG{p}{,}
+    \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{BIC}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{n}{model\PYGZus{}ar2}\PYG{o}{.}\PYG{n}{bic}\PYG{p}{,} \PYG{n}{model\PYGZus{}fitted}\PYG{o}{.}\PYG{n}{bic}\PYG{p}{,} \PYG{n}{model\PYGZus{}ar4}\PYG{o}{.}\PYG{n}{bic}\PYG{p}{]}
+\PYG{p}{\PYGZcb{}}\PYG{p}{)}
+
+\PYG{n}{aic\PYGZus{}bic\PYGZus{}comparison}
+\end{MintedVerbatim}

@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{Rango} \PYG{n}{de} \PYG{n}{la} \PYG{n}{matriz} \PYG{n}{X}\PYG{p}{:} \PYG{l+m+mi}{4}
+\PYG{err}{¿}\PYG{n}{Es} \PYG{n}{la} \PYG{n}{matriz} \PYG{n}{X} \PYG{n}{de} \PYG{n}{rango} \PYG{n}{completo} \PYG{p}{(}\PYG{n}{sin} \PYG{n}{multicolinealidad}\PYG{p}{)}\PYG{err}{?} \PYG{k+kc}{True}
+\end{MintedVerbatim}

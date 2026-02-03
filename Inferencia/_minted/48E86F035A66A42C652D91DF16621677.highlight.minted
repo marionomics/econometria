@@ -1,0 +1,13 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Calcular los promedios de TV y Ventas}
+\PYG{n}{promedio\PYGZus{}tv} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{tv}\PYG{p}{)}
+\PYG{n}{promedio\PYGZus{}ventas} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{ventas}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Calcular el valor predicho de Ventas cuando TV es igual a su promedio}
+\PYG{n}{ventas\PYGZus{}predichas\PYGZus{}en\PYGZus{}promedio\PYGZus{}tv} \PYG{o}{=} \PYG{n}{beta\PYGZus{}hat}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{+} \PYG{n}{beta\PYGZus{}hat}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{*} \PYG{n}{promedio\PYGZus{}tv}
+
+\PYG{c+c1}{\PYGZsh{} Mostrar los resultados}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Promedio de TV:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{promedio\PYGZus{}tv}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Promedio de Ventas:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{promedio\PYGZus{}ventas}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Ventas predichas cuando TV es igual a su promedio:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{ventas\PYGZus{}predichas\PYGZus{}en\PYGZus{}promedio\PYGZus{}tv}\PYG{p}{)}
+\end{MintedVerbatim}

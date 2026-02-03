@@ -1,0 +1,15 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{crear\PYGZus{}tabla}\PYG{p}{(}\PYG{n}{deck\PYGZus{}df}\PYG{p}{)}\PYG{p}{:}
+    \PYG{c+c1}{\PYGZsh{} Usamos sample(16) para tomar 16 cartas aleatorias sin repetición}
+    \PYG{c+c1}{\PYGZsh{} .sample() es un método de pandas, y aquí lo usamos directamente}
+    \PYG{c+c1}{\PYGZsh{} desde el DataFrame deck\PYGZus{}df. También podrías importar solo sample}
+    \PYG{c+c1}{\PYGZsh{} desde pandas, pero aquí lo dejamos todo a través del objeto DataFrame.}
+    \PYG{n}{tabla} \PYG{o}{=} \PYG{n}{deck\PYGZus{}df}\PYG{o}{.}\PYG{n}{sample}\PYG{p}{(}\PYG{l+m+mi}{16}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reset\PYGZus{}index}\PYG{p}{(}\PYG{n}{drop}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+    \PYG{n}{tabla}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Marcada}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}  \PYG{c+c1}{\PYGZsh{} Agregar una nueva columna para marcar las cartas}
+    \PYG{k}{return} \PYG{n}{tabla}
+
+\PYG{c+c1}{\PYGZsh{} Ejemplo de la creación de una tabla para un jugador}
+\PYG{n}{tabla\PYGZus{}jugador} \PYG{o}{=} \PYG{n}{crear\PYGZus{}tabla}\PYG{p}{(}\PYG{n}{deck\PYGZus{}df}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Tabla del Jugador:}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{tabla\PYGZus{}jugador}\PYG{p}{)}
+\end{MintedVerbatim}

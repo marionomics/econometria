@@ -1,0 +1,385 @@
+\chapter{El modelo de \gls{resultados-potenciales}}
+
+\begin{quote}
+\textit{Algebra’s like sheet music: the important thing isn’t ``can you read music''. It’s ``can you hear it''.\\ 
+Can you hear it?}\\
+-- Niels Bohr en la película Oppenheimer (2023)
+\end{quote}
+
+\begin{quote}
+\textit{Pensaba que contigo iba a envejecer\\ En otra vida, en otro mundo podrá ser}
+
+-- Bad Bunny
+\end{quote}
+
+\newthought{Para entender la econometría necesitas comprender el multiverso.}
+
+El multiverso se basa en la interpretación de Hughes Everett (1957) de la mecánica cuántica \cite{Busch2007}. Pero la interpretación popular que aparece en las películas y cómics es que cada decisión que tomamos genera un universo nuevo donde las cosas podrían ser muy diferentes a lo que conocemos como realidad.
+
+Por ejemplo: hay un universo en el que no te gusta el chocolate\sidenote{No creo que sea un universo en el que te gustaría estar, pero cada quién.}.
+
+Le vamos a llamar a ese universo un \gls{contrafactual}, porque se opone a la realidad. Naturalmente, el hubiera no existe y no podemos obtener datos de los contrafactuales. Sólo podemos imaginarlo.
+
+Así que vamos a imaginarlo.
+
+\section{¿Cómo sería tu vida si hubieras entrado en Harvard?}
+
+¿Tendrías hoy mejores ingresos?
+
+La relación entre la educación y los ingresos es una pieza clave de la ciencia económica. Hay un mar de teorías respecto a la existencia de un efecto positivo: entre mayor educación mayores ingresos, y hay muchos estudios dedicados a entender cómo funciona esta relación causal y cuál es su intensidad.
+
+El trabajo que inició todo es el de Gary Becker, en el que explica que la educación, el entrenamiento y la experiencia son iguales a la inversión que se hace en tecnología para el capital, pero en este caso conforman \textit{capital humano}. Cuando vamos a estudiar, lo hacemos con la esperanza de que esto nos genere beneficios futuros, como ingresos mayores.
+
+Se vería algo así como\cite{becker1962investment}
+
+\begin{equation}\label{beckerwages}
+w = w_0 e^{rS}.
+\end{equation}
+
+Donde $w_0$ es el salario inicial sin educación, $S$ serían los años de educación, y $r$ la tasa de retorno de la educación. Es un modelo simple, pero cuenta una historia muy poderosa en una época en la que la econometría disponible no permitía evaluar si esta relación era causal.
+
+De acuerdo a Heckman, Lochner y Todd\cite{heckman2008returns}, el retorno de la educación no es el mismo para todos. Igual que Beckman,  ellos consideran que la educación es una inversión que genera retornos a largo, plazo, pero en su análisis causal, ellos identifican que el efecto es diferente para personas dependiendo de su habilidad individual, su entorno familiar y la calidad de su educación. Los resultados son similares en otros estudios que usan inferencia causal para estudiar el efecto de la educación en los ingresos\cite{card1999causal,lopez2006mexico}
+
+Respecto a la calidad de la educación, surge una duda: ¿qué tan importante es en si la calidad de estudiar en una institución de élite?
+
+Estoy hablando de la diferencia que tiene estudiar en una institución como Harvard, el MIT o Stanford. En Estados Unidos, esas universidades de gran prestigio son muy codiciadas, y ganarse un lugar ahí es un sueño al que muy pocos pueden acceder. Por eso en la película de \textit{Spiderman: No way home}, Peter Parker llega a los extremos de poner en riesgo el multiverso porque no lo aceptaron en el MIT (y porque no se le ocurrió mandar una carta de reconsideración) \cite{spiderman_no_way_home}.
+
+La pregunta es: ¿Realmente era para tanto? Probablemente Peter Parker podría haber ido a una universidad local. Su título no vendría con el gran nombre de las universidades que aparecen en las películas, pero tienen la misma validez y se habría desarrollado profesionalmente y habría sido feliz con su novia y su amigo\sidenote{En una versión más cuerda de la película, el Dr. Strange simplemente le dice a Parker que lo deje en paz y entren él y sus amigos a una universidad regular, como cualquier otra persona habría hecho. Es una película más aburrida, pero al menos es un universo en el que Peter Parker la pasa bien.}. Al menos eso es lo que Dale y Krueger estiman en un estudio en el que encuentran que, para la mayoría de los estudiantes, asistir a una universidad selectiva no tiene básicamente ningún impacto en sus ingresos.
+
+Siendo justos, una de las características distintivas del personaje de Peter Parker es que es de bajos ingresos. En este caso, Dale y Krueger sí identifican que ir a una escuela selectiva tiene efectos positivos\cite{BergKrueger2002}. Lo mismo para quienes vienen de grupos minoritarios. Esto es un aspecto clave para entender cómo funciona la causalidad.
+
+La razón por la que las personas de grupos minoritarios y de bajos ingresos si observan una mejora en sus ingresos por entrar a una escuela selectiva es porque la naturaleza de estas escuelas \textit{excluye} de manera natural a aquellos que no tienen los recursos o los contactos para entrar en ellas. Dicho de otra forma: los papás de los alumnos que entran en las universidades más exclusivas ya tienen los ingresos y las conexiones que les aseguran un mejor ingreso, independientemente de si entran a una universidad selectiva o no. Por otra parte, a los chicos de un origen menos privilegiado, entrar a una escuela donde pueden hacer conexiones que les permitirán mejores oportunidades es una gran ventaja.
+
+Son dos tipos de estudiantes \textbf{fundamentalmente diferentes}.
+
+\subsection{Para identificar el efecto, debemos ir más allá de la diferencia de medias}
+
+Esto es a lo que yo le llamo el \textit{error de novatos}, cuando se trata de hacer identificación causal.
+
+Supongamos que deseas saber el \textbf{efecto} que tiene entrar en una escuela más selectiva en los ingresos. Decides entonces que es buena idea evaluar la diferencia entre los ingresos promedio de las personas que fueron a una escuela selectiva $Y_{1}$ y el de los egresados de una no selectiva $Y_0$.
+
+\begin{equation}\label{diferenciademedias}
+E[Y_{1}]-E[Y_{0}]
+\end{equation}
+
+La $E$ denota la \textbf{esperanza} o valor esperado de lo que está entre paréntesis\sidenote{La $E(\cdot)$ se lee como el \textit{valor esperado} o esperanza. Es un concepto más general que simplemente el promedio, pues aplica a más que sólo números.}. Normalmente denotamos con $Y$ el \textbf{resultado} o la variable en la que esperamos ver un efecto. En este caso es el ingreso.
+
+El subíndice $1$ o $0$ nos indica el \textbf{grupo} al que pertenece la variable. Un $1$ nos da al \textbf{grupo de tratamiento} y un $0$ al \textbf{grupo de control}. Entonces, $Y_1$ se lee como los ingresos de un individuo del grupo de tratamiento: de alguien que sí asistió a una escuela selectiva; mientras que $Y_0$ son los ingresos de alguien que no asistió a una escuela selectiva.
+
+\textbf{Tratamiento} y \textbf{control} son parte del lenguaje en los estudios clínicos\sidenote{Requiere un poco de imaginación identificar cuál sería el tratamiento en cada caso particular. Hay estudios en los que es muy evidente. Por ejemplo, una subida en el salario mínimo podría verse como un tratamiento, pero se siente un poco raro cuando el tratamiento es el color de piel. Basta recordar que es un recurso útil para identificar causas y efectos.}. Cuando quieres hacer un experimento para saber si una medicina funciona, divides a tus sujetos en dos grupos y a uno le aplicas la medicina y al otro no. Luego mides los resultados. En este caso, la "medicina" sería la asistencia a una escuela selectiva.
+
+Hagamos una simulación de una base de datos que identifica a 180 alumnos. La mitad de ellos entró a una escuela selectiva y la otra mitad no lo hizo. El siguiente bloque de código nos regresa una tabla con estos estudiantes ficticios, un nivel de haabilidad aleatorio y un nivel de ingresos definido por la ecuación
+
+\begin{equation}\label{incomeselectiveschools}
+ Y_i = 1000 + 250 D_i + 250 A_i + \varepsilon_i,
+\end{equation}
+
+donde $Y_i$ indica el ingreso del estudiante $i$, $D_i$ es una \gls{variable-dummy} que indica si el estudiante ingresó a una escuela selectiva, y $A_i$ indica la habilidad del estudiante. La letra griega $\varepsilon$ (se lee \textit{epsilon}) indica un término de error que nosotros llamaremos con la creación de un número aleatorio con distribución normal.
+
+Este es el código que genera la tabla:
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+import pandas as pd
+import numpy as np
+import random
+
+# Creando un diccionario con 'id' como claves y range(179) como valores
+alumnos = {'id': list(range(180))}
+
+# Creando el DataFrame
+df = pd.DataFrame(alumnos)
+
+# La semilla ayuda a tener el mismo resultado
+random.seed(42)
+np.random.seed(42)
+
+# La habilidad es aleatoria. 
+df['habilidad'] = [np.random.normal(0, 1) for _ in range(len(df))]
+ruido_habilidad = np.random.normal(0, 0.2, len(df))
+
+# Añadiendo la columna 'selectivas' con una elección aleatoria de 0 o 1 para cada fila
+df['selectivas'] = (df['habilidad'] + ruido_habilidad > 0.5).astype(int)
+
+# Añadiendo la columna 'ingresos' con el cálculo especificado
+df['ingresos'] = 1000 + df['selectivas'] * 250 + df['habilidad'] * 250 + np.random.normal(0, 280, len(df))
+
+# Mostrando las primeras filas del DataFrame
+df.head()
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+\begin{table}[ht]
+\centering
+\caption{Promedios simulados según tipo de escuela}
+\label{tab:resumen_simulacion}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Grupo} & \textbf{Habilidad promedio} & \textbf{Ingresos promedio} & \textbf{N} \\
+\midrule
+Escuela selectiva     & 1.018 & 1616.3 & 48 \\
+Escuela no selectiva  & -0.477 & 1106.4 & 132 \\
+\bottomrule
+\end{tabular}
+
+\vspace{1mm}
+\begin{flushleft}
+\footnotesize
+\textit{Notas:} La variable \textbf{habilidad} se generó aleatoriamente y afecta tanto la probabilidad de ingresar a una escuela selectiva como los ingresos.\\
+El \gls{sesgo-seleccion} se observa claramente: quienes ingresaron a una escuela selectiva tienen mayor habilidad en promedio. Comparar directamente los ingresos promedio entre grupos sin controlar esta diferencia produciría un estimador sesgado del efecto del tipo de escuela.
+\end{flushleft}
+\end{table}
+
+
+De acuerdo a la forma en que estamos creando los ingresos en esta tabla, estos dependen de asistir a una escuela selectiva. En particular, podemos observar que si alguien entra en una escuela selectiva, automáticamente le estamos incluyendo 250 a sus ingresos. No es lo que encontraron Dale y Krueger, pero sigamos esta simulación para ver a dónde nos lleva. El siguiente código nos muestra la diferencia de promedios de la ecuación \eqref{diferenciademedias}.
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{python}
+df[df['selectivas'] == 1]['ingresos'].mean() - df[df['selectivas'] == 0]['ingresos'].mean()
+\end{minted}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10]
+\begin{minted}[framesep=2mm, fontsize=\small]{python}
+676.1391841200148
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+Los datos nos dicen que hay una diferencia de 676 (digamos que son miles de) dólares. Pero esto es diferente que los 250 que nosotros establecimos como la diferencia en la ecuación \ref{incomeselectiveschools}. ¿Por qué nos aparece un efecto distinto?
+
+\section{Sesgo de Selección}
+Si recuerdas la discusión sobre el artículo de Dale y Krueger, los estudiantes que entran a una escuela selectiva son \textbf{fundamentalmente distintos} a los que no.
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{imagenes/sesgo_seleccion.png}
+    \caption{En una conferencia de estadística: "Levanta la mano si estás familiarizado con el sesgo de selección... como pueden ver, es un término que la mayoría de las personas conoce...". \\ Fuente: \href{https://xkcd.com/2618/}{xkcd}}
+    \label{fig:loteria}
+\end{marginfigure}
+
+En particular vimos que los estudiantes que tienen padres con dinero y conexiones resultan tener mayores ingresos que el resto, independientemente del tipo de universidad a la que asisten. En el código aglomeramos todas las características que hacen a alguien más propenso a entrar en una escuela selectiva en la variable de "habilidad". Si la persona imaginaria que generamos en la simulación tiene una habilidad mayor o igual a 0.5, entonces entrará a una escuela selectiva.
+
+Es una forma de emular las circunstancias reales en las que un grupo de personas tiene características particulares que lo hacen más propenso a entrar en el \gls{grupo-tratamiento}. Como puedes notar la habilidad no es una característica \textbf{observable}, pero definitivamente hace que la selección no sea aleatoria. 
+
+En un experimento, nos interesa que la selección del grupo de tratamiento sea aleatorio. Cuando no se dan las condiciones para que la selección sea aleatoria como en un experimento, se dice que tenemos \textbf{sesgo de selección}.
+
+En otras palabras, si vas a una zona rica en Nueva York tendrás más probabilidad de encontrar a un futuro estudiante de Harvard que si vas a una zona pobre en Puerto Rico (el territorio con tasa de pobreza más alta en EE.UU.).
+
+
+\section{El beneficio de entrar a una escuela más selectiva}
+
+La comparación no se debe hacer entre los estudiantes que entraron a escuelas selectivas y los que no. La comparación debe ser a \textbf{las mismas personas en universos paralelos}.
+
+Imaginemos que Alicia logró entrar a Harvard, pero Bernardo no. Alicia sabe tres idiomas, tuvo tutorías personalizadas durante la preparatoria y pasaba las tardes en clases extracurriculares. Bernardo trabaja por las tardes para apoyar a su familia, tiene buenas calificaciones, pero no ha tomado tutorías extra. Alicia tiene computadora en casa y buen acceso a internet, Bernardo tiene una computadora descompuesta y no hay internet en su casa.
+
+\textbf{No podemos comparar a Alicia con Bernardo y pensar que las diferencias en sus ingresos vienen de su inscripción a Harvard.}
+
+Lo ideal sería comparar a Alicia en el universo 1, donde si entró a Harvard, con Alicia del universo 0, donde no entró a Harvard. Digamos que $Y_{i}$ son los ingresos de Alicia. Podemos incluir un subíndice más para indicar el universo.
+
+$Y_{1i}$ indica los ingresos de Alicia en el universo 1 y 
+$Y_{0i}$ en el universo 0.
+
+Finalmente, $D_{i}$ es una \textbf{dummy} que indica si Alicia entró a Harvard $(D_{i}=1)$ o no $(D_{i}=0)$.
+
+El ingreso de Alicia entonces es
+    $$ Y_{i}=\begin{cases}
+    Y_{1i} & \text{si } D_{i}=1\\
+    Y_{0i} & \text{si } D_{i}=0
+    \end{cases}$$
+El ingreso de Alicia en el universo cero ($Y_{01}$) no lo podemos observar, pues está en otro universo donde ella no entró a Harvard\sidenote{Que no sea observable no significa que no lo podamos incluir en el modelo. No podemos entrar a un universo paralelo, pero con algunos supuestos y estadística, nos sirve mucho pensar en lo que \textit{pasaría} en escenarios que no existen. A estos se les conocen como \textbf{contrafactuales}.}. Aún así podemos denotar el efecto de haber entrado a esa universidad en sus ingresos como $Y_{1i}-Y_{0i}$, por lo tanto el ingreso de Alicia en función de $D_{i}$ sería $$Y_{i}=Y_{0i}+D_{i}(Y_{1i}-Y_{0i})$$
+Escribir este efecto aún cuando no se puede observar es un ejercicio que nos ayuda a entender el sesgo que se genera al comparar grupos diferentes.
+
+Cuando $D_{i}=1$, los ingresos de Alicia son $Y_{1i}$ y cuando $D_{i}=0$ sus ingresos son $Y_{0i}$. Para observar esto no se necesita imaginación. Pero el ingreso promedio de aquellas personas que entraron a una escuela selectiva \textit{si no hubiéran entrado en una}, $E[Y_{0i}|D_{i}=1]$ es un \gls{contrafactual}. Es algo que no pasó, pero que podría pasar. Son los ingresos de todas las personas en situación similar a la de Alicia ($D_{i}=1$), \textbf{si no hubiéran entrado a Harvard}.
+
+\section{Descubriendo el sesgo de selección}
+
+La diferencia de medias viene con un sesgo de selección escondido. Para descubrirlo hace falta manipular un poco las ecuaciones.
+
+Nota que 
+
+\begin{equation}\label{meandiff}
+E[Y_{1}]-E[Y_{0}]=E[Y_{1i}|D_{i}=1]-E[Y_{0i}|D_{i}=0]
+\end{equation}
+
+La ecuación de arriba nos muestra la diferencia entre los ingresos observados. Es simplemente lo que pasó en la realidad.
+
+Pero lo que realmente necesitamos comparar es
+
+\begin{equation}\label{ATT}
+E[Y_{1i}|D_{i}=1]-E[Y_{0i}|D_{i}=1]
+\end{equation}
+
+
+La ecuación \ref{ATT} representa el \textbf{tratamiento promedio en la unidad tratada}. En inglés se expresa como \textit{Average treatment on the treated} y lo verás con las siglas \gls{att}.
+
+La diferencia entre la ecuación \ref{ATT} y la ecuación \ref{meandiff} es sutil. Nota que $E[Y_{0i}|D_{i}=1]$ es un contrafactual\sidenote{El subíndice de $Y_{0i}$ es diferente a lo que pasó en realidad, expresado por el $D_i = 1$.}. Son los ingresos que tendrían las personas que entraron a Harvard si no hubieran entrado. 
+
+Nota que podemos agregar este contrafactual a la ecuación \ref{meandiff} como suma y como resta para descubrir el \textit{ATT} de la ecuación \ref{ATT}, acompañado de un elemento adicional, al que llamamos sesgo de selección.
+
+\begin{align}
+E[Y_i | D_i = 1] - E[Y_i | D_i = 0] &= 
+\underbrace{E[Y_{1i} | D_i = 1] - E[Y_{0i} | D_i = 1]}_{\text{ATT}} \\  &\nonumber\quad+ 
+\underbrace{E[Y_{0i} | D_i = 1] - E[Y_{0i} | D_i = 0]}_{\text{Sesgo de selección}}
+\end{align}
+
+Es un truco sucio, ¿lo notaste? Solo incluí el contrafactual como suma y como resta otra vez para no alterar la ecuación. Hacer esto revela que la ecuación inicial incluye el sesgo de selección.
+
+Para deshacernos del sesgo de selección necesitamos que las condiciones de nuestro estudio se asemejen lo más posible a lo que veríamos en un experimento. En un experimento, la selección es aleatoria, lo que hace que $E[Y_{0i} | D_i = 1] = E[Y_{0i} | D_i = 0]$, eliminando el sesgo de selección.
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{imagenes/sampling_bias.JPG}
+    \caption{``Hemos recibido 500 respuestas y encontramos que a las personas les encanta responder a las encuestas''. \\ Fuente: \href{https://sketchplanations.com/sampling-bias}{Jono Hey, Sketchplanations}}
+    \label{fig:sampling}
+\end{marginfigure}
+
+¿Por qué funciona? Imagina que estás haciendo un estudio para identificar si existe discriminación en el proceso de contratación de las empresas en Estados Unidos. Hay muchas formas de tratar de hacer ese tipo de estudios, pero como se trata de un tema delicado, hacer una encuesta sería un esfuerzo inútil: si una empresa discrimina, no estaría dispuesta a decírselo a un extraño en una encuesta, por mucho que le asegures que será anónima.
+
+Para solucionar ese problema, Bertrand y Mullainathan\cite{BertrandSendhilMullainathan2003a} idearon un \textit{experimento} en el que mandaron currículums falsos a empresas que anunciaban puestos de trabajo. Los currículums eran idénticos entre si, exceptuando una diferencia clave: algunos tenían nombres que sonaban más``blancos'' y otros tenían nombres más ``afroamericanos''. Encontraron que las empresas respondían un 50\% más a los postulantes con nombres más blancos que a los nombres afroamericanos.
+
+Este es un tipo de estudio que se conoce como estudios de \textit{auditoría}. Aquí podríamos decir que el \textit{tratamiento} $D_i$ es el color de piel y el valor de resultado $Y_i$ es la respuesta binaria de si respondieron o no. Nota que al mandar los currículums de manera aleatoria, se cumple que $E[Y_{0i} | D_i = 1] = E[Y_{0i} | D_i = 0]$. El valor promedio de las respuestas que reciben aquellos que no tienen un color particular de piel es independiente de su color de piel.
+
+Hemos eliminado exitosamente el sesgo de selección. 
+
+\section{El experimento aleatorio ideal}
+Hay una manera de eliminar el sesgo de selección.
+
+Los ensayos controlados aleatorizados (RCTs) son experimentos donde nos aseguramos de eliminar todas las variables que podrían afectar nuestro resultado. Los puedes encontrar en inglés como RCTs: \textit{Randomized controlled trials}. Son el \textit{gold standard} de los estudios científicos.
+
+Los resultados de un \gls{rct} son considerados causales.
+
+Un ejemplo de experimento en economía es el que hicieron Miguel \& Kremer (2003)\cite{MiguelKremer2003} para encontrar los efectos de tratar contra las lombrices a alumnos en las escuelas en Kenya. Al eliminar los parásitos no sólo mejoraron la salud de los alumnos, también aumentaron la participación en clase de las escuelas \textbf{y de escuelas cercanas}.
+
+Para hacer un experimento necesitas:
+\begin{itemize}
+    \item \textbf{Controlar las condiciones del estudio.} En la medida de lo posible, elige hacer tu estudio en grupos que sean comparables y homogéneos.
+    \item \textbf{Divide en dos grupos: tratamiento y control.} El grupo de tratamiento es donde esperamos ver el efecto, el \gls{grupodecontrol} sirve para comparar los resultados.
+    \item \textbf{Asigna los grupos aleatoriamente.}Todos los participantes en el estudio deben tener la misma probabilidad de pertenecer a cualquier grupo.
+    \item Sigue y analiza tus resultados. Verifica que todo salió de acuerdo al plan y analiza los datos. Veremos más sobre esto a lo largo del libro.
+\end{itemize}
+Cuando un experimento está bien diseñado, no se necesitan modelos estadísticos demasiado complejos.
+
+Desafortunadamente, los experimentos no siempre son posibles de ejecutar. Requieren de planeación, tiempo y recursos que no siempre escalan.
+
+Aún así, diseñar el \gls{experimentoideal} para identificar el efecto que buscamos es un paso esencial en el diseño de nuestra estrategia de identificación.
+
+\section{Experimento ideal y experimentos naturales}
+El experimento ideal requiere que imaginemos cómo seguiríamos los pasos para hacer un experimento si no tuviéramos ninguna limitación de recursos, tiempo o incluso ética.
+
+Por ejemplo, el estudio de Dale \& Krueger (2002)\cite{BergKrueger2002} requeriría que tomáramos a un grupo de estudiantes y mandáramos de manera aleatoria a la mitad a Harvard y registrar los ingresos de los alumnos en ambos grupos al salir.
+
+Pensar en el experimento ideal soluciona la mitad del problema.
+
+Cuando entiendes cuál es el experimento ideal, es más fácil entender la estrategia que debes usar con las limitantes de la vida real. Dale y Krueger no usaron un experimento para encontrar los efectos de entrar a las escuelas selectivas. Lo que hicieron fue una estrategia ingeniosa para que los datos funcionaran como si hubieran hecho un experimento.
+
+Usaron un experimento natural.
+
+Los experimentos naturales son situaciones que encontramos que generan condiciones para analizar un fenómeno. Por ejemplo, Dale \& Krueger (2002) aprovecharon a los alumnos que fueron aceptados en escuelas selectivas, pero decidieron no ingresar por motivos externos. Este es un grupo que sí se puede comparar con quienes entraron a las universidades selectivas.
+
+No encontraron diferencias significativas por entrar en una universidad selectiva.
+
+Hay una excepción: los alumnos con menos ventajas en su entorno familiar sí se beneficiaron de atender a una escuela selectiva. Esto es porque la universidad es una forma de hacer conexiones personales que pueden traer ventajas para toda la vida. Los alumnos con mayor ventaja en su contexto familiar ya tienen acceso a estas conexiones, pero para los menos aventajados, la universidad es una oportunidad significativa.
+
+\section{Diseña tu experimento ideal con Inteligencia Artificial}
+Diseñar el experimento ideal es el primer paso para encontrar la estrategia de identificación.
+
+Para diseñar el experimento natural necesitamos:
+\begin{itemize}
+    \item Encontrar la relación causal que nos interesa.
+    \item Reducir las variables a indicadores para medirlas.
+\end{itemize}
+El resto lo podemos hacer con ayuda de Inteligencia Artificial.
+
+Usaremos chatGPT para este ejercicio.
+
+Algunas advertencias sobre chatGPT:
+\begin{itemize}
+    \item Los modelos grandes de lenguaje (LLM) como chatGPT funcionan como una predicción de la siguiente frase que viene en el texto. Es como el predictor de texto de tu teléfono, pero más avanzado.
+    \item El resultado que obtengas depende del modelo que estés usando (yo muestro el resultado de chatGPT 4, que es el mejor en el mercado en el momento en que escribo esto).
+    \item La mejor manera de obtener buenos resultados con chatGPT es interactuando con lo que te arroja. Pídele modificaciones o agrega información para que corrija, no te quedes con lo primero que te arroja.
+\end{itemize}
+Usa el siguiente comando. Puedes copiar y pegar directamente en chatGPT.
+
+
+\begin{fullwidth}
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\begin{minted}[frame=leftline, framesep=2mm, fontsize=\small]{text}
+Eres un experto en econometría e inferencia causal.
+
+Diseña el experimento ideal para identificar el efecto sobre las variables que te diré a continuación.
+
+Un experimento ideal es una descripción detallada de un experimento que se podría hacer para obtener efectos causales, sin reparos en los recursos, tiempo o dilemas éticos que pueda causar.
+
+Te voy a describir las variables que deseo estudiar y su relación causal que busco identificar.
+
+¿Estás listo?
+\end{minted}
+\end{tcolorbox}
+\end{fullwidth}
+
+
+
+A continuación tienes que indicarle las variables que deseas medir. Por ejemplo, yo escribí esto para pedir indicaciones sobre el experimento ideal de las universidades selectivas.
+\begin{tcolorbox}[colback=gray!10, colframe=gray!10, breakable]
+\ttfamily
+    Deseo conocer el efecto de asistir a una universidad selectiva en los ingresos
+\end{tcolorbox}
+Lee con atención el resultado. Si consideras que lo que describe es algo viable, deberías intentarlo.
+
+Con más experiencia, es buena idea que intentes diseñar estos experimentos ideales por tu cuenta. No sólo es un gran ejercicio mental, probablemente te dará la respuesta sobre la estrategia que debes usar en tu proyecto.
+
+
+% --- INICIO DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---
+
+\begin{fullwidth}
+\section*{Resumen del capítulo}
+
+Para hacer inferencia causal, primero tuvimos que abrir la puerta al multiverso.
+
+Lo que hicimos en este capítulo fue establecer el lenguaje para hablar sobre la causalidad. La idea clave es que para medir el verdadero efecto de algo (el "tratamiento"), necesitamos comparar el resultado que observamos en nuestro universo con el resultado que \textit{hubiera ocurrido} en un universo paralelo donde no se recibió el tratamiento. A esto le llamamos el \gls{contrafactual}.
+
+Esto es importante porque nos revela el error más común y peligroso en el análisis de datos: el \gls{sesgo-seleccion}. Comparar a la gente que fue a Harvard con la que no fue, no nos dice el efecto de ir a Harvard. Nos dice que los dos grupos ya eran diferentes \textit{desde el principio}. La diferencia que vemos en sus sueldos es una mezcla del efecto real de la universidad y de esas diferencias preexistentes.
+
+¿Cómo te ayuda esto? El modelo de \gls{resultados-potenciales} te da una estructura mental para desarmar cualquier afirmación causal que escuches. De ahora en adelante, cuando veas una comparación entre dos grupos, tu cerebro inmediatamente preguntará: ``Ok, pero, ¿estos grupos eran iguales antes de que todo pasara?''. Te obliga a pensar en el \gls{experimentoideal}, el experimento perfecto que eliminaría el sesgo de selección. Y pensar en ese experimento imposible es, irónicamente, el primer paso para encontrar una solución inteligente y posible en el mundo real.
+
+\section*{Aterrizando el multiverso: ejercicios conceptuales}
+
+Estos no son ejercicios de código, son para que los pienses, los discutas o los escribas. El objetivo es que la ``música'' del álgebra de los resultados potenciales empiece a sonar en tu cabeza.
+
+\begin{enumerate}
+    \item \textbf{Definiendo el contrafactual:} Una empresa implementa un nuevo programa de bienestar (clases de yoga gratis) para sus empleados. Quieren saber si el programa reduce el estrés. Para una empleada llamada Laura, que \textbf{sí} participó en el programa:
+    \begin{itemize}
+        \item Define en palabras qué serían $Y_{1i}$, $Y_{0i}$ y $D_i$.
+        \item ¿Cuál de los dos resultados potenciales (o "universos") podemos observar para Laura?
+        \item ¿Cómo expresarías el efecto causal individual del programa para ella?
+    \end{itemize}
+
+    \item \textbf{Detectando el sesgo de selección:} Un blog de tecnología publica un artículo que dice: "Los usuarios que activan la autenticación de dos factores ($2FA$) en sus cuentas sufren un 80\% menos de hackeos". ¿Por qué una simple comparación entre los que usan $2FA$ y los que no, probablemente exagera el efecto real del $2FA$? Describe qué tipo de persona es más propensa a activar el $2FA$ y cómo eso genera un sesgo de selección.
+
+    \item \textbf{El ATT en palabras:} En el ejemplo de Harvard, vimos que el Tratamiento Promedio en los Tratados (ATT) es $E[Y_{1i}|D_{i}=1]-E[Y_{0i}|D_{i}=1]$. Explica con tus propias palabras qué significa el término contrafactual $E[Y_{0i}|D_{i}=1]$. ¿Por qué es fundamentalmente diferente de $E[Y_{0i}|D_{i}=0]$ (los ingresos de los que no fueron a Harvard)?
+
+    \item \textbf{Calculando el sesgo:} Imagina los siguientes datos sobre un programa de tutorías para mejorar las calificaciones:
+    \begin{itemize}
+        \item Calificación promedio de alumnos \textbf{con} tutoría: 9.1
+        \item Calificación promedio de alumnos \textbf{sin} tutoría: 7.5
+        \item Calificación promedio que los alumnos \textbf{con} tutoría \textit{hubieran obtenido si no la hubieran tomado} (el contrafactual): 8.5
+    \end{itemize}
+    Calcula: a) La diferencia de medias simple, b) El verdadero ATT del programa de tutorías, y c) El sesgo de selección. ¿Qué nos dice el signo del sesgo de selección sobre los alumnos que eligen tomar tutorías?
+
+    \item \textbf{El poder de la aleatoriedad:} En un \gls{rct} bien diseñado, el sesgo de selección es cero. Usando los datos del ejercicio anterior, si el experimento se hubiera asignado al azar, ¿qué valor esperaríamos que tuviera el contrafactual "calificación promedio que los alumnos \textbf{con} tutoría hubieran obtenido si no la hubieran tomado"? ¿Qué implica esto sobre los dos grupos antes de empezar las tutorías?
+
+    \item \textbf{Diseña tu experimento ideal (Fácil):} Quieres saber el efecto causal de poner música clásica en una cafetería sobre el gasto promedio por cliente. Describe paso a paso el \gls{experimentoideal} (un RCT) que diseñarías. Define la población, el tratamiento, el grupo de control, cómo harías la asignación aleatoria y qué variable de resultado medirías.
+
+    \item \textbf{Diseña tu experimento ideal (Difícil):} Quieres saber el efecto causal de haber crecido con un perro en la infancia sobre los niveles de empatía de una persona en la edad adulta. ¿Por qué es imposible (y antiético) hacer un RCT para esta pregunta?
+
+    \item \textbf{Pensando en experimentos naturales:} Para la pregunta del ejercicio anterior (perros y empatía), ¿se te ocurre alguna situación del mundo real que pueda funcionar como un \gls{experimento-natural}? (Pista: piensa en situaciones que ``asignan'' un perro a una familia de forma casi aleatoria, por razones ajenas a sus características personales).
+
+    \item \textbf{Interpretando la fórmula:} La fórmula de descomposición es: \textit{Diferencia de Medias = ATT + Sesgo de Selección}. Describe un escenario del mundo real donde el ATT sea prácticamente cero, pero observemos una gran diferencia de medias positiva debido a un fuerte sesgo de selección. (Pista: piensa en productos o servicios exclusivos).
+
+    \item \textbf{¡A usar la IA!:} Toma una pregunta causal que te interese personalmente (ej: ¿dormir 8 horas diarias mejora el humor?, ¿leer ficción aumenta la creatividad?, ¿usar bicicleta para ir al trabajo reduce el estrés?). Usa el \textit{prompt} exacto que te di al final del capítulo en ChatGPT u otra IA. Pega la respuesta que te dé y luego escribe un párrafo criticándola: ¿es realmente un ``experimento ideal''? ¿Qué limitaciones prácticas u éticas ignoró?
+\end{enumerate}
+\end{fullwidth}
+
+% --- FIN DEL CÓDIGO PARA EL FINAL DEL CAPÍTULO ---
