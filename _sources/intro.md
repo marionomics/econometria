@@ -1,4 +1,4 @@
-# Econometría e Inferencia Causal con ejemplos en Python
+# Inferencia Causal: un manual práctico de econometría en Python con ejemplos de negocios
 
 ```{image} figures/mockup.png
 :alt: Portada del libro
@@ -36,14 +36,14 @@ Este libro está organizado en cuatro partes:
 
 Si utilizas este libro en tu trabajo académico o profesional, por favor cítalo de la siguiente manera:
 
-> García Meza, M. A. (2025). *Econometría e Inferencia Causal con ejemplos en Python*. Disponible en: https://marionomics.github.io/econometria/
+> García Meza, M. A. (2025). *Inferencia Causal: un manual práctico de econometría en Python con ejemplos de negocios*. Disponible en: https://marionomics.github.io/econometria/
 
 **BibTeX:**
 
 ```bibtex
 @book{garciameza2025econometria,
   author    = {García Meza, Mario Alberto},
-  title     = {Econometría e Inferencia Causal con ejemplos en Python},
+  title     = {Inferencia Causal: un manual práctico de econometría en Python con ejemplos de negocios},
   year      = {2025},
   url       = {https://marionomics.github.io/econometria/},
   publisher = {Publicación en línea}
